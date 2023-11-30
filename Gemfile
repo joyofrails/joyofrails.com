@@ -47,6 +47,18 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
+gem "vite_rails"
+
+gem "dotenv-rails"
+
+gem "standard"
+
+# Static site generator for Rails [https://sitepress.cc/getting-started/rails]
+gem "sitepress-rails"
+
+gem "markdown-rails"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -57,25 +69,20 @@ group :development do
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
+  gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
 
-gem "dotenv-rails"
-gem "standard"
+  gem "foreman"
+  gem "letter_opener"
+end
 
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "webmock"
-end
-
-group :development do
-  gem "foreman"
-  gem "letter_opener"
 end
 
 group :development, :test do
@@ -85,3 +92,5 @@ group :development, :test do
   gem "mail_interceptor"
   gem "rspec-rails"
 end
+
+gem "tailwindcss-rails", "~> 2.0"
