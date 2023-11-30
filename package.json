@@ -1,0 +1,15 @@
+{
+  "name": "app",
+  "private": "true",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.0-beta.1",
+    "esbuild": "^0.19.8",
+    "sass": "^1.69.5",
+    "system-font-css": "^2.0.2"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  }
+}
