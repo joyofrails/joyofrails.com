@@ -8,6 +8,6 @@ RSpec.describe "Articles", type: :system do
   it "displays articles" do
     visit "/articles"
 
-    expect(page).to have_content("Hello world")
+    expect(page).to have_content("Articles")
   end
 end

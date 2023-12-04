@@ -1,4 +1,4 @@
-@import "./layouts/container.css";
+@config "../../../config/tailwind.config.js";
 
 @tailwind base;
 @tailwind components;

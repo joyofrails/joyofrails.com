@@ -1,8 +1,16 @@
+# frozen_string_literal: true
+
 module PageHelper
+  DEFAULT_TITLE_KEY = "title"
+
   # Creates a hyperlink to a page using the `title` key. Change the default in the args
   # below if you use a different key for page titles.
-  def link_to_page(page, title_key: "title")
-    link_to page.data.fetch(title_key, page.request_path), page.request_path
+  def link_to_page(page, *, title_key: DEFAULT_TITLE_KEY, **, &block)
+    if block_given?
+      link_to(page.request_path, *, **, &block)
+    else
+      link_to(page.data[DEFAULT_TITLE_KEY], page.request_path, *, **)
+    end
   end
 
   # Quick and easy way to change the class of a page if its current. Useful for
@@ -23,7 +31,7 @@ module PageHelper
 
   # Render a block within a layout. This is a useful, and prefered way, to handle
   # nesting layouts, within Sitepress.
-  def render_layout(layout, **kwargs, &block)
-    render html: capture(&block), layout: "layouts/#{layout}", **kwargs
+  def render_layout(layout, **, &block)
+    render(html: capture(&block), layout: "layouts/#{layout}", **)
   end
 end
