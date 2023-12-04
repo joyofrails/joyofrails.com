@@ -11,7 +11,7 @@
     <%= vite_client_tag %>
     <%= vite_javascript_tag "application", media: 'all', "data-turbo-track": "reload" %>
     <%= vite_stylesheet_tag "application", media: 'all', "data-turbo-track": "reload" unless ViteRuby.instance.dev_server_running? %>
-    <%= render "darkmode" %>
+    <%= render "darkmode/setup" %>
   </head>
   <body class="dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white text-gray-1000">
     <%= render "header" %>

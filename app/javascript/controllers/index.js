@@ -4,5 +4,5 @@
 
 import { application } from './application';
 
-import DarkMode from './darkmode';
-application.register('darkmode', DarkMode);
+import Darkmode from './darkmode';
+application.register('darkmode', Darkmode);

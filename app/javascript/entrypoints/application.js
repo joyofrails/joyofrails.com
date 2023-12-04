@@ -29,5 +29,4 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 import '@hotwired/turbo-rails';
 import '../controllers';
-import '../utils/darkmode';
 import '../css/application.css';
