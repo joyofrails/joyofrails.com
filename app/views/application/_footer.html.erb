@@ -1,0 +1,35 @@
+<footer class="bg-gray-50 dark:bg-gray-900 print:hidden dark:text-gray-200">
+  <div class="container">
+    <nav aria-label="footer" class="flex flex-col items-center justify-between w-full gap-6 pt-16 pb-16 space-y-6 md:space-y-0 md:flex-row md:items-start md:pt-14 lg:pb-40">
+      <div class="flex flex-col items-center h-full space-y-5 md:items-start max-w-[18rem]">
+        <%= link_to root_path, class: "flex flex-col items-center space-y-3 text-center md:flex-row md:items-start md:text-left md:space-x-2 md:space-y-0" do %>
+          <div class="flex-shrink-0 w-12 md:w-8">
+            <%= vite_image_tag "images/turtle-logo.svg", class: "mt-1" %>
+          </div>
+          <div class="mt-1 text-lg font-semibold tracking-tight leading-tighter">Sharing and experiencing the Joy of Rails</div>
+        <% end %>
+      </div>
+      <div class="grid items-center w-full grid-cols-1 text-center md:grid-cols-2 lg:pr-6 md:gap-10 md:text-left md:items-start md:w-auto">
+        <ul>
+          <li class="py-1 text-base leading-relaxed md:text-sm"><a class="transition-colors duration-150 ease-in-out hover:text-blue-600" href="/articles">Articles</a></li>
+        </ul>
+        <ul>
+          <li class="py-1 text-base leading-relaxed md:text-sm"><a class="transition-colors duration-150 ease-in-out hover:text-blue-600" href="mailto:support@joyofrails.com">support@joyofrails.com</a></li>
+        </ul>
+      </div>
+    </nav>
+    <small class="flex items-center justify-center w-full py-6 space-x-6 text-xs text-gray-500 md:justify-end dark:text-gray-300">
+      <div>©joyofrails.com</div>
+      <a class="" href="/privacy">Terms &amp; Conditions</a>
+      <a class="" href="/faq">FAQ</a>
+      <div class="flex items-center justify-between">
+        <h2 class="hidden mr-3 sm:block">Light Mode</h2>
+        <div class="flex-shrink-0 w-16 h-10 p-1 bg-gray-300 rounded-full dark:bg-gray-1000" aria-label="Toggle Dark Mode" role="button">
+          <div class="bg-white w-8 h-8 rounded-full shadow-md duration-300 ease-in-out flex items-center justify-center dark:bg-gray-800 ">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" class="w-4 h-4 text-gray-400 dark:text-gray-200"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          </div>
+        </div>
+      </div>
+    </small>
+  </div>
+</footer>
