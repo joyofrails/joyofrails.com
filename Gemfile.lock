@@ -127,6 +127,9 @@ GEM
     hashdiff (1.0.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.9.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.6.0)
     irb (1.9.1)
       rdoc
@@ -378,6 +381,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   foreman
+  inline_svg (~> 1.9)
   jbuilder
   jsbundling-rails
   letter_opener

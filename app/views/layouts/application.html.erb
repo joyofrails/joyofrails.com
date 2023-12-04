@@ -11,19 +11,11 @@
     <%= vite_client_tag %>
     <%= vite_javascript_tag "application", media: 'all', "data-turbo-track": "reload" %>
     <%= vite_stylesheet_tag "application", media: 'all', "data-turbo-track": "reload" unless ViteRuby.instance.dev_server_running? %>
-    <!--
-      If using a TypeScript entrypoint file:
-        vite_typescript_tag 'application'
-
-      If using a .jsx or .tsx entrypoint, add the extension:
-        vite_javascript_tag 'application.jsx'
-
-      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
-    -->
+    <%= render "darkmode" %>
   </head>
-  <body>
+  <body class="dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white text-gray-1000">
     <%= render "header" %>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto my-28 w-full flex flex-col flex-grow  dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white text-gray-1000">
       <%= yield %>
     </main>
     <%= render "footer" %>
