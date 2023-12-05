@@ -14,9 +14,9 @@ export default class extends Controller {
       (!('color-theme' in localStorage) &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      this.lightIconTarget.classList.remove('hidden');
-    } else {
       this.darkIconTarget.classList.remove('hidden');
+    } else {
+      this.lightIconTarget.classList.remove('hidden');
     }
   }
 
@@ -46,14 +46,23 @@ export default class extends Controller {
   }
 
   setDark() {
+    console.log('Set Dark');
     document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
     localStorage.setItem('color-theme', 'dark');
-    this.descriptionTarget.innerText = 'Dark Mode';
+    this.setDescription('Dark Mode');
   }
 
   setLight() {
     document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
     localStorage.setItem('color-theme', 'light');
-    this.descriptionTarget.innerText = 'Light Mode';
+    this.setDescription('Light Mode');
+  }
+
+  setDescription(text) {
+    const node = document.createTextNode(text);
+    this.descriptionTarget.replaceChildren(node);
+    console.log('description', this.descriptionTarget.innerHTML);
   }
 }
