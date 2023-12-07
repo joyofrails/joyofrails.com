@@ -31,7 +31,17 @@ describe('Darkmode', () => {
 
     expect(heading).toHaveTextContent('Light Mode');
     expect(document.documentElement).not.toHaveClass('dark');
-    expect(document.documentElement).not.toHaveClass('light');
+  });
+
+  it('should initialize in dark mode', async () => {
+    localStorage.setItem('color-theme', 'dark');
+
+    await render(html);
+
+    const heading = await screen.findByRole('heading');
+
+    expect(heading).toHaveTextContent('Dark Mode');
+    expect(document.documentElement).toHaveClass('dark');
   });
 
   it('should set to dark mode', async () => {
@@ -42,7 +52,6 @@ describe('Darkmode', () => {
 
     await screen.findByText('Dark Mode');
     expect(document.documentElement).toHaveClass('dark');
-    expect(document.documentElement).not.toHaveClass('light');
   });
 
   it('should set to light mode', async () => {
@@ -53,11 +62,9 @@ describe('Darkmode', () => {
 
     await screen.findByText('Dark Mode');
     expect(document.documentElement).toHaveClass('dark');
-    expect(document.documentElement).not.toHaveClass('light');
 
     await user.click(button);
     await screen.findByText('Light Mode');
     expect(document.documentElement).not.toHaveClass('dark');
-    expect(document.documentElement).toHaveClass('light');
   });
 });

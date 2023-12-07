@@ -9,54 +9,54 @@ export default class extends Controller {
   connect() {
     log('Darkmode Controller connect');
 
-    if (
-      localStorage.getItem('color-theme') === 'dark' ||
-      (!('color-theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      this.darkIconTarget.classList.remove('hidden');
+    if (this.hasStoredTheme('dark') || this.prefersColorTheme('dark')) {
+      this.setDark();
     } else {
-      this.lightIconTarget.classList.remove('hidden');
+      this.setLight();
     }
   }
 
   toggle() {
     log('Darkmode Controller toggle');
 
-    // toggle icons inside button
-    this.darkIconTarget.classList.toggle('hidden');
-    this.lightIconTarget.classList.toggle('hidden');
-
-    // if set via local storage previously
-    if (localStorage.getItem('color-theme')) {
-      if (localStorage.getItem('color-theme') === 'light') {
-        this.setDark();
-      } else {
-        this.setLight();
-      }
-
-      // if NOT set via local storage previously
+    if (this.hasStoredTheme('dark') || this.hasRenderedTheme('dark')) {
+      this.setLight();
+      this.storeTheme('light');
     } else {
-      if (document.documentElement.classList.contains('dark')) {
-        this.setLight();
-      } else {
-        this.setDark();
-      }
+      this.setDark();
+      this.storeTheme('dark');
     }
+  }
+
+  hasStoredTheme(theme) {
+    return localStorage.getItem('color-theme') === theme;
+  }
+
+  hasRenderedTheme(theme) {
+    return document.documentElement.classList.contains(theme);
+  }
+
+  prefersColorTheme(theme) {
+    return window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
   }
 
   setDark() {
     log('Set Dark');
+    this.darkIconTarget.classList.remove('hidden');
+    this.lightIconTarget.classList.add('hidden');
     document.documentElement.classList.add('dark');
-    document.documentElement.classList.remove('light');
-    localStorage.setItem('color-theme', 'dark');
     this.setDescription('Dark Mode');
+  }
+
+  storeTheme(theme) {
+    localStorage.setItem('color-theme', theme);
   }
 
   setLight() {
     log('Set Light');
+    this.darkIconTarget.classList.add('hidden');
+    this.lightIconTarget.classList.remove('hidden');
     document.documentElement.classList.remove('dark');
-    document.documentElement.classList.add('light');
     localStorage.setItem('color-theme', 'light');
     this.setDescription('Light Mode');
   }
