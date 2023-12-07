@@ -1,0 +1,10 @@
+<%= render_layout "application" do %>
+  <section class="container">
+    <article class="max-w-screen-md mx-auto mt-10 mb-16 lg:mt-24 md:mt-20 prose dark:prose-invert sm:prose-lg lg:prose-xl max-w-none dark:prose-a:text-blue-300 prose-a:text-blue-500">
+      <h1 class="w-full max-w-screen-md mb-8 text-3xl font-extrabold lg:text-6xl md:text-5xl sm:text-4xl lg:mb-10 leading-tighter">
+        <%= current_page.data['title'] %>
+      </h1>
+      <%= yield %>
+    </article>
+  </section>
+<% end %>

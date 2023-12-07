@@ -5,6 +5,7 @@ published: 2023-10-01
 summary: Stop adding :path in your Gemfile and use bundle config instead
 description: Use the "bundle config" command to develop against local Ruby gems instead of following the typical advice to specify the :path option in your Gemfile.
 thumbnail: 'blog/stock/jellyfish-pexels-photo.jpeg'
+layout: article
 
 category: Code
 tags:

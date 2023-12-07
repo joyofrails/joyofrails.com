@@ -5,6 +5,7 @@
     "@babel/preset-env": "^7.23.5",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.0-beta.1",
+    "@tailwindcss/typography": "^0.5.10",
     "@testing-library/dom": "^9.3.3",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/user-event": "^14.5.1",
