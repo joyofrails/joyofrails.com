@@ -46,7 +46,7 @@ export default class extends Controller {
   }
 
   setDark() {
-    console.log('Set Dark');
+    log('Set Dark');
     document.documentElement.classList.add('dark');
     document.documentElement.classList.remove('light');
     localStorage.setItem('color-theme', 'dark');
@@ -54,6 +54,7 @@ export default class extends Controller {
   }
 
   setLight() {
+    log('Set Light');
     document.documentElement.classList.remove('dark');
     document.documentElement.classList.add('light');
     localStorage.setItem('color-theme', 'light');
@@ -63,6 +64,6 @@ export default class extends Controller {
   setDescription(text) {
     const node = document.createTextNode(text);
     this.descriptionTarget.replaceChildren(node);
-    console.log('description', this.descriptionTarget.innerHTML);
+    log('Set Description', this.descriptionTarget.innerHTML);
   }
 }

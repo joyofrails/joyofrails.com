@@ -1,6 +1,4 @@
-import { screen, waitFor } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
-import { getHTML, setHTML, startStimulus } from '../jest/stimulusHelper';
+import { render, startStimulus, screen, userEvent } from '../jest/utils';
 import Darkmode from './darkmode';
 
 const user = userEvent.setup();
@@ -27,7 +25,7 @@ describe('Darkmode', () => {
   });
 
   it('should initialize in light mode', async () => {
-    await setHTML(html);
+    await render(html);
 
     const heading = await screen.findByRole('heading');
 
@@ -37,7 +35,7 @@ describe('Darkmode', () => {
   });
 
   it('should set to dark mode', async () => {
-    await setHTML(html);
+    await render(html);
 
     const button = await screen.findByRole('button');
     await user.click(button);
@@ -48,7 +46,7 @@ describe('Darkmode', () => {
   });
 
   it('should set to light mode', async () => {
-    await setHTML(html);
+    await render(html);
 
     const button = screen.getByRole('button');
     await user.click(button);
