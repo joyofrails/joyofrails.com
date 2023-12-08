@@ -28,9 +28,23 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+      // Overriding extensions
+      // typography: ({ theme }) => ({
+      //   default: {
+      //     css: {
+      //       // pre: null,
+      //       // code: null,
+      //       // 'code::before': null,
+      //       // 'code::after': null,
+      //       // 'pre code': null,
+      //       // 'pre code::before': null,
+      //       // 'pre code::after': null,
+      //     },
+      //   },
+      // }),
+      // fontFamily: {
+      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      // },
     },
   },
   plugins: [

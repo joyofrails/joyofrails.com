@@ -1,0 +1,21 @@
+#! /usr/bin/env ruby
+
+require "bundler/setup"
+require "rouge"
+require "rouge/cli"
+
+require_relative "../lib/rouge/theme/dracula"
+dracula = Rouge::Themes::Dracula
+
+begin
+  Rouge::CLI.parse(ARGV).run
+rescue Rouge::CLI::Error => e
+  puts e.message
+  exit e.status
+rescue Interrupt
+  warn "\nrouge: interrupted"
+  exit 2
+end
+
+# To regenerate dracula.css
+# $ bin/rougify style dracula > app/javascript/css/dracula.css

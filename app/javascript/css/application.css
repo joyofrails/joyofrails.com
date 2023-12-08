@@ -1,5 +1,2 @@
-@config "../../../config/tailwind.config.js";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./tailwind.css";
+@import "./dracula.css";

@@ -6,14 +6,9 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   # and feel smarter. Read the docs at https://github.com/vmg/redcarpet#also-now-our-pants-are-much-smarter
   include Redcarpet::Render::SmartyPants
 
-  # Run `bundle add rouge` and uncomment the include below for syntax highlighting
-  # include MarkdownRails::Helper::Rouge
-
   # If you need access to ActionController::Base.helpers, you can delegate by uncommenting
   # and adding to the list below. Several are already included for you in the `MarkdownRails::Renderer::Rails`,
   # but you can add more here.
-  #
-  # To see a list of methods available run `bin/rails runner "puts ActionController::Base.helpers.public_methods.sort"`
   #
   # delegate \
   #   :request,
@@ -21,11 +16,19 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   #   :turbo_frame_tag,
   # to: :helpers
 
-  # These flags control features in the Redcarpet renderer, which you can read
-  # about at https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
-  # Make sure you know what you're doing if you're using this to render user inputs.
+  FORMATTER = Rouge::Formatters::HTML.new
+
   def enable
     [:fenced_code_blocks]
+  end
+
+  def block_code(code, language)
+    lexer = Rouge::Lexer.find(language)
+    content_tag :pre, class: "highlight language-#{language}" do
+      content_tag :code do
+        raw FORMATTER.format(lexer.lex(code))
+      end
+    end
   end
 
   # Example of how you might override the images to show embeds, like a YouTube video.
