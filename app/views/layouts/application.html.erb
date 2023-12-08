@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%#= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= vite_client_tag %>
-    <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
     end %>
+    <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= render "darkmode/setup" %>
   </head>
   <body
