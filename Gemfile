@@ -26,6 +26,9 @@ gem "stimulus-rails"
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
 
+# Use Tailwind CSS for styling [https://github.com/rails/tailwindcss-rails]
+gem "tailwindcss-rails", "~> 2.0"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -50,6 +53,7 @@ gem "bootsnap", require: false
 # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 gem "vite_rails"
 
+# A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
 gem "dotenv-rails"
 
 gem "standard"
@@ -57,7 +61,17 @@ gem "standard"
 # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 gem "sitepress-rails"
 
+# Markdown as static templating language for Rails [https://github.com/sitepress/markdown-rails
 gem "markdown-rails"
+
+# Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
+gem "rouge", "~> 4.2"
+
+# Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
+gem "inline_svg", "~> 1.9"
+
+# Format ERB files with speed and precision [https://github.com/nebulab/erb-formatter
+gem "erb-formatter", "~> 0.6.0", :group => :development
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -74,29 +88,34 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  gem "foreman"
+  # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
   gem "letter_opener"
 end
 
 group :test do
+  # Acceptance test framework for web applications [https://github.com/teamcapybara/capybara]
   gem "capybara"
+
+  # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
   gem "selenium-webdriver"
-  gem "webdrivers"
+
+  # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
   gem "webmock"
 end
 
 group :development, :test do
+  # A static analysis security vulnerability scanner for Ruby on Rails applications [https://github.com/presidentbeef/brakeman]
   gem "brakeman"
+
+  # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "faker"
+
+  # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
+
+  # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
   gem "mail_interceptor"
+
+  # RSpec for Rails [https://github.com/rspec/rspec-rails]
   gem "rspec-rails"
 end
-
-gem "tailwindcss-rails", "~> 2.0"
-
-gem "inline_svg", "~> 1.9"
-
-gem "rouge", "~> 4.2"
-
-gem "erb-formatter", "~> 0.6.0", :group => :development
