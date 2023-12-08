@@ -1,16 +1,28 @@
-<nav aria-label="header" class="relative h-12 text-sm border-b border-gray-100 dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white text-gray-1000">
+<nav
+  aria-label="header"
+  class="
+    relative h-12 text-sm border-b border-gray-100 dark:bg-gray-900
+    dark:border-gray-800 print:hidden dark:text-white text-gray-1000
+  "
+>
   <div class="container flex items-center justify-between w-full h-full">
     <div class="flex h-full">
-      <%= link_to root_path, class: "flex items-center pr-2" do %>
+      <%= link_to  root_path, class: "flex items-center pr-2" do %>
         <div class="flex-shrink-0 w-12 md:w-8">
           <%= inline_svg_tag "turtle-logo.svg", class: "fill-gray-900 dark:fill-gray-100" %>
         </div>
         <span class="inline-block text-base font-semibold sm:text-lg">Joy of Rails</span>
-      <% end%>
+      <% end %>
     </div>
     <div class="flex h-full">
       <div class="flex items-center px-1">
-        <a class="flex items-center h-full px-2 dark:hover:bg-white hover:bg-gray-100 dark:hover:bg-opacity-5" href="/articles">Articles</a>
+        <a
+          class="
+            flex items-center h-full px-2 dark:hover:bg-white hover:bg-gray-100
+            dark:hover:bg-opacity-5
+          "
+          href="/articles"
+        >Articles</a>
       </div>
     </div>
   </div>
