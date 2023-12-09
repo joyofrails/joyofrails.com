@@ -22,6 +22,10 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
     [:fenced_code_blocks]
   end
 
+  def renderer
+    ::Redcarpet::Markdown.new(self.class.new(with_toc_data: true), **features)
+  end
+
   def block_code(code, language)
     lexer = Rouge::Lexer.find(language)
     content_tag :pre, class: "highlight language-#{language}" do

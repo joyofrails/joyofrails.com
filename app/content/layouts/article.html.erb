@@ -2,20 +2,30 @@
   <section class="container">
     <article
       class="
-        max-w-screen-md mx-auto mt-10 mb-16 lg:mt-24 md:mt-20 prose dark:prose-invert
-        sm:prose-lg lg:prose-xl max-w-none dark:prose-a:text-blue-300
-        prose-a:text-blue-500
+        mx-auto mt-10 mb-16 lg:mt-24 md:mt-20
       "
     >
-      <h1
-        class="
-          w-full max-w-screen-md mb-8 text-3xl font-extrabold lg:text-6xl md:text-5xl
-          sm:text-4xl lg:mb-10 leading-tighter
-        "
-      >
-        <%= current_page.data["title"] %>
-      </h1>
-      <%= yield %>
+      <header class="max-w-screen-md">
+        <h1
+          class="
+            w-full max-w-screen-md mb-8 text-3xl font-extrabold lg:text-5xl
+            sm:text-4xl lg:mb-10 leading-tighter
+          "
+        >
+          <%= current_page.data["title"] %>
+        </h1>
+      </header>
+      <div class="flex flex-row-reverse">
+        <aside class="sticky self-start flex-auto ml-20" style="top: 100px">
+          <h2 class="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100 uppercase">Table of Contents</h2>
+          <div class="text-slate-700 text-sm leading-6"><%= render_toc(current_page) %></div>
+        </aside>
+        <section class="max-w-screen-md prose dark:prose-invert
+        sm:prose-lg lg:prose-xl max-w-none dark:prose-a:text-blue-300
+        prose-a:text-blue-500">
+          <%= yield %>
+        </section>
+      </div>
     </article>
   </section>
 <% end %>

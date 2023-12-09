@@ -23,7 +23,7 @@ module.exports = {
         DEFAULT: '1rem',
         // sm: '1rem',
         // lg: '1rem',
-        xl: '1.5rem',
+        xl: '4rem',
         // '2xl': '1.5rem',
       },
     },

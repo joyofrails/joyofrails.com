@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "redcarpet"
+
 module PageHelper
   DEFAULT_TITLE_KEY = "title"
 
@@ -33,5 +35,10 @@ module PageHelper
   # nesting layouts, within Sitepress.
   def render_layout(layout, **, &block)
     render(html: capture(&block), layout: "layouts/#{layout}", **)
+  end
+
+  def render_toc(page)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML_TOC, with_toc_data: true)
+    raw markdown.render(page.asset.body)
   end
 end

@@ -1,11 +1,12 @@
 <nav
   aria-label="header"
   class="
-    relative h-12 text-sm border-b border-gray-100 dark:bg-gray-900
+    bg-white relative h-12 text-sm border-b border-gray-100 dark:bg-gray-900
     dark:border-gray-800 print:hidden dark:text-white text-gray-1000
+    sticky top-0 z-10
   "
 >
-  <div class="container flex items-center justify-between w-full h-full">
+  <div class="container flex items-center justify-between w-full h-full sticky">
     <div class="flex h-full">
       <%= link_to  root_path, class: "flex items-center pr-2" do %>
         <div class="flex-shrink-0 w-12 md:w-8">
