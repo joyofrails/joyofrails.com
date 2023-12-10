@@ -9,16 +9,13 @@ import domReady from '../utils/domReady';
 export default async function () {
   await domReady();
 
-  console.log('resetTurboScroll ready');
   document.querySelector('html').style.scrollBehavior;
   const scrollBehavior = document.querySelector('html').style.scrollBehavior;
 
   window.addEventListener('turbo:load', function () {
-    console.log('turbo:load');
     document.querySelector('html').style.scrollBehavior = scrollBehavior;
   });
   window.addEventListener('turbo:before-visit', function () {
-    console.log('turbo:before-visit');
     document.querySelector('html').style.scrollBehavior = 'unset';
   });
 }

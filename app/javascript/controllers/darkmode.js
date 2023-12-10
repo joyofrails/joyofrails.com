@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus';
 import debug from 'debug';
 
-const log = debug('darkmode');
+const log = debug('app:javascript:controllers:darkmode');
 
 export default class extends Controller {
   static targets = ['description', 'darkIcon', 'lightIcon'];
