@@ -30,3 +30,7 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 import '@hotwired/turbo-rails';
 import '../controllers';
 import '../css/application.css';
+
+import { turboScrollSmoothWorkaround } from '../initializers';
+
+turboScrollSmoothWorkaround();
