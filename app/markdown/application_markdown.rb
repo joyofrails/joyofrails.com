@@ -22,6 +22,12 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
     [:fenced_code_blocks]
   end
 
+  def header(text, header_level)
+    content_tag :div, id: text.parameterize, class: "anchor" do
+      content_tag "h#{header_level}", text
+    end
+  end
+
   def renderer
     ::Redcarpet::Markdown.new(self.class.new(with_toc_data: true), **features)
   end

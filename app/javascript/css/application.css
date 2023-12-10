@@ -2,18 +2,14 @@
 @import './dracula.css';
 
 html {
-  scroll-behavior: smooth;
+  height: 100%;
 }
 
-.prose h2::before,
-.prose h3::before,
-.prose h4::before,
-.prose h5::before,
-.prose h6::before {
-  content: '';
-  display: block;
-  height: 75px;
-  margin-top: -75px;
-  visibility: hidden;
+main {
+  padding-bottom: 20rem;
+}
+
+.anchor {
   position: relative;
+  scroll-margin-top: 4.8em;
 }
