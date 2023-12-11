@@ -8,7 +8,7 @@ module PageHelper
   # Creates a hyperlink to a page using the `title` key. Change the default in the args
   # below if you use a different key for page titles.
   def link_to_page(page, *, title_key: DEFAULT_TITLE_KEY, **, &block)
-    if block_given?
+    if block
       link_to(page.request_path, *, **, &block)
     else
       link_to(page.data[DEFAULT_TITLE_KEY], page.request_path, *, **)

@@ -4,3 +4,16 @@
 require_relative "config/application"
 
 Rails.application.load_tasks
+
+task default: %i[
+  standard
+  spec
+  jest
+  rails_best_practices:run
+  brakeman:run
+  bundle:audit
+]
+
+# Tasks to consider later
+# license_finder
+# reek

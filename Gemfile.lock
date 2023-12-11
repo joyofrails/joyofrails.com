@@ -85,6 +85,11 @@ GEM
       msgpack (~> 1.2)
     brakeman (6.0.1)
     builder (3.2.4)
+    bundle-audit (0.1.0)
+      bundler-audit
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -94,6 +99,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    code_analyzer (0.5.5)
+      sexp_processor
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crack (0.4.5)
@@ -114,6 +121,7 @@ GEM
     erb-formatter (0.6.0)
       syntax_tree (~> 6.0)
     erubi (1.12.0)
+    erubis (2.7.0)
     factory_bot (6.4.2)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.2)
@@ -139,6 +147,7 @@ GEM
     jsbundling-rails (1.2.1)
       railties (>= 6.0.0)
     json (2.6.3)
+    kwalify (0.7.2)
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
@@ -229,6 +238,14 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_best_practices (1.23.2)
+      activesupport
+      code_analyzer (~> 0.5.5)
+      erubis
+      i18n
+      json
+      require_all (~> 3.0)
+      ruby-progressbar
     railties (7.1.2)
       actionpack (= 7.1.2)
       activesupport (= 7.1.2)
@@ -246,9 +263,14 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.15.0)
       connection_pool
+    reek (6.1.4)
+      kwalify (~> 0.7.0)
+      parser (~> 3.2.0)
+      rainbow (>= 2.0, < 4.0)
     regexp_parser (2.8.2)
     reline (0.4.1)
       io-console (~> 0.5)
+    require_all (3.0.0)
     rexml (3.2.6)
     rouge (4.2.0)
     rspec-core (3.12.2)
@@ -291,6 +313,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sexp_processor (4.17.0)
     sitepress-core (4.0.2)
       mime-types (>= 2.99)
     sitepress-rails (4.0.2)
@@ -367,13 +390,14 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  bundle-audit
   capybara
   debug
   dotenv-rails
-  erb-formatter (~> 0.6.0)
+  erb-formatter
   factory_bot_rails
   faker
-  inline_svg (~> 1.9)
+  inline_svg
   jbuilder
   jsbundling-rails
   letter_opener
@@ -381,9 +405,11 @@ DEPENDENCIES
   markdown-rails
   puma (>= 5.0)
   rack-mini-profiler
-  rails (~> 7.1.2)
-  redis (>= 4.0.1)
-  rouge (~> 4.2)
+  rails (~> 7.1)
+  rails_best_practices
+  redis
+  reek
+  rouge
   rspec-rails
   selenium-webdriver
   sitepress-rails
