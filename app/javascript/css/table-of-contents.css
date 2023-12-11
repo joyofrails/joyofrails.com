@@ -1,0 +1,10 @@
+nav.toc {
+  & li {
+    @apply mt-3;
+  }
+
+  & li > ul > li {
+    @apply ml-4 mt-2;
+    font-size: 98%;
+  }
+}

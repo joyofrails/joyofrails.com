@@ -1,6 +1,7 @@
 @import './tailwind.css';
 @import './dracula.css';
 @import './anchors.css';
+@import './table-of-contents.css';
 
 html {
   height: 100%;
