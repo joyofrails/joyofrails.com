@@ -2,12 +2,12 @@
   <%= link_to "Skip to content",
   "#start-here",
   class:
-    "transition left-0 bg-primary text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0 z-20" %>
+    "bg-primary text-primary-content rounded transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0 z-20" %>
 <% end %>
 <%= render_layout "application" do %>
   <section class="container">
     <div class="mx-auto mt-10 mb-96 lg:mt-24 md:mt-20 ">
-      <header class="max-w-screen-md">
+      <header class="max-w-screen-md prose dark:prose-invert">
         <h1
           class="
             w-full max-w-screen-md mb-8 text-3xl font-extrabold lg:text-5xl sm:text-4xl
@@ -17,10 +17,10 @@
           <%= current_page.data["title"] %>
         </h1>
       </header>
+      <div id="start-here" class="anchor sr-only"></div>
       <div class="flex flex-row-reverse">
-        <div id="start-here" class="anchor sr-only"></div>
         <aside class="sticky self-start flex-auto ml-20 " style="top: 100px">
-          <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-wide ">Table of Contents</h2>
+          <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
           <!-- Disable Turbolinks for same-page Table of Contents navigation
           -->
           <nav
@@ -45,6 +45,10 @@
           </div>
           <%= yield %>
         </article>
+      </div>
+      <div class="anchor">
+        <%= link_to "Back to top", "#", class: "bg-orange-400 text-primary-content rounded transition p-3 -translate-y-4 z-20 fixed bottom-0 lg:-translate-y-8 right-4 lg:right-8 rounded-box" %>
+        %>
       </div>
     </div>
   </section>
