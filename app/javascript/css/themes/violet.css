@@ -1,0 +1,106 @@
+.light,
+.dark,
+:root {
+  --violet-1: #fdfcfe;
+  --violet-2: #faf8ff;
+  --violet-3: #f4f0fe;
+  --violet-4: #ebe4ff;
+  --violet-5: #e1d9ff;
+  --violet-6: #d4cafe;
+  --violet-7: #c2b5f5;
+  --violet-8: #aa99ec;
+  --violet-9: #6e56cf;
+  --violet-10: #654dc4;
+  --violet-11: #6550b9;
+  --violet-12: #2f265f;
+}
+
+.light,
+:root {
+  --violet-a1: #5500aa03;
+  --violet-a2: #4900ff07;
+  --violet-a3: #4400ee0f;
+  --violet-a4: #4300ff1b;
+  --violet-a5: #3600ff26;
+  --violet-a6: #3100fb35;
+  --violet-a7: #2d01dd4a;
+  --violet-a8: #2b00d066;
+  --violet-a9: #2400b7a9;
+  --violet-a10: #2300abb2;
+  --violet-a11: #1f0099af;
+  --violet-a12: #0b0043d9;
+}
+
+.dark {
+  --violet-1: #14121f;
+  --violet-2: #1b1525;
+  --violet-3: #291f43;
+  --violet-4: #33255b;
+  --violet-5: #3c2e69;
+  --violet-6: #473876;
+  --violet-7: #56468b;
+  --violet-8: #6958ad;
+  --violet-9: #6e56cf;
+  --violet-10: #7d66d9;
+  --violet-11: #baa7ff;
+  --violet-12: #e2ddfe;
+}
+
+.dark {
+  --violet-a1: #4422ff0f;
+  --violet-a2: #853ff916;
+  --violet-a3: #8354fe36;
+  --violet-a4: #7d51fd50;
+  --violet-a5: #845ffd5f;
+  --violet-a6: #8f6cfd6d;
+  --violet-a7: #9879ff83;
+  --violet-a8: #977dfea8;
+  --violet-a9: #8668ffcc;
+  --violet-a10: #9176fed7;
+  --violet-a11: #baa7ff;
+  --violet-a12: #e3deff;
+}
+
+:root {
+  --theme-base: var(--violet-1);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-line: var(--violet-6);
+  --theme-border: var(--violet-7);
+  --theme-border-hover: var(--violet-8);
+  --theme-solid: var(--violet-9);
+  --theme-solid-hover: var(--violet-10);
+  --theme-solid-text: #fff;
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-solid-high-contrast: var(--violet-12);
+  --theme-solid-high-contrast-text: var(--violet-1);
+  --theme-alpha-ring: var(--violet-a8);
+  --theme-10: var(--violet-10);
+  --theme-a2: var(--violet-a2);
+}
+
+[data-theme='violet'],
+[data-them='violet'] .dark,
+[data-theme='violet'] .light {
+  --theme-base: var(--violet-1);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-line: var(--violet-6);
+  --theme-border: var(--violet-7);
+  --theme-border-hover: var(--violet-8);
+  --theme-solid: var(--violet-9);
+  --theme-solid-hover: var(--violet-10);
+  --theme-solid-text: #fff;
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-solid-high-contrast: var(--violet-12);
+  --theme-solid-high-contrast-text: var(--violet-1);
+  --theme-alpha-ring: var(--violet-a8);
+  --theme-10: var(--violet-10);
+  --theme-a2: var(--violet-a2);
+}

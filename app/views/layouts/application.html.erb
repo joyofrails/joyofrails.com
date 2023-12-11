@@ -17,8 +17,8 @@
   </head>
   <body
     class="
-      antialiased bg-white
-      dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white
+      antialiased bg-theme-bg
+      dark:bg-theme-bg dark:border-gray-800 print:hidden dark:text-white
       text-gray-1000
     "
   >
@@ -26,8 +26,9 @@
     <%= render "header" %>
     <main
       class="
-        mx-auto w-full flex flex-col flex-grow dark:bg-gray-900 dark:border-gray-800
-        print:hidden dark:text-white text-gray-1000 mb-96
+        mx-auto w-full flex flex-col flex-grow
+        dark:bg-theme-bg dark:text-white
+        text-gray-1000 mb-96
       "
     >
       <%= yield %>
