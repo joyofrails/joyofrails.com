@@ -1,4 +1,7 @@
+import debug from 'debug';
 import domReady from '../utils/domReady';
+
+const log = debug('app:javascript:initializers:turbo-scroll-smooth-workaround');
 
 // If user has scrolled down the page, then navigates to a new page, Turbo will
 // scroll back to the top of the page. We use this workaround to disable
@@ -13,9 +16,11 @@ export default async function () {
   const scrollBehavior = document.querySelector('html').style.scrollBehavior;
 
   window.addEventListener('turbo:load', function () {
+    log('turbo:load', 'reset scrollBehavior to', scrollBehavior);
     document.querySelector('html').style.scrollBehavior = scrollBehavior;
   });
   window.addEventListener('turbo:before-visit', function () {
+    log('turbo:before-visit', 'set scrollBehavior to unset');
     document.querySelector('html').style.scrollBehavior = 'unset';
   });
 }

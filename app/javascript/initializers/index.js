@@ -1,1 +1,1 @@
-export { default as turboScrollSmoothWorkaround } from './turboScrollSmoothWorkaround';
+export { default as turboScrollSmoothWorkaround } from './turbo-scroll-smooth-workaround';
