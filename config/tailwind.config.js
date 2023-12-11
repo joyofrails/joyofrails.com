@@ -8,6 +8,7 @@ module.exports = {
     './app/javascript/**/*.{js,css}',
     './app/assets/stylesheets/**/*.css',
   ],
+  safelist: ['group'],
   theme: {
     container: {
       center: true,

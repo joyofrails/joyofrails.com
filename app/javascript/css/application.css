@@ -1,11 +1,7 @@
 @import './tailwind.css';
 @import './dracula.css';
+@import './anchors.css';
 
 html {
   height: 100%;
-}
-
-.anchor {
-  position: relative;
-  scroll-margin-top: 4.8em;
 }
