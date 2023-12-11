@@ -10,11 +10,9 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   # and adding to the list below. Several are already included for you in the `MarkdownRails::Renderer::Rails`,
   # but you can add more here.
   #
-  # delegate \
-  #   :request,
-  #   :cache,
-  #   :turbo_frame_tag,
-  # to: :helpers
+  delegate \
+    :link_to,
+    to: :helpers
 
   FORMATTER = Rouge::Formatters::HTML.new
 
@@ -22,9 +20,19 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
     [:fenced_code_blocks]
   end
 
+  def link(url, title, text)
+    custom_link_to(url, text)
+  end
+
+  def autolink(url, link_type)
+    custom_link_to(url, url)
+  end
+
   def header(text, header_level)
-    content_tag :div, id: text.parameterize, class: "anchor" do
-      content_tag "h#{header_level}", text
+    content_tag :div, id: text.parameterize, class: "anchor group" do
+      content_tag "h#{header_level}", class: "flex items-center" do
+        anchor_tag(text, class: ["anchor-link not-prose"]) + text
+      end
     end
   end
 
@@ -42,13 +50,13 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   end
 
   # Example of how you might override the images to show embeds, like a YouTube video.
-  def image(link, title, alt)
+  def image(link, title, alt_text)
     url = URI(link)
     case url.host
     when "www.youtube.com"
-      youtube_tag url, alt
+      youtube_tag url, alt_text
     else
-      super
+      image_tag(link, title: title, alt: alt_text, loading: "lazy")
     end
   end
 
@@ -63,6 +71,33 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
       height: 325,
       allow: "encrypted-media; picture-in-picture",
       allowfullscreen: true \
-        do alt end
+    do
+      alt
+    end
+  end
+
+  def custom_link_to(url, text)
+    attributes = {}
+
+    unless url.blank? || url.start_with?("/", "#")
+      attributes[:target] = "_blank"
+      attributes[:rel] = "noopener noreferrer"
+    end
+
+    link_to(text, url, attributes)
+  end
+
+  def anchor_tag(text, **)
+    link_to("##{text.parameterize}", **) do
+      raw(anchor_svg) + content_tag(:span, "Link to heading", class: "sr-only")
+    end
+  end
+
+  def anchor_svg
+    <<-SVG
+      <svg version="1.1" aria-hidden="true" stroke="currentColor" viewBox="0 0 16 16" width="28" height="28">
+        <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+      </svg>
+    SVG
   end
 end
