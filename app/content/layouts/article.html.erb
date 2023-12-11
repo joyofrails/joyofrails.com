@@ -1,6 +1,12 @@
+<% content_for :top do %>
+  <%= link_to "Skip to content",
+  "#start-here",
+  class:
+    "transition left-0 bg-primary text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0 z-20" %>
+<% end %>
 <%= render_layout "application" do %>
-  <section class="container mb-96">
-    <article class=" mx-auto mt-10 mb-16 lg:mt-24 md:mt-20 ">
+  <section class="container">
+    <div class="mx-auto mt-10 mb-96 lg:mt-24 md:mt-20 ">
       <header class="max-w-screen-md">
         <h1
           class="
@@ -12,13 +18,9 @@
         </h1>
       </header>
       <div class="flex flex-row-reverse">
-        <aside
-          class="
-            sticky self-start flex-auto ml-20
-          "
-          style="top: 100px"
-        >
-          <h2 class=" font-semibold mb-4 text-sm leading-6 uppercase tracking-wide ">Table of Contents</h2>
+        <div id="start-here" class="anchor sr-only"></div>
+        <aside class="sticky self-start flex-auto ml-20 " style="top: 100px">
+          <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-wide ">Table of Contents</h2>
           <!-- Disable Turbolinks for same-page Table of Contents navigation
           -->
           <nav data-turbo="false" class="toc text-slate-800 dark:text-slate-400 text-sm leading-6">
@@ -35,6 +37,6 @@
           <%= yield %>
         </section>
       </div>
-    </article>
+    </div>
   </section>
 <% end %>
