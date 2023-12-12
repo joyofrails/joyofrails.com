@@ -1,9 +1,10 @@
 <div data-controller="darkmode" class="flex items-center justify-between">
-  <h2
+  <span
+    aria-label="Toggle Dark Mode"
     data-darkmode-target="description"
     data-action="click->darkmode#toggle"
-    class="hidden mr-3 sm:block cursor-pointer"
-  >Light Mode</h2>
+    class="hidden mr-3 cursor-pointer"
+  >Light Mode</span>
   <button
     data-action="click->darkmode#toggle"
     id="theme-toggle"

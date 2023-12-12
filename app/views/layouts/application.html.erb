@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html class="motion-safe:scroll-smooth">
+<html class="motion-safe:scroll-smooth" data-joy-accent="pink" data-joy-gray="slate">
   <head>
     <title>Joy of Rails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%#= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= vite_client_tag %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
@@ -17,9 +14,9 @@
   </head>
   <body
     class="
-      antialiased bg-theme-bg
-      dark:bg-theme-bg dark:border-gray-800 print:hidden dark:text-white
-      text-gray-1000
+      antialiased
+      bg-background text-gray-text
+      print:hidden
     "
   >
     <%= yield :top %>
@@ -27,8 +24,8 @@
     <main
       class="
         mx-auto w-full flex flex-col flex-grow
-        dark:bg-theme-bg dark:text-white
-        text-gray-1000 mb-96
+        bg-background
+        mb-96
       "
     >
       <%= yield %>

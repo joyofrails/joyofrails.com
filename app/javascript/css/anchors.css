@@ -1,9 +1,10 @@
 .anchor {
-  @apply relative scroll-mt-20;
+  @apply relative;
+  scroll-margin-top: 7.2rem;
 }
 
 .anchor-link {
-  @apply flex flex-col justify-center my-auto absolute opacity-0 focus:opacity-60 group-hover:opacity-60 hover:opacity-60;
+  @apply lg:flex-col lg:justify-center my-auto absolute opacity-0 focus:opacity-60 group-hover:opacity-60 hover:opacity-60 hidden lg:flex;
   transform: translateX(-150%);
   top: 0px;
   left: 0px;
@@ -11,5 +12,4 @@
   margin-top: auto;
   margin-bottom: auto;
   transition: opacity 250ms ease 0s;
-  opacity: 0;
 }

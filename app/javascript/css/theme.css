@@ -1,5 +1,6 @@
 @import './themes/config.css';
 @import 'tailwindcss/base';
+@import './themes/pink.css';
 @import './themes/violet.css';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';

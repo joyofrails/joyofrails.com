@@ -5,21 +5,23 @@
     "bg-primary text-primary-content rounded transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0 z-20" %>
 <% end %>
 <%= render_layout "application" do %>
-  <section class="container">
-    <div class="mx-auto mt-10 mb-96 lg:mt-24 md:mt-20 ">
-      <header class="max-w-screen-md prose dark:prose-invert">
-        <h1
-          class="
-            w-full max-w-screen-md mb-8 text-3xl font-extrabold lg:text-5xl sm:text-4xl
-            lg:mb-10 leading-tighter
-          "
-        >
-          <%= current_page.data["title"] %>
-        </h1>
-      </header>
+  <header class="bg-accent-a2">
+    <div class="container mt-10 lg:mt-28 md:mt-24">
+      <h1
+        class="
+          text-accent-text font-extrabold text-3xl lg:text-5xl sm:text-4xl leading-tighter
+          lg:mb-10 mb-8
+        "
+      >
+        <%= current_page.data["title"] %>
+      </h1>
+    </div>
+  </header>
+  <section>
+    <div class="container mt-10 lg:mt-24 md:mt-20">
       <div id="start-here" class="anchor sr-only"></div>
-      <div class="flex flex-row-reverse">
-        <aside class="sticky self-start flex-auto ml-20 " style="top: 100px">
+      <div class="lg:flex lg:flex-row-reverse">
+        <aside class="sticky self-start flex-auto ml-20 hidden lg:block" style="top: 100px">
           <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
           <!-- Disable Turbolinks for same-page Table of Contents navigation
           -->
@@ -32,11 +34,10 @@
             </ul>
             <%= render_toc(current_page) %>
           </nav>
-
         </aside>
         <article
           class="
-            max-w-screen-md prose dark:prose-invert sm:prose-lg lg:prose-xl
+            max-w-screen-md prose dark:prose-invert sm:prose-lg lg:prose-xl pink
           "
         >
           <div id="introduction" class="anchor not-prose">
@@ -46,7 +47,10 @@
         </article>
       </div>
       <div class="anchor">
-        <%= link_to "Back to top", "#", class: "bg-orange-400 text-primary-content rounded transition p-3 -translate-y-4 z-20 fixed bottom-0 lg:-translate-y-8 right-4 lg:right-8 rounded-box" %>
+        <%= link_to "Back to top",
+        "#",
+        class:
+          "bg-orange-400 text-primary-content rounded transition p-3 -translate-y-4 z-20 fixed bottom-0 lg:-translate-y-8 right-4 lg:right-8 rounded-box" %>
         %>
       </div>
     </div>
