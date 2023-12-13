@@ -1,24 +1,10 @@
-# README
+# joyofrails.com
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A place to learn and celebrate the joy of using Ruby on Rails
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+### Requirements
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby, see `.ruby-version`
+- Node, see `.node-version`
