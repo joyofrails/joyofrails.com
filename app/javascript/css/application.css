@@ -1,12 +1,14 @@
 @import './theme.css';
-@import './dracula.css';
+@import './highlight.css';
 @import './anchors.css';
-@import './table-of-contents.css';
+@import './components/table-of-contents.css';
+@import './components/code.css';
 
 html {
   height: 100%;
 }
 
-article.prose p:first-of-type {
-  margin-top: 0;
+svg.app-dots {
+  display: inline;
+  vertical-align: top;
 }

@@ -12,12 +12,27 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   #
   delegate \
     :link_to,
+    :inline_svg,
     to: :helpers
 
-  FORMATTER = Rouge::Formatters::HTML.new
+  def extensions
+    [
+      :autolink,
+      :disable_indented_code_blocks,
+      :fenced_code_blocks,
+      :no_intra_emphasis,
+      :smartypants
+    ].map { |feature| [feature, true] }.to_h
+  end
 
-  def enable
-    [:fenced_code_blocks]
+  def options
+    {
+      with_toc_data: true
+    }
+  end
+
+  def renderer
+    ::Redcarpet::Markdown.new(self.class.new(options), **extensions)
   end
 
   def link(url, title, text)
@@ -36,20 +51,24 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
     end
   end
 
-  def renderer
-    ::Redcarpet::Markdown.new(self.class.new(with_toc_data: true), **features)
-  end
+  def block_code(code, metadata)
+    language, filename = metadata.split(":") if metadata
 
-  def block_code(code, language)
     lexer = Rouge::Lexer.find(language)
-    content_tag :pre, class: "highlight language-#{language}" do
-      content_tag :code do
-        raw FORMATTER.format(lexer.lex(code))
+
+    tag.pre(class: "highlight language-#{language}") do
+      tag.div(class: "code-header") do
+        html = inline_svg("app-dots.svg", class: "app-dots")
+        if filename
+          html += tag.span(filename, class: "code-filename")
+        end
+        html
+      end + tag.code do
+        raw code_formatter.format(lexer.lex(code))
       end
     end
   end
 
-  # Example of how you might override the images to show embeds, like a YouTube video.
   def image(link, title, alt_text)
     url = URI(link)
     case url.host
@@ -61,6 +80,10 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   end
 
   private
+
+  def code_formatter
+    @code_formatter ||= Rouge::Formatters::HTML.new
+  end
 
   # This is provided as an example; there's many more YouTube URLs that this wouldn't catch.
   def youtube_tag(url, alt)
@@ -84,7 +107,7 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
       attributes[:rel] = "noopener noreferrer"
     end
 
-    link_to(text, url, attributes)
+    link_to(raw(text), url, attributes)
   end
 
   def anchor_tag(text, **)

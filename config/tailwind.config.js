@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const typography = require('./tailwind/typography');
+const typography = require('./tailwind/typography-overrides');
 
 module.exports = {
   content: [
@@ -31,9 +31,9 @@ module.exports = {
     },
     extend: {
       // Overriding extensions
-      // fontFamily: {
-      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      // },
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
 
       typography: typography,
       colors: {
@@ -100,10 +100,10 @@ module.exports = {
     },
   },
   plugins: [
-    // require('@tailwindcss/forms'),
-    // require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
-    // require('@tailwindcss/container-queries'),
+    require('@tailwindcss/container-queries'),
   ],
   darkMode: 'class',
 };

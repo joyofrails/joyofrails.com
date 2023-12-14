@@ -1,0 +1,9 @@
+.code-header {
+  @apply text-sm text-gray-400 mb-4 hidden lg:flex lg:justify-between lg:items-center;
+}
+
+.code-filename {
+  display: block;
+  text-align: center;
+  line-height: 1;
+}

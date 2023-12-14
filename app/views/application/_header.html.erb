@@ -1,12 +1,4 @@
-<header
-  aria-label="header"
-  class="
-    text-accent-text
-    h-16
-    print:hidden
-    sticky top-0 z-10
-  "
->
+<%= tag.header class: header_classes, aria: { label: "header" } do %>
   <div class="container flex items-center justify-between w-full h-full sticky">
     <%= link_to root_path, class: "flex items-center pr-2" do %>
       <div class="flex-shrink-0 w-12 md:w-8">
@@ -25,4 +17,4 @@
       <%= render "darkmode/switch" %>
     </nav>
   </div>
-</header>
+<% end %>
