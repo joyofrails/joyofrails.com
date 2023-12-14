@@ -12,24 +12,17 @@
     <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= render "darkmode/setup" %>
   </head>
-  <body
-    class="
-      antialiased
-      bg-background text-gray-text
-      print:hidden
-    "
-  >
+  <%= tag.body class: body_classes do %>
     <%= yield :top %>
     <%= render "header" %>
     <main
       class="
         mx-auto w-full flex flex-col flex-grow
-        bg-background
         mb-96
       "
     >
       <%= yield %>
     </main>
     <%= render "footer" %>
-  </body>
+  <% end %>
 </html>

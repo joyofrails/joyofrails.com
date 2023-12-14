@@ -1,8 +1,12 @@
-<% header_classes "bg-accent-a2" %>
+<% header_classes "" %>
+<% body_classes "bg-background" %>
+<% footer_classes "bg-accent-bg" %>
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
-  <header class="bg-accent-a2">
-    <div class="container mt-10 lg:mt-28 md:mt-24">
+  <header class="page-title bg-accent-bg relative">
+    <div class="h-16 bg-accent-bg sticky top-0 z-[9]"></div>
+    <div class="h-16 bg-accent-bg absolute top-0 z-[8] -mt-16 w-full"></div>
+    <div class="container mt-10 lg:mt-12 md:mt-8">
       <h1
         class="
           text-accent-text font-extrabold text-3xl lg:text-5xl sm:text-4xl leading-tighter
@@ -13,7 +17,8 @@
       </h1>
     </div>
   </header>
-  <section>
+  <section class="bg-background">
+    <div class="h-16 bg-background sticky top-0 z-[9]"></div>
     <div class="container mt-10 lg:mt-24 md:mt-20">
       <div id="start-here" class="anchor sr-only"></div>
       <div class="lg:flex lg:flex-row-reverse">
