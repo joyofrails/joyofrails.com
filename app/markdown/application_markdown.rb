@@ -44,10 +44,8 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   end
 
   def header(text, header_level)
-    content_tag :div, id: text.parameterize, class: "anchor group" do
-      content_tag "h#{header_level}", class: "flex items-center" do
-        anchor_tag(text, class: ["anchor-link not-prose"]) + text
-      end
+    content_tag "h#{header_level}", id: text.parameterize, class: "anchor group flex items-center" do
+      anchor_tag(text, class: ["anchor-link not-prose"]) + text
     end
   end
 

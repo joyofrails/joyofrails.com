@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const typography = require('./tailwind/typography-overrides');
+const colors = require('./tailwind/colors');
 
 module.exports = {
   content: [
@@ -31,59 +32,12 @@ module.exports = {
     },
     extend: {
       // Overriding extensions
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+      // fontFamily: {
+      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      // },
 
       typography: typography,
-      colors: {
-        // Gray definitions
-        'gray-1': 'var(--slate-1)',
-        'gray-12': 'var(--slate-12)',
-        'gray-base': 'var(--slate-1)',
-        'gray-bg-subtle': 'var(--slate-2)',
-        'gray-bg': 'var(--slate-3)',
-        'gray-bg-hover': 'var(--slate-4)',
-        'gray-bg-active': 'var(--slate-5)',
-        'gray-line': 'var(--slate-6)',
-        'gray-border': 'var(--slate-7)',
-        'gray-border-hover': 'var(--slate-8)',
-        'gray-solid': 'var(--slate-9)',
-        'gray-solid-hover': 'var(--slate-10)',
-        'gray-solid-text': '#fff',
-        'gray-text': 'var(--slate-11)',
-        'gray-text-contrast': 'var(--slate-12)',
-        'gray-solid-high-contrast': 'var(--slate-12)',
-        'gray-solid-high-contrast-text': 'var(--gray-1)',
-        'gray-2-translucent': '#1b1d1eb3',
-
-        // Accent definitions
-        'accent-base': 'var(--accent-base)',
-        'accent-bg-subtle': 'var(--accent-bg-subtle)',
-        'accent-bg': 'var(--accent-bg)',
-        'accent-bg-hover': 'var(--accent-bg-hover)',
-        'accent-bg-active': 'var(--accent-bg-active)',
-        'accent-line': 'var(--accent-line)',
-        'accent-border': 'var(--accent-border)',
-        'accent-border-hover': 'var(--accent-border-hover)',
-        'accent-solid': 'var(--accent-solid)',
-        'accent-solid-hover': 'var(--accent-solid-hover)',
-        'accent-solid-text': 'var(--accent-solid-text)',
-        'accent-text': 'var(--accent-text)',
-        'accent-text-contrast': 'var(--accent-text-contrast)',
-        'accent-solid-high-contrast': 'var(--accent-solid-high-contrast)',
-        'accent-solid-high-contrast-text': 'var(--accent-solid-high-contrast-text)',
-        'accent-alpha-ring': 'var(--accent-alpha-ring)',
-        'accent-10': 'var(--accent-10)',
-        'accent-a2': 'var(--accent-a2)',
-
-        // Component definitions
-        overlay: '#09090bcc',
-        background: 'var(--accent-base)',
-        'bg-card-solid': 'var(--background)',
-        'bg-card-translucent': 'var(--gray-2-translucent)',
-        'gray-muted': '#a1a1aa',
-      },
+      colors: colors,
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
         sm: ['0.875rem', { lineHeight: '1.5715' }],

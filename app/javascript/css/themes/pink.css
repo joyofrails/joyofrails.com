@@ -79,6 +79,23 @@
   --accent-solid-high-contrast: var(--pink-12);
   --accent-solid-high-contrast-text: var(--pink-1);
   --accent-alpha-ring: var(--pink-a8);
-  --accent-10: var(--pink-10);
-  --accent-a2: var(--pink-a2);
+}
+
+[data-joy-accent='joy'] {
+  --accent-base: var(--pink-1);
+  --accent-bg-subtle: var(--pink-2);
+  --accent-bg: var(--pink-3);
+  --accent-bg-hover: var(--pink-4);
+  --accent-bg-active: var(--pink-5);
+  --accent-line: var(--pink-6);
+  --accent-border: var(--pink-7);
+  --accent-border-hover: var(--pink-8);
+  --accent-solid: var(--pink-9);
+  --accent-solid-hover: var(--pink-10);
+  --accent-solid-text: #fff;
+  --accent-text: var(--pink-11);
+  --accent-text-contrast: var(--pink-12);
+  --accent-solid-high-contrast: var(--pink-12);
+  --accent-solid-high-contrast-text: var(--pink-1);
+  --accent-alpha-ring: var(--pink-a8);
 }

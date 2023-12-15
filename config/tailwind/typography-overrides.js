@@ -20,6 +20,9 @@ module.exports = (theme) => ({
   sm: {
     css: [
       {
+        p: {
+          marginTop: 0,
+        },
         pre: {
           // fontSize: em(12, 14),
           // lineHeight: round(20 / 12),
@@ -47,6 +50,11 @@ module.exports = (theme) => ({
         },
       },
       {
+        p: {
+          marginTop: 0,
+        },
+      },
+      {
         pre: {
           // fontSize: em(14, 16),
           // lineHeight: round(24 / 14),
@@ -69,6 +77,9 @@ module.exports = (theme) => ({
   lg: {
     css: [
       {
+        p: {
+          marginTop: 0,
+        },
         pre: {
           // fontSize: em(16, 18),
           // lineHeight: round(28 / 16),
@@ -90,6 +101,9 @@ module.exports = (theme) => ({
   xl: {
     css: [
       {
+        p: {
+          marginTop: 0,
+        },
         pre: {
           // fontSize: em(18, 20),
           // lineHeight: round(32 / 18),
@@ -111,6 +125,9 @@ module.exports = (theme) => ({
   '2xl': {
     css: [
       {
+        p: {
+          marginTop: 0,
+        },
         pre: {
           // fontSize: em(20, 24),
           // lineHeight: round(36 / 20),

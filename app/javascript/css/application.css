@@ -1,8 +1,6 @@
 @import './theme.css';
 @import './highlight.css';
-@import './anchors.css';
-@import './components/table-of-contents.css';
-@import './components/code.css';
+@import './components.css';
 
 html {
   height: 100%;

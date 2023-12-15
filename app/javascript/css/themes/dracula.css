@@ -41,7 +41,7 @@
   --dracula-disabled: rgb(108, 115, 147);
   --dracula-gradientDegree: 135deg;
   --dracula-glowColor: hsla(0, 0%, 100%, 0.25);
-  --dracula-cyan-100: rgba(128, 255, 234, 0.1);
+  --dracula-cyan-100: #80ffea1a;
   --dracula-green-100: rgba(138, 255, 128, 0.1);
   --dracula-orange-100: rgba(255, 202, 128, 0.1);
   --dracula-pink-100: rgba(255, 128, 191, 0.1);
