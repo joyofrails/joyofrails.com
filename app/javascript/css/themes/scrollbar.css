@@ -1,0 +1,21 @@
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dracula-cyan) var(--dracula-cyan-300);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--dracula-cyan-300);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--dracula-cyan);
+  border-radius: 14px;
+  border: 3px solid var(--dracula-cyan-300);
+}

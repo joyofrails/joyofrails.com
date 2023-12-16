@@ -1,4 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const typography = require('./tailwind/typography-overrides');
+const colors = require('./tailwind/colors');
 
 module.exports = {
   content: [
@@ -30,22 +32,12 @@ module.exports = {
     },
     extend: {
       // Overriding extensions
-      // typography: ({ theme }) => ({
-      //   default: {
-      //     css: {
-      //       // pre: null,
-      //       // code: null,
-      //       // 'code::before': null,
-      //       // 'code::after': null,
-      //       // 'pre code': null,
-      //       // 'pre code::before': null,
-      //       // 'pre code::after': null,
-      //     },
-      //   },
-      // }),
-      // fontFamily: {
-      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      // },
+      fontFamily: {
+        logo: ['Russo One', ...defaultTheme.fontFamily.sans],
+      },
+
+      colors: colors,
+      typography: typography,
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
         sm: ['0.875rem', { lineHeight: '1.5715' }],
@@ -62,10 +54,10 @@ module.exports = {
     },
   },
   plugins: [
-    // require('@tailwindcss/forms'),
-    // require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
-    // require('@tailwindcss/container-queries'),
+    require('@tailwindcss/container-queries'),
   ],
   darkMode: 'class',
 };

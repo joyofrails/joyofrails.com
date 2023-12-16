@@ -1,0 +1,57 @@
+@import 'dracula-ui/styles/dracula-ui.css';
+@import './colors/violet.css';
+@import './colors/gray.css';
+@import './colors/pink.css';
+@import './colors/dracula.css';
+
+[data-joy-gray='slate'] {
+  --background: var(--theme-base);
+}
+
+[data-joy-theme='violet'] {
+  --theme-base: var(--violet-1);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+}
+
+[data-joy-theme='pink'] {
+  --theme-base: var(--pink-1);
+  --theme-bg-subtle: var(--pink-2);
+  --theme-bg: var(--pink-3);
+  --theme-bg-hover: var(--pink-4);
+  --theme-bg-active: var(--pink-5);
+  --theme-text: var(--pink-11);
+  --theme-text-contrast: var(--pink-12);
+}
+
+[data-joy-theme='dracula'] {
+  --theme-title: var(--dracula-purple);
+  --theme-base: var(--violet-2);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-link: var(--dracula-purple-900);
+  --theme-link-hover: var(--dracula-purple-600);
+  --background: var(--theme-base);
+}
+
+.dark[data-joy-theme='dracula'] {
+  --theme-title: var(--dracula-cyan);
+  --theme-base: var(--dracula-black);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-link: var(--dracula-cyan);
+  --theme-link-hover: var(--dracula-cyan-900);
+  --background: var(--theme-base);
+}

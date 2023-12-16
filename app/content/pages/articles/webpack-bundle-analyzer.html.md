@@ -124,8 +124,7 @@ npx webpack-bundle-analyzer tmp/webpack-stats.json public/packs
 
 Since I don't want to type all that out every time, I put those commands in the `scripts` section of my `package.json`:
 
-```json
-// package.json
+```json:package.json
 {
   // ...
   "scripts": {
@@ -174,8 +173,7 @@ Instead of using separate scripts to trigger the bundle analyzer, you can instea
 
 Below, we'll look at how you can integrate the analyzer into a Rails using [Webpacker](https://github.com/rails/webpacker).
 
-```javascript
-// config/webpack/environment.js
+```javascript:config/webpack/environment.js
 const { environment } = require('@rails/webpacker');
 
 if (process.env.WEBPACK_ANALYZE === 'true') {

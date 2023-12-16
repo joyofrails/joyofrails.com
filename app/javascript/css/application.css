@@ -1,8 +1,12 @@
-@import './tailwind.css';
-@import './dracula.css';
-@import './anchors.css';
-@import './table-of-contents.css';
+@import './theme.css';
+@import './highlight.css';
+@import './components.css';
 
 html {
   height: 100%;
+}
+
+.bg-background,
+.bg-theme-bg {
+  transition: color 250ms ease 0s, background 250ms ease 0s;
 }

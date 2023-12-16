@@ -1,27 +1,21 @@
-<header
-  aria-label="header"
-  class="
-    bg-white h-12 text-sm dark:bg-gray-900 print:hidden dark:text-white
-    text-gray-1000 sticky top-0 z-10
-  "
->
+<%= tag.header class: header_classes, aria: { label: "header" } do %>
   <div class="container flex items-center justify-between w-full h-full sticky">
-    <%= link_to root_path, class: "flex items-center pr-2" do %>
+    <%= link_to root_path, class: "text-theme-title flex items-center pr-2" do %>
       <div class="flex-shrink-0 w-12 md:w-8">
-        <%= inline_svg_tag "turtle-logo.svg",
-        class: "fill-gray-900 dark:fill-gray-100",
-        style: "max-width: 32px;" %>
+        <%= inline_svg_tag "joy-logo.svg", class: "fill-current", style: "max-width: 32px;" %>
       </div>
-      <span class="inline-block text-base font-semibold sm:text-lg">Joy of Rails</span>
+      <span class="inline-block text-lg font-logo">Joy of Rails</span>
     <% end %>
     <nav class="flex items-center px-1">
       <a
         class="
-          flex items-center h-full px-2 dark:hover:bg-white hover:bg-gray-100
-          dark:hover:bg-opacity-5
+          flex items-center h-full px-2
+          rounded mr-2
+          hover:bg-theme-bg-hover
         "
         href="/articles"
       >Articles</a>
+      <%= render "darkmode/switch" %>
     </nav>
   </div>
-</header>
+<% end %>

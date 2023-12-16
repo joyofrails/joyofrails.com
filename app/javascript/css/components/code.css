@@ -1,0 +1,15 @@
+.code-header {
+  @apply text-sm text-gray-400 hidden lg:mb-4 lg:flex lg:justify-between lg:items-center;
+  line-height: 1;
+}
+
+svg.app-dots {
+  display: inline;
+  vertical-align: top;
+}
+
+.code-filename {
+  display: block;
+  text-align: center;
+  line-height: 1;
+}

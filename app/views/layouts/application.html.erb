@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="motion-safe:scroll-smooth">
+<html class="motion-safe:scroll-smooth" data-joy-theme="dracula">
   <head>
     <title>Joy of Rails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= render "application/google_fonts" %>
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="/manifest.webmanifest">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%#= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= vite_client_tag %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
@@ -15,23 +17,17 @@
     <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= render "darkmode/setup" %>
   </head>
-  <body
-    class="
-      antialiased bg-white
-      dark:bg-gray-900 dark:border-gray-800 print:hidden dark:text-white
-      text-gray-1000
-    "
-  >
+  <%= tag.body class: body_classes do %>
     <%= yield :top %>
     <%= render "header" %>
     <main
       class="
-        mx-auto w-full flex flex-col flex-grow dark:bg-gray-900 dark:border-gray-800
-        print:hidden dark:text-white text-gray-1000 mb-96
+        w-full flex flex-col flex-grow
+        mx-auto mb-96
       "
     >
       <%= yield %>
     </main>
     <%= render "footer" %>
-  </body>
+  <% end %>
 </html>

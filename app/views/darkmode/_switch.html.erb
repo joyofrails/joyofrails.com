@@ -1,16 +1,19 @@
 <div data-controller="darkmode" class="flex items-center justify-between">
-  <h2
+  <span
+    aria-label="Toggle Dark Mode"
     data-darkmode-target="description"
     data-action="click->darkmode#toggle"
-    class="hidden mr-3 sm:block cursor-pointer"
-  >Light Mode</h2>
+    class="hidden mr-3 cursor-pointer"
+  >Light Mode</span>
   <button
     data-action="click->darkmode#toggle"
     id="theme-toggle"
     type="button"
     class="
-      text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700
-      focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700
+      text-gray-500 dark:text-gray-400
+      hover:bg-theme-bg-hover
+      focus:ring-gray-200 dark:focus:ring-gray-700
+      focus:ring-2 focus:outline-none
       rounded-lg text-sm p-2.5
     "
     aria-label="Toggle Dark Mode"
