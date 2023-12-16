@@ -12,33 +12,36 @@
           flex flex-col items-center h-full space-y-5 md:items-start max-w-[18rem]
         "
       >
-        <%= link_to root_path, class: "flex flex-col items-center space-y-3 text-center md:flex-row md:items-start md:text-left md:space-x-2 md:space-y-0" do %>
+        <%= link_to root_path, class: "text-color-text flex flex-col items-center space-y-3 text-center md:flex-row md:items-start md:text-left md:space-x-2 md:space-y-0" do %>
           <div class="flex-shrink-0 w-12 md:w-8">
-            <%= inline_svg_tag "turtle-logo.svg",
-            class: "fill-gray-900 dark:fill-gray-100",
+            <%= inline_svg_tag "joy-logo.svg",
+            class: "fill-theme-text",
             style: "max-width: 32px;" %>
           </div>
-          <div class="mt-1 text-lg font-semibold tracking-tight leading-tighter">Sharing and experiencing the Joy of Rails</div>
+          <div class="mt-1 text-lg text-theme-text"><span class="font-bold">Sharing and experiencing the</span>
+            <span class="font-['Russo_One']">Joy of Rails</span>
+          </div>
         <% end %>
       </div>
       <div
         class="
+          text-gray-text
           grid items-center w-full grid-cols-1 text-center md:grid-cols-2 lg:pr-6
           md:gap-10 md:text-left md:items-start md:w-auto
         "
       >
         <ul>
-          <li class="py-1 text-base leading-relaxed md:text-sm"><a
+          <li class="py-1 leading-relaxed md:text-sm"><a
               class="
-                transition-colors duration-150 ease-in-out hover:text-blue-600
+                transition-colors duration-150 ease-in-out hover:text-theme-link-hover
               "
               href="/articles"
             >Articles</a></li>
         </ul>
         <ul>
-          <li class="py-1 text-base leading-relaxed md:text-sm"><a
+          <li class="py-1 leading-relaxed md:text-sm"><a
               class="
-                transition-colors duration-150 ease-in-out hover:text-blue-600
+                transition-colors duration-150 ease-in-out hover:text-theme-link-hover
               "
               href="mailto:support@joyofrails.com"
             >support@joyofrails.com</a></li>
@@ -47,15 +50,15 @@
     </nav>
     <small
       class="
-        flex items-center justify-center w-full py-6 space-x-6 text-xs text-gray-500
-        md:justify-end dark:text-gray-300
+        flex items-center justify-center w-full py-6 space-x-6
+        text-xs text-gray-text
+        md:justify-end
       "
     >
       <div>© 2023-present joyofrails. All rights reserved.</div>
-      <a class="" href="/terms">Terms &amp; Conditions</a>
+      <%# <a class="" href="/terms">Terms &amp; Conditions</a>
       <a class="" href="/privacy">Privacy Policy</a>
-      <a class="" href="/faq">FAQ</a>
-      <%= render "darkmode/switch" %>
+      <a class="" href="/faq">FAQ</a> %>
     </small>
   </div>
 <% end %>
