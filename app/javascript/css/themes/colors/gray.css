@@ -92,9 +92,8 @@
   --slate-a12: #fcfdffef;
 }
 
-[data-joy-gray='slate'],
-[data-joy-gray='slate'] .dark,
-[data-joy-gray='slate'] .light {
+.dark,
+.light {
   --gray-1: var(--slate-1);
   --gray-12: var(--slate-12);
   --gray-base: var(--slate-1);

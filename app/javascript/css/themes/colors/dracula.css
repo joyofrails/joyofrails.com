@@ -1,36 +1,36 @@
 :root {
   --dracula-black: rgb(33, 34, 44);
-  --dracula-blackSecondary: rgb(65, 69, 88);
-  --dracula-blackTernary: rgb(167, 171, 190);
-  --dracula-blackLight: rgba(33, 34, 44, 0.05);
+  --dracula-black-secondary: rgb(65, 69, 88);
+  --dracula-black-ternary: rgb(167, 171, 190);
+  --dracula-black-light: rgba(33, 34, 44, 0.05);
   --dracula-grey: rgb(65, 69, 88);
-  --dracula-greySecondary: rgb(98, 103, 132);
-  --dracula-greyTernary: rgb(182, 185, 201);
-  --dracula-greyLight: rgba(65, 69, 88, 0.05);
+  --dracula-grey-secondary: rgb(98, 103, 132);
+  --dracula-grey-ternary: rgb(182, 185, 201);
+  --dracula-grey-light: rgba(65, 69, 88, 0.05);
   --dracula-white: rgb(248, 248, 242);
-  --dracula-whiteSecondary: rgb(255, 255, 255);
-  --dracula-whiteLight: hsla(60, 30%, 96%, 0.05);
+  --dracula-white-secondary: rgb(255, 255, 255);
+  --dracula-white-light: hsla(60, 30%, 96%, 0.05);
   --dracula-cyan: rgb(128, 255, 234);
-  --dracula-cyanSecondary: rgb(204, 255, 246);
-  --dracula-cyanLight: rgba(128, 255, 234, 0.05);
+  --dracula-cyan-secondary: rgb(204, 255, 246);
+  --dracula-cyan-light: rgba(128, 255, 234, 0.05);
   --dracula-green: rgb(138, 255, 128);
-  --dracula-greenSecondary: rgb(208, 255, 204);
-  --dracula-greenLight: rgba(138, 255, 128, 0.05);
+  --dracula-green-secondary: rgb(208, 255, 204);
+  --dracula-green-light: rgba(138, 255, 128, 0.05);
   --dracula-orange: rgb(255, 202, 128);
-  --dracula-orangeSecondary: rgb(255, 234, 204);
-  --dracula-orangeLight: rgba(255, 202, 128, 0.05);
+  --dracula-orange-secondary: rgb(255, 234, 204);
+  --dracula-orange-light: rgba(255, 202, 128, 0.05);
   --dracula-pink: rgb(255, 128, 191);
-  --dracula-pinkSecondary: rgb(255, 204, 230);
-  --dracula-pinkLight: rgba(255, 128, 191, 0.05);
+  --dracula-pink-secondary: rgb(255, 204, 230);
+  --dracula-pink-light: rgba(255, 128, 191, 0.05);
   --dracula-purple: rgb(149, 128, 255);
-  --dracula-purpleSecondary: rgb(212, 204, 255);
-  --dracula-purpleLight: rgba(149, 128, 255, 0.05);
+  --dracula-purple-secondary: rgb(212, 204, 255);
+  --dracula-purple-light: rgba(149, 128, 255, 0.05);
   --dracula-red: rgb(255, 149, 128);
-  --dracula-redSecondary: rgb(255, 212, 204);
-  --dracula-redLight: rgba(255, 149, 128, 0.05);
+  --dracula-red-secondary: rgb(255, 212, 204);
+  --dracula-red-light: rgba(255, 149, 128, 0.05);
   --dracula-yellow: rgb(255, 255, 128);
-  --dracula-yellowSecondary: rgb(255, 255, 204);
-  --dracula-yellowLight: rgba(255, 255, 128, 0.05);
+  --dracula-yellow-secondary: rgb(255, 255, 204);
+  --dracula-yellow-light: rgba(255, 255, 128, 0.05);
   --dracula-cyan-transparent: rgba(128, 255, 234, 0.1);
   --dracula-green-transparent: rgba(138, 255, 128, 0.1);
   --dracula-orange-transparent: rgba(255, 202, 128, 0.1);
@@ -110,6 +110,51 @@
   --dracula-cyan-green: linear-gradient(var(--gradientDegree), var(--cyan) 0%, var(--green) 100%);
   --dracula-pink-purple: linear-gradient(var(--gradientDegree), var(--pink) 0%, var(--purple) 100%)
 
-  --dracula-purpleMuted: rgb(189, 147, 249);
+  --dracula-purple-muted: rgb(189, 147, 249);
   --dracula-bg: rgb(40, 42, 54);
+}
+
+
+[data-joy-theme='dracula'],
+.light[data-joy-theme='dracula'] {
+  --theme-title: var(--dracula-pink);
+  --theme-base: var(--violet-2);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-line: var(--violet-6);
+  --theme-border: var(--violet-7);
+  --theme-border-hover: var(--violet-8);
+  --theme-solid: var(--violet-9);
+  --theme-solid-hover: var(--violet-10);
+  --theme-solid-text: #fff;
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-link: var(--dracula-pink-900);
+  --theme-link-hover: var(--dracula-pink-600);
+  --theme-solid-high-contrast: var(--violet-12);
+  --theme-solid-high-contrast-text: var(--violet-1);
+  --theme-alpha-ring: var(--violet-a8);
+}
+.dark[data-joy-theme='dracula'] {
+  --theme-title: var(--dracula-cyan);
+  --theme-base: var(--dracula-black);
+  --theme-bg-subtle: var(--violet-2);
+  --theme-bg: var(--violet-3);
+  --theme-bg-hover: var(--violet-4);
+  --theme-bg-active: var(--violet-5);
+  --theme-line: var(--violet-6);
+  --theme-border: var(--violet-7);
+  --theme-border-hover: var(--violet-8);
+  --theme-solid: var(--violet-9);
+  --theme-solid-hover: var(--violet-10);
+  --theme-solid-text: #fff;
+  --theme-text: var(--violet-11);
+  --theme-text-contrast: var(--violet-12);
+  --theme-link: var(--dracula-cyan);
+  --theme-link-hover: var(--dracula-cyan-900);
+  --theme-solid-high-contrast: var(--violet-12);
+  --theme-solid-high-contrast-text: var(--violet-1);
+  --theme-alpha-ring: var(--violet-a8);
 }

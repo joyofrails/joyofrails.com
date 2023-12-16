@@ -32,12 +32,12 @@ module.exports = {
     },
     extend: {
       // Overriding extensions
-      // fontFamily: {
-      //   sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      // },
+      fontFamily: {
+        logo: ['Russo One', ...defaultTheme.fontFamily.sans],
+      },
 
-      typography: typography,
       colors: colors,
+      typography: typography,
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
         sm: ['0.875rem', { lineHeight: '1.5715' }],

@@ -42,19 +42,17 @@ module.exports = (theme) => ({
   DEFAULT: {
     css: [
       {
+        '--tw-prose-links': theme('colors.theme-link'),
+        '--tw-prose-invert-links': theme('colors.theme-link'),
         'code::before': {
           content: null,
         },
         'code::after': {
           content: null,
         },
-      },
-      {
         p: {
           marginTop: 0,
         },
-      },
-      {
         pre: {
           // fontSize: em(14, 16),
           // lineHeight: round(24 / 14),

@@ -2,7 +2,7 @@ module CssHelper
   def header_classes(*additional_classes, remove: [])
     @header_classes ||= %w[
       bg-background
-      text-accent-text
+      text-theme-text
       h-16
       print:hidden
       sticky
@@ -27,7 +27,7 @@ module CssHelper
   def footer_classes(*additional_classes)
     @footer_classes ||= %w[
       antialiased
-      bg-accent-bg
+      bg-theme-bg
       mt-96
       print:hidden
     ]

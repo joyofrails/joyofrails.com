@@ -1,10 +1,6 @@
-@import 'dracula-ui/styles/dracula-ui.css';
 @import './themes/config.css';
 @import 'tailwindcss/base';
-@import './themes/dracula.css';
-@import './themes/gray.css';
-@import './themes/pink.css';
-@import './themes/violet.css';
+@import './themes/colors.css';
+@import './themes/components.css';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import './themes/headings.css';

@@ -7,4 +7,8 @@ nav.toc {
     @apply ml-4 mt-2;
     font-size: 98%;
   }
+
+  & li a:hover {
+    @apply text-gray-solid-high-contrast;
+  }
 }

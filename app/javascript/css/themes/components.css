@@ -1,3 +1,6 @@
+@import './headings.css';
+@import './scrollbar.css';
+
 :root,
 .light {
   --overlay: #fffc;
@@ -12,7 +15,7 @@
 [data-joy-gray='slate'] .light,
 .dark {
   --overlay: #09090bcc;
-  --background: var(--accent-base);
+  --background: var(--theme-base);
   --bg-card-solid: var(--background);
   --bg-card-translucent: var(--gray-2-translucent);
   --gray-muted: #a1a1aa;
