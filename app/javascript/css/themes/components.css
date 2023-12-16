@@ -1,22 +1,2 @@
 @import './headings.css';
 @import './scrollbar.css';
-
-:root,
-.light {
-  --overlay: #fffc;
-  --background: #fefefe;
-  --bg-card-solid: var(--background);
-  --bg-card-translucent: #fffc;
-  --gray-muted: #71717a;
-}
-
-[data-joy-gray='slate'],
-[data-joy-gray='slate'] .dark,
-[data-joy-gray='slate'] .light,
-.dark {
-  --overlay: #09090bcc;
-  --background: var(--theme-base);
-  --bg-card-solid: var(--background);
-  --bg-card-translucent: var(--gray-2-translucent);
-  --gray-muted: #a1a1aa;
-}
