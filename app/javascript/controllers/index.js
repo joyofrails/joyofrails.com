@@ -5,4 +5,7 @@
 import { application } from './application';
 
 import Darkmode from './darkmode';
+import TableOfContents from './table-of-contents';
+
 application.register('darkmode', Darkmode);
+application.register('table-of-contents', TableOfContents);

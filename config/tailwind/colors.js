@@ -22,5 +22,12 @@ module.exports = {
   'theme-link': 'var(--theme-link)',
   'theme-link-hover': 'var(--theme-link-hover)',
 
+  'theme-header-1': 'var(--theme-header-1)',
+  'theme-header-2': 'var(--theme-header-2)',
+  'theme-header-3': 'var(--theme-header-3)',
+  'theme-header-4': 'var(--theme-header-4)',
+  'theme-header-5': 'var(--theme-header-5)',
+  'theme-header-6': 'var(--theme-header-6)',
+
   background: 'var(--theme-base)',
 };

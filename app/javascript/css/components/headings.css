@@ -1,43 +1,21 @@
-.dark .prose {
-  & h2:nth-of-type(5n + 0),
-  & h3:nth-of-type(5n + 0),
-  & h4:nth-of-type(5n + 0),
-  & h5:nth-of-type(5n + 0) {
-    color: var(--dracula-cyan);
+.prose {
+  & h2 {
+    color: var(--theme-header-2);
   }
 
-  & h2:nth-of-type(5n + 1),
-  & h3:nth-of-type(5n + 1),
-  & h4:nth-of-type(5n + 1),
-  & h5:nth-of-type(5n + 1) {
-    color: var(--dracula-green);
+  & h3 {
+    color: var(--theme-header-3);
   }
 
-  & h2:nth-of-type(5n + 2),
-  & h3:nth-of-type(5n + 2),
-  & h4:nth-of-type(5n + 2),
-  & h5:nth-of-type(5n + 2) {
-    color: var(--dracula-yellow);
+  & h4 {
+    color: var(--theme-header-4);
   }
 
-  & h2:nth-of-type(5n + 3),
-  & h3:nth-of-type(5n + 3),
-  & h4:nth-of-type(5n + 3),
-  & h5:nth-of-type(5n + 3) {
-    color: var(--dracula-orange);
+  & h5 {
+    color: var(--theme-header-5);
   }
 
-  & h2:nth-of-type(5n + 4),
-  & h3:nth-of-type(5n + 4),
-  & h4:nth-of-type(5n + 4),
-  & h5:nth-of-type(5n + 4) {
-    color: var(--dracula-pink);
-  }
-
-  & h2:nth-of-type(5n + 5),
-  & h3:nth-of-type(5n + 5),
-  & h4:nth-of-type(5n + 5),
-  & h5:nth-of-type(5n + 5) {
-    color: var(--dracula-purple);
+  & h6 {
+    color: var(--theme-header-6);
   }
 }

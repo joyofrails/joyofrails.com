@@ -26,7 +26,7 @@
           <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
           <!-- Disable Turbolinks for same-page Table of Contents navigation
           -->
-          <nav data-turbo="false" class="toc text-sm leading-6 text-gray-text">
+          <nav data-controller="table-of-contents" data-turbo="false" class="toc text-sm leading-6 text-gray-text">
             <ul>
               <li><a href="#introduction">Introduction</a></li>
             </ul>
@@ -34,9 +34,7 @@
           </nav>
         </aside>
         <article class="max-w-screen-md">
-          <div id="introduction" class="anchor not-prose">
-            <h2 class="h-px opacity-0 overflow-hidden select-none pointer-events-none">Introduction</h2>
-          </div>
+          <h2 id="introduction" class="anchor not-prose h-px opacity-0 overflow-hidden select-none pointer-events-none">Introduction</h2>
           <div class="prose dark:prose-invert sm:prose-lg lg:prose-xl">
             <%= yield %>
           </div>
