@@ -1,5 +1,5 @@
 import debug from 'debug';
-import domReady from '../utils/domReady';
+import domReady from '../utils/dom-ready';
 
 const log = debug('app:javascript:initializers:turbo-scroll-smooth-workaround');
 
