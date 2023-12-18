@@ -1,3 +1,5 @@
 @import './components/anchors.css';
 @import './components/table-of-contents.css';
 @import './components/code.css';
+@import './components/headings.css';
+@import './components/scrollbar.css';
