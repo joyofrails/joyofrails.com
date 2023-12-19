@@ -17,27 +17,40 @@
   </header>
   <section class="bg-background">
     <div class="h-16 bg-background sticky top-0 z-[9]"></div>
-    <div class="container lg:mt-24 md:mt-20">
+    <div class="container lg:mt-12 md:mt-8">
       <div id="start-here" class="anchor sr-only"></div>
       <div class="lg:flex lg:flex-row-reverse">
         <aside
-          class="hidden lg:block lg:sticky lg:self-start lg:flex-auto ml-20 mt-1 top-[114px]"
+          class="
+            hidden lg:block lg:sticky lg:self-start lg:flex-auto ml-20 mt-1 top-[114px]
+          "
         >
           <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
           <!-- Disable Turbolinks for same-page Table of Contents navigation
           -->
-          <nav data-controller="table-of-contents" data-turbo="false" class="toc text-sm leading-6 text-gray-text">
+          <nav
+            data-controller="table-of-contents"
+            data-turbo="false"
+            class="toc text-sm leading-6 text-gray-text"
+          >
             <ul>
               <li><a href="#introduction">Introduction</a></li>
             </ul>
             <%= render_toc(current_page) %>
           </nav>
         </aside>
-        <article class="max-w-screen-md">
-          <h2 id="introduction" class="anchor not-prose h-px opacity-0 overflow-hidden select-none pointer-events-none">Introduction</h2>
-          <div class="prose dark:prose-invert sm:prose-lg lg:prose-xl">
-            <%= yield %>
-          </div>
+        <article
+          class="
+            max-w-screen-md prose dark:prose-invert sm:prose-lg lg:prose-xl
+          "
+        >
+          <h2
+            id="introduction"
+            class="
+              anchor not-prose h-px opacity-0 select-none pointer-events-none
+            "
+          >Introduction</h2>
+          <%= yield %>
         </article>
       </div>
       <div class="anchor">
