@@ -1,13 +1,11 @@
 import { Controller } from 'stimulus';
 import debug from 'debug';
 
-import domReady from '../utils/dom-ready';
-
 const log = debug('app:javascript:controllers:table-of-contents');
 
 export default class extends Controller {
-  async connect() {
-    await domReady();
+  connect() {
+    log('connect');
     const $el = this.element;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,11 +26,8 @@ export default class extends Controller {
       {
         threshold: 1.0,
         rootMargin: '0px 0px -50%',
-        // root: document.querySelector('article'),
-        // 🆕 Track the actual visibility of the element
         trackVisibility: true,
-        // 🆕 Set a minimum delay between notifications
-        delay: 1000,
+        delay: 800,
       },
     );
 
@@ -40,5 +35,12 @@ export default class extends Controller {
     document.querySelectorAll(':is(article) :is(h1, h2, h3, h4, h5, h6)').forEach((section) => {
       observer.observe(section);
     });
+
+    this.observer = observer;
+  }
+
+  disconnect() {
+    log('disconnect');
+    this.observer.disconnect();
   }
 }
