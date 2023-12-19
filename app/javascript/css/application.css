@@ -5,8 +5,3 @@
 html {
   height: 100%;
 }
-
-.bg-background,
-.bg-theme-bg {
-  transition: color 250ms ease 0s, background 250ms ease 0s;
-}

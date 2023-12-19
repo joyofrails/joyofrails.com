@@ -40,6 +40,12 @@
   --theme-link: var(--dracula-purple-900);
   --theme-link-hover: var(--dracula-purple-600);
   --background: var(--theme-base);
+  --theme-header-1: var(--violet-12);
+  --theme-header-2: var(--violet-11);
+  --theme-header-3: var(--violet-10);
+  --theme-header-4: var(--violet-9);
+  --theme-header-5: var(--violet-8);
+  --theme-header-6: var(--violet-7);
 }
 
 .dark[data-joy-theme='dracula'] {
@@ -51,7 +57,13 @@
   --theme-bg-active: var(--violet-5);
   --theme-text: var(--violet-11);
   --theme-text-contrast: var(--violet-12);
-  --theme-link: var(--dracula-cyan);
-  --theme-link-hover: var(--dracula-cyan-900);
+  --theme-link: var(--dracula-pink);
+  --theme-link-hover: var(--dracula-pink-secondary);
   --background: var(--theme-base);
+  --theme-header-1: var(--dracula-purple);
+  --theme-header-2: var(--dracula-cyan);
+  --theme-header-3: var(--dracula-green);
+  --theme-header-4: var(--dracula-yellow);
+  --theme-header-5: var(--dracula-orange);
+  --theme-header-6: var(--dracula-pink);
 }

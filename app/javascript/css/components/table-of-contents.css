@@ -11,4 +11,17 @@ nav.toc {
   & li a:hover {
     @apply text-gray-solid-high-contrast;
   }
+
+  & li a:active,
+  & li > a.active {
+    color: var(--theme-header-2);
+  }
+
+  & li > ul > li > a.active {
+    color: var(--theme-header-3);
+  }
+
+  & li > ul > li > ul > li > a.active {
+    color: var(--theme-header-4);
+  }
 }

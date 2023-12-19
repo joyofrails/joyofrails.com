@@ -1,6 +1,6 @@
 .anchor {
   @apply relative;
-  scroll-margin-top: 7rem;
+  scroll-margin-top: 5rem;
 }
 
 .anchor-link {
