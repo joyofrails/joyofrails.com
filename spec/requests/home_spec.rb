@@ -5,7 +5,13 @@ RSpec.describe "Homes", type: :request do
     it "renders" do
       get "/"
 
-      expect(response.body).to include("Hello world")
+      within("main") do
+        expect(response.body).to include("Joy of Rails")
+      end
+
+      within(".newsletter-banner") do
+        expect(response.body).to include("Sign up for an occasional email")
+      end
     end
   end
 end
