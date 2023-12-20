@@ -51,11 +51,11 @@
 .dark[data-joy-theme='dracula'] {
   --theme-title: var(--dracula-cyan);
   --theme-base: var(--dracula-black);
-  --theme-bg-subtle: var(--violet-2);
-  --theme-bg: var(--violet-3);
-  --theme-bg-hover: var(--violet-4);
-  --theme-bg-active: var(--violet-5);
-  --theme-text: var(--violet-11);
+  --theme-bg-subtle: var(--dracula-black-secondary);
+  --theme-bg: var(--dracula-black-secondary);
+  --theme-bg-hover: var(--dracula-purple-200);
+  --theme-bg-active: var(--dracula-purple);
+  --theme-text: var(--dracula-purple);
   --theme-text-contrast: var(--violet-12);
   --theme-link: var(--dracula-pink);
   --theme-link-hover: var(--dracula-pink-secondary);
