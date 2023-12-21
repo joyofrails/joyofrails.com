@@ -10,7 +10,7 @@ RSpec.describe "Homes", type: :request do
       end
 
       within(".newsletter-banner") do
-        expect(response.body).to include("Sign up for an occasional email")
+        expect(response.body).to include("A spark of joy for your inbox")
       end
     end
   end

@@ -1,7 +1,14 @@
 .button {
   @apply rounded-md px-3 py-2;
   @apply text-sm font-semibold text-white;
-  @apply bg-indigo-500 hover:bg-indigo-400;
+
+  &.primary {
+    @apply bg-indigo-500 hover:bg-indigo-400;
+  }
+
+  &.subtle {
+    @apply bg-gray-700 hover:bg-gray-600;
+  }
 }
 
 .focus-ring {
