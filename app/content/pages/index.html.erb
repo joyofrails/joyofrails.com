@@ -3,5 +3,6 @@ title: Joy of Rails
 ---
 
 <div class="container">
-  <h1 class="pb-16 text-2xl font-bold text-center md:text-4xl">Hello world</h1>
+  <h1 class="pb-16 text-2xl font-bold text-center md:text-4xl"><%= current_page.data['title'] %></h1>
+  <%= render "newsletter/banner" %>
 </div>

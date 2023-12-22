@@ -1,0 +1,16 @@
+.button {
+  @apply rounded-md px-3 py-2;
+  @apply text-sm font-semibold text-white;
+
+  &.primary {
+    @apply bg-indigo-500 hover:bg-indigo-400;
+  }
+
+  &.subtle {
+    @apply bg-gray-700 hover:bg-gray-600;
+  }
+}
+
+.focus-ring {
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500;
+}
