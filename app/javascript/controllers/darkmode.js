@@ -3,10 +3,20 @@ import debug from 'debug';
 
 const log = debug('app:javascript:controllers:darkmode');
 
+const controllers = new Set();
+
+const broadcastDark = () => {
+  controllers.forEach((controller) => controller.handleDark());
+};
+
+const broadcastLight = () => {
+  controllers.forEach((controller) => controller.handleLight());
+};
 export default class extends Controller {
   static targets = ['description', 'darkIcon', 'lightIcon'];
 
   connect() {
+    controllers.add(this);
     log('Darkmode Controller connect');
 
     if (this.hasStoredTheme('dark') || this.prefersColorTheme('dark')) {
@@ -16,16 +26,29 @@ export default class extends Controller {
     }
   }
 
+  disconnect() {
+    controllers.delete(this);
+    log('Darkmode Controller disconnect');
+  }
+
   toggle() {
     log('Darkmode Controller toggle');
 
     if (this.hasStoredTheme('dark') || this.hasRenderedTheme('dark')) {
-      this.setLight();
-      this.storeTheme('light');
+      broadcastLight();
     } else {
-      this.setDark();
-      this.storeTheme('dark');
+      broadcastDark();
     }
+  }
+
+  handleLight() {
+    this.setLight();
+    this.storeTheme('light');
+  }
+
+  handleDark() {
+    this.setDark();
+    this.storeTheme('dark');
   }
 
   hasStoredTheme(theme) {
