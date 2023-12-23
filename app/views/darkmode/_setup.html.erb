@@ -1,7 +1,8 @@
 <script type="text/javascript">
-  if (localStorage.getItem('color-theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  const colorTheme = localStorage.getItem('color-theme');
+  if (colorTheme) {
+    document.documentElement.classList.add(colorTheme)
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
   }
 </script>

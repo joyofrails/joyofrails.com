@@ -5,24 +5,48 @@ const log = debug('app:javascript:controllers:darkmode');
 
 const controllers = new Set();
 
+const DARK = 'dark';
+const LIGHT = 'light';
+const SYSTEM = 'system';
+
 const broadcastDark = () => {
-  controllers.forEach((controller) => controller.handleDark());
+  document.documentElement.classList.add(DARK);
+  document.documentElement.classList.remove(LIGHT);
+  controllers.forEach((controller) => controller.setDark());
 };
 
 const broadcastLight = () => {
-  controllers.forEach((controller) => controller.handleLight());
+  document.documentElement.classList.remove(DARK);
+  document.documentElement.classList.add(LIGHT);
+
+  controllers.forEach((controller) => controller.setLight());
 };
+
+const broadcastSystem = (color) => {
+  document.documentElement.classList.add(color);
+  document.documentElement.classList.remove(color === DARK ? LIGHT : DARK);
+
+  controllers.forEach((controller) => controller.setSystem(color));
+};
+
+const prefersColorTheme = (theme) => window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
+
+const storedTheme = () => localStorage.getItem('color-theme');
+const storeTheme = (theme) => localStorage.setItem('color-theme', theme);
+
+const removeTheme = () => localStorage.removeItem('color-theme');
 export default class extends Controller {
-  static targets = ['description', 'darkIcon', 'lightIcon'];
+  static targets = ['description', 'darkIcon', 'lightIcon', 'systemIcon'];
+
+  static modes = [DARK, LIGHT, SYSTEM];
 
   connect() {
     controllers.add(this);
-    log('Darkmode Controller connect');
 
-    if (this.hasStoredTheme('dark') || this.prefersColorTheme('dark')) {
-      this.setDark();
+    if (storedTheme()) {
+      this.setMode(storedTheme());
     } else {
-      this.setLight();
+      this.setMode(SYSTEM);
     }
   }
 
@@ -31,57 +55,65 @@ export default class extends Controller {
     log('Darkmode Controller disconnect');
   }
 
-  toggle() {
-    log('Darkmode Controller toggle');
+  setMode(mode) {
+    this.mode = mode;
 
-    if (this.hasStoredTheme('dark') || this.hasRenderedTheme('dark')) {
-      broadcastLight();
-    } else {
-      broadcastDark();
+    switch (mode) {
+      case DARK:
+        broadcastDark();
+        storeTheme(DARK);
+        break;
+      case LIGHT:
+        broadcastLight();
+        storeTheme(LIGHT);
+        break;
+      case SYSTEM:
+        if (prefersColorTheme(DARK)) {
+          broadcastSystem(DARK);
+        } else {
+          broadcastSystem(LIGHT);
+        }
+        removeTheme();
+        break;
+      default:
+        throw new Error(`Unknown mode ${mode}`);
     }
   }
 
-  handleLight() {
-    this.setLight();
-    this.storeTheme('light');
-  }
-
-  handleDark() {
-    this.setDark();
-    this.storeTheme('dark');
-  }
-
-  hasStoredTheme(theme) {
-    return localStorage.getItem('color-theme') === theme;
-  }
-
-  hasRenderedTheme(theme) {
-    return document.documentElement.classList.contains(theme);
-  }
-
-  prefersColorTheme(theme) {
-    return window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
+  toggle() {
+    const index = this.constructor.modes.indexOf(this.mode);
+    if (index === -1) {
+      throw new Error(`Unknown mode ${this.mode}`);
+    }
+    if (index >= this.constructor.modes.length - 1) {
+      this.setMode(this.constructor.modes[0]);
+    } else {
+      this.setMode(this.constructor.modes[index + 1]);
+    }
   }
 
   setDark() {
     log('Set Dark');
     this.darkIconTarget.classList.remove('hidden');
     this.lightIconTarget.classList.add('hidden');
-    document.documentElement.classList.add('dark');
+    this.systemIconTarget.classList.add('hidden');
     this.setDescription('Dark Mode');
-  }
-
-  storeTheme(theme) {
-    localStorage.setItem('color-theme', theme);
   }
 
   setLight() {
     log('Set Light');
     this.darkIconTarget.classList.add('hidden');
     this.lightIconTarget.classList.remove('hidden');
-    document.documentElement.classList.remove('dark');
-    localStorage.setItem('color-theme', 'light');
+    this.systemIconTarget.classList.add('hidden');
     this.setDescription('Light Mode');
+  }
+
+  setSystem() {
+    log('Set System');
+    this.darkIconTarget.classList.add('hidden');
+    this.lightIconTarget.classList.add('hidden');
+    this.systemIconTarget.classList.remove('hidden');
+    this.setDescription('System Mode');
   }
 
   setDescription(text) {
