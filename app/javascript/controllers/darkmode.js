@@ -9,13 +9,19 @@ const DARK = 'dark';
 const LIGHT = 'light';
 const SYSTEM = 'system';
 
+const modes = [DARK, LIGHT, SYSTEM];
+let mode = SYSTEM;
+
 const broadcastDark = () => {
+  mode = DARK;
   document.documentElement.classList.add(DARK);
   document.documentElement.classList.remove(LIGHT);
+
   controllers.forEach((controller) => controller.setDark());
 };
 
 const broadcastLight = () => {
+  mode = LIGHT;
   document.documentElement.classList.remove(DARK);
   document.documentElement.classList.add(LIGHT);
 
@@ -23,6 +29,7 @@ const broadcastLight = () => {
 };
 
 const broadcastSystem = (color) => {
+  mode = SYSTEM;
   document.documentElement.classList.add(color);
   document.documentElement.classList.remove(color === DARK ? LIGHT : DARK);
 
@@ -35,10 +42,19 @@ const storedTheme = () => localStorage.getItem('color-theme');
 const storeTheme = (theme) => localStorage.setItem('color-theme', theme);
 
 const removeTheme = () => localStorage.removeItem('color-theme');
+
+window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener('change', (e) => {
+  if (mode !== SYSTEM) return;
+
+  if (e.matches) {
+    broadcastSystem(DARK);
+  } else {
+    broadcastSystem(LIGHT);
+  }
+});
+
 export default class extends Controller {
   static targets = ['description', 'darkIcon', 'lightIcon', 'systemIcon'];
-
-  static modes = [DARK, LIGHT, SYSTEM];
 
   connect() {
     controllers.add(this);
@@ -56,8 +72,6 @@ export default class extends Controller {
   }
 
   setMode(mode) {
-    this.mode = mode;
-
     switch (mode) {
       case DARK:
         broadcastDark();
@@ -80,16 +94,15 @@ export default class extends Controller {
     }
   }
 
-  toggle() {
-    const index = this.constructor.modes.indexOf(this.mode);
+  cycle() {
+    const index = modes.indexOf(mode);
     if (index === -1) {
-      throw new Error(`Unknown mode ${this.mode}`);
+      throw new Error(`Unknown mode ${mode}`);
     }
-    if (index >= this.constructor.modes.length - 1) {
-      this.setMode(this.constructor.modes[0]);
-    } else {
-      this.setMode(this.constructor.modes[index + 1]);
-    }
+
+    const nextIndex = index >= modes.length - 1 ? 0 : index + 1;
+
+    this.setMode(modes[nextIndex]);
   }
 
   setDark() {
