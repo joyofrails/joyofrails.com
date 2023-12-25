@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env -S ruby --yjit
+
 # frozen_string_literal: true
 
 #
