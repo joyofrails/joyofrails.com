@@ -1,12 +1,12 @@
 source "https://rubygems.org"
 
-ruby "3.2.1"
+ruby "3.3.0"
 
 gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
-gem "sqlite3", "~> 1.4" # Use sqlite3 as the database for Active Record
-gem "redis" # Use Redis adapter to run Action Cable in production
+gem "sqlite3", "~> 1.4" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
+gem "redis" # Use Redis adapter to run Action Cable in production [https://github.com/redis/redis-rb]
 
 # Asset management
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
@@ -29,10 +29,9 @@ gem "markdown-rails" # Markdown as static templating language for Rails [https:/
 gem "rouge" # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
 group :development do
-  # gem "spring" # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "erb-formatter" # Format ERB files with speed and precision [https://github.com/nebulab/erb-formatter
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
   gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -42,7 +41,7 @@ end
 group :test do
   gem "capybara" # Acceptance test framework for web applications [https://github.com/teamcapybara/capybara]
   gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
-  gem "webmock" # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
+  gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
 end
 
 group :development, :test do
@@ -50,10 +49,10 @@ group :development, :test do
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
-  gem "faker" # A library for generating fake data [https://github.com/faker-ruby/faker]
+  gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
-  gem "rails_best_practices", require: false
+  gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
-  gem "standard"
+  gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
 end
