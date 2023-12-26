@@ -2,6 +2,8 @@
 
 A place to learn and celebrate the joy of using Ruby on Rails
 
+https://www.joyofrails.com
+
 ## Getting started
 
 ### Requirements
