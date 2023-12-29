@@ -3,5 +3,6 @@
 @import './components.css';
 
 html {
+  @apply bg-theme-bg;
   height: 100%;
 }

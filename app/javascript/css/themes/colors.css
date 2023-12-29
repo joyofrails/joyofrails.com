@@ -44,8 +44,8 @@
   --theme-header-2: var(--violet-11);
   --theme-header-3: var(--violet-10);
   --theme-header-4: var(--violet-9);
-  --theme-header-5: var(--violet-8);
-  --theme-header-6: var(--violet-7);
+  --theme-header-5: var(--violet-9);
+  --theme-header-6: var(--violet-9);
 }
 
 .dark[data-joy-theme='dracula'] {

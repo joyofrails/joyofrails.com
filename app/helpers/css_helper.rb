@@ -28,7 +28,7 @@ module CssHelper
     @footer_classes ||= %w[
       antialiased
       bg-theme-bg
-      mt-96
+      mt-32
       print:hidden
     ]
 
