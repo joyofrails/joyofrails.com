@@ -5,6 +5,8 @@ ruby "3.3.0"
 gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
+gem "sqlite3" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
+gem "litestack" # All-in-one solution for SQLite data storage, caching, and background jobs [https://github.com/oldmoe/litestack]
 
 # Asset management
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
