@@ -5,8 +5,6 @@ ruby "3.3.0"
 gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
-gem "sqlite3", "~> 1.4" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
-gem "redis" # Use Redis adapter to run Action Cable in production [https://github.com/redis/redis-rb]
 
 # Asset management
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
@@ -15,7 +13,7 @@ gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.h
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 
-# Utitlies
+# Utilities
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 gem "dotenv-rails" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
