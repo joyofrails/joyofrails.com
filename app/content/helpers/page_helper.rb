@@ -41,4 +41,20 @@ module PageHelper
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML_TOC, with_toc_data: true)
     raw markdown.render(page.asset.body)
   end
+
+  def ordered_articles
+    all_articles = ArticlePage.all
+
+    if Rails.env.production?
+      all_articles = all_articles.select { |article| article.data["published_at"] }
+    end
+
+    all_articles.sort_by { |article| article.data["published_at"] }.reverse
+  end
+
+  def format_date(date)
+    "NOT PUBLISHED" unless date
+
+    date.strftime("%B %d, %Y")
+  end
 end
