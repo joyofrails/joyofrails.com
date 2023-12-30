@@ -18,7 +18,6 @@ gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https:
 # Utilities
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-gem "dotenv-rails" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "tzinfo-data", platforms: %i[windows jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
@@ -48,6 +47,7 @@ group :development, :test do
   gem "brakeman", require: false # A static analysis security vulnerability scanner for Ruby on Rails applications [https://github.com/presidentbeef/brakeman]
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "dotenv-rails" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
   gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
