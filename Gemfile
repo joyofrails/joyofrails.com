@@ -5,8 +5,10 @@ ruby "3.3.0"
 gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
-gem "sqlite3", "~> 1.4" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
-gem "redis" # Use Redis adapter to run Action Cable in production [https://github.com/redis/redis-rb]
+gem "sqlite3" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
+gem "litestack" # All-in-one solution for SQLite data storage, caching, and background jobs [https://github.com/oldmoe/litestack]
+
+gem "rack", "~> 2.2", ">= 2.2.7" # litestack's liteboard depends on hanami-router which does not currently support rack 3.x as of Dec 2023
 
 # Asset management
 gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
@@ -15,10 +17,9 @@ gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.h
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 
-# Utitlies
+# Utilities
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-gem "dotenv-rails" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "tzinfo-data", platforms: %i[windows jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
@@ -48,6 +49,7 @@ group :development, :test do
   gem "brakeman", require: false # A static analysis security vulnerability scanner for Ruby on Rails applications [https://github.com/presidentbeef/brakeman]
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "dotenv-rails" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
   gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
