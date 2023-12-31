@@ -20,6 +20,9 @@ gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https:
 # Utilities
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
+gem "flipper" # Feature flipping for Ruby [https://github.com/jnunemaker/flipper]
+gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://github.com/jnunemaker/flipper-active_record]
+gem "flipper-ui" # UI for the Flipper gem [https://github.com/jnunemaker/flipper-ui]
 gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "tzinfo-data", platforms: %i[windows jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
