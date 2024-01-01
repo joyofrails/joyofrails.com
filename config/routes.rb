@@ -1,7 +1,9 @@
 require "litestack/liteboard/liteboard"
 
+# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Redirects www to root domain
+  match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
 
   sitepress_pages
 
