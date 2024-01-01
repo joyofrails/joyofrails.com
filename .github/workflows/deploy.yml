@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Verify
+    branches:
+      - main
+    types:
+      - completed
+
+concurrency:
+  group: production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Hatchbox
+        uses: hatchboxio/github-hatchbox-deploy-action@v2
+        with:
+          deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
