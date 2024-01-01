@@ -26,8 +26,13 @@
     "vite": "^5.0.0",
     "vite-plugin-rails": "^0.5.0"
   },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
   "scripts": {
     "build": "bin/vite build",
-    "test": "jest -c app/javascript/jest/jest.config.js"
+    "test": "jest -c app/javascript/jest/jest.config.js",
+    "prepare": "husky install"
   }
 }
