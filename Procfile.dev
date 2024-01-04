@@ -1,3 +1,2 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
-vite: bin/vite dev
 css: yarn build:css --watch

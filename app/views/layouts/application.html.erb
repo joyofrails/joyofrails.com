@@ -14,11 +14,7 @@
     <%= csp_meta_tag %>
     <%= render "darkmode/setup" %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
-    <%= vite_client_tag %>
-    <%= unless ViteRuby.instance.dev_server_running?
-      vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
-    end %>
-    <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
   <%= tag.body class: body_classes do %>
     <%= yield :top %>
