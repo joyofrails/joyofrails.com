@@ -12,8 +12,9 @@
     <link rel="manifest" href="/manifest.webmanifest">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= vite_client_tag %>
     <%= render "darkmode/setup" %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <%= vite_client_tag %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
     end %>

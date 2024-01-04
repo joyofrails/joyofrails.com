@@ -1,4 +1,3 @@
-@import './themes/config.css';
 @import 'tailwindcss/base';
 @import './themes/colors.css';
 @import 'tailwindcss/components';
@@ -6,3 +5,11 @@
 
 @import './themes/background.css';
 @import './themes/typography.css';
+
+@import './highlight/index.css';
+@import './components/index.css';
+
+html {
+  @apply bg-theme-bg;
+  height: 100%;
+}
