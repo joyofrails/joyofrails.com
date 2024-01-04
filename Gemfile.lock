@@ -120,7 +120,6 @@ GEM
       railties (>= 3.2)
     drb (2.2.0)
       ruby2_keywords
-    dry-cli (1.0.0)
     erb-formatter (0.6.0)
       syntax_tree (~> 6.0)
     erubi (1.12.0)
@@ -154,6 +153,10 @@ GEM
     honeybadger (5.4.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.0.1)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     inline_svg (1.9.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -241,8 +244,6 @@ GEM
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
-    rack-proxy (0.7.7)
-      rack
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.1.0)
@@ -390,13 +391,6 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    vite_rails (3.0.17)
-      railties (>= 5.1, < 8)
-      vite_ruby (~> 3.0, >= 3.2.2)
-    vite_ruby (3.5.0)
-      dry-cli (>= 0.7, < 2)
-      rack-proxy (~> 0.6, >= 0.6.1)
-      zeitwerk (~> 2.2)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -436,6 +430,7 @@ DEPENDENCIES
   flipper-active_record
   flipper-ui
   honeybadger
+  importmap-rails
   inline_svg
   jbuilder
   letter_opener
@@ -458,7 +453,6 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
-  vite_rails
   web-console
   webmock
 
