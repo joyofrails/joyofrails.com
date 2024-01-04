@@ -1,6 +1,6 @@
-import debug from 'debug';
-
 import '@hotwired/turbo-rails';
+
+import debug from '../utils/debug';
 import '../controllers';
 import '../css/application.css';
 
