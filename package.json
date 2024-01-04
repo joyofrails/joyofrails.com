@@ -15,7 +15,6 @@
     "autoprefixer": "^10.4.16",
     "debug": "^4.3.4",
     "dracula-ui": "^1.0.6",
-    "esbuild": "^0.19.8",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.31",
