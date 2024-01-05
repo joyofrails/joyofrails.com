@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus';
+import { Controller } from '@hotwired/stimulus';
 import debug from 'debug';
 
 const log = debug('app:javascript:controllers:darkmode');
@@ -36,22 +36,25 @@ const broadcastSystem = (color) => {
   controllers.forEach((controller) => controller.setSystem(color));
 };
 
-const prefersColorTheme = (theme) => window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
+const prefersColorTheme = (theme) =>
+  window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
 
 const storedTheme = () => localStorage.getItem('color-theme');
 const storeTheme = (theme) => localStorage.setItem('color-theme', theme);
 
 const removeTheme = () => localStorage.removeItem('color-theme');
 
-window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener('change', (e) => {
-  if (mode !== SYSTEM) return;
+window
+  .matchMedia(`(prefers-color-scheme: dark)`)
+  .addEventListener('change', (e) => {
+    if (mode !== SYSTEM) return;
 
-  if (e.matches) {
-    broadcastSystem(DARK);
-  } else {
-    broadcastSystem(LIGHT);
-  }
-});
+    if (e.matches) {
+      broadcastSystem(DARK);
+    } else {
+      broadcastSystem(LIGHT);
+    }
+  });
 
 export default class extends Controller {
   static targets = ['description', 'darkIcon', 'lightIcon', 'systemIcon'];

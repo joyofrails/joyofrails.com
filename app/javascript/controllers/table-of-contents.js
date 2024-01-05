@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus';
+import { Controller } from '@hotwired/stimulus';
 import debug from 'debug';
 
 const log = debug('app:javascript:controllers:table-of-contents');
@@ -32,9 +32,11 @@ export default class extends Controller {
     );
 
     // Track all sections that have an `id` applied
-    document.querySelectorAll(':is(article) :is(h1, h2, h3, h4, h5, h6)').forEach((section) => {
-      observer.observe(section);
-    });
+    document
+      .querySelectorAll(':is(article) :is(h1, h2, h3, h4, h5, h6)')
+      .forEach((section) => {
+        observer.observe(section);
+      });
 
     this.observer = observer;
   }
