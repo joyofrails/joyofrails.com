@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   sitepress_root
 
+  namespace :pwa do
+    resource :installation_instructions, only: [:show]
+  end
+
   constraints AdminAccessConstraint.new do
     mount Liteboard.app => "/liteboard"
     mount Flipper::UI.app(Flipper) => "/flipper"
