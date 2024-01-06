@@ -6,3 +6,10 @@ html {
   @apply bg-theme-bg;
   height: 100%;
 }
+
+body {
+  &:has(dialog[open]) {
+    overflow: hidden;
+    padding-right: 15px;
+  }
+}
