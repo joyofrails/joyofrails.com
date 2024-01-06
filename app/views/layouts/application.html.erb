@@ -13,11 +13,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= vite_client_tag %>
+    <%= render "darkmode/setup" %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
     end %>
     <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
-    <%= render "darkmode/setup" %>
   </head>
   <%= tag.body class: body_classes do %>
     <%= yield :top %>

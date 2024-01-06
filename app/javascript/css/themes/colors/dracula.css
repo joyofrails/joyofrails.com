@@ -14,6 +14,7 @@
   --dracula-cyan: rgb(128, 255, 234);
   --dracula-cyan-secondary: rgb(204, 255, 246);
   --dracula-cyan-light: rgba(128, 255, 234, 0.05);
+  --dracula-cyan-dark: rgb(102, 207, 190);
   --dracula-green: rgb(138, 255, 128);
   --dracula-green-secondary: rgb(208, 255, 204);
   --dracula-green-light: rgba(138, 255, 128, 0.05);
@@ -26,6 +27,7 @@
   --dracula-purple: rgb(149, 128, 255);
   --dracula-purple-secondary: rgb(212, 204, 255);
   --dracula-purple-light: rgba(149, 128, 255, 0.05);
+  --dracula-purple-dark: rgb(121, 96, 248);
   --dracula-red: rgb(255, 149, 128);
   --dracula-red-secondary: rgb(255, 212, 204);
   --dracula-red-light: rgba(255, 149, 128, 0.05);

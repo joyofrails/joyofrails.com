@@ -51,6 +51,9 @@ module.exports = {
         '6xl': ['3.5rem', { lineHeight: '1', letterSpacing: '-0.017em' }],
         '7xl': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.017em' }],
       },
+      screens: {
+        pwa: { raw: '(display-mode: standalone)' },
+      },
     },
   },
   plugins: [

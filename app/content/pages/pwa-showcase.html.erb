@@ -1,0 +1,19 @@
+---
+title: Progressive Web Apps on Rails Showcase
+layout: showcase
+---
+<section class="pwa:hidden">
+  <h2 class="anchor text-xl text-theme-text font-bold mb-2">How to use this resource</h2>
+  <p>
+    The site you are currently visiting is a itself Progressive Web Apps built with Rails.
+  </p>
+  <p>
+    To learn about PWAs on Rails, start by installing the site as an app to your homescreen of your mobile app or on your desktop.
+  </p>
+  <div data-controller="install-pwa">
+    <button data-install-pwa-target="installButton" data-action="click->install-pwa#install" class="button primary flex hidden">
+      <%= inline_svg_tag "install-app.svg", class: "w-[24px] mr-1" %>
+      Install to Homescreen
+    </button>
+  </div>
+</section>
