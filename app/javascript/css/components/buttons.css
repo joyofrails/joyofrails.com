@@ -1,6 +1,10 @@
 .button {
   @apply rounded-md px-3 py-2;
-  @apply text-sm font-semibold text-white;
+  @apply text-sm font-semibold text-white inline-flex;
+
+  &.hidden {
+    display: none;
+  }
 
   &.primary {
     @apply bg-indigo-500 hover:bg-indigo-400;
@@ -8,6 +12,15 @@
 
   &.subtle {
     @apply bg-gray-700 hover:bg-gray-600;
+  }
+
+  &:hover {
+    @apply text-white no-underline;
+  }
+
+  svg {
+    @apply fill-current;
+    width: 24px;
   }
 }
 
