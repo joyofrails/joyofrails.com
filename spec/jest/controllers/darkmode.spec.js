@@ -1,5 +1,5 @@
-import { render, startStimulus, screen, userEvent } from '../jest/utils';
-import Darkmode from './darkmode';
+import { render, startStimulus, screen, userEvent } from '../utils';
+import Darkmode from '../../../app/javascript/controllers/darkmode';
 
 const user = userEvent.setup();
 

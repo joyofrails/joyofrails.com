@@ -1,32 +1,17 @@
-import debug from 'debug';
-
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import '@hotwired/turbo-rails';
-import '../controllers';
-import '../css/application.css';
 
-import { turboScrollSmoothWorkaround } from '../initializers';
+import debug from './utils/debug';
+import './controllers';
 
-import '../initializers/serviceworker-companion';
+import turboScrollSmoothWorkaround from './initializers/turbo-scroll-smooth-workaround';
+
+import './initializers/serviceworker-companion';
 
 const log = debug('app:javascript:entrypoints:application');
 // To see this message, add the following to the `<head>` section in your
 // views/layouts/application.html.erb
 //
-//    <%= vite_client_tag %>
-//    <%= vite_javascript_tag 'application' %>
-log('Vite ⚡️ Rails');
-
-// If using a TypeScript entrypoint file:
-//     <%= vite_typescript_tag 'application' %>
-//
-// If you want to use .jsx or .tsx, add the extension:
-//     <%= vite_javascript_tag 'application.jsx' %>
-
-log(
-  'Visit the guide for more information: ',
-  'https://vite-ruby.netlify.app/guide/rails',
-);
-
 // Example: Load Rails libraries in Vite.
 //
 // import * as Turbo from '@hotwired/turbo'

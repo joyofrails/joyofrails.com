@@ -1,0 +1,22 @@
+@import 'tailwindcss/base';
+@import './themes/colors.css';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './themes/background.css';
+@import './themes/typography.css';
+
+@import './highlight/index.css';
+@import './components/index.css';
+
+html {
+  @apply bg-theme-bg;
+  height: 100%;
+}
+
+body {
+  &:has(dialog[open]) {
+    overflow: hidden;
+    padding-right: 15px;
+  }
+}

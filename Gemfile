@@ -11,11 +11,11 @@ gem "litestack" # All-in-one solution for SQLite data storage, caching, and back
 gem "rack", "~> 2.2", ">= 2.2.7" # litestack's liteboard depends on hanami-router which does not currently support rack 3.x as of Dec 2023
 
 # Asset management
-gem "jsbundling-rails" # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "sprockets-rails" # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
+gem "cssbundling-rails" # Bundle and process CSS in Rails with Tailwind, PostCSS, and Sass via Node.js [https://github.com/rails/cssbundling-rails]
+gem "importmap-rails" # Import maps for Rails [https://github.com/rails/importmap-rails]
 
 # Utilities
 # gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

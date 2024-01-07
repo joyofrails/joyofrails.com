@@ -1,8 +1,0 @@
-@import './themes/config.css';
-@import 'tailwindcss/base';
-@import './themes/colors.css';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-@import './themes/background.css';
-@import './themes/typography.css';

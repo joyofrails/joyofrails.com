@@ -6,8 +6,7 @@ function onInstall(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function prefill(cache) {
       return cache.addAll([
-        '<%= vite_asset_path "application.js" %>',
-        '<%= vite_asset_path "application.css" %>',
+        '<%= asset_path "application.css" %>',
         '<%= asset_path "joy-logo.svg" %>',
         '/favicon.ico',
       ]);

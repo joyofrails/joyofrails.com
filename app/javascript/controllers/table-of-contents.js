@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+
+import debug from '../utils/debug';
 
 const log = debug('app:javascript:controllers:table-of-contents');
 
