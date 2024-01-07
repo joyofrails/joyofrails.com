@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resource :installation_instructions, only: [:show]
   end
 
-  constraints AdminAccessConstraint.new do
+  scope "admin", constraints: AdminAccessConstraint.new do
     mount Liteboard.app => "/liteboard"
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
