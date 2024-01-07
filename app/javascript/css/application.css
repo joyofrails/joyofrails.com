@@ -13,3 +13,7 @@ body {
     padding-right: 15px;
   }
 }
+
+dialog {
+  max-width: min(90%, 940px);
+}
