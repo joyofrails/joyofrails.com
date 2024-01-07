@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :unconfirmed do
       confirmed_at { nil }
     end
+
+    trait :admin do
+      admin { true }
+    end
   end
 end
