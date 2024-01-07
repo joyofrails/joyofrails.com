@@ -5,6 +5,8 @@ on: [push]
 
 env:
   RAILS_ENV: test
+  ADMIN_EMAIL: admin@example.com
+  ADMIN_PASSWORD: secret
 
 jobs:
   linters:
