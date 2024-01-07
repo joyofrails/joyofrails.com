@@ -54,6 +54,11 @@ jobs:
           node-version: '18.15.0'
           cache: yarn
 
+      - name: Setup geckodriver
+        uses: browser-actions/setup-geckodriver@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Install packages
         run: |
           yarn install --pure-lockfile
