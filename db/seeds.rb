@@ -6,3 +6,5 @@ if File.exist?(Rails.root.join("db", "seeds", "#{Rails.env}.rb"))
   puts "Loading #{Rails.env} seeds..."
   require Rails.root.join("db", "seeds", "#{Rails.env}.rb")
 end
+
+# Create admin user account
