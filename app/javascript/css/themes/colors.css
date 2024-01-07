@@ -58,7 +58,7 @@
   --theme-text: var(--dracula-purple);
   --theme-text-contrast: var(--violet-12);
   --theme-link: var(--dracula-pink);
-  --theme-link-hover: var(--dracula-pink-secondary);
+  --theme-link-hover: var(--dracula-pink-900);
   --background: var(--theme-base);
   --theme-header-1: var(--dracula-purple);
   --theme-header-2: var(--dracula-cyan);
