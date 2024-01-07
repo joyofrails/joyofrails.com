@@ -8,3 +8,11 @@ if File.exist?(Rails.root.join("db", "seeds", "#{Rails.env}.rb"))
 end
 
 # Create admin user account
+User.find_or_create_by!(
+  email: ENV.fetch("ADMIN_EMAIL")
+) do |u|
+  u.password = ENV.fetch("ADMIN_PASSWORD")
+  u.password_confirmation = ENV.fetch("ADMIN_PASSWORD")
+  u.admin = true
+  u.confirmed_at = Time.zone.now
+end
