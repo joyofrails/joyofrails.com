@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "pwa_install_info" do %>
+<%= turbo_frame_tag "pwa_installation_instructions" do %>
   <h5 class="font-semibold mb-2">How to Install on <%= @installation_instructions.os_name %></h5>
   <%= begin
     render @installation_instructions.partial_name, installation_instructions: @installation_instructions

@@ -10,10 +10,10 @@ layout: showcase
   <p>
     To learn about PWAs on Rails, start by installing the site as an app to your homescreen of your mobile app or on your desktop.
   </p>
-  <div data-controller="install-pwa">
+  <div data-controller="pwa-installation">
     <button
-      data-install-pwa-target="installButton"
-      data-action="click->install-pwa#install"
+      data-pwa-installation-target="installButton"
+      data-action="click->pwa-installation#install"
       class="button primary hidden"
     >
       <%= inline_svg_tag "install-app.svg", class: "w-[24px] mr-1", aria_hidden: true %>
@@ -22,16 +22,16 @@ layout: showcase
     <%= link_to pwa_installation_instructions_path,
       class: "button primary hidden",
       data: {
-        install_pwa_target: "infoButton",
-        action: "click->install-pwa#openDialog",
-        turbo_frame: "pwa_install_info"
+        pwa_installation_target: "infoButton",
+        action: "click->pwa-installation#openDialog",
+        turbo_frame: "pwa_installation_instructions"
       } do %>
       <%= inline_svg_tag "install-app.svg", class: "w-[24px] mr-1", aria_hidden: true %>
       Install to Homescreen
     <% end %>
-    <dialog data-install-pwa-target="dialog" data-action="click->install-pwa#clickOutside" class="p-4 w-3/4">
-      <%= turbo_frame_tag "pwa_install_info" %>
-      <a data-action="click->install-pwa#closeDialog" href="#" class="button subtle">Close</a>
+    <dialog data-pwa-installation-target="dialog" data-action="click->pwa-installation#clickOutside" class="p-4">
+      <%= turbo_frame_tag "pwa_installation_instructions" %>
+      <a data-action="click->pwa-installation#closeDialog" href="#" class="button subtle">Close</a>
     </dialog>
   </div>
 </section>

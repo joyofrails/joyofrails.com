@@ -1,12 +1,15 @@
 import { Controller } from '@hotwired/stimulus';
 import debug from 'debug';
 
-const log = debug('app:javascript:controllers:install-pwa');
+const log = debug('app:javascript:controllers:pwa-installation');
 
 let installPromptEvent;
 
 const controllers = new Set();
 
+// Listen for the `beforeinstallprompt` event to customize the install prompt UX with our own button.
+// Note that this event is currently only implemented in Chromium based browsers.
+// @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener('beforeinstallprompt', async (event) => {
   event.preventDefault();
 
@@ -17,7 +20,7 @@ window.addEventListener('beforeinstallprompt', async (event) => {
   controllers.forEach((controller) => controller.showInstallButton());
 });
 
-// Reference: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Create_a_standalone_app
+// @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Create_a_standalone_app
 const isStandaloneApp = window.matchMedia('(display-mode: standalone)').matches;
 
 const supportsInstallPrompt = 'onbeforeinstallprompt' in window;
