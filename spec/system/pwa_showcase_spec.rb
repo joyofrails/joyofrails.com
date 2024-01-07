@@ -20,7 +20,7 @@ RSpec.describe "PWA Showcase", type: :system do
       click_link "Progress Web Apps on Rails Showcase"
       click_link "Install to Homescreen"
 
-      expect(page).to have_content("PWA installation is not currently supported in Firefox.")
+      expect(page).to have_content("PWA installation is not currently supported in Firefox on desktop.")
     end
   end
 end

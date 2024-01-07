@@ -7,9 +7,14 @@ module Pwa
     end
 
     def partial_name
+      return "desktop_firefox" if installation_browser == "firefox" && desktop?
       return "unsupported" if installation_os == "unsupported" || installation_browser == "unsupported"
 
       "#{installation_os}_#{installation_browser}"
+    end
+
+    def desktop?
+      @device_detector.device_type == "desktop"
     end
 
     def os_name
