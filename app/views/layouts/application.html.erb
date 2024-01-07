@@ -3,7 +3,9 @@
   <head>
     <title>Joy of Rails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= render "application/google_fonts" %>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
@@ -11,11 +13,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= vite_client_tag %>
+    <%= render "darkmode/setup" %>
     <%= unless ViteRuby.instance.dev_server_running?
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
     end %>
     <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
-    <%= render "darkmode/setup" %>
   </head>
   <%= tag.body class: body_classes do %>
     <%= yield :top %>

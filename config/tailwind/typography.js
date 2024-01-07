@@ -1404,7 +1404,7 @@ module.exports = {
     css: [
       {
         color: 'var(--tw-prose-body)',
-        maxWidth: '65ch',
+        maxWidth: null,
         p: {}, // Required to maintain correct order when merging
         '[class~="lead"]': {
           color: 'var(--tw-prose-lead)',
