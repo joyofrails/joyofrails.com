@@ -22,6 +22,7 @@
   <%= tag.body class: body_classes do %>
     <%= yield :top %>
     <%= render "header" %>
+    <div class="flash"><%= render "flash" %></div>
     <main
       class="
         w-full flex flex-col flex-grow
