@@ -15,6 +15,10 @@ class AdminUser < ApplicationRecord
     confirmed_at.present?
   end
 
+  def unconfirmed?
+    !confirmed?
+  end
+
   def generate_confirmation_token
     signed_id(expires_in: CONFIRMATION_TOKEN_EXPIRATION, purpose: :confirmation_email)
   end

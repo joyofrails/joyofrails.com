@@ -1,0 +1,14 @@
+<div class="container">
+  <h1 class="pb-16 text-2xl font-bold text-center md:text-4xl">Sign in</h1>
+  <%= form_with url: admin_users_sessions_path, scope: :admin_user do |form| %>
+    <div>
+      <%= form.label :email %>
+      <%= form.email_field :email, required: true %>
+    </div>
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password, required: true %>
+    </div>
+    <%= form.button "Sign in", type: :submit %>
+  <% end %>
+</div>

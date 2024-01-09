@@ -15,6 +15,16 @@
         "
         href="/articles"
       >Articles</a>
+      <% if current_admin_user %>
+        <a
+          class="
+            flex items-center h-full px-2
+            rounded mr-2
+            hover:bg-theme-bg-hover
+          "
+          href="/"
+        ><%= current_admin_user.email %></a>
+      <% end %>
       <%= render "darkmode/switch" %>
     </nav>
   </div>

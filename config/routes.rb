@@ -17,11 +17,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   sitepress_root
 
+  namespace :admin_users do
+    resources :sessions, only: [:new, :create, :destroy]
+  end
+
   namespace :pwa do
     resource :installation_instructions, only: [:show]
   end
 
-  scope "admin", constraints: AdminAccessConstraint.new do
+  scope :admin, constraints: AdminAccessConstraint.new do
     mount Liteboard.app => "/liteboard"
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
