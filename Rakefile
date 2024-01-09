@@ -9,7 +9,6 @@ task default: %i[
   standard
   spec
   jest
-  rails_best_practices:run
   brakeman:run
   bundle:audit
 ]
