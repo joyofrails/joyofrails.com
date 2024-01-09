@@ -1,0 +1,24 @@
+.flash {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+
+  max-width: 100%;
+  width: max-content;
+  padding: 0 var(--space-m);
+
+  &__message {
+    font-size: var(--font-size-s);
+    color: var(--color-white);
+    padding: var(--space-xs) var(--space-m);
+    background-color: var(--color-dark);
+    animation: appear-then-fade 4s both;
+    border-radius: 999px;
+  }
+}
