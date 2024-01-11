@@ -3,6 +3,9 @@
 name: Verify
 on: [push]
 
+env:
+  RAILS_ENV: test
+
 jobs:
   linters:
     name: Linters
@@ -102,4 +105,8 @@ jobs:
           bin/rails db:setup
 
       - name: Make sure assets compile
-        run: SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bin/rails assets:precompile
+        run: |
+          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} \
+          SECRET_KEY_BASE_DUMMY=1 \
+          RAILS_ENV=production \
+          bin/rails assets:precompile
