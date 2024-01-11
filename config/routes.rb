@@ -1,13 +1,8 @@
 require "litestack/liteboard/liteboard"
 
+require_relative "../app/lib/routes/admin_access_constraint"
+
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-class AdminAccessConstraint
-  def matches?(_request)
-    Flipper.enabled?(:admin_access)
-  end
-end
-
 Rails.application.routes.draw do
   # Redirects www to root domain
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
@@ -29,7 +24,7 @@ Rails.application.routes.draw do
     resource :installation_instructions, only: [:show]
   end
 
-  scope :admin, constraints: AdminAccessConstraint.new do
+  scope :admin, constraints: Routes::AdminAccessConstraint.new do
     mount Liteboard.app => "/liteboard"
     mount Flipper::UI.app(Flipper) => "/flipper"
   end

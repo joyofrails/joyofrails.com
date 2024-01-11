@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Admin", type: :request do
   describe "GET admin" do
-    context "when feature enabled" do
-      before { Flipper.enable(:admin_access) }
+    context "when signed in as admin user" do
+      before { login_admin_user }
 
       it "renders liteboard" do
         get "/admin/liteboard"
@@ -18,9 +18,7 @@ RSpec.describe "Admin", type: :request do
       end
     end
 
-    context "when feature enabled" do
-      before { Flipper.disable(:admin_access) }
-
+    context "when signed out" do
       it "does not render liteboard" do
         get "/admin/liteboard"
 
