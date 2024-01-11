@@ -5,11 +5,14 @@ RSpec.describe "AdminUser sessions", type: :system do
     admin_user = FactoryBot.create(:admin_user)
 
     visit new_admin_users_session_path
+    expect(page).to have_text("Sign in to your admin account")
 
     fill_in "Email", with: admin_user.email
     fill_in "Password", with: "password"
 
     click_button "Sign in"
+
+    expect(page).not_to have_text("Sign in to your admin account")
 
     expect(page).to have_text("Signed in successfully.")
 
