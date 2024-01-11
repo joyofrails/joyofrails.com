@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   sitepress_root
 
   namespace :admin_users do
-    resources :sessions, only: [:new, :create, :destroy]
+    resources :sessions, only: [:new, :create] do
+      collection do
+        delete "sign_out" => "sessions#destroy", :as => "destroy"
+      end
+    end
   end
 
   namespace :pwa do

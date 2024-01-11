@@ -11,6 +11,10 @@ class AdminUsers::SessionsController < ApplicationController
   end
 
   def destroy
+    warden.logout(:admin_user)
+    warden.clear_strategies_cache!(scope: :admin_user)
+
+    redirect_to root_path, notice: "Signed out successfully."
   end
 
   def fail
