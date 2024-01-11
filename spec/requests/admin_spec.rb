@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Admin", type: :request do
-  before(:each) do
-    host! "example.com"
-  end
-
   describe "GET admin" do
     context "when feature enabled" do
       before { Flipper.enable(:admin_access) }
