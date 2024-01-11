@@ -36,6 +36,9 @@ gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/ge
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
+# Clients
+gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
+
 group :development do
   gem "erb-formatter" # Format ERB files with speed and precision [https://github.com/nebulab/erb-formatter
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]

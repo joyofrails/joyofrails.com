@@ -149,6 +149,7 @@ GEM
       rack (~> 2.0)
     hansi (0.2.1)
     hashdiff (1.0.1)
+    honeybadger (5.4.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     inline_svg (1.9.0)
@@ -433,6 +434,7 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
+  honeybadger
   inline_svg
   jbuilder
   jsbundling-rails
