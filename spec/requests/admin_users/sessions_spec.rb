@@ -8,7 +8,7 @@ RSpec.describe "AdminUsers::Sessions", type: :request do
     end
 
     it "redirects if already signed in" do
-      login_as(FactoryBot.create(:admin_user), scope: :admin_user)
+      login_admin_user
       get new_admin_users_session_path
       expect(response).to have_http_status(:found)
     end
@@ -34,7 +34,7 @@ RSpec.describe "AdminUsers::Sessions", type: :request do
 
     it "redirects if already signed in" do
       admin_user = FactoryBot.create(:admin_user, email: "joy@joyofrails.com", password: "password")
-      login_as(admin_user, scope: :admin_user)
+      login_admin_user(admin_user)
       FactoryBot.create(:admin_user, email: "another@joyofrails.com", password: "password")
 
       post admin_users_sessions_path, params: {admin_user: {email: "another@joyofrails.com", password: "password"}}

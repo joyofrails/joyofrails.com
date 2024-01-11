@@ -36,7 +36,7 @@ RSpec.describe "AdminUser sessions", type: :system do
   it "signs out admin_user" do
     admin_user = FactoryBot.create(:admin_user)
 
-    login_as(admin_user, scope: :admin_user)
+    login_admin_user(admin_user)
 
     visit root_path
 
