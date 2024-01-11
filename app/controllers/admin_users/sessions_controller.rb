@@ -12,4 +12,15 @@ class AdminUsers::SessionsController < ApplicationController
 
   def destroy
   end
+
+  def fail
+    warden_options = request.env["warden.options"] || {}
+    warden_message = warden_options[:message]
+
+    if warden_message == :invalid
+      flash.now[:alert] = "Incorrect email or password."
+    end
+
+    render :new, status: :unprocessable_entity
+  end
 end

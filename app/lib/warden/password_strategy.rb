@@ -7,7 +7,7 @@ class PasswordStrategy < ::Warden::Strategies::Base
 
   def authenticate!
     user = AdminUser.authenticate(email: scoped_params["email"], password: scoped_params["password"])
-    user.nil? ? fail!("Could not log in") : success!(user)
+    user ? success!(user) : fail!(:invalid)
   end
 
   def scoped_params

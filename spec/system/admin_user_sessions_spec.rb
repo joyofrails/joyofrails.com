@@ -15,4 +15,18 @@ RSpec.describe "AdminUser sessions", type: :system do
 
     expect(page).to have_text(admin_user.email)
   end
+
+  it "fails sign in" do
+    user = FactoryBot.create(:admin_user)
+
+    visit new_admin_users_session_path
+
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "wrong-password"
+
+    click_button "Sign in"
+
+    expect(current_path).to eq(new_admin_users_session_path)
+    expect(page).to have_text("Incorrect email or password.")
+  end
 end
