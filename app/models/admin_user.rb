@@ -7,6 +7,10 @@ class AdminUser < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
 
+  def self.authenticate(email:, password:)
+    find_by(email: email.downcase).try(:authenticate, password)
+  end
+
   def confirm!
     update_column(:confirmed_at, Time.zone.now)
   end

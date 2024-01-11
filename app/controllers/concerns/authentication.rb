@@ -8,23 +8,18 @@ module Authentication
     helper_method :admin_user_signed_in?
   end
 
-  def login(admin_user)
-    reset_session
-    session[:current_admin_user_id] = admin_user.id
-  end
-
-  def logout
-    reset_session
+  def warden
+    request.env["warden"]
   end
 
   def redirect_if_authenticated
     redirect_to root_path, alert: "You are already logged in." if admin_user_signed_in?
   end
 
-  private
+  protected
 
   def current_admin_user
-    Current.admin_user ||= session[:current_admin_user_id] && AdminUser.find_by(id: session[:current_admin_user_id])
+    Current.admin_user ||= warden.user(scope: :admin_user)
   end
 
   def admin_user_signed_in?
