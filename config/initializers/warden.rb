@@ -1,5 +1,6 @@
-require_relative "../../app/lib/warden/setup"
-require_relative "../../app/lib/warden/password_strategy"
+require "warden"
+require_relative "../../app/lib/warden_extensions/setup"
+require_relative "../../app/lib/warden_extensions/password_strategy"
 
 Rails.configuration.middleware.use Warden::Manager do |manager|
   manager.failure_app = proc { |env|
@@ -8,3 +9,5 @@ Rails.configuration.middleware.use Warden::Manager do |manager|
   }
   manager.default_strategies :password # needs to be defined
 end
+
+WardenExtensions::Setup.configure_manager
