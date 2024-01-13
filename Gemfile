@@ -41,7 +41,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
 
 group :development do
-  gem "erb-formatter" # Format ERB files with speed and precision [https://github.com/nebulab/erb-formatter
+  gem "erb_lint", require: false # ERB linting tool [https://github.com/Shopify/erb-lint]
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
   gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -62,7 +62,7 @@ group :development, :test do
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
   gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
-  gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
+  gem "reek", git: "https://github.com/troessner/reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
   gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
 end

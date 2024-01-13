@@ -3,8 +3,7 @@
     aria-label="Change Color Scheme"
     data-darkmode-target="description"
     data-action="click->darkmode#cycle"
-    class="hidden mr-3 cursor-pointer"
-  >Light Mode</span>
+    class="hidden mr-3 cursor-pointer">Light Mode</span>
   <button
     data-action="click->darkmode#cycle"
     id="theme-cycle"
@@ -15,8 +14,7 @@
       p-2.5
     "
     aria-label="Change Color Scheme"
-    role="button"
-  >
+    role="button">
     <%= inline_svg_tag "darkmode/moon.svg", data: { "darkmode-target" => "darkIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>
     <%= inline_svg_tag "darkmode/sun.svg", data: { "darkmode-target" => "lightIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>
     <%= inline_svg_tag "darkmode/eclipse.svg", data: { "darkmode-target" => "systemIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>

@@ -1,3 +1,4 @@
 {
-  "*.rb": "bin/standardrb --fix"
+  "*.rb": "bin/standardrb --fix",
+  "*.erb": "bin/erblint -a"
 }
