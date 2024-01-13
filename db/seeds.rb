@@ -9,8 +9,9 @@ end
 
 # Create admin user account
 AdminUser.find_or_create_by!(
-  email: ENV.fetch("ADMIN_EMAIL")
+  email: Rails.application.credentials.seeds.admin_email
 ) do |u|
-  u.password = ENV.fetch("ADMIN_PASSWORD")
-  u.password_confirmation = ENV.fetch("ADMIN_PASSWORD")
+  password = Rails.application.credentials.seeds.admin_password
+  u.password = password
+  u.password_confirmation = password
 end

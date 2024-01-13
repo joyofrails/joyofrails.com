@@ -3,11 +3,6 @@
 name: Verify
 on: [push]
 
-env:
-  RAILS_ENV: test
-  ADMIN_EMAIL: admin@example.com
-  ADMIN_PASSWORD: secret
-
 jobs:
   linters:
     name: Linters
@@ -75,6 +70,8 @@ jobs:
           bin/rails db:setup
 
       - name: Run tests
+        env:
+          RAILS_ENV: test
         run: bin/rspec
 
   assets:
