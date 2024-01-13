@@ -26,13 +26,20 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Run linters
+      - name: Run Ruby linter
         run: |
           bin/standardrb --parallel
 
-      - name: Run security checks
+      - name: Run ERB linter
+        run: |
+          bin/erblint --lint-all
+
+      - name: Run Bundler audit
         run: |
           bin/bundler-audit --update
+
+      - name: Run security checks
+        run: |
           bin/brakeman -q -w2
 
   tests:
