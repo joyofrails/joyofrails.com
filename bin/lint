@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+echo "Linting ERB files..."
+bin/erblint --lint-all -a
+
+echo "\nRunning Standard..."
+bin/standardrb --fix
+
+echo "Done."
