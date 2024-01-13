@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/troessner/reek
+  revision: 8fd76c542d6224bc3d72d6445c3ff4301ea68847
+  specs:
+    reek (6.2.0)
+      dry-schema (~> 1.13.0)
+      parser (~> 3.3.0)
+      rainbow (>= 2.0, < 4.0)
+      rexml (~> 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -127,6 +137,33 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     dry-cli (1.0.0)
+    dry-configurable (1.1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-inflector (1.0.0)
+    dry-initializer (3.1.1)
+    dry-logic (1.5.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-schema (1.13.3)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 1.0, >= 1.0.1)
+      dry-core (~> 1.0, < 2)
+      dry-initializer (~> 3.0)
+      dry-logic (>= 1.4, < 2)
+      dry-types (>= 1.7, < 2)
+      zeitwerk (~> 2.6)
+    dry-types (1.7.2)
+      bigdecimal (~> 3.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 1.0)
+      dry-inflector (~> 1.0)
+      dry-logic (~> 1.4)
+      zeitwerk (~> 2.6)
     erb_lint (0.5.0)
       activesupport
       better_html (>= 2.0.1)
@@ -178,7 +215,6 @@ GEM
     jsbundling-rails (1.2.1)
       railties (>= 6.0.0)
     json (2.6.3)
-    kwalify (0.7.2)
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
@@ -238,7 +274,7 @@ GEM
     oj (3.16.3)
       bigdecimal (>= 3.0)
     parallel (1.23.0)
-    parser (3.2.2.4)
+    parser (3.3.0.3)
       ast (~> 2.4.1)
       racc
     psych (5.1.1.1)
@@ -304,10 +340,6 @@ GEM
     rdoc (6.6.0)
       psych (>= 4.0.0)
     redcarpet (3.6.0)
-    reek (6.1.4)
-      kwalify (~> 0.7.0)
-      parser (~> 3.2.0)
-      rainbow (>= 2.0, < 4.0)
     regexp_parser (2.8.2)
     reline (0.4.1)
       io-console (~> 0.5)
@@ -461,7 +493,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 7.1)
   rails_best_practices
-  reek
+  reek!
   rouge
   rspec-rails
   selenium-webdriver

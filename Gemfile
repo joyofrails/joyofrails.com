@@ -62,7 +62,7 @@ group :development, :test do
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
   gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
-  gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
+  gem "reek", git: "https://github.com/troessner/reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
   gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
 end
