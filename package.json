@@ -30,6 +30,9 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
+  },
   "scripts": {
     "build": "bin/vite build",
     "test": "jest -c app/javascript/jest/jest.config.js",
