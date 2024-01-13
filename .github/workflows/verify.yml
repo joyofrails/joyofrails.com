@@ -17,14 +17,18 @@ jobs:
           bundler-cache: true
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.15.0'
-          cache: yarn
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Node version
+        run: |
+          node --version
 
       - name: Install packages
         run: |
-          yarn install --pure-lockfile
+          npm ci
 
       - name: Run Ruby linter
         run: |
@@ -56,19 +60,23 @@ jobs:
           bundler-cache: true
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.15.0'
-          cache: yarn
+          node-version-file: .node-version
+          cache: npm
 
       - name: Setup geckodriver
         uses: browser-actions/setup-geckodriver@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Node version
+        run: |
+          node --version
+
       - name: Install packages
         run: |
-          yarn install --pure-lockfile
+          npm ci
 
       - name: Setup test database
         env:
@@ -95,14 +103,18 @@ jobs:
           bundler-cache: true
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.15.0'
-          cache: yarn
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Node version
+        run: |
+          node --version
 
       - name: Install packages
         run: |
-          yarn install --pure-lockfile
+          npm ci
 
       - name: Setup test database
         env:

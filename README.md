@@ -54,7 +54,7 @@ bin/rspec
 Run Jest tests
 
 ```
-yarn test
+npm run test
 ```
 
 Run the following to run all tests
