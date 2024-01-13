@@ -15,6 +15,21 @@
         "
         href="/articles"
       >Articles</a>
+      <% if current_admin_user %>
+        <a
+          class="
+            flex items-center h-full px-2
+            rounded mr-2
+            hover:bg-theme-bg-hover
+          "
+          href="/"
+        ><%= current_admin_user.email %></a>
+        <%= button_to "Sign out", destroy_admin_users_sessions_path, method: :delete, class: "
+            flex items-center h-full px-2
+            rounded mr-2
+            hover:bg-theme-bg-hover
+          " %>
+      <% end %>
       <%= render "darkmode/switch" %>
     </nav>
   </div>

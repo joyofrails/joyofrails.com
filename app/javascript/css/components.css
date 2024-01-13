@@ -1,6 +1,10 @@
+@import './config/animations.css';
+
 @import './components/anchors.css';
-@import './components/table-of-contents.css';
 @import './components/buttons.css';
 @import './components/code.css';
+@import './components/flash.css';
+@import './components/forms.css';
 @import './components/headings.css';
 @import './components/scrollbar.css';
+@import './components/table-of-contents.css';

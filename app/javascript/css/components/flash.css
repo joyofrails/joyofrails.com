@@ -1,0 +1,14 @@
+.flash {
+  @apply gap-0.5 fixed flex flex-col items-center max-w-full;
+
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: max-content;
+
+  &__message {
+    @apply text-sm p-4 text-white rounded-md font-semibold bg-theme-bg-active;
+    animation: appear-then-fade 4s both;
+  }
+}

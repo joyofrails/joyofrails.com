@@ -2,8 +2,16 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+if File.exist?(Rails.root.join("db", "seeds", "#{Rails.env}.rb"))
+  puts "Loading #{Rails.env} seeds..."
+  require Rails.root.join("db", "seeds", "#{Rails.env}.rb")
+end
+
+# Create admin user account
+AdminUser.find_or_create_by!(
+  email: Rails.application.credentials.seeds.admin_email
+) do |u|
+  password = Rails.application.credentials.seeds.admin_password
+  u.password = password
+  u.password_confirmation = password
+end
