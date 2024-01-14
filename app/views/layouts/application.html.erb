@@ -18,6 +18,7 @@
       vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
     end %>
     <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <script defer data-domain="joyofrails.com" src="https://plausible.io/js/script.js"></script>
   </head>
   <%= tag.body class: body_classes do %>
     <%= yield :top %>
