@@ -226,6 +226,10 @@ GEM
       rack
       sqlite3
       tilt
+    litestream (0.3.1)
+    litestream (0.3.1-arm64-darwin)
+    litestream (0.3.1-arm64-linux)
+    litestream (0.3.1-x86_64-linux)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -404,6 +408,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.7.0-aarch64-linux)
+    sqlite3 (1.7.0-arm-linux)
     sqlite3 (1.7.0-arm64-darwin)
     sqlite3 (1.7.0-x86_64-linux)
     standard (1.32.0)
@@ -461,6 +466,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin-22
+  arm64-linux
   x86_64-linux
 
 DEPENDENCIES
@@ -483,6 +489,7 @@ DEPENDENCIES
   jbuilder
   letter_opener
   litestack
+  litestream
   mail_interceptor
   markdown-rails
   puma (>= 5.0)

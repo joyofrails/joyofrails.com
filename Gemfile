@@ -38,6 +38,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 
 # Clients
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
+gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 
 group :development do
   gem "erb_lint", require: false # ERB linting tool [https://github.com/Shopify/erb-lint]
