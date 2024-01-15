@@ -5,7 +5,11 @@ module LitestreamExtensions
     module_function
 
     def configure_litestream
-      File.write(Rails.root.join("config", "litestream.yml"), YAML.dump(litestream_config))
+      File.write(config_path, YAML.dump(litestream_config))
+    end
+
+    def config_path
+      Rails.root.join("config", "litestream", "#{Rails.env}.yml")
     end
 
     def litestream_config
