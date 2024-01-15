@@ -4,6 +4,8 @@
 # This allows you to configure Litestream using Rails encrypted credentials,
 # or some other mechanism where the values are only avaialble at runtime.
 
+litestream_credentials = Rails.application.credentials.litestream
+
 Litestream.configure do |config|
   # An example of using Rails encrypted credentials to configure Litestream.
   # litestream_credentials = Rails.application.credentials.litestream
@@ -30,9 +32,23 @@ Litestream.configure do |config|
   # Litestream needs authentication credentials to access your storage provider bucket.
   # In this example, we are using Rails encrypted credentials to store the access key ID.
   # config.replica_key_id = litestream_credentials.replica_key_id
+  config.replica_key_id = litestream_credentials.access_key_id
 
   # Replica-specific secret key.
   # Litestream needs authentication credentials to access your storage provider bucket.
   # In this example, we are using Rails encrypted credentials to store the secret access key.
   # config.replica_access_key = litestream_credentials.replica_access_key
+  config.replica_access_key = litestream_credentials.secret_access_key
 end
+
+litestream_bucket = Rails.application.credentials.litestream.bucket
+litestack_data_path = ENV.fetch("LITESTACK_DATA_PATH", "./storage")
+litestream_config = {
+  "dbs" => %w[data cache metrics queue].map do |db|
+    {
+      "path" => File.join(litestack_data_path, Rails.env, "#{db}.sqlite3"),
+      "replicas" => [{"url" => "s3://#{litestream_bucket}/#{Rails.env}/#{db}.sqlite3"}]
+    }
+  end
+}
+File.write(Rails.root.join("config", "litestream.yml"), YAML.dump(litestream_config))

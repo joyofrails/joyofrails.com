@@ -51,7 +51,9 @@ node_modules
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
 
-
 # Ignore default Litestack SQLite databases.
 /db/**/*.sqlite3
 /db/**/*.sqlite3-*
+
+# Ignore the generated litestream config
+config/litestream.yml
