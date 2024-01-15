@@ -1,3 +1,5 @@
+require_relative "../../app/lib/litestream_extensions/setup"
+
 # Use this hook to configure the litestream-ruby gem.
 # All configuration options will be available as environment variables, e.g.
 # config.database_path becomes LITESTREAM_DATABASE_PATH
@@ -41,14 +43,4 @@ Litestream.configure do |config|
   config.replica_access_key = litestream_credentials.secret_access_key
 end
 
-litestream_bucket = Rails.application.credentials.litestream.bucket
-litestack_data_path = ENV.fetch("LITESTACK_DATA_PATH", "./storage")
-litestream_config = {
-  "dbs" => %w[data cache metrics queue].map do |db|
-    {
-      "path" => File.join(litestack_data_path, Rails.env, "#{db}.sqlite3"),
-      "replicas" => [{"url" => "s3://#{litestream_bucket}/#{Rails.env}/#{db}.sqlite3"}]
-    }
-  end
-}
-File.write(Rails.root.join("config", "litestream.yml"), YAML.dump(litestream_config))
+LitestreamExtensions::Setup.configure_litestream
