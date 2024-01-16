@@ -13,10 +13,10 @@ RSpec.describe "AdminUser sessions", type: :system do
     click_button "Sign in"
 
     expect(page).not_to have_text("Sign in to your admin account")
-
     expect(page).to have_text("Signed in successfully.")
 
-    expect(page).to have_text(admin_user.email)
+    visit "/admin/flipper"
+    expect(page).to have_text("Features")
   end
 
   it "fails sign in" do
@@ -45,6 +45,8 @@ RSpec.describe "AdminUser sessions", type: :system do
     click_button "Sign out"
 
     expect(page).to have_text("Signed out successfully.")
-    expect(page).not_to have_text(admin_user.email)
+
+    visit "/admin/flipper"
+    expect(page).not_to have_text("Features")
   end
 end
