@@ -52,18 +52,29 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   def block_code(code, metadata)
     language, filename = metadata.split(":") if metadata
 
-    lexer = Rouge::Lexer.find(language)
+    lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 
-    tag.pre(class: "highlight language-#{language}") do
-      tag.div(class: "code-header") do
-        html = inline_svg("app-dots.svg", class: "app-dots")
-        if filename
-          html += tag.span(filename, class: "code-filename")
+    tag.div(class: "code-wrapper highlight language-#{language}") do
+      header = tag.div
+      if filename
+        header = tag.div(class: "code-header") do
+          html = inline_svg("app-dots.svg", class: "app-dots")
+          if filename
+            html += tag.span(filename, class: "code-filename")
+          end
+          html
         end
-        html
-      end + tag.code do
-        raw code_formatter.format(lexer.lex(code))
       end
+
+      body = tag.div(class: "code-body") do
+        tag.pre do
+          tag.code do
+            raw code_formatter.format(lexer.lex(code))
+          end
+        end + clipboard_copy(code)
+      end
+
+      header + body
     end
   end
 
@@ -78,6 +89,10 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
   end
 
   private
+
+  def clipboard_copy(text)
+    render partial: "components/clipboard_copy", locals: {text: text}
+  end
 
   def code_formatter
     @code_formatter ||= Rouge::Formatters::HTML.new

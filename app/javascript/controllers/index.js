@@ -4,10 +4,13 @@
 
 import { application } from './application';
 
+import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import TableOfContents from './table-of-contents';
+
 import PwaInstallation from './pwa/installation';
 
+application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('table-of-contents', TableOfContents);
 application.register('pwa-installation', PwaInstallation);
