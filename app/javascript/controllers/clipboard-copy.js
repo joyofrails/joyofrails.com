@@ -11,7 +11,7 @@ export default class extends Controller {
   }
 
   copy() {
-    console.log('copy', this.sourceTarget.dataset.value);
+    log('copy', this.sourceTarget.dataset.value);
     navigator.clipboard.writeText(this.sourceTarget.dataset.value);
 
     this.timeout = setTimeout(() => {
