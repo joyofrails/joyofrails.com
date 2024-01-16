@@ -213,6 +213,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.6.3)
+    jwt (2.7.1)
     language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
@@ -275,6 +276,7 @@ GEM
       racc (~> 1.4)
     oj (3.16.3)
       bigdecimal (>= 3.0)
+    openssl (3.2.0)
     parallel (1.23.0)
     parser (3.3.0.3)
       ast (~> 2.4.1)
@@ -450,6 +452,9 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    web-push (3.0.1)
+      jwt (~> 2.0)
+      openssl (~> 3.0)
     webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -511,6 +516,7 @@ DEPENDENCIES
   vite_rails
   warden
   web-console
+  web-push
   webmock
 
 RUBY VERSION
