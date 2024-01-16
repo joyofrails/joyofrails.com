@@ -18,10 +18,6 @@
   }
 }
 
-.clipboard-copy-container {
-  @apply mr-4;
-}
-
 svg {
   fill: currentColor;
 
@@ -29,12 +25,11 @@ svg {
     @apply inline-block;
     vertical-align: top;
   }
+
   &.copy-text {
-    @apply inline-block cursor-pointer fill-current;
     width: 24px;
   }
-  &.checkbox-checked {
-    @apply hidden inline-block fill-green-600;
-    width: 32px;
+  &.check-mark {
+    width: 24px;
   }
 }
