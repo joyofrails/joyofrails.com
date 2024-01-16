@@ -54,17 +54,27 @@ class ApplicationMarkdown < MarkdownRails::Renderer::Rails
 
     lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 
-    tag.pre(class: "highlight language-#{language}") do
-      tag.div(class: "code-header") do
-        html = inline_svg("app-dots.svg", class: "app-dots")
-        if filename
-          html += tag.span(filename, class: "code-filename")
+    tag.div(class: "code-wrapper highlight language-#{language}") do
+      header = tag.div
+      if filename
+        header = tag.div(class: "code-header") do
+          html = inline_svg("app-dots.svg", class: "app-dots")
+          if filename
+            html += tag.span(filename, class: "code-filename")
+          end
+          html
         end
-        html += clipboard_copy(code)
-        html
-      end + tag.code do
-        raw code_formatter.format(lexer.lex(code))
       end
+
+      body = tag.div(class: "code-body") do
+        tag.pre do
+          tag.code do
+            raw code_formatter.format(lexer.lex(code))
+          end
+        end + clipboard_copy(code)
+      end
+
+      header + body
     end
   end
 

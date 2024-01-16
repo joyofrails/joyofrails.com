@@ -1,6 +1,10 @@
 <%# locals: (text:) -%>
 
-<div data-controller="clipboard" data-value="<%= text %>" class="clipboard-copy">
-  <%= inline_svg_tag "copy-text.svg", class: "copy-text" %>
-  <%= inline_svg_tag "checkbox-checked.svg", class: "checkbox-checked" %>
+<div class="clipboard-copy-container mr-6">
+  <button aria-label="Copy to clipboard" type="button" class="
+    text-gray-500 dark:text-gray-400
+    focus:ring-gray-700 focus:ring-2 focus:outline-none
+    rounded-md text-sm p-2 mt-1">
+    <%= inline_svg_tag "copy-text.svg", width: "24px" %>
+  </button>
 </div>
