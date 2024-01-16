@@ -1,15 +1,30 @@
 .code-header {
   @apply text-sm text-gray-400 hidden lg:mb-4 lg:flex lg:justify-between lg:items-center;
   line-height: 1;
+
+  & .code-filename {
+    @apply font-semibold text-gray-300;
+    display: block;
+    text-align: center;
+    line-height: 1;
+  }
 }
 
-svg.app-dots {
-  display: inline;
-  vertical-align: top;
+.clipboard-copy {
+  @apply flex fill-current;
 }
 
-.code-filename {
-  display: block;
-  text-align: center;
-  line-height: 1;
+svg {
+  &.app-dots {
+    @apply inline-block;
+    vertical-align: top;
+  }
+  &.copy-text {
+    @apply inline-block cursor-pointer fill-current;
+    width: 24px;
+  }
+  &.checkbox-checked {
+    @apply hidden inline-block fill-green-600;
+    width: 32px;
+  }
 }
