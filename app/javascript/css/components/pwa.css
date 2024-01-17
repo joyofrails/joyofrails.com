@@ -1,0 +1,23 @@
+.pwa-web-push {
+  & .subscribe {
+    display: inline-flex;
+
+    &[disabled] {
+      @apply bg-slate-500;
+    }
+  }
+
+  & .unsubscribe {
+    display: none;
+  }
+
+  &[data-subscribed='true'] {
+    & .subscribe {
+      display: none;
+    }
+
+    & .unsubscribe {
+      display: inline-flex;
+    }
+  }
+}

@@ -12,6 +12,7 @@
     <link rel="manifest" href="/manifest.webmanifest">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= render "application/config" %>
     <%= vite_client_tag %>
     <%= render "darkmode/setup" %>
     <%= unless ViteRuby.instance.dev_server_running?
