@@ -27,6 +27,8 @@ Want to see it in action first?
 
 Click the button below. I promise, I won't spam you with notifications. You can also unsubscribe anytime.
 
+<%= render "components/pwa/web_push_subscribe" %>
+
 ## Bird’s eye view
 
 Delivering push notifications involve interactions among three parties - the

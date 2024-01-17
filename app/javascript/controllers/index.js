@@ -9,8 +9,10 @@ import Darkmode from './darkmode';
 import TableOfContents from './table-of-contents';
 
 import PwaInstallation from './pwa/installation';
+import PwaWebPush from './pwa/web-push';
 
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('table-of-contents', TableOfContents);
 application.register('pwa-installation', PwaInstallation);
+application.register('pwa-web-push', PwaWebPush);
