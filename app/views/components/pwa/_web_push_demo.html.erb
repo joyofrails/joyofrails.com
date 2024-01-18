@@ -1,0 +1,15 @@
+<%= tag.div data: { controller: "pwa-web-push-demo", action: "pwa-web-push-subscription:subscription-changed->pwa-web-push-demo#onSubscriptionChanged" } do %>
+  <%= render "components/pwa/web_push_subscription" %>
+
+  <%= tag.div do %>
+    <p>Try sending a web push notificaiton using the form below.</p>
+    <%= form_for :web_push, url: pwa_web_pushes_path, data: {"pwa-web-push-demo-target": "sendDemoPushForm"} do |f| %>
+      <%= f.hidden_field :subscription, data: { "pwa-web-push-demo-target": "subscriptionField" } %>
+      <%= tag.fieldset class: "flex space-x-2", data: { "pwa-web-push-demo-target": "sendPushDemoFieldset" }, disabled: true do %>
+        <%= f.text_field :title, value: "Joy of Rails" %>
+        <%= f.text_field :message, value: "Hello World" %>
+        <%= button_tag "Send push notification to myself", class: "button primary" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
