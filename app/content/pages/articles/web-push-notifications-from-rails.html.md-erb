@@ -27,7 +27,7 @@ Want to see it in action first?
 
 Click the button below. I promise, I won't spam you with notifications. You can also unsubscribe anytime.
 
-<%= render "components/pwa/web_push_subscribe" %>
+<%= render "components/pwa/web_push_subscribe_demo" %>
 
 ## Bird’s eye view
 
