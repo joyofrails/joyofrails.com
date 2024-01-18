@@ -18,8 +18,14 @@
     @apply text-white no-underline;
   }
 
+  fieldset[disabled] &,
   &[disabled] {
-    @apply bg-slate-500;
+    @apply bg-slate-400;
+
+    &:hover {
+      @apply bg-slate-400;
+      cursor: not-allowed;
+    }
   }
 
   svg {
