@@ -3,7 +3,7 @@ import debug from 'debug';
 
 const log = debug('app:javascript:controllers:pwa-web-push');
 
-const vapidPublicKey = window.config.vapid.publicKey;
+const webPushKey = window.config.webPushKey;
 
 const subscribe = async () => {
   if (!navigator.serviceWorker) {
@@ -11,7 +11,7 @@ const subscribe = async () => {
   }
 
   // When serviceWorker is supported, installed, and activated,
-  // subscribe the pushManager property with the vapidPublicKey
+  // subscribe the pushManager property with the webPushKey
   const registration = await navigator.serviceWorker.ready;
 
   log('registration ready', registration);
@@ -22,12 +22,12 @@ const subscribe = async () => {
   } else {
     subscription = registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: vapidPublicKey,
+      applicationServerKey: Uint8Array.from(atob(webPushKey), (m) =>
+        m.codePointAt(0),
+      ),
     });
 
-    if (subscription) {
-      log('new subscription', subscription);
-    } else {
+    if (!subscription) {
       log('subscription failed');
     }
   }
@@ -54,7 +54,13 @@ const getSubscription = async () => {
 };
 
 export default class extends Controller {
-  static targets = ['subscribeButton', 'unsubscribeButton'];
+  static targets = ['subscribedGroup', 'unsubscribedGroup', 'subscription'];
+
+  initialize() {
+    log('initialize');
+    this.error = null;
+    this.subscription = null;
+  }
 
   async connect() {
     log('connect');
@@ -82,22 +88,15 @@ export default class extends Controller {
 
   async subscribe() {
     log('subscribe');
-    let subscription;
-    this.subscribeButtonTarget.disabled = true;
+
+    const permission = await Notification.requestPermission();
+    this.setPermission(permission);
 
     if (Notification.permission !== 'granted') {
-      const permission = await Notification.requestPermission();
-      this.setPermission(permission);
-
-      if (permission === 'granted') {
-        log('Permission to receive notifications granted!');
-        subscription = await subscribe();
-      }
-    } else {
-      subscription = await subscribe();
+      log('Notification permission not granted!', permission);
+      return;
     }
-
-    this.subscribeButtonTarget.disabled = false;
+    const subscription = await subscribe();
 
     if (subscription) {
       this.setSubscription(subscription);
@@ -115,21 +114,25 @@ export default class extends Controller {
     this.setSubscription(null);
   }
 
-  async fetchSubscription() {
-    log('register');
-
-    const subscription = await subscribe();
-
-    if (!subscription) {
-      this.error = 'Subscription failed';
-      return;
-    }
-
-    this.setSubscription(subscription);
-  }
-
   setSubscription(subscription) {
-    this.element.dataset.subscribed = !!subscription;
+    log(
+      'setSubscription',
+      subscription,
+      subscription ? subscription.toJSON() : null,
+    );
+    this.subscription = subscription;
+
+    if (subscription) {
+      this.subscriptionTarget.value = JSON.stringify(subscription);
+
+      this.subscribedGroupTarget.classList.remove('hidden');
+      this.unsubscribedGroupTarget.classList.add('hidden');
+    } else {
+      this.subscriptionTarget.value = '';
+
+      this.subscribedGroupTarget.classList.add('hidden');
+      this.unsubscribedGroupTarget.classList.remove('hidden');
+    }
   }
 
   disconnect() {

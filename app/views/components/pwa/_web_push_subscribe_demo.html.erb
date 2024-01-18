@@ -1,0 +1,24 @@
+<%= tag.div data: { controller: "pwa-web-push", webPushKey: web_push_key }, class: "pwa-web-push group" do %>
+  <%= tag.div data: { "pwa-web-push-target": "unsubscribedGroup"}, class: "unsubscribed group hidden" do %>
+    <%= button_tag "Subscribe to Push Notifications",
+      data: {
+        action: "pwa-web-push#subscribe",
+      },
+      class: "subscribe button primary" %>
+  <% end %>
+
+  <%= tag.div data: {
+      "pwa-web-push-target": "subscribedGroup"
+    }, class: "subscribed group hidden" do %>
+    <%= form_tag pwa_web_pushes_path do %>
+      <%= hidden_field_tag "web_push[message]", "Hello World" %>
+      <%= hidden_field_tag "web_push[subscription]", nil, data: { "pwa-web-push-target": "subscription" } %>
+      <%= button_tag "Send demo push notification: 'Hello World'", class: "unsubscribe button primary" %>
+    <% end %>
+    <%= button_tag "Unsubscribe from Push Notifications",
+      data: {
+        action: "pwa-web-push#unsubscribe",
+      },
+      class: "unsubscribe button subtle" %>
+  <% end %>
+<% end %>

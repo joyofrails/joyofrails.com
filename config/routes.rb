@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :pwa do
     resource :installation_instructions, only: [:show]
+    resources :web_pushes, only: [:create]
   end
 
   # Render dynamic PWA files from app/views/pwa/*
