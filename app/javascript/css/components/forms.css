@@ -1,4 +1,9 @@
 input[type='text'],
 input[type='email'] {
   @apply text-gray-900;
+
+  fieldset[disabled] &,
+  &[disabled] {
+    @apply bg-gray-200 text-gray-500 cursor-not-allowed;
+  }
 }

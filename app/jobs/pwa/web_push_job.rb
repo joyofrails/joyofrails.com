@@ -1,10 +1,10 @@
 class Pwa::WebPushJob < ApplicationJob
   queue_as :default
 
-  def perform(message:, subscription:)
+  def perform(title:, message:, subscription:)
     message_json = {
-      title: message,
-      body: "This message was sent from Rails."
+      title: title,
+      body: message
     }.to_json
 
     response = WebPush.payload_send(
