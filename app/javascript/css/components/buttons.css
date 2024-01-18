@@ -18,6 +18,10 @@
     @apply text-white no-underline;
   }
 
+  &[disabled] {
+    @apply bg-slate-500;
+  }
+
   svg {
     @apply fill-current;
     width: 24px;

@@ -1,7 +1,9 @@
+console.log('[Serviceworker]', 'Hello from serviceworker.js');
+
 const CACHE_VERSION = 'v1';
 const CACHE_NAME = CACHE_VERSION + ':sw-cache-';
 
-function onInstall(event) {
+const onInstall = (event) => {
   console.log('[Serviceworker]', 'Installing!', event);
   event.waitUntil(
     caches.open(CACHE_NAME).then(function prefill(cache) {
@@ -13,7 +15,14 @@ function onInstall(event) {
       ]);
     }),
   );
-}
+};
+
+const onPush = (event) => {
+  console.log('[Serviceworker]', 'Push event!', event.data.json());
+  const { title, ...options } = event.data.json();
+  const icon = '/icon-192.png';
+  self.registration.showNotification(title, { icon, ...options });
+};
 
 // function onActivate(event) {
 //   console.log('[Serviceworker]', 'Activating!', event);
@@ -60,5 +69,6 @@ function onInstall(event) {
 // }
 
 self.addEventListener('install', onInstall);
+self.addEventListener('push', onPush);
 // self.addEventListener('activate', onActivate);
 // self.addEventListener('fetch', onFetch);

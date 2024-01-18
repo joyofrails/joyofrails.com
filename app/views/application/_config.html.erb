@@ -1,7 +1,5 @@
 <script type="text/javascript">
   window.config = {
-    vapid: {
-      publicKey: new Uint8Array(<%= vapid_public_key_bytes.to_json %>),
-    },
+    webPushKey: <%= raw web_push_key.to_json %>,
   }
 </script>

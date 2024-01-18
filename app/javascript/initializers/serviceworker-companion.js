@@ -3,12 +3,12 @@ import debug from 'debug';
 const log = debug('app:javascript:initializers:serviceworker-companion');
 
 log('Registering service worker...');
-log('Vapid public key: ', window.config.vapid.publicKey);
+log('Web push key: ', window.config.webPushKey);
 
 if (navigator.serviceWorker) {
   navigator.serviceWorker
     .register('/serviceworker.js', { scope: './' })
-    .then(function (reg) {
+    .then((reg) => {
       log('Service worker registered!');
     });
 }
