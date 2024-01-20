@@ -1,18 +1,18 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+import debug from '../../utils/debug';
 
-const log = debug('app:javascript:controllers:pwa-web-push-demo');
+const console = debug('app:javascript:controllers:pwa-web-push-demo');
 
 export default class extends Controller {
-  static targets = ['sendPushDemoFieldset', 'subscriptionField'];
+  static targets = ['sendPushDemoFieldset', 'subscriptionField', 'error'];
 
   initialize() {
-    log('initialize');
+    console.log('initialize');
     this.error = null;
   }
 
   async connect() {
-    log('connect');
+    console.log('connect');
 
     if (!window.PushManager) {
       this.setError('Push messaging is not supported in your browser');
@@ -24,12 +24,17 @@ export default class extends Controller {
   }
 
   onSubscriptionChanged({ detail: { subscription } }) {
-    log('onSubscriptionChanged');
+    console.log('onSubscriptionChanged');
     this.setSubscription(subscription);
   }
 
+  onError({ detail: { error } }) {
+    console.log('onError');
+    this.setError(error);
+  }
+
   setSubscription(subscription) {
-    log('setSubscription', subscription ? subscription.toJSON() : null);
+    console.log('setSubscription', subscription ? subscription.toJSON() : null);
 
     if (subscription) {
       this.subscriptionFieldTarget.value = JSON.stringify(subscription);
@@ -41,11 +46,19 @@ export default class extends Controller {
   }
 
   setError(error) {
-    log('setError', error);
-    this.error = error;
+    console.warn('setError', error);
+    const message = error ? error.message || error : '';
+
+    this.errorTarget.textContent = message;
+
+    if (message.length) {
+      this.errorTarget.classList.remove('hidden');
+    } else {
+      this.errorTarget.classList.add('hidden');
+    }
   }
 
   disconnect() {
-    log('disconnect');
+    console.log('disconnect');
   }
 }

@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+import debug from '../../utils/debug';
 
 import {
   getSubscription,
@@ -8,18 +8,18 @@ import {
   withPermission,
 } from '../../utils/web-push';
 
-const log = debug('app:javascript:controllers:pwa-web-push-subscription');
+const console = debug('app:javascript:controllers:pwa-web-push-subscription');
 
 export default class extends Controller {
   static targets = ['subscribeButton', 'unsubscribeButton'];
 
   initialize() {
-    log('initialize');
+    console.log('initialize');
     this.error = null;
   }
 
   async connect() {
-    log('connect');
+    console.log('connect');
 
     if (!window.PushManager) {
       this.setError('Push messaging is not supported in your browser');
@@ -27,6 +27,7 @@ export default class extends Controller {
 
     if (!ServiceWorkerRegistration.prototype.showNotification) {
       this.setError('Notifications are not supported in your browser');
+      console.error('Push messaging is not supported in your browser');
     }
 
     const subscription = await getSubscription();
@@ -35,7 +36,8 @@ export default class extends Controller {
   }
 
   async subscribe() {
-    log('subscribe');
+    console.log('subscribe');
+    this.setError(null);
 
     try {
       await withPermission();
@@ -49,17 +51,17 @@ export default class extends Controller {
   }
 
   async unsubscribe() {
-    log('unsubscribe', 'start');
+    console.log('unsubscribe', 'start');
 
     const result = await unsubscribe();
 
-    log('unsubscribe', result);
+    console.log('unsubscribe', result);
 
     this.setSubscription(null);
   }
 
   setSubscription(subscription) {
-    log('setSubscription', subscription ? subscription.toJSON() : null);
+    console.log('setSubscription', subscription ? subscription.toJSON() : null);
 
     this.dispatch('subscription-changed', { detail: { subscription } });
 
@@ -73,11 +75,11 @@ export default class extends Controller {
   }
 
   setError(error) {
-    log('setError', error);
-    this.error = error;
+    console.error('setError', error);
+    this.dispatch('subscription-error', { detail: { error } });
   }
 
   disconnect() {
-    log('disconnect');
+    console.log('disconnect');
   }
 }

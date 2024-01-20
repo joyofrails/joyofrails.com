@@ -1,4 +1,6 @@
-<%= tag.div data: { controller: "pwa-web-push-demo", action: "pwa-web-push-subscription:subscription-changed->pwa-web-push-demo#onSubscriptionChanged" } do %>
+<%= tag.div data: {
+  controller: "pwa-web-push-demo",
+  action: "pwa-web-push-subscription:subscription-changed->pwa-web-push-demo#onSubscriptionChanged pwa-web-push-subscription:subscription-error->pwa-web-push-demo#onError" } do %>
   <%= render "components/pwa/web_push_subscription" %>
 
   <%= tag.div do %>
@@ -12,4 +14,6 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <div data-pwa-web-push-demo-target="error" class="bg-pink-300 text-pink-700 px-2 py-1 rounded-sm mt-8 hidden"></div>
 <% end %>
