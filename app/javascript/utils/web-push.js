@@ -5,14 +5,18 @@ export const withPermission = async () => {
   if (permission === 'granted') {
     return permission;
   } else if (permission === 'denied') {
-    throw new Error(`Permission for notifications is ${permission}`);
+    throw new Error(
+      `Permission for notifications is ${permission}. Please change your browser settings if you wish to support web push.`,
+    );
   } else {
     permission = await Notification.requestPermission();
 
     if (permission === 'granted') {
       return permission;
     } else {
-      throw new Error(`Permission for notifications is ${permission}`);
+      throw new Error(
+        `Permission for notifications is ${permission}. Please change your browser settings if you wish to support web push.`,
+      );
     }
   }
 };
