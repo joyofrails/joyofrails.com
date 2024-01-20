@@ -1,6 +1,7 @@
 .button {
   @apply rounded-md px-3 py-2;
   @apply text-sm font-semibold text-white inline-flex;
+  line-height: inherit;
 
   &.hidden {
     display: none;
