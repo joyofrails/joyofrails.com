@@ -1,6 +1,6 @@
 require "rails/application_controller"
 
-class PwaController < Rails::ApplicationController # :nodoc:
+class Rails::PwaController < Rails::ApplicationController # :nodoc:
   skip_forgery_protection
 
   def serviceworker
