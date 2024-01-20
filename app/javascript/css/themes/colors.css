@@ -46,6 +46,8 @@
   --theme-header-4: var(--violet-9);
   --theme-header-5: var(--violet-9);
   --theme-header-6: var(--violet-9);
+  --theme-scrollbar-thumb: var(--dracula-pink-200);
+  --theme-scrollbar-track: var(--dracula-pink-900);
 }
 
 .dark[data-joy-theme='dracula'] {
@@ -66,4 +68,7 @@
   --theme-header-4: var(--dracula-yellow);
   --theme-header-5: var(--dracula-orange);
   --theme-header-6: var(--dracula-pink);
+
+  --theme-scrollbar-track: var(--dracula-cyan-100);
+  --theme-scrollbar-thumb: var(--dracula-grey);
 }
