@@ -4,7 +4,8 @@ class Pwa::WebPushJob < ApplicationJob
   def perform(title:, message:, subscription:)
     message_json = {
       title: title,
-      body: message
+      body: message,
+      icon: "/icon-192.png"
     }.to_json
 
     response = WebPush.payload_send(

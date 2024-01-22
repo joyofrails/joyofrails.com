@@ -1,27 +1,29 @@
 console.log('[Serviceworker]', 'Hello from serviceworker.js');
 
 const CACHE_VERSION = 'v1';
-const CACHE_NAME = CACHE_VERSION + ':sw-cache-';
+const CACHE_NAME = CACHE_VERSION + ':sw-cache-<%= Rails.env %>';
 
 const onInstall = (event) => {
   console.log('[Serviceworker]', 'Installing!', event);
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function prefill(cache) {
-      return cache.addAll([
-        '<%= vite_asset_path "application.js" %>',
-        '<%= vite_asset_path "application.css" %>',
-        '<%= asset_path "joy-logo.svg" %>',
-        '/favicon.ico',
-      ]);
-    }),
-  );
+  // event.waitUntil(
+  //   caches.open(CACHE_NAME).then(function prefill(cache) {
+  //     return cache.addAll([
+  //       '<%= vite_asset_path "application.js" %>',
+  //       '<%= vite_asset_path "application.css" %>',
+  //       '<%= asset_path "joy-logo.svg" %>',
+  //       '/favicon.ico',
+  //     ]);
+  //   }),
+  // );
 };
 
 const onPush = (event) => {
   console.log('[Serviceworker]', 'Push event!', event.data.json());
   const { title, ...options } = event.data.json();
-  const icon = '/icon-192.png';
-  self.registration.showNotification(title, { icon, ...options });
+
+  const showNotification = self.registration.showNotification(title, options);
+
+  event.waitUntil(showNotification);
 };
 
 // function onActivate(event) {
