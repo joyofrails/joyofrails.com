@@ -38,6 +38,7 @@ export default class extends Controller {
   async subscribe() {
     console.log('subscribe');
     this.setError(null);
+    this.subscribeButtonTarget.disabled = true;
 
     try {
       await withPermission();
@@ -47,6 +48,7 @@ export default class extends Controller {
       this.setSubscription(subscription);
     } catch (error) {
       this.setError(error);
+      this.subscribeButtonTarget.disabled = false;
     }
   }
 
