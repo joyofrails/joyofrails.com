@@ -30,14 +30,12 @@ export const subscribe = async () => {
   // subscribe the pushManager property with the webPushKey
   const registration = await navigator.serviceWorker.ready;
 
-  let subscription = await registration.pushManager.getSubscription();
+  let subscription = await getSubscription();
 
   if (!subscription) {
     subscription = registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: Uint8Array.from(atob(webPushKey), (m) =>
-        m.codePointAt(0),
-      ),
+      applicationServerKey: webPushKey,
     });
 
     if (!subscription) {
