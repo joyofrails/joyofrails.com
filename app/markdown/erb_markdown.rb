@@ -6,6 +6,6 @@ class ErbMarkdown < ApplicationMarkdown
   # This works great, except when you have an `erb` code fence.
   def preprocess(html)
     # Read more about this render call at https://guides.rubyonrails.org/layouts_and_rendering.html
-    render inline: html, handler: :erb
+    render(inline: html, handler: :erb).gsub("_ERB_", "")
   end
 end
