@@ -211,9 +211,8 @@ export default Controller {
       .then(function (subscription) {
         $.post('/subscribe', { subscription: subscription.toJSON() });
       });
-}
   }
-
+}
 ```
 
 ```javascript
@@ -230,17 +229,13 @@ export default Controller {
 
 The route:
 
-```ruby
-# config/routes.rb
-
+```ruby:config/routes.rb
 post "/subscribe" => "subscriptions#create"
 ```
 
 Our controller - of course, greatly simplified for the purposes of the this demo:
 
-```ruby
-# app/controllers/subscriptions_controller.rb
-
+```ruby:app/controllers/subscriptions_controller.rb
 class SubscriptionsController < ApplicationController
   def create
     session[:subscription] = JSON.dump(params.fetch(:subscription, {}))
@@ -252,9 +247,7 @@ end
 
 Start with a button to trigger a `POST` to a new `/push` endpoint in our app. In a real Rails app, you'd probably deliver push notifications from background jobs in response to other events in the system.
 
-```
-# config/routes.rb
-
+```rb:config/routes.rb
 post "/push" => "push_notifications#create"
 ```
 
@@ -294,18 +287,17 @@ To take advantage of the VAPID protocol, we would generate a public/private VAPI
 
 In Ruby, we can use the `webpush` gem to generate a VAPID key that has both a `public_key` and `private_key` attribute to be saved on the server side.
 
-```ruby
-# Gemfile
-gem 'webpush'
+```ruby:Gemfile
+gem 'web-push'
 ```
 
 In a Ruby console:
 
 ```ruby
-require 'webpush'
+require 'web-push'
 
 # One-time, on the server
-vapid_key = Webpush.generate_key
+vapid_key = WebPush.generate_key
 
 # Save these in our application server settings
 vapid_key.public_key
@@ -325,15 +317,9 @@ The VAPID public key we generated earlier is made available to the client as a `
 
 In Ruby, we might embed the key as raw bytes from the application `ENV` or some other application settings mechanism into an HTML template with help from the `Base64` module in the standard library. Global variables are used here for simplicity.
 
-```ruby
-# server
-decodedVapidPublicKey = Base64.urlsafe_decode64(ENV['VAPID_PUBLIC_KEY']).bytes
-```
-
-```html
-<!-- html template -->
+```html:app/views/layouts/application.html.erb
 <script>
-  window.vapidPublicKey = new Uint8Array(<\%= decodedVapidPublicKey %>);
+  window.vapidPublicKey = <_ERB_%= ENV['VAPID_PUBLIC_KEY'].delete("=").to_json %_ERB_>
 </script>
 ```
 
