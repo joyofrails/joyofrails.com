@@ -1,5 +1,5 @@
 .code-wrapper {
-  @apply rounded-lg mt-8 mb-12 -mx-6;
+  @apply rounded-lg mt-8 mb-12 md:-mx-6;
 }
 
 .code-body {
@@ -27,9 +27,9 @@ svg {
   }
 
   &.copy-text {
-    width: 24px;
+    /* width: 24px; */
   }
   &.check-mark {
-    width: 24px;
+    /* width: 24px; */
   }
 }
