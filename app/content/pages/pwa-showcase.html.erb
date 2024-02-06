@@ -8,7 +8,7 @@ layout: showcase
     The site you are currently visiting is a itself Progressive Web Apps built with Rails.
   </p>
   <p>
-    To learn about PWAs on Rails, start by installing the site as an app to your homescreen of your mobile app or on your desktop.
+    Joy of Rails is a Progressive Web App. You can start testing the features by installing the site as an app to your homescreen of your mobile app or on your desktop.
   </p>
   <div data-controller="pwa-installation">
     <button
@@ -32,5 +32,16 @@ layout: showcase
       <%= turbo_frame_tag "pwa_installation_instructions" %>
       <a data-action="click->pwa-installation#closeDialog" href="#" class="button subtle">Close</a>
     </dialog>
+  </div>
+
+  <h2 class="anchor text-xl text-theme-text font-bold mb-2">Features</h2>
+
+  <div class="grid grid-cols-1 gap-4">
+    <div>
+      <h3 class="text-lg font-bold mb-2">Push Notifications</h3>
+      <p>
+        <%= render "components/pwa/web_push_demo" %>
+      </p>
+    </div>
   </div>
 </section>

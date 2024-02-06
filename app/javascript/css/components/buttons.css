@@ -1,6 +1,7 @@
 .button {
   @apply rounded-md px-3 py-2;
   @apply text-sm font-semibold text-white inline-flex;
+  line-height: inherit;
 
   &.hidden {
     display: none;
@@ -16,6 +17,16 @@
 
   &:hover {
     @apply text-white no-underline;
+  }
+
+  fieldset[disabled] &,
+  &[disabled] {
+    @apply bg-slate-400;
+
+    &:hover {
+      @apply bg-slate-400;
+      cursor: not-allowed;
+    }
   }
 
   svg {

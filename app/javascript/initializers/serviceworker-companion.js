@@ -1,11 +1,21 @@
-import debug from 'debug';
+import debug from '../utils/debug';
 
-const log = debug('app:javascript:initializers:serviceworker-companion');
+const console = debug('app:javascript:initializers:serviceworker-companion');
 
-if (navigator.serviceWorker) {
-  navigator.serviceWorker
-    .register('/serviceworker.js', { scope: './' })
-    .then(function (reg) {
-      log('Service worker registered!');
-    });
-}
+console.log('Registering service worker...');
+console.log('Web push key: ', window.config.webPushKey);
+
+const registerServiceWorker = async () => {
+  if (navigator.serviceWorker) {
+    try {
+      await navigator.serviceWorker.register('/serviceworker.js', {
+        scope: './',
+      });
+      console.log('Service worker registered!');
+    } catch (error) {
+      console.log('Error registering service worker: ', error);
+    }
+  }
+};
+
+registerServiceWorker();

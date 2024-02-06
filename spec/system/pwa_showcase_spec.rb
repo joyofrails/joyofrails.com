@@ -1,7 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "PWA Showcase", type: :system do
+  it "hides PWA Showcase navigation" do
+    visit "/"
+
+    expect(page).not_to have_link("Progress Web Apps on Rails Showcase")
+  end
+
   it "renders the Install to Homescreen button" do
+    Flipper.enable(:pwa_showcase_navigation)
+
     visit "/"
 
     click_link "Progress Web Apps on Rails Showcase"
@@ -15,6 +23,8 @@ RSpec.describe "PWA Showcase", type: :system do
     end
 
     it "renders the Install to Homescreen button" do
+      Flipper.enable(:pwa_showcase_navigation)
+
       visit "/"
 
       click_link "Progress Web Apps on Rails Showcase"

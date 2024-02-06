@@ -14,11 +14,12 @@ Rails.application.routes.draw do
 
   namespace :pwa do
     resource :installation_instructions, only: [:show]
+    resources :web_pushes, only: [:create]
   end
 
   # Render dynamic PWA files from app/views/pwa/*
-  get "serviceworker" => "pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
-  get "manifest" => "pwa#manifest", :as => :pwa_manifest, :constraints => {format: "json"}
+  get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
+  get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest, :constraints => {format: "json"}
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -1,0 +1,22 @@
+<%= tag.div data: { controller: "pwa-web-push-subscription", webPushKey: web_push_key },
+  class: "pwa-web-push-subscription flex space-x-1" do %>
+  <%= tag.div do %>
+    <%= button_tag "Subscribe",
+      disabled: true,
+      data: {
+        action: "pwa-web-push-subscription#subscribe",
+        "pwa-web-push-subscription-target": "subscribeButton"
+      },
+      class: "subscribe button primary" %>
+  <% end %>
+
+  <%= tag.div do %>
+    <%= button_tag "Unsubscribe",
+      disabled: true,
+      data: {
+        action: "pwa-web-push-subscription#unsubscribe",
+        "pwa-web-push-subscription-target": "unsubscribeButton"
+      },
+      class: "unsubscribe button primary" %>
+  <% end %>
+<% end %>
