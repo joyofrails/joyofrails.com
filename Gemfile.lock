@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/oldmoe/litestack
+  revision: 70da8ea09d44f218c797cb721e308701516b48b0
+  specs:
+    litestack (0.4.2)
+      erubi
+      hanami-router
+      oj
+      rack
+      sqlite3
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -210,13 +222,6 @@ GEM
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     lint_roller (1.1.0)
-    litestack (0.4.2)
-      erubi
-      hanami-router
-      oj
-      rack
-      sqlite3
-      tilt
     litestream (0.3.1)
     litestream (0.3.1-arm64-darwin)
     litestream (0.3.1-arm64-linux)
@@ -388,7 +393,8 @@ GEM
     sanitize (6.1.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    selenium-webdriver (4.16.0)
+    selenium-webdriver (4.17.0)
+      base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -401,6 +407,12 @@ GEM
       sitepress-core (= 4.0.2)
       sprockets-rails (>= 2.0.0)
     smart_properties (1.17.0)
+    solid_cache (0.4.2)
+      activejob (>= 7)
+      activerecord (>= 7)
+      railties (>= 7)
+    solid_queue (0.2.1)
+      rails (~> 7.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -492,7 +504,7 @@ DEPENDENCIES
   inline_svg
   jbuilder
   letter_opener
-  litestack
+  litestack!
   litestream
   mail_interceptor
   markdown-rails
@@ -506,6 +518,8 @@ DEPENDENCIES
   rspec-rails
   selenium-webdriver
   sitepress-rails
+  solid_cache
+  solid_queue
   sprockets-rails
   sqlite3
   standard
