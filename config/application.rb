@@ -46,5 +46,6 @@ module Joy
       raise "Check to see if we can remove this config setting below"
     end
     config.solid_cache.connects_to = {database: {writing: :cache, reading: :cache}}
+    config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
   end
 end
