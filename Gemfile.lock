@@ -411,6 +411,8 @@ GEM
       activejob (>= 7)
       activerecord (>= 7)
       railties (>= 7)
+    solid_queue (0.2.1)
+      rails (~> 7.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -517,6 +519,7 @@ DEPENDENCIES
   selenium-webdriver
   sitepress-rails
   solid_cache
+  solid_queue
   sprockets-rails
   sqlite3
   standard

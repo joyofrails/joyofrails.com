@@ -8,6 +8,7 @@ gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
 gem "litestack", git: "https://github.com/oldmoe/litestack" # All-in-one solution for SQLite data storage, caching, and background jobs [https://github.com/oldmoe/litestack]
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
+gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/basecamp/solid_queue]
 
 gem "rack", "~> 2.2", ">= 2.2.7" # litestack's liteboard depends on hanami-router which does not currently support rack 3.x as of Dec 2023
 
