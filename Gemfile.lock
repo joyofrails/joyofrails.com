@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/oldmoe/litestack
+  revision: 70da8ea09d44f218c797cb721e308701516b48b0
+  specs:
+    litestack (0.4.2)
+      erubi
+      hanami-router
+      oj
+      rack
+      sqlite3
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -210,13 +222,6 @@ GEM
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     lint_roller (1.1.0)
-    litestack (0.4.2)
-      erubi
-      hanami-router
-      oj
-      rack
-      sqlite3
-      tilt
     litestream (0.3.1)
     litestream (0.3.1-arm64-darwin)
     litestream (0.3.1-arm64-linux)
@@ -492,7 +497,7 @@ DEPENDENCIES
   inline_svg
   jbuilder
   letter_opener
-  litestack
+  litestack!
   litestream
   mail_interceptor
   markdown-rails
