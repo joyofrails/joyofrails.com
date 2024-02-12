@@ -10,15 +10,33 @@ default: &default
   timeout: 5000
 
 development:
-  <<: *default
-  database: storage/development/data.sqlite3
+  primary:
+    <<: *default
+    database: storage/development/data.sqlite3
+  cache:
+    <<: *default
+    database: storage/development/cache.sqlite3
+    migrations_paths: db/migrate_cache
+  queue:
+    <<: *default
+    database: storage/development/queue.sqlite3
+    migrations_paths: db/migrate_queue
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: storage/test/data.sqlite3
+  primary:
+    <<: *default
+    database: storage/test/data.sqlite3
+  cache:
+    <<: *default
+    database: storage/test/cache.sqlite3
+    migrations_paths: db/migrate_cache
+  queue:
+    <<: *default
+    database: storage/test/queue.sqlite3
+    migrations_paths: db/migrate_queue
 
 
 # SQLite3 write its data on the local filesystem, as such it requires
@@ -28,5 +46,14 @@ test:
 # Similarly, if you deploy your application as a Docker container, you must
 # ensure the database is located in a persisted volume.
 production:
-  <<: *default
-  database: storage/production/data.sqlite3
+  primary:
+    <<: *default
+    database: storage/production/data.sqlite3
+  cache:
+    <<: *default
+    database: storage/production/cache.sqlite3
+    migrations_paths: db/migrate_cache
+  queue:
+    <<: *default
+    database: storage/production/queue.sqlite3
+    migrations_paths: db/migrate_queue
