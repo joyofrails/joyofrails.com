@@ -69,3 +69,4 @@ export async function render(content = '', baseElement = document.body) {
 
 export * from '@testing-library/dom';
 export { default as userEvent } from '@testing-library/user-event';
+export { vi, expect, describe, it, beforeEach, afterEach } from 'vitest';

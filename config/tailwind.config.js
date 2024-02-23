@@ -1,8 +1,8 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-const typography = require('./tailwind/typography-overrides');
-const colors = require('./tailwind/colors');
+import defaultTheme from 'tailwindcss/defaultTheme';
+import typography from './tailwind/typography-overrides';
+import colors from './tailwind/colors';
 
-module.exports = {
+export default {
   content: [
     './app/**/*.html.erb',
     './public/*.html',
