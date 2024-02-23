@@ -1399,7 +1399,7 @@ let defaultModifiers = {
   },
 };
 
-module.exports = {
+export default {
   DEFAULT: {
     css: [
       {

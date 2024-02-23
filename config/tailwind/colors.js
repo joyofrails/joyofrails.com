@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // Gray definitions
   'gray-base': 'var(--slate-1)',
   'gray-bg-subtle': 'var(--slate-2)',

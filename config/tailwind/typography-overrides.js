@@ -16,7 +16,7 @@ const hexToRgb = (hex) => {
   return `${r} ${g} ${b}`;
 };
 
-module.exports = (theme) => ({
+export default (theme) => ({
   sm: {
     css: [
       {
