@@ -89,6 +89,36 @@ jobs:
           RAILS_ENV: test
         run: bin/rspec
 
+  npm-test:
+    name: Tests - JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Node version
+        run: |
+          node --version
+
+      - name: Install packages
+        run: |
+          npm ci
+
+      - name: Run JavaScript unit tests
+        run: |
+          npm test
+
   assets:
     name: Assets
     runs-on: ubuntu-latest
