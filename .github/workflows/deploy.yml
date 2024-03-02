@@ -31,4 +31,4 @@ jobs:
           bundler-cache: true
 
       - name: Notify Honeybadger
-        run: RAILS_ENV=production bundle exec honeybadger deploy --environment test --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
+        run: RAILS_ENV=production bundle exec honeybadger deploy --environment production --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
