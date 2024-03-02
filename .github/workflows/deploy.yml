@@ -24,3 +24,6 @@ jobs:
         uses: hatchboxio/github-hatchbox-deploy-action@v2
         with:
           deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
+
+      - name: Notify Honeybadger
+        run: honeybadger deploy --environment production --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
