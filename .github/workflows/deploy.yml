@@ -25,5 +25,10 @@ jobs:
         with:
           deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
 
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
       - name: Notify Honeybadger
-        run: honeybadger deploy --environment production --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
+        run: RAILS_ENV=production bundle exec honeybadger deploy --environment test --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
