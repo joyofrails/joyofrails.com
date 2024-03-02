@@ -5,12 +5,6 @@ RSpec.describe "Admin", type: :request do
     context "when signed in as admin user" do
       before { login_admin_user }
 
-      it "renders liteboard" do
-        get "/admin/liteboard"
-
-        expect(response.status).to eq(200)
-      end
-
       it "renders flipper-ui" do
         get "/admin/flipper/features"
 

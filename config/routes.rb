@@ -1,5 +1,3 @@
-require "litestack/liteboard/liteboard"
-
 require_relative "../app/lib/routes/admin_access_constraint"
 
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -34,7 +32,6 @@ Rails.application.routes.draw do
   end
 
   scope :admin, constraints: Routes::AdminAccessConstraint.new do
-    mount Liteboard.app => "/liteboard"
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 end
