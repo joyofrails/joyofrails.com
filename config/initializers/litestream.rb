@@ -43,4 +43,5 @@ Litestream.configure do |config|
   config.replica_access_key = litestream_credentials.secret_access_key
 end
 
+# This will configure Litestream to use the replica URL and credentials for the given Rails env.
 LitestreamExtensions::Setup.configure_litestream
