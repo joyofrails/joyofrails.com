@@ -6,7 +6,9 @@ gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/r
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3" # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
+gem "activerecord-enhancedsqlite3-adapter" # Enhanced SQLite3 adapter for Active Record [https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter]
 gem "litestack", git: "https://github.com/oldmoe/litestack" # All-in-one solution for SQLite data storage, caching, and background jobs [https://github.com/oldmoe/litestack]
+
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
 gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/basecamp/solid_queue]
 
