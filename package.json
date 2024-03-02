@@ -35,7 +35,8 @@
   },
   "scripts": {
     "build": "bin/vite build",
-    "test": "bin/vitest",
+    "pretest": "RAILS_ENV=test bin/rails fixtures:html",
+    "test": "vitest",
     "prepare": "husky install"
   },
   "type": "module"
