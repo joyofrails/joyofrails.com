@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "bin/vite build",
-    "test": "vitest",
+    "test": "bin/vitest",
     "prepare": "husky install"
   },
   "type": "module"

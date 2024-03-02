@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
+bin/rails fixtures:html
 npm run test "$@"

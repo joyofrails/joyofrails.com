@@ -131,7 +131,7 @@ jobs:
 
       - name: Run JavaScript unit tests
         run: |
-          npm test
+          bin/vitest
 
   assets:
     name: Assets
