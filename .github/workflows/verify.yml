@@ -4,20 +4,6 @@ name: Verify
 on: [push]
 
 jobs:
-  deploy-notice-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Notify Honeybadger
-        run: RAILS_ENV=test bundle exec honeybadger deploy --environment test --revision ${{ github.sha }} --repository ${{ github.repository }} --user ${{ github.actor }} --api-key ${{ secrets.HONEYBADGER_API_KEY }}
-
   linters:
     name: Linters
     runs-on: ubuntu-latest

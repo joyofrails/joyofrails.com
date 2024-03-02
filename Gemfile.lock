@@ -1,15 +1,3 @@
-GIT
-  remote: https://github.com/oldmoe/litestack
-  revision: 70da8ea09d44f218c797cb721e308701516b48b0
-  specs:
-    litestack (0.4.2)
-      erubi
-      hanami-router
-      oj
-      rack
-      sqlite3
-      tilt
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -197,11 +185,6 @@ GEM
       sanitize (< 7)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    hanami-router (2.0.2)
-      mustermann (~> 3.0)
-      mustermann-contrib (~> 3.0)
-      rack (~> 2.0)
-    hansi (0.2.1)
     hashdiff (1.0.1)
     honeybadger (5.4.1)
     i18n (1.14.1)
@@ -251,11 +234,6 @@ GEM
     mini_mime (1.1.5)
     minitest (5.22.2)
     msgpack (1.7.2)
-    mustermann (3.0.0)
-      ruby2_keywords (~> 0.0.1)
-    mustermann-contrib (3.0.0)
-      hansi (~> 0.2.0)
-      mustermann (= 3.0.0)
     mutex_m (0.2.0)
     net-imap (0.4.10)
       date
@@ -275,8 +253,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
-    oj (3.16.3)
-      bigdecimal (>= 3.0)
     openssl (3.2.0)
     parallel (1.23.0)
     parser (3.3.0.5)
@@ -390,7 +366,6 @@ GEM
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sanitize (6.1.0)
       crass (~> 1.0.2)
@@ -442,7 +417,6 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.0)
     thor (1.3.1)
-    tilt (2.3.0)
     timeout (0.4.1)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
@@ -507,7 +481,6 @@ DEPENDENCIES
   inline_svg
   jbuilder
   letter_opener
-  litestack!
   litestream
   mail_interceptor
   markdown-rails

@@ -1,6 +1,6 @@
 module LitestreamExtensions
   module Setup
-    LITESTACK_DATABASES_FOR_LITESTREAM = %w[data metrics queue]
+    DATABASES_FOR_LITESTREAM = %w[data metrics queue]
 
     module_function
 
@@ -14,7 +14,7 @@ module LitestreamExtensions
 
     def litestream_config
       {
-        "dbs" => LITESTACK_DATABASES_FOR_LITESTREAM.map do |db|
+        "dbs" => DATABASES_FOR_LITESTREAM.map do |db|
           {
             "path" => File.join(litestack_data_path, Rails.env, "#{db}.sqlite3"),
             "replicas" => [{"url" => "s3://#{litestream_bucket}/#{Rails.env}/#{db}.sqlite3"}]
