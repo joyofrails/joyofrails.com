@@ -5,8 +5,16 @@ RSpec.describe "litestream.yml" do
   it "configures litestack replication" do
     litestream_config = YAML.load_file(Rails.root.join("config", "litestream", "test.yml"))
     litestream_config["dbs"].each do |db|
-      expect(db["path"]).to match(%r{./storage/test/\w+.sqlite3})
+      expect(db["path"]).to match(%r{storage/test/\w+.sqlite3})
       expect(db.dig("replicas", 0, "url")).to match(%r{s3://})
     end
+  end
+
+  def database_paths
+    ActiveRecord::Base
+      .configurations
+      .configs_for(env_name: Rails.env, include_hidden: true)
+      .select { |config| ["sqlite3", "litedb"].include? config.adapter }
+      .map(&:database)
   end
 end

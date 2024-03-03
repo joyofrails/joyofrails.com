@@ -1,0 +1,13 @@
+#! /usr/bin/env ruby
+
+require "bundler/setup"
+require "open3"
+require "litestream/commands"
+
+begin
+  command = [Litestream::Commands.executable, *ARGV]
+  puts command.inspect
+  system(*command)
+rescue SignalException => e
+  "Caught signal #{e}, exiting..."
+end
