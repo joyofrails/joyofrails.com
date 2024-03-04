@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_10_145644) do
-  # Could not dump table "data" because of following StandardError
-  #   Unknown type 'ANY' for column 'value'
-
   create_table "solid_cache_entries", force: :cascade do |t|
     t.binary "key", limit: 1024, null: false
     t.binary "value", limit: 536870912, null: false
