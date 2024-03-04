@@ -4,7 +4,15 @@ A place to learn and celebrate the joy of using Ruby on Rails
 
 https://www.joyofrails.com
 
-## Getting started
+## Overview
+
+Building a Rails application to help people learn more about building Rails applications.
+
+- One Person Framework: Rails provides all one person needs to build a robust frontend experience with [Hotwire](https://hotwired.dev/).
+- Minimal moving pieces: Prefer SQLite as a database. Single server hosting.
+- Vanilla Rails: Rely on Rails conventions. Avoid needless abstractions. Introduce gems judiciously (or for educational value).
+
+## Development
 
 ### Requirements
 
