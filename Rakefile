@@ -11,7 +11,7 @@ task default: %i[
   db:seed
   brakeman:run
   bundle:audit
-  jest
+  vitest:run
 ]
 
 # Tasks to consider later
