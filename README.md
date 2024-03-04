@@ -43,7 +43,7 @@ Run the installation script to get the application set up. It is intended to be 
 bin/setup
 ```
 
-## Development
+### Server
 
 Run the following to start the server and automatically build assets.
 
@@ -51,7 +51,7 @@ Run the following to start the server and automatically build assets.
 bin/dev
 ```
 
-## Test
+### Test
 
 Run RSpec tests
 
@@ -68,5 +68,9 @@ npm run test
 Run the following to run all tests
 
 ```
-bin/rake
+bin/verify
 ```
+
+## License
+
+Copyright 2024 Ross Kaffenberger under the [BSD 3 Clause License](https://opensource.org/license/bsd-3-clause).
