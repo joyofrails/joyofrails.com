@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Exit when any command fails
+set -e
+
+# Check Ruby code formatting
+bundle exec standardrb --fix
+
+# Check erb file formatting
+bundle exec erblint --lint-all
+
+# Run Ruby tests
+bin/rspec
+
+# Run JavaScript tests
+bin/vitest --watch=false
+
+# Ensure development setup works
+bin/setup
+
+# Check asset compilation
+bin/rails assets:precompile assets:clobber
+
+# Run bundler-audit
+bin/bundler-audit --update
+
+# Run security checks
+bin/brakeman -q -w2 -n
