@@ -1,7 +1,7 @@
 /* Firefox */
 * {
   /* scrollbar-width: thin;
-  scrollbar-color: var(--dracula-cyan) var(--joy-theme-scrollbar-track); */
+  scrollbar-color: var(--dracula-cyan) var(--joy-scrollbar-track); */
 }
 
 /* Chrome, Edge, and Safari */
@@ -10,12 +10,12 @@
 }
 
 *::-webkit-scrollbar-track {
-  /* background: var(--joy-theme-scrollbar-track);
+  /* background: var(--joy-scrollbar-track);
   border-radius: 5px; */
 }
 
 *::-webkit-scrollbar-thumb {
-  /* background-color: var(--joy-theme-scrollbar-thumb);
+  /* background-color: var(--joy-scrollbar-thumb);
   border-radius: 14px;
-  border: 3px solid var(--joy-theme-scrollbar-track); */
+  border: 3px solid var(--joy-scrollbar-track); */
 }

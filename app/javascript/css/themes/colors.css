@@ -5,23 +5,23 @@
 @import './colors/dracula.css';
 
 [data-joy-theme='dracula'] {
-  --joy-theme-title: var(--violet-11);
-  --joy-theme-bg-1: var(--violet-2);
-  --joy-theme-bg-2: var(--violet-3);
-  --joy-theme-bg-hover: var(--violet-4);
-  --joy-theme-bg-active: var(--violet-11);
-  --joy-theme-text: var(--violet-11);
-  --joy-theme-text-contrast: var(--violet-12);
-  --joy-theme-link: var(--dracula-purple-900);
-  --joy-theme-link-hover: var(--dracula-purple-600);
-  --joy-theme-header-1: var(--violet-11);
-  --joy-theme-header-2: var(--violet-10);
-  --joy-theme-header-3: var(--violet-9);
-  --joy-theme-header-4: var(--violet-9);
-  --joy-theme-header-5: var(--violet-9);
-  --joy-theme-header-6: var(--violet-9);
-  --joy-theme-scrollbar-thumb: var(--dracula-pink-200);
-  --joy-theme-scrollbar-track: var(--dracula-pink-900);
+  --joy-title: var(--violet-11);
+  --joy-bg-1: var(--violet-2);
+  --joy-bg-2: var(--violet-3);
+  --joy-bg-hover: var(--violet-4);
+  --joy-bg-active: var(--violet-11);
+  --joy-text: var(--violet-11);
+  --joy-text-contrast: var(--violet-12);
+  --joy-link: var(--dracula-purple-900);
+  --joy-link-hover: var(--dracula-purple-600);
+  --joy-header-1: var(--violet-11);
+  --joy-header-2: var(--violet-10);
+  --joy-header-3: var(--violet-9);
+  --joy-header-4: var(--violet-9);
+  --joy-header-5: var(--violet-9);
+  --joy-header-6: var(--violet-9);
+  --joy-scrollbar-thumb: var(--dracula-pink-200);
+  --joy-scrollbar-track: var(--dracula-pink-900);
 
   --joy-button-primary: var(--violet-9);
   --joy-button-primary-hover: var(--violet-8);
@@ -30,24 +30,24 @@
 }
 
 .dark[data-joy-theme='dracula'] {
-  --joy-theme-title: var(--dracula-cyan);
-  --joy-theme-bg-1: var(--dracula-black);
-  --joy-theme-bg-2: var(--dracula-black-secondary);
-  --joy-theme-bg-hover: var(--dracula-purple-200);
-  --joy-theme-bg-active: var(--dracula-purple);
-  --joy-theme-text: var(--dracula-cyan);
-  --joy-theme-text-contrast: var(--violet-12);
-  --joy-theme-link: var(--dracula-pink);
-  --joy-theme-link-hover: var(--dracula-pink-900);
-  --joy-theme-header-1: var(--dracula-cyan);
-  --joy-theme-header-2: var(--dracula-purple);
-  --joy-theme-header-3: var(--dracula-green);
-  --joy-theme-header-4: var(--dracula-yellow);
-  --joy-theme-header-5: var(--dracula-orange);
-  --joy-theme-header-6: var(--dracula-pink);
+  --joy-title: var(--dracula-cyan);
+  --joy-bg-1: var(--dracula-black);
+  --joy-bg-2: var(--dracula-black-secondary);
+  --joy-bg-hover: var(--dracula-purple-200);
+  --joy-bg-active: var(--dracula-purple);
+  --joy-text: var(--dracula-cyan);
+  --joy-text-contrast: var(--violet-12);
+  --joy-link: var(--dracula-pink);
+  --joy-link-hover: var(--dracula-pink-900);
+  --joy-header-1: var(--dracula-cyan);
+  --joy-header-2: var(--dracula-purple);
+  --joy-header-3: var(--dracula-green);
+  --joy-header-4: var(--dracula-yellow);
+  --joy-header-5: var(--dracula-orange);
+  --joy-header-6: var(--dracula-pink);
 
-  --joy-theme-scrollbar-track: var(--dracula-cyan-100);
-  --joy-theme-scrollbar-thumb: var(--dracula-grey);
+  --joy-scrollbar-track: var(--dracula-cyan-100);
+  --joy-scrollbar-thumb: var(--dracula-grey);
 
   --joy-button-primary: var(--violet-9);
   --joy-button-primary-hover: var(--violet-8);

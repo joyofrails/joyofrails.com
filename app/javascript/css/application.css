@@ -3,7 +3,7 @@
 @import './components.css';
 
 html {
-  @apply bg-joy-theme-bg-2;
+  @apply bg-joy-bg-2;
   height: 100%;
 }
 

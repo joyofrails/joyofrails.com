@@ -1,6 +1,6 @@
 <%= tag.header class: header_classes, aria: { label: "header" } do %>
   <div class="container flex items-center justify-between w-full h-full sticky">
-    <%= link_to root_path, class: "text-joy-theme-title flex items-center pr-2" do %>
+    <%= link_to root_path, class: "text-joy-title flex items-center pr-2" do %>
       <div class="flex-shrink-0 w-12 md:w-8">
         <%= inline_svg_tag "joy-logo.svg", class: "fill-current", style: "max-width: 32px;" %>
       </div>
@@ -11,7 +11,7 @@
         class="
           flex items-center h-full px-2
           rounded mr-2
-          hover:bg-joy-theme-bg-hover
+          hover:bg-joy-bg-hover
         "
         href="/articles">Articles</a>
       <% if current_admin_user %>
@@ -19,13 +19,13 @@
           class="
             flex items-center h-full px-2
             rounded mr-2
-            hover:bg-joy-theme-bg-hover
+            hover:bg-joy-bg-hover
           "
           href="/"><%= current_admin_user.email %></a>
         <%= button_to "Sign out", destroy_admin_users_sessions_path, method: :delete, class: "
             flex items-center h-full px-2
             rounded mr-2
-            hover:bg-joy-theme-bg-hover
+            hover:bg-joy-bg-hover
           " %>
       <% end %>
       <%= render "darkmode/switch" %>

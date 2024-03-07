@@ -13,7 +13,7 @@
   text-decoration: none;
 
   &:hover {
-    color: var(--joy-theme-link-hover);
+    color: var(--joy-link-hover);
     text-decoration: underline;
   }
 }
