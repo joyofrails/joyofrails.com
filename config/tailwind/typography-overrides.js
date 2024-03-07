@@ -42,8 +42,8 @@ export default (theme) => ({
   DEFAULT: {
     css: [
       {
-        '--tw-prose-links': theme('colors.theme-link'),
-        '--tw-prose-invert-links': theme('colors.theme-link'),
+        '--tw-prose-links': theme('colors.joy-theme-link'),
+        '--tw-prose-invert-links': theme('colors.joy-theme-link'),
         'code::before': {
           content: null,
         },
