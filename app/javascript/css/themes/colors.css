@@ -6,9 +6,8 @@
 
 [data-joy-theme='dracula'] {
   --joy-theme-title: var(--violet-11);
-  --joy-theme-background: var(--violet-2);
-  --joy-theme-bg-subtle: var(--violet-2);
-  --joy-theme-bg: var(--violet-3);
+  --joy-theme-bg-1: var(--violet-2);
+  --joy-theme-bg-2: var(--violet-3);
   --joy-theme-bg-hover: var(--violet-4);
   --joy-theme-bg-active: var(--violet-11);
   --joy-theme-text: var(--violet-11);
@@ -32,9 +31,8 @@
 
 .dark[data-joy-theme='dracula'] {
   --joy-theme-title: var(--dracula-cyan);
-  --joy-theme-background: var(--dracula-black);
-  --joy-theme-bg-subtle: var(--dracula-black-secondary);
-  --joy-theme-bg: var(--dracula-black-secondary);
+  --joy-theme-bg-1: var(--dracula-black);
+  --joy-theme-bg-2: var(--dracula-black-secondary);
   --joy-theme-bg-hover: var(--dracula-purple-200);
   --joy-theme-bg-active: var(--dracula-purple);
   --joy-theme-text: var(--dracula-cyan);
