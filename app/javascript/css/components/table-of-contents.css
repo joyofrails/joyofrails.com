@@ -14,14 +14,14 @@ nav.toc {
 
   & li a:active,
   & li > a.active {
-    color: var(--theme-header-2);
+    color: var(--joy-header-2);
   }
 
   & li > ul > li > a.active {
-    color: var(--theme-header-3);
+    color: var(--joy-header-3);
   }
 
   & li > ul > li > ul > li > a.active {
-    color: var(--theme-header-4);
+    color: var(--joy-header-4);
   }
 }

@@ -8,15 +8,15 @@
   }
 
   &.primary {
-    @apply bg-indigo-500 hover:bg-indigo-400;
+    @apply bg-joy-button-primary hover:bg-joy-button-primary-hover;
   }
 
-  &.subtle {
-    @apply bg-gray-700 hover:bg-gray-600;
+  &.secondary {
+    @apply bg-joy-button-secondary hover:bg-joy-button-secondary-hover;
   }
 
   &:hover {
-    @apply text-white no-underline;
+    @apply text-white no-underline cursor-pointer;
   }
 
   fieldset[disabled] &,

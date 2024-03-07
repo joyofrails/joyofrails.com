@@ -4,71 +4,53 @@
 @import './colors/pink.css';
 @import './colors/dracula.css';
 
-[data-joy-gray='slate'] {
-  --background: var(--theme-base);
-}
-
-[data-joy-theme='violet'] {
-  --theme-base: var(--violet-1);
-  --theme-bg-subtle: var(--violet-2);
-  --theme-bg: var(--violet-3);
-  --theme-bg-hover: var(--violet-4);
-  --theme-bg-active: var(--violet-5);
-  --theme-text: var(--violet-11);
-  --theme-text-contrast: var(--violet-12);
-}
-
-[data-joy-theme='pink'] {
-  --theme-base: var(--pink-1);
-  --theme-bg-subtle: var(--pink-2);
-  --theme-bg: var(--pink-3);
-  --theme-bg-hover: var(--pink-4);
-  --theme-bg-active: var(--pink-5);
-  --theme-text: var(--pink-11);
-  --theme-text-contrast: var(--pink-12);
-}
-
 [data-joy-theme='dracula'] {
-  --theme-title: var(--dracula-purple);
-  --theme-base: var(--violet-2);
-  --theme-bg-subtle: var(--violet-2);
-  --theme-bg: var(--violet-3);
-  --theme-bg-hover: var(--violet-4);
-  --theme-bg-active: var(--violet-11);
-  --theme-text: var(--violet-11);
-  --theme-text-contrast: var(--violet-12);
-  --theme-link: var(--dracula-purple-900);
-  --theme-link-hover: var(--dracula-purple-600);
-  --background: var(--theme-base);
-  --theme-header-1: var(--violet-12);
-  --theme-header-2: var(--violet-11);
-  --theme-header-3: var(--violet-10);
-  --theme-header-4: var(--violet-9);
-  --theme-header-5: var(--violet-9);
-  --theme-header-6: var(--violet-9);
-  --theme-scrollbar-thumb: var(--dracula-pink-200);
-  --theme-scrollbar-track: var(--dracula-pink-900);
+  --joy-title: var(--violet-11);
+  --joy-bg-1: var(--violet-2);
+  --joy-bg-2: var(--violet-3);
+  --joy-bg-hover: var(--violet-4);
+  --joy-bg-active: var(--violet-11);
+  --joy-text: var(--violet-11);
+  --joy-text-contrast: var(--violet-12);
+  --joy-link: var(--dracula-purple-900);
+  --joy-link-hover: var(--dracula-purple-600);
+  --joy-header-1: var(--violet-11);
+  --joy-header-2: var(--violet-10);
+  --joy-header-3: var(--violet-9);
+  --joy-header-4: var(--violet-9);
+  --joy-header-5: var(--violet-9);
+  --joy-header-6: var(--violet-9);
+  --joy-scrollbar-thumb: var(--dracula-pink-200);
+  --joy-scrollbar-track: var(--dracula-pink-900);
+
+  --joy-button-primary: var(--violet-9);
+  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-secondary: var(--slate-8);
+  --joy-button-secondary-hover: var(--slate-7);
 }
 
 .dark[data-joy-theme='dracula'] {
-  --theme-title: var(--dracula-cyan);
-  --theme-base: var(--dracula-black);
-  --theme-bg-subtle: var(--dracula-black-secondary);
-  --theme-bg: var(--dracula-black-secondary);
-  --theme-bg-hover: var(--dracula-purple-200);
-  --theme-bg-active: var(--dracula-purple);
-  --theme-text: var(--dracula-purple);
-  --theme-text-contrast: var(--violet-12);
-  --theme-link: var(--dracula-pink);
-  --theme-link-hover: var(--dracula-pink-900);
-  --background: var(--theme-base);
-  --theme-header-1: var(--dracula-purple);
-  --theme-header-2: var(--dracula-cyan);
-  --theme-header-3: var(--dracula-green);
-  --theme-header-4: var(--dracula-yellow);
-  --theme-header-5: var(--dracula-orange);
-  --theme-header-6: var(--dracula-pink);
+  --joy-title: var(--dracula-cyan);
+  --joy-bg-1: var(--dracula-black);
+  --joy-bg-2: var(--dracula-black-secondary);
+  --joy-bg-hover: var(--dracula-purple-200);
+  --joy-bg-active: var(--dracula-purple);
+  --joy-text: var(--dracula-cyan);
+  --joy-text-contrast: var(--violet-12);
+  --joy-link: var(--dracula-pink);
+  --joy-link-hover: var(--dracula-pink-900);
+  --joy-header-1: var(--dracula-cyan);
+  --joy-header-2: var(--dracula-purple);
+  --joy-header-3: var(--dracula-green);
+  --joy-header-4: var(--dracula-yellow);
+  --joy-header-5: var(--dracula-orange);
+  --joy-header-6: var(--dracula-pink);
 
-  --theme-scrollbar-track: var(--dracula-cyan-100);
-  --theme-scrollbar-thumb: var(--dracula-grey);
+  --joy-scrollbar-track: var(--dracula-cyan-100);
+  --joy-scrollbar-thumb: var(--dracula-grey);
+
+  --joy-button-primary: var(--violet-9);
+  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-secondary: var(--dracula-grey);
+  --joy-button-secondary-hover: var(--dracula-grey-secondary);
 }

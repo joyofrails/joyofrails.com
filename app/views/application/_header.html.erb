@@ -1,31 +1,31 @@
 <%= tag.header class: header_classes, aria: { label: "header" } do %>
   <div class="container flex items-center justify-between w-full h-full sticky">
-    <%= link_to root_path, class: "text-theme-title flex items-center pr-2" do %>
+    <%= link_to root_path, class: "text-joy-title flex items-center pr-2" do %>
       <div class="flex-shrink-0 w-12 md:w-8">
         <%= inline_svg_tag "joy-logo.svg", class: "fill-current", style: "max-width: 32px;" %>
       </div>
       <span class="inline-block text-lg font-logo">Joy of Rails</span>
     <% end %>
-    <nav class="flex items-center px-1">
+    <nav class="flex items-stretch px-1">
       <a
         class="
-          flex items-center h-full px-2
+          flex justify-center items-center px-2
           rounded mr-2
-          hover:bg-theme-bg-hover
+          hover:bg-joy-bg-hover
         "
         href="/articles">Articles</a>
       <% if current_admin_user %>
         <a
           class="
-            flex items-center h-full px-2
+            flex justify-center items-center px-2
             rounded mr-2
-            hover:bg-theme-bg-hover
+            hover:bg-joy-bg-hover
           "
           href="/"><%= current_admin_user.email %></a>
         <%= button_to "Sign out", destroy_admin_users_sessions_path, method: :delete, class: "
-            flex items-center h-full px-2
+            flex justify-center items-center h-full px-2
             rounded mr-2
-            hover:bg-theme-bg-hover
+            hover:bg-joy-bg-hover
           " %>
       <% end %>
       <%= render "darkmode/switch" %>
