@@ -18,16 +18,6 @@
   --theme-text-contrast: var(--violet-12);
 }
 
-[data-joy-theme='pink'] {
-  --theme-base: var(--pink-1);
-  --theme-bg-subtle: var(--pink-2);
-  --theme-bg: var(--pink-3);
-  --theme-bg-hover: var(--pink-4);
-  --theme-bg-active: var(--pink-5);
-  --theme-text: var(--pink-11);
-  --theme-text-contrast: var(--pink-12);
-}
-
 [data-joy-theme='dracula'] {
   --theme-title: var(--dracula-purple);
   --theme-base: var(--violet-2);
@@ -48,6 +38,11 @@
   --theme-header-6: var(--violet-9);
   --theme-scrollbar-thumb: var(--dracula-pink-200);
   --theme-scrollbar-track: var(--dracula-pink-900);
+
+  --joy-button-primary: var(--violet-9);
+  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-secondary: var(--slate-8);
+  --joy-button-secondary-hover: var(--slate-7);
 }
 
 .dark[data-joy-theme='dracula'] {
@@ -71,4 +66,9 @@
 
   --theme-scrollbar-track: var(--dracula-cyan-100);
   --theme-scrollbar-thumb: var(--dracula-grey);
+
+  --joy-button-primary: var(--violet-9);
+  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-secondary: var(--dracula-grey);
+  --joy-button-secondary-hover: var(--dracula-grey-secondary);
 }

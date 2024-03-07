@@ -29,5 +29,10 @@ export default {
   'theme-header-5': 'var(--theme-header-5)',
   'theme-header-6': 'var(--theme-header-6)',
 
+  'joy-button-primary': 'var(--joy-button-primary)',
+  'joy-button-primary-hover': 'var(--joy-button-primary-hover)',
+  'joy-button-secondary': 'var(--joy-button-secondary)',
+  'joy-button-secondary-hover': 'var(--joy-button-secondary-hover)',
+
   background: 'var(--theme-base)',
 };
