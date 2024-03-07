@@ -12,7 +12,7 @@ export default {
 
   // Accent definitions
   'joy-theme-title': 'var(--joy-theme-title)',
-  'joy-theme-base': 'var(--joy-theme-base)',
+  'joy-theme-background': 'var(--joy-theme-background)',
   'joy-theme-bg-subtle': 'var(--joy-theme-bg-subtle)',
   'joy-theme-bg': 'var(--joy-theme-bg)',
   'joy-theme-bg-hover': 'var(--joy-theme-bg-hover)',
@@ -33,6 +33,4 @@ export default {
   'joy-button-primary-hover': 'var(--joy-button-primary-hover)',
   'joy-button-secondary': 'var(--joy-button-secondary)',
   'joy-button-secondary-hover': 'var(--joy-button-secondary-hover)',
-
-  background: 'var(--joy-theme-base)',
 };

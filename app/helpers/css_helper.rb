@@ -1,7 +1,7 @@
 module CssHelper
   def header_classes(*additional_classes, remove: [])
     @header_classes ||= %w[
-      bg-background
+      bg-joy-theme-background
       text-joy-theme-text
       h-16
       print:hidden
@@ -18,7 +18,7 @@ module CssHelper
     @body_classes ||= %w[
       antialiased
       text-gray-text
-      bg-background
+      bg-joy-theme-background
     ]
 
     @body_classes += Array(additional_classes)
