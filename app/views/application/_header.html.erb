@@ -6,10 +6,10 @@
       </div>
       <span class="inline-block text-lg font-logo">Joy of Rails</span>
     <% end %>
-    <nav class="flex items-center px-1">
+    <nav class="flex items-stretch px-1">
       <a
         class="
-          flex items-center h-full px-2
+          flex justify-center items-center px-2
           rounded mr-2
           hover:bg-joy-bg-hover
         "
@@ -17,13 +17,13 @@
       <% if current_admin_user %>
         <a
           class="
-            flex items-center h-full px-2
+            flex justify-center items-center px-2
             rounded mr-2
             hover:bg-joy-bg-hover
           "
           href="/"><%= current_admin_user.email %></a>
         <%= button_to "Sign out", destroy_admin_users_sessions_path, method: :delete, class: "
-            flex items-center h-full px-2
+            flex justify-center items-center h-full px-2
             rounded mr-2
             hover:bg-joy-bg-hover
           " %>
