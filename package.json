@@ -4,7 +4,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.23.5",
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.0-beta.1",
+    "@hotwired/turbo-rails": "^8.0.4",
     "debug": "^4.3.4",
     "dracula-ui": "^1.0.6",
     "stimulus-use": "^0.52.2",
