@@ -14,15 +14,3 @@ bin/rspec
 
 # Run JavaScript tests
 bin/vitest --watch=false
-
-# Ensure development setup works
-bin/setup
-
-# Check asset compilation
-bin/rails assets:precompile assets:clobber
-
-# Run bundler-audit
-bin/bundler-audit --update
-
-# Run security checks
-bin/brakeman -q -w2 -n

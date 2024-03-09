@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# bin/audit checks for "application drift" by running a series of checks to
+# ensure the application is in a consistent state. This includes checking for
+# security vulnerabilities, running dependency checks, and running asset
+# compilation to ensure the application is functioning as expected.
+
+# Exit when any command fails
+set -e
+
+# Ensure development setup works
+bin/setup
+
+# Check asset compilation
+bin/rails assets:precompile assets:clobber
+
+# Run bundler-audit
+bin/bundler-audit --update
+
+# Run npm audit
+npm audit fix
+
+# Run security checks
+bin/brakeman -q -w2 -n --no-pager
