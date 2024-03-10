@@ -1,0 +1,8 @@
+Description:
+    Generator a new article from template
+
+Example:
+    bin/rails generate article "My Article Title"
+
+    This will create:
+        app/content/articles/my-article-title.html.md
