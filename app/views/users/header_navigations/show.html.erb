@@ -1,0 +1,8 @@
+<%= turbo_frame_tag :header_navigation do %>
+  <%= render layout: "layouts/header/nav" do %>
+    <% if current_admin_user %>
+      <%= header_navigation_link_to current_admin_user.email, "/admin/flipper" %>
+      <%= header_navigation_button_to "Sign out", destroy_admin_users_sessions_path, method: :delete %>
+    <% end %>
+  <% end %>
+<% end %>

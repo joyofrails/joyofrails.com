@@ -6,29 +6,8 @@
       </div>
       <span class="inline-block text-lg font-logo">Joy of Rails</span>
     <% end %>
-    <nav class="flex items-stretch px-1">
-      <a
-        class="
-          flex justify-center items-center px-2
-          rounded mr-2
-          hover:bg-joy-bg-hover
-        "
-        href="/articles">Articles</a>
-      <% if current_admin_user %>
-        <a
-          class="
-            flex justify-center items-center px-2
-            rounded mr-2
-            hover:bg-joy-bg-hover
-          "
-          href="/"><%= current_admin_user.email %></a>
-        <%= button_to "Sign out", destroy_admin_users_sessions_path, method: :delete, class: "
-            flex justify-center items-center h-full px-2
-            rounded mr-2
-            hover:bg-joy-bg-hover
-          " %>
-      <% end %>
-      <%= render "darkmode/switch" %>
-    </nav>
+    <%= turbo_frame_tag :header_navigation, src: users_header_navigation_path do %>
+      <%= render partial: "application/header/nav", layout: "layouts/header/nav" %>
+    <% end %>
   </div>
 <% end %>
