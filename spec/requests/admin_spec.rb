@@ -10,17 +10,23 @@ RSpec.describe "Admin", type: :request do
 
         expect(response.status).to eq(200)
       end
+
+      it "renders misson control jobs" do
+        get "/admin/jobs"
+
+        expect(response.status).to eq(302)
+      end
     end
 
     context "when signed out" do
-      it "does not render liteboard" do
-        get "/admin/liteboard"
+      it "does not render flipper ui" do
+        get "/admin/flipper"
 
         expect(response.status).to eq(404)
       end
 
-      it "does not render flipper ui" do
-        get "/admin/flipper"
+      it "does not render jobs" do
+        get "/admin/jobs"
 
         expect(response.status).to eq(404)
       end
