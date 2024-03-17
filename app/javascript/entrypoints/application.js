@@ -2,7 +2,6 @@ import debug from 'debug';
 
 import '@hotwired/turbo-rails';
 import '../controllers';
-import '../css/application.css';
 
 import { turboScrollSmoothWorkaround } from '../initializers';
 

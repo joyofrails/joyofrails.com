@@ -13,12 +13,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "application/config" %>
-    <%= vite_client_tag %>
     <%= render "darkmode/setup" %>
-    <%= unless ViteRuby.instance.dev_server_running?
-      vite_stylesheet_tag "application", media: "all", "data-turbo-track": "reload"
-    end %>
-    <%= vite_javascript_tag "application", media: "all", "data-turbo-track": "reload" %>
+    <%= vite_client_tag %>
+    <%= vite_stylesheet_tag "application.css", media: "all", "data-turbo-track": "reload" %>
+    <%= vite_javascript_tag "application.js", media: "all", "data-turbo-track": "reload" %>
     <script defer data-domain="joyofrails.com" src="https://plausible.io/js/script.js"></script>
   </head>
   <%= tag.body class: body_classes do %>
