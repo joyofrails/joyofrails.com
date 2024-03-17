@@ -47,5 +47,10 @@ module Joy
     end
     config.solid_cache.connects_to = {database: {writing: :cache, reading: :cache}}
     config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
+
+    # Log to STDOUT
+    if ENV["RAILS_LOG_TO_STDOUT"] == "true"
+      config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
+    end
   end
 end

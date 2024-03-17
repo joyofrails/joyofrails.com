@@ -76,4 +76,6 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :solid_queue
+
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
 end
