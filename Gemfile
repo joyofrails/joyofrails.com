@@ -44,6 +44,8 @@ gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadg
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 
+gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
+
 group :development do
   gem "erb_lint", require: false # ERB linting tool [https://github.com/Shopify/erb-lint]
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]

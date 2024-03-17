@@ -37,5 +37,6 @@ Rails.application.routes.draw do
 
   scope :admin, constraints: Routes::AdminAccessConstraint.new do
     mount Flipper::UI.app(Flipper) => "/flipper"
+    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
 end
