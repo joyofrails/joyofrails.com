@@ -126,9 +126,6 @@ GEM
     device_detector (1.1.2)
     diff-lcs (1.5.1)
     dotenv (3.1.0)
-    dotenv-rails (3.1.0)
-      dotenv (= 3.1.0)
-      railties (>= 6.1)
     drb (2.2.1)
     dry-cli (1.0.0)
     dry-configurable (1.1.0)
@@ -464,7 +461,7 @@ DEPENDENCIES
   capybara
   debug
   device_detector
-  dotenv-rails
+  dotenv
   erb_lint
   factory_bot_rails
   faker
