@@ -1,7 +1,6 @@
 default: &default
   store_options: &default_store_options
     max_age: <%= 60.days.to_i %>
-    namespace: <%= Rails.env %>
   size_estimate_samples: 1000
 
 development:

@@ -42,10 +42,6 @@ module Joy
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    if SolidCache::VERSION > "0.4.2" && Rails.env.local?
-      raise "Check to see if we can remove this config setting below"
-    end
-    config.solid_cache.connects_to = {database: {writing: :cache, reading: :cache}}
     config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
     # Log to STDOUT
