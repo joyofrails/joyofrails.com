@@ -6,5 +6,15 @@ exclude:
   - '**/node_modules/**/*'
 
 linters:
-  ErbSafety:
+  AllowedScriptType:
     enabled: true
+    allowed_types:
+      - 'application/json'
+      - 'application/ld+json'
+      - 'module'
+      - 'text/html'
+      - 'text/javascript'
+      - 'text/ruby'
+      - 'text/template'
+    allow_blank: false
+    disallow_inline_scripts: false
