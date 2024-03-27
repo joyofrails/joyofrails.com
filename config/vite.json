@@ -2,16 +2,16 @@
   "all": {
     "sourceCodeDir": "app/javascript",
     "watchAdditionalPaths": [],
-    "publicOutputDir": "build"
+    "publicOutputDir": "packs"
   },
   "development": {
     "autoBuild": true,
-    "publicOutputDir": "build-dev",
+    "publicOutputDir": "packs",
     "port": 3036
   },
   "test": {
     "autoBuild": true,
-    "publicOutputDir": "build-test",
+    "publicOutputDir": "packs-test",
     "port": 3037
   }
 }
