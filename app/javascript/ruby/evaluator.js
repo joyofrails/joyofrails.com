@@ -26,7 +26,18 @@ export async function evaluator(initVm) {
     return { result, output: flushed };
   };
 
+  const evalAsync = async (source, { verbose = false } = {}) => {
+    if (verbose) console.log(`$ ${source}`);
+
+    const result = await vm.evalAsync(source).toString();
+    const flushed = flush();
+
+    return { result, output: flushed };
+  };
+
   return {
     evaluate,
+    eval: evaluate,
+    evalAsync,
   };
 }

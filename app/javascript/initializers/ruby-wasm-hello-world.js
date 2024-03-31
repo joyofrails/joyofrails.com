@@ -2,19 +2,29 @@ import debug from '../utils/debug';
 
 const console = debug('app:javascript:initializers:ruby-wasm-hello-world');
 
-import { evaluator, initRails } from '../ruby';
+export default function rubyWasmHelloWorld() {
+  console.log('rubyWasmHelloWorld');
 
-export default async function () {
-  const rails = await evaluator(initRails);
-
-  const verbose = true;
-
-  rails.evaluate('puts "Hello, Ruby!"', { verbose });
-  rails.evaluate('puts [1, 2, 3].map { |n| n * 2 }', { verbose });
-  const { result } = rails.evaluate(`HelloController.render("show")`, {
-    verbose,
+  const worker = new Worker(new URL('../ruby/worker', import.meta.url), {
+    type: 'module',
   });
-  console.log('result', result);
 
-  globalThis.rails = rails;
+  worker.postMessage({ message: 'INIT' });
+
+  worker.onmessage = ({ data }) => {
+    console.log('Message received from worker', data);
+  };
+
+  const evaluate = (source) => {
+    worker.postMessage({ message: 'EVAL', source });
+  };
+
+  const evalAsync = (source) => {
+    worker.postMessage({ message: 'EVAL_ASYNC', source });
+  };
+
+  return {
+    eval: evaluate,
+    evalAsync,
+  };
 }
