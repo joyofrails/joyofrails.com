@@ -45,4 +45,4 @@ log('Vite ⚡️ Rails');
 registerServiceWorker();
 turboScrollSmoothWorkaround();
 
-window.rails = rubyWasmHelloWorld();
+// window.rails = rubyWasmHelloWorld();

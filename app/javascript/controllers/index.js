@@ -4,6 +4,7 @@
 
 import { application } from './application';
 
+import Code from './code';
 import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import TableOfContents from './table-of-contents';
@@ -12,6 +13,7 @@ import PwaInstallation from './pwa/installation';
 import PwaWebPushSubscription from './pwa/web-push-subscription';
 import PwaWebPushDemo from './pwa/web-push-demo';
 
+application.register('code', Code);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('table-of-contents', TableOfContents);
