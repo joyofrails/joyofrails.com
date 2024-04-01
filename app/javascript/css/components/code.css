@@ -18,6 +18,13 @@
   }
 }
 
+.code-footer {
+}
+
+.code-actions {
+  @apply px-6 pb-6 text-gray-400 lg:flex lg:justify-between lg:items-center;
+}
+
 svg {
   fill: currentColor;
 

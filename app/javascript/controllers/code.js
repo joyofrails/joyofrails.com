@@ -86,9 +86,9 @@ export default class extends Controller {
   }
 
   updateResult({ result, output }) {
-    if (result?.length) {
+    if (result) {
       this.resultTarget.classList.remove('hidden');
-      this.resultTarget.querySelector('code').innerText = result;
+      this.resultTarget.querySelector('code').innerText = `=> ${result}`;
     } else {
       this.resultTarget.classList.add('hidden');
       this.resultTarget.querySelector('code').innerText = '';

@@ -35,7 +35,7 @@ module CodeHelper
 
       footer = ""
       if options[:runnable]
-        footer = tag.div(class: "code-footer p-2") do
+        footer = tag.div(class: "code-footer") do
           tag.div(class: "code-actions") do
             tag.button("Run", class: "button primary", data: {action: "click->code#run"}) +
               tag.span(class: "code-action-status", data: {code_target: "status"})
