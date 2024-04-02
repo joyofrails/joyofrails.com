@@ -40,10 +40,10 @@ module CodeHelper
             tag.button("Run", class: "button primary", data: {action: "click->code#run"}) +
               tag.span(class: "code-action-status", data: {code_target: "status"})
           end +
-            tag.pre(class: "code-result hidden", data: {code_target: "result"}) do
+            tag.pre(class: "code-output hidden", data: {code_target: "output"}) do
               tag.code
             end +
-            tag.pre(class: "code-output hidden", data: {code_target: "output"}) do
+            tag.pre(class: "code-result hidden", data: {code_target: "result"}) do
               tag.code
             end
         end
