@@ -1,83 +1,86 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+import debug from '../utils/debug';
 
-const log = debug('app:javascript:controllers:code');
+const console = debug('app:javascript:controllers:code');
 
 let worker = null;
 let workerInitialized = false;
 
-const initWorker = () => {
+const sendWorkerRequest = async (message) => {
   return new Promise((resolve) => {
-    if (workerInitialized) {
-      resolve();
-    }
-
-    if (!worker) {
-      worker = new Worker(new URL('../ruby/worker', import.meta.url), {
-        type: 'module',
-      });
-    }
-
-    const channel = new MessageChannel();
-
-    channel.port1.onmessage = ({ data }) => {
-      console.log('Message received from worker', data);
-
-      if (data.message === 'READY') {
-        channel.port1.close();
-
-        console.log('Worker is ready');
-        workerInitialized = true;
-
-        resolve();
-      }
-    };
-
-    worker.postMessage({ message: 'INIT' }, [channel.port2]);
-  });
-};
-
-const evaluate = (source) => {
-  return new Promise((resolve, reject) => {
     const channel = new MessageChannel();
 
     channel.port1.onmessage = ({ data }) => {
       console.log('Message received from worker', data);
 
       channel.port1.close();
+
       if (data.error) {
         reject(data.error);
       } else {
-        resolve({ result: data.result, output: data.output });
+        resolve(data);
       }
     };
 
-    worker.postMessage({ message: 'EVAL', source }, [channel.port2]);
+    worker.postMessage(message, [channel.port2]);
   });
+};
+
+const initWorker = async () => {
+  if (!worker) {
+    worker = new Worker(new URL('../ruby/worker', import.meta.url), {
+      type: 'module',
+    });
+  }
+
+  if (!workerInitialized) {
+    await sendWorkerRequest({ message: 'INIT' });
+    workerInitialized = true;
+  }
+
+  return workerInitialized;
 };
 
 export default class extends Controller {
   static targets = ['source', 'status', 'result', 'output'];
 
   connect() {
-    log('connect');
+    console.log('connect');
+  }
+
+  async initWorker() {
+    let timeout;
+    if (!worker) {
+      this.updateStatus('Just a moment...');
+      timeout = setTimeout(() => {
+        this.updateStatus('This is taking longer than expected...');
+      }, 10000);
+    }
+
+    await initWorker();
+
+    if (timeout) {
+      clearTimeout(timeout);
+    }
   }
 
   async run() {
-    log('run', this.sourceTarget.innerText);
+    console.log('run', this.sourceTarget.innerText);
 
-    this.updateStatus('Just a moment...');
-
-    await initWorker();
+    await this.initWorker();
 
     const source = this.sourceTarget.innerText;
 
     try {
-      const { result, output } = await evaluate(source);
+      const { result, output } = await sendWorkerRequest({
+        message: 'EVAL',
+        source,
+      });
       this.updateStatus('');
       this.updateResult({ result, output });
     } catch (error) {
-      this.updateStatus(error);
+      this.updateStatus('An error occurred. Please check the console.');
+      throw error;
     }
   }
 
@@ -104,6 +107,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    log('disconnect');
+    console.log('disconnect');
   }
 }

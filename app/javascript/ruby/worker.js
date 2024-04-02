@@ -21,14 +21,10 @@ async function helloWorld() {
   rails.eval('puts "Hello, Ruby!"', { verbose });
   rails.eval('puts [1, 2, 3].map { |n| n * 2 }', { verbose });
 
-  const { result } = rails.eval(`HelloController.render("show")`, {
-    verbose,
-  });
-
   return Promise.resolve(rails);
 }
 
-onmessage = async ({ data, ports }) => {
+self.addEventListener('message', async ({ data, ports }) => {
   console.log('Message received from main script', data);
   const [port] = ports;
 
@@ -47,4 +43,4 @@ onmessage = async ({ data, ports }) => {
     const { result, output } = await rails.evalAsync(data.source);
     port.postMessage({ message: 'RESULT', result, output });
   }
-};
+});
