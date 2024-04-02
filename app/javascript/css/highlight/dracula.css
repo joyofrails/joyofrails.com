@@ -98,7 +98,8 @@
 
 /* Generic.Deleted */
 .highlight .gd {
-  color: #8b080b;
+  color: #e8393c;
+  font-weight: bold;
 }
 
 /* Generic.Emph */
@@ -120,7 +121,7 @@
 
 /* Generic.Inserted */
 .highlight .gi {
-  color: #f8f8f2;
+  color: #05f66e;
   font-weight: bold;
 }
 
