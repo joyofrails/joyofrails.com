@@ -1,0 +1,10 @@
+<div class="container lg:mt-12 md:mt-8">
+  <div class="lg:flex lg:flex-row-reverse">
+    <article class="prose dark:prose-invert sm:prose-lg lg:prose-xl">
+      <% examples = Dir[Rails.root.join("app", "views", "examples", "ruby", "*.rb").to_s].each.with_index do |path, i| -%>
+        <% example = File.read(path) %>
+        <%= render "example", example: example, id: i+1 %>
+      <% end -%>
+    </article>
+  </div>
+</div>
