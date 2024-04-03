@@ -1,3 +1,8 @@
+// This module is intended to run in a Web Worker. It initializes a WASM Ruby VM and
+// responds to messages to evaluate Ruby source code.
+//
+// @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
+
 import debug from '../../utils/debug';
 
 import { bootRailsVM } from './boot';

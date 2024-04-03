@@ -1,4 +1,5 @@
-// Adapted from https://evilmartians.com/chronicles/first-steps-with-ruby-wasm-or-building-ruby-next-playground
+// Adapted from Evil Martians' First Steps with Ruby-WASM
+// @see https://evilmartians.com/chronicles/first-steps-with-ruby-wasm-or-building-ruby-next-playground
 import { RubyVM } from '@ruby/wasm-wasi';
 import { File, WASI, OpenFile, ConsoleStdout } from '@bjorn3/browser_wasi_shim';
 
