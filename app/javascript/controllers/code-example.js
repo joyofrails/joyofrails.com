@@ -1,9 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 import debug from '../utils/debug';
 
-import { isWorkerInitialized, sendWorkerRequest } from './code/rails';
+import { isWorkerInitialized, sendWorkerRequest } from './code-example/rails';
 
-const console = debug('app:javascript:controllers:code');
+const console = debug('app:javascript:controllers:code-example');
 
 export default class extends Controller {
   static targets = ['source', 'status', 'result', 'output'];
