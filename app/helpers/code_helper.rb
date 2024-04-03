@@ -1,13 +1,15 @@
 module CodeHelper
   def code_block_component(code, metadata, **options)
+    enable_code_example = options[:enable_code_example].present?
     language, filename = metadata.split(":") if metadata
 
     lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 
     data = {language: language}
 
-    if options[:runnable]
+    if enable_code_example
       data[:controller] = "code-example"
+      data[:code_example_vm_value] = :rails
     end
 
     tag.div(
@@ -34,7 +36,7 @@ module CodeHelper
       end
 
       footer = ""
-      if options[:runnable]
+      if enable_code_example
         footer = tag.div(class: "code-footer") do
           tag.div(class: "code-actions") do
             tag.button("Run", class: "button primary", data: {action: "click->code-example#run"}) +

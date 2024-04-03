@@ -8,8 +8,12 @@ const console = debug('app:javascript:controllers:code-example');
 export default class extends Controller {
   static targets = ['source', 'status', 'result', 'output'];
 
+  static values = {
+    vm: String,
+  };
+
   connect() {
-    console.log('connect');
+    console.log('connect', { vm: this.vmValue });
   }
 
   showBootMessage() {
