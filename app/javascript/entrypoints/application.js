@@ -6,7 +6,6 @@ import '../controllers';
 import {
   turboScrollSmoothWorkaround,
   registerServiceWorker,
-  rubyWasmHelloWorld,
 } from '../initializers';
 
 const log = debug('app:javascript:entrypoints:application');
@@ -44,5 +43,3 @@ log('Vite ⚡️ Rails');
 
 registerServiceWorker();
 turboScrollSmoothWorkaround();
-
-// window.rails = rubyWasmHelloWorld();
