@@ -1,45 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 import debug from '../utils/debug';
 
+import { isWorkerInitialized, sendWorkerRequest } from './code/rails';
+
 const console = debug('app:javascript:controllers:code');
-
-let worker = null;
-let workerInitialized = false;
-
-const sendWorkerRequest = async (message) => {
-  return new Promise((resolve) => {
-    const channel = new MessageChannel();
-
-    channel.port1.onmessage = ({ data }) => {
-      console.log('Message received from worker', data);
-
-      channel.port1.close();
-
-      if (data.error) {
-        reject(data.error);
-      } else {
-        resolve(data);
-      }
-    };
-
-    worker.postMessage(message, [channel.port2]);
-  });
-};
-
-const initWorker = async () => {
-  if (!worker) {
-    worker = new Worker(new URL('../ruby/worker', import.meta.url), {
-      type: 'module',
-    });
-  }
-
-  if (!workerInitialized) {
-    await sendWorkerRequest({ message: 'INIT' });
-    workerInitialized = true;
-  }
-
-  return workerInitialized;
-};
 
 export default class extends Controller {
   static targets = ['source', 'status', 'result', 'output'];
@@ -48,35 +12,34 @@ export default class extends Controller {
     console.log('connect');
   }
 
-  async initWorker() {
-    let timeout;
-    if (!worker) {
+  showBootMessage() {
+    if (!isWorkerInitialized()) {
       this.updateStatus('Just a moment...');
-      timeout = setTimeout(() => {
+      this.bootTimeout = setTimeout(() => {
         this.updateStatus('This is taking longer than expected...');
       }, 10000);
     }
+  }
 
-    await initWorker();
-
-    if (timeout) {
-      clearTimeout(timeout);
+  clearBootMessage() {
+    if (this.bootTimeout) {
+      clearTimeout(this.bootTimeout);
+      this.bootTimeout = null;
     }
+    this.updateStatus('');
   }
 
   async run() {
     console.log('run', this.sourceTarget.innerText);
-
-    await this.initWorker();
-
     const source = this.sourceTarget.innerText;
 
     try {
+      this.showBootMessage();
       const { result, output } = await sendWorkerRequest({
         message: 'EVAL',
         source,
       });
-      this.updateStatus('');
+      this.clearBootMessage();
       this.updateResult({ result, output });
     } catch (error) {
       this.updateStatus('An error occurred. Please check the console.');
