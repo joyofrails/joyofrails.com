@@ -2,6 +2,7 @@ import debug from 'debug';
 
 export default function (namespace) {
   return {
+    enable: debug.enable.bind(debug),
     log: debug(namespace),
     error: (() => {
       const error = debug(namespace);

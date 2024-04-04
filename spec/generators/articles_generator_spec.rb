@@ -13,7 +13,7 @@ RSpec.describe ArticleGenerator, type: :generator do
         layout: article
         summary: Here is the summary
         description: Here is the description that will show up in the the meta day
-        published: "#{7.days.from_now.to_date}"
+        published: "#{Date.today + 7}"
         draft: true
         tags:
           - Rails

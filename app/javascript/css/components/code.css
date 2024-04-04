@@ -18,6 +18,25 @@
   }
 }
 
+.code-footer {
+  @apply px-6 pb-6;
+  display: grid;
+  row-gap: 1.333rem;
+}
+
+.code-output,
+.code-result {
+  padding: 0 !important; /* Override tailwind padding */
+}
+
+.code-actions {
+  @apply text-gray-400 flex-row-reverse lg:flex lg:justify-between lg:items-center;
+}
+
+.code-action-status {
+  @apply text-sm;
+}
+
 svg {
   fill: currentColor;
 

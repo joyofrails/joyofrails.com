@@ -5,7 +5,7 @@ const console = debug('app:javascript:initializers:serviceworker-companion');
 console.log('Registering service worker...');
 console.log('Web push key: ', window.config.webPushKey);
 
-const registerServiceWorker = async () => {
+export default async () => {
   if (navigator.serviceWorker) {
     try {
       await navigator.serviceWorker.register('/serviceworker.js', {
@@ -17,5 +17,3 @@ const registerServiceWorker = async () => {
     }
   }
 };
-
-registerServiceWorker();

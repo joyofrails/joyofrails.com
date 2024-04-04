@@ -3,9 +3,10 @@ import debug from 'debug';
 import '@hotwired/turbo-rails';
 import '../controllers';
 
-import { turboScrollSmoothWorkaround } from '../initializers';
-
-import '../initializers/serviceworker-companion';
+import {
+  turboScrollSmoothWorkaround,
+  registerServiceWorker,
+} from '../initializers';
 
 const log = debug('app:javascript:entrypoints:application');
 // To see this message, add the following to the `<head>` section in your
@@ -21,10 +22,10 @@ log('Vite ⚡️ Rails');
 // If you want to use .jsx or .tsx, add the extension:
 //     <%= vite_javascript_tag 'application.jsx' %>
 
-log(
-  'Visit the guide for more information: ',
-  'https://vite-ruby.netlify.app/guide/rails',
-);
+// log(
+//   'Visit the guide for more information: ',
+//   'https://vite-ruby.netlify.app/guide/rails',
+// );
 
 // Example: Load Rails libraries in Vite.
 //
@@ -40,4 +41,5 @@ log(
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
+registerServiceWorker();
 turboScrollSmoothWorkaround();
