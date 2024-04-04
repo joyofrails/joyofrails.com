@@ -30,7 +30,11 @@
 }
 
 .code-actions {
-  @apply text-gray-400 lg:flex lg:justify-between lg:items-center;
+  @apply text-gray-400 flex-row-reverse lg:flex lg:justify-between lg:items-center;
+}
+
+.code-action-status {
+  @apply text-sm;
 }
 
 svg {
