@@ -77,5 +77,8 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :solid_queue
 
+  # Configure the database connection to use for SolidQueue
+  config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
+
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
 end

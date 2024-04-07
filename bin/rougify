@@ -5,7 +5,6 @@ require "rouge"
 require "rouge/cli"
 
 require_relative "../lib/rouge/theme/dracula"
-dracula = Rouge::Themes::Dracula
 
 begin
   Rouge::CLI.parse(ARGV).run
