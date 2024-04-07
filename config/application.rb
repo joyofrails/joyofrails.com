@@ -42,8 +42,6 @@ module Joy
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
-
     # Log to STDOUT
     if ENV["RAILS_LOG_TO_STDOUT"] == "true"
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))

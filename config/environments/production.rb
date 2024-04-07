@@ -68,10 +68,6 @@ Rails.application.configure do
   # Use a different cache store in production.
   config.cache_store = :solid_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_name_prefix = "joy_production"
-  config.active_job.queue_adapter = :solid_queue
-
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -95,6 +91,13 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # config.active_job.queue_name_prefix = "joy_production"
+  config.active_job.queue_adapter = :solid_queue
+
+  # Configure the database connection to use for SolidQueue
+  config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
   if Rails.version <= "7.1.2"
     config.active_record.sqlite3_production_warning = false
