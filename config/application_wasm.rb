@@ -11,7 +11,7 @@ require "active_record/railtie"
 # require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "action_mailbox/engine"
+# require "action_mailbox/engine"
 # require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
@@ -19,7 +19,15 @@ require "action_cable/engine"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+# FIXME: Bundler.require doesn't work in Wasm
+require "sprockets/rails"
+require "turbo-rails"
+require "stimulus-rails"
+require "vite_rails"
+require "flipper"
+require "sitepress-rails"
+require "markdown-rails"
+require "inline_svg"
 
 module Joy
   class Application < Rails::Application

@@ -28,7 +28,7 @@ ENV["SECRET_KEY_BASE"] = "secret"
 ENV["ACTIVE_RECORD_ADAPTER"] = "nulldb"
 
 require "/bundle/setup"
-require "/lib/wasm_demo"
+require "/lib/rails-wasm/joy"
     `,
   );
 

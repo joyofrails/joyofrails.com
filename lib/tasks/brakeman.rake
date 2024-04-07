@@ -9,7 +9,15 @@ namespace :brakeman do
       output_files: files,
       print_report: true,
       summary: true,
-      pager: false
+      pager: false,
+      skip_files: [
+        "build/",
+        "rubies/",
+        ".wasm/",
+        "node_modules/",
+        "vendor/",
+        "tmp/"
+      ]
     }
     result = Brakeman.run options
     if result.filtered_warnings.any?

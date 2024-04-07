@@ -4,7 +4,7 @@ name: Verify
 on: [push]
 
 jobs:
-  linters:
+  lint:
     name: Linters
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +46,7 @@ jobs:
         run: |
           bin/brakeman -q -w2
 
-  tests:
+  test:
     name: Tests
     runs-on: ubuntu-latest
 
@@ -158,3 +158,99 @@ jobs:
           SECRET_KEY_BASE_DUMMY=1 \
           RAILS_ENV=production \
           bin/rails assets:precompile
+      - uses: actions/upload-artifact@v4
+        with:
+          name: assets
+          path: public
+          retention-days: 1
+
+  wasm-node:
+    name: WebAssembly - Node
+    needs: [test, lint, assets]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools from apt
+        run: sudo apt-get install ruby bison make autoconf git curl build-essential libyaml-dev zlib1g-dev -y
+      - name: Setup `wasmtime`
+        uses: bytecodealliance/actions/wasmtime/setup@v1
+      - name: Workaround for Debian ruby distribution
+        run: |
+          # avoid using system rubygems while installing docs
+          # related issue: https://github.com/rubygems/rubygems/issues/3831
+          sudo rm -rf /usr/lib/ruby/vendor_ruby/rubygems/defaults
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Cache wasm node build
+        id: cache-wasm-node
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-wasm-node
+        with:
+          path: |
+            build
+            rubies
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - uses: actions/download-artifact@v4
+        with:
+          name: assets
+          path: public
+      - run: ls -lahR public
+      - run: echo ${{ secrets.RAILS_MASTER_WASM_KEY }} > config/credentials/wasm.key
+      - name: Build rails wasm for node
+        run: bin/wasm/build
+      - name: Pack rails wasm for node
+        run: bin/wasm/pack
+      - name: Test rails wasm for node successful with wasmtime
+        run: bin/wasm/test-node
+
+  wasm-web:
+    name: WebAssembly - Browser
+    needs: [test, lint, assets]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools from apt
+        run: sudo apt-get install ruby bison make autoconf git curl build-essential libyaml-dev zlib1g-dev -y
+      - name: Install brotli from apt
+        run: sudo apt-get install brotli -y
+      - name: Workaround for Debian ruby distribution
+        run: |
+          # avoid using system rubygems while installing docs
+          # related issue: https://github.com/rubygems/rubygems/issues/3831
+          sudo rm -rf /usr/lib/ruby/vendor_ruby/rubygems/defaults
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Cache wasm web
+        id: cache-wasm-web
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-wasm-web
+        with:
+          path: |
+            build
+            rubies
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - uses: actions/download-artifact@v4
+        with:
+          name: assets
+          path: public
+      - run: ls -lahR public
+      - run: echo ${{ secrets.RAILS_MASTER_WASM_KEY }} > config/credentials/wasm.key
+      - name: Build rails wasm for web
+        run: BROWSER=true bin/wasm/build
+      - name: Pack rails wasm for web
+        run: BROWSER=true bin/wasm/pack
+      - name: Compress the wasm files
+        run: bin/wasm/compress
+      - run: ls -lahR public

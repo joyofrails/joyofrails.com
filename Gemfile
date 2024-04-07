@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
-gem "rails", "~> 7.1" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.1", group: [:default, :wasm] # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
@@ -14,28 +14,26 @@ gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/base
 gem "rack", "~> 2.2", ">= 2.2.7" # litestack's liteboard depends on hanami-router which does not currently support rack 3.x as of Dec 2023
 
 # Asset management
-gem "sprockets-rails" # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
+gem "sprockets-rails", group: [:default, :wasm] # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "stimulus-rails", group: [:default, :wasm] # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "turbo-rails", group: [:default, :wasm] # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "vite_rails", group: [:default, :wasm] # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 
 # Utilities
-gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.7", group: [:default, :wasm] # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-gem "flipper" # Feature flipping for Ruby [https://www.flippercloud.io/]
+gem "flipper", group: [:default, :wasm] # Feature flipping for Ruby [https://www.flippercloud.io/]
 gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flippercloud.io/docs/adapters/active-record]
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
-gem "jbuilder" # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "tzinfo-data", platforms: %i[windows jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
-gem "warden" # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
+gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 
 # Rendering
 # gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
-gem "markdown-rails" # Markdown as static templating language for Rails [https://github.com/sitepress/markdown-rails
-gem "rouge" # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
-gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
+gem "markdown-rails", group: [:default, :wasm] # Markdown as static templating language for Rails [https://github.com/sitepress/markdown-rails
+gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
+gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
@@ -72,4 +70,16 @@ group :development, :test do
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
   gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
+end
+
+group :wasm do
+  gem "activerecord-nulldb-adapter" # Use nulldb as the database for Active Record [https://github.com/nulldb/nulldb]
+
+  gem "tzinfo-data" # WASM needs to include zoneinfo files, so bundle the tzinfo-data gem
+
+  gem "ruby_wasm", "~> 2.5" # Building WebAssembly modules in Ruby [https://github.com/ruby/ruby.wasm]
+end
+
+group :browser do
+  gem "js" # JavaScript bindings for ruby.wasm [https://github.com/ruby/ruby.wasm/blob/main/packages/gems/js]
 end

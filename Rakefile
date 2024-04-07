@@ -8,10 +8,10 @@ Rails.application.load_tasks
 task default: %i[
   standard
   spec
-  vitest:run
   db:seed
+  vitest:run
   brakeman:run
-  bundle:audit
+  bundler:audit
 ]
 
 # Tasks to consider later

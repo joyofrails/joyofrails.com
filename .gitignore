@@ -59,3 +59,10 @@ node_modules
 # Ignore the generated litestream config
 config/litestream.yml
 config/litestream/*.yml
+
+# Ignore wasm files
+/build
+/rubies
+/.wasm/*
+!/.wasm/.keep
+/config/credentials/wasm.key
