@@ -99,7 +99,7 @@ Rails.application.configure do
   # Configure the database connection to use for SolidQueue
   config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
-  if Rails.version <= "7.1.2"
+  if Rails.version >= "7.2"
     config.active_record.sqlite3_production_warning = false
   else
     warn "Remove this warning?"
