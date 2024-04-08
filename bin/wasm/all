@@ -9,3 +9,5 @@ bin/wasm/pack
 BROWSER=true bin/wasm/pack
 bin/wasm/test-node
 bin/wasm/compress
+bin/rails wasm:clobber wasm:upload
+RAILS_ENV=test bin/rails wasm:clobber wasm:upload

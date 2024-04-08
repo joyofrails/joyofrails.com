@@ -254,3 +254,13 @@ jobs:
       - name: Compress the wasm files
         run: bin/wasm/compress
       - run: ls -lahR public
+      - name: Upload wasm to cloud storage
+        run: |
+          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+            SECRET_KEY_BASE_DUMMY=1 \
+            RAILS_ENV=production \
+            bin/wasm-upload-web
+          else
+            RAILS_ENV=test \
+            bin/wasm-upload-web
+          fi

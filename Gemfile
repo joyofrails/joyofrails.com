@@ -41,6 +41,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
+gem "fog-aws", require: false
 
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
