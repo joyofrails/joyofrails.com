@@ -20,8 +20,6 @@
 
 .code-footer {
   @apply px-6 pb-6;
-  display: grid;
-  row-gap: 1.333rem;
 }
 
 .code-output,

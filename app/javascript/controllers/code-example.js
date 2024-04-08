@@ -6,7 +6,14 @@ import { isWorkerInitialized, sendWorkerRequest } from './code-example/rails';
 const console = debug('app:javascript:controllers:code-example');
 
 export default class extends Controller {
-  static targets = ['source', 'status', 'result', 'output'];
+  static targets = [
+    'source',
+    'status',
+    'result',
+    'output',
+    'runButton',
+    'clearButton',
+  ];
 
   static values = {
     vm: String,
@@ -45,9 +52,33 @@ export default class extends Controller {
       });
       this.clearBootMessage();
       this.updateResult({ result, output });
+      this.toggleButtons('clear');
     } catch (error) {
-      this.updateStatus('An error occurred. Please check the console.');
+      this.updateStatus('An error occurred. Check the console for more info.');
       throw error;
+    }
+  }
+
+  clear() {
+    console.log('clear');
+    this.updateStatus('');
+    this.updateResult({ result: null, output: null });
+    this.toggleButtons('run');
+  }
+
+  toggleButtons(action) {
+    if (action === 'clear') {
+      this.clearButtonTarget.disabled = false;
+      this.runButtonTarget.disabled = true;
+      this.clearButtonTarget.classList.remove('hidden');
+      this.runButtonTarget.classList.add('hidden');
+      this.clearButtonTarget.focus();
+    } else {
+      this.runButtonTarget.disabled = false;
+      this.clearButtonTarget.disabled = true;
+      this.runButtonTarget.classList.remove('hidden');
+      this.clearButtonTarget.classList.add('hidden');
+      this.runButtonTarget.focus();
     }
   }
 
