@@ -56,6 +56,7 @@ end
 group :test do
   gem "capybara" # Acceptance test framework for web applications [https://github.com/teamcapybara/capybara]
   gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
+  gem "cuprite", git: "https://github.com/rubycdp/cuprite"
   gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
 end
 

@@ -10,7 +10,7 @@ RSpec.describe "Examples", type: :system do
       click_button "Run"
 
       # Allow extra time for wasm to download and initialize
-      within ".code-output", wait: 20 do
+      within ".code-output", wait: 10 do
         expect(page).to have_text("Hello, Ruby!")
       end
     end
