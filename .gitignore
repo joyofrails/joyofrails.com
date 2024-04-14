@@ -66,3 +66,6 @@ config/litestream/*.yml
 /.wasm/*
 !/.wasm/.keep
 /config/credentials/wasm.key
+
+# Ignore rspec failure file
+spec/failures.txt
