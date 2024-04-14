@@ -5,6 +5,8 @@ import { isWorkerInitialized, sendWorkerRequest } from './code-example/rails';
 
 const console = debug('app:javascript:controllers:code-example');
 
+console.log('RAILS_ENV', import.meta.env.RAILS_ENV);
+
 export default class extends Controller {
   static targets = [
     'source',

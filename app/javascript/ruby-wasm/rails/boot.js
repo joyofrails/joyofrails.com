@@ -1,15 +1,12 @@
 import debug from '../../utils/debug';
 
 import { wrapRubyVM } from '../vm';
+import railsWasmUrl from './url';
 
 const console = debug('app:javascript:rails:boot');
 console.enable('app:*');
-
 console.log('Booting Rails VM...');
-
-// Rails WASM module is compiled and made available on CDN via wasm pipeline
-const railsWasmUrl =
-  'https://d21jaoini97l57.cloudfront.net/joyofrails/development/0.0.1/rails-7.1-ruby-3.3-web.wasm';
+console.log('railsWasmUrl', railsWasmUrl);
 
 let railsVM;
 

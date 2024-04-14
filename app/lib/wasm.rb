@@ -6,7 +6,7 @@ module Wasm
   S3_BUCKET_NAME = "rails-wasm"
 
   def app_version
-    Joy::WASM_VERSION
+    File.read("WASM_APP_VERSION").strip
   end
 
   def rails_version
