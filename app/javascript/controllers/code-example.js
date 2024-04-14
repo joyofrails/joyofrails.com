@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import debug from '../utils/debug';
 
-import { isWorkerInitialized, sendWorkerRequest } from './code-example/rails';
+import { isWorkerInitialized, evaluate } from './code-example/rails';
 
 const console = debug('app:javascript:controllers:code-example');
 
@@ -48,10 +48,7 @@ export default class extends Controller {
 
     try {
       this.showBootMessage();
-      const { result, output } = await sendWorkerRequest({
-        message: 'EVAL',
-        source,
-      });
+      const { result, output } = await evaluate(source);
       this.clearBootMessage();
       this.updateResult({ result, output });
       this.toggleButtons('clear');
