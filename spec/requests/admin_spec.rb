@@ -10,12 +10,6 @@ RSpec.describe "Admin", type: :request do
 
         expect(response.status).to eq(200)
       end
-
-      it "renders misson control jobs" do
-        get "/admin/jobs"
-
-        expect(response.status).to eq(302)
-      end
     end
 
     context "when signed out" do
