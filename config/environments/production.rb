@@ -100,8 +100,8 @@ Rails.application.configure do
   config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
   if Rails.version >= "7.2"
-    config.active_record.sqlite3_production_warning = false
+    warn "Remove the sqlite in production check?"
   else
-    warn "Remove this warning?"
+    config.active_record.sqlite3_production_warning = false
   end
 end
