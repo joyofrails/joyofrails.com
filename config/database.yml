@@ -57,3 +57,6 @@ production:
     <<: *default
     database: storage/production/queue.sqlite3
     migrations_paths: db/migrate_queue
+
+wasm:
+  adapter: nulldb

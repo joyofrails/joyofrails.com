@@ -1,0 +1,15 @@
+!/usr/bin/env bash
+
+set -ex
+
+echo "Before compression: WebAssembly files and sizes"
+ls -lahR .wasm
+
+echo "Clearing old compressed WebAssembly files"
+rm -f .wasm/*.wasm.br
+
+echo "Compressing WebAssembly files"
+echo .wasm/*.wasm | xargs brotli -vq 8
+
+echo "After compression: WebAssembly files and sizes"
+ls -lahR .wasm

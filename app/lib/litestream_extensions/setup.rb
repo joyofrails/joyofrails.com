@@ -3,6 +3,7 @@ module LitestreamExtensions
     module_function
 
     def configure_litestream
+      return if Rails.env.wasm?
       File.write(config_path, YAML.dump(litestream_config))
     end
 

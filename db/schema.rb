@@ -34,5 +34,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_07_205755) do
     t.datetime "updated_at", null: false
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
-
 end

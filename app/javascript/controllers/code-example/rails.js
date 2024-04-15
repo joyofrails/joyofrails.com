@@ -63,3 +63,10 @@ export const sendWorkerRequest = async (message) => {
 };
 
 export const isWorkerInitialized = () => workerInitialized;
+
+export const evaluate = (source) =>
+  sendWorkerRequest({ message: 'EVAL', source });
+
+window.rails = {
+  eval: evaluate,
+};

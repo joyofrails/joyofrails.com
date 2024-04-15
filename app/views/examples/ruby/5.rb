@@ -1,1 +1,1 @@
-ApplicationController.render("hello/show")
+ApplicationController.render("examples/hello/show")

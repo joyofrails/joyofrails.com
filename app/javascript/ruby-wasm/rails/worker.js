@@ -31,6 +31,7 @@ self.addEventListener('message', async ({ data, ports }) => {
 
   if (data.message === 'EVAL') {
     const { result, output } = railsVM.eval(data.source);
+    console.log('Eval result', { source: data.source, result, output });
     return port.postMessage({ message: 'RESULT', result, output });
   }
 

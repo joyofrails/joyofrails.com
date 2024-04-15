@@ -39,7 +39,8 @@ module CodeHelper
       if enable_code_example
         footer = tag.div(class: "code-footer") do
           tag.div(class: "code-actions") do
-            tag.button("Run", class: "button primary", data: {action: "click->code-example#run"}) +
+            tag.button("Run", class: "button primary", data: {action: "click->code-example#run", code_example_target: "runButton"}) +
+              tag.button("Clear", class: "button secondary hidden", data: {action: "click->code-example#clear", code_example_target: "clearButton"}) +
               tag.span(class: "code-action-status", data: {code_example_target: "status"})
           end +
             tag.pre(class: "code-output hidden", data: {code_example_target: "output"}) do

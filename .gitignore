@@ -35,6 +35,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+/config/credentials/test.key
 /config/credentials/production.key
 /config/credentials/development.key
 /config/credentials/development.yml.enc
@@ -59,3 +60,13 @@ node_modules
 # Ignore the generated litestream config
 config/litestream.yml
 config/litestream/*.yml
+
+# Ignore wasm files
+/build
+/rubies
+/.wasm/*
+!/.wasm/.keep
+/config/credentials/wasm.key
+
+# Ignore rspec failure file
+spec/failures.txt

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
 
   resources :examples, only: [:index, :show]
+  namespace :examples do
+    resource :hello, only: [:show]
+  end
 
   sitepress_pages
 
@@ -37,8 +40,10 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :admin, constraints: Routes::AdminAccessConstraint.new do
-    mount Flipper::UI.app(Flipper) => "/flipper"
-    mount MissionControl::Jobs::Engine, at: "/jobs"
+  unless Rails.env.wasm?
+    scope :admin, constraints: Routes::AdminAccessConstraint.new do
+      mount Flipper::UI.app(Flipper) => "/flipper"
+      mount MissionControl::Jobs::Engine, at: "/jobs"
+    end
   end
 end

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+
+bin/rails assets:clobber assets:precompile
+bin/wasm/build
+BROWSER=true bin/wasm/build
+bin/wasm/pack
+BROWSER=true bin/wasm/pack
+bin/wasm/test-node
+bin/wasm/compress
+bin/rails wasm:clobber wasm:upload
+RAILS_ENV=test bin/rails wasm:clobber wasm:upload

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+
+RUBY_VERSION="3.3"
+RAILS_VERSION="7.1"
+BROWSER=${BROWSER:-false}
+
+[[ "$BROWSER" = true ]] && SUFFIX="web" || SUFFIX="node"
+
+BROWSER=${BROWSER} bin/rbwasm build \
+  --ruby-version ${RUBY_VERSION} \
+  -o .wasm/ruby-${RUBY_VERSION}-${SUFFIX}.wasm

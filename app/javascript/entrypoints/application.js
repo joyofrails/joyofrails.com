@@ -3,6 +3,8 @@ import debug from 'debug';
 import '@hotwired/turbo-rails';
 import '../controllers';
 
+import railsWasmUrl from '../ruby-wasm/rails/url';
+
 import {
   turboScrollSmoothWorkaround,
   registerServiceWorker,
@@ -43,3 +45,5 @@ log('Vite ⚡️ Rails');
 
 registerServiceWorker();
 turboScrollSmoothWorkaround();
+
+console.log('railsWasmUrl', railsWasmUrl);
