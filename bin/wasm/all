@@ -3,10 +3,10 @@
 set -ex
 
 bin/rails assets:clobber assets:precompile
-bin/wasm/build
-BROWSER=true bin/wasm/build
-bin/wasm/pack
-BROWSER=true bin/wasm/pack
+TARGET=node bin/wasm/build
+TARGET=web  bin/wasm/build
+TARGET=node bin/wasm/pack
+TARGET=web  bin/wasm/pack
 bin/wasm/test-node
 bin/wasm/compress
 bin/rails wasm:clobber wasm:upload

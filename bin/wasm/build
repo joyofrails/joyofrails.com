@@ -4,10 +4,8 @@ set -ex
 
 RUBY_VERSION="3.3"
 RAILS_VERSION="7.1"
-BROWSER=${BROWSER:-false}
+TARGET=${TARGET:-node}
 
-[[ "$BROWSER" = true ]] && SUFFIX="web" || SUFFIX="node"
-
-BROWSER=${BROWSER} bin/rbwasm build \
+TARGET=${TARGET} bin/rbwasm build \
   --ruby-version ${RUBY_VERSION} \
-  -o .wasm/ruby-${RUBY_VERSION}-${SUFFIX}.wasm
+  -o .wasm/ruby-${RUBY_VERSION}-${TARGET}.wasm

@@ -1,5 +1,0 @@
-!/usr/bin/env bash
-
-set -ex
-
-bin/rails wasm:upload

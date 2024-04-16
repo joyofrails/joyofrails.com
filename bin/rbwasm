@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
-ENV["BUNDLE_ONLY"] = "wasm"
+ENV["TARGET"] ||= "node"
 
-if ENV["BROWSER"] == "true"
-  ENV["BUNDLE_ONLY"] = "wasm browser"
+ENV["BUNDLE_ONLY"] = if ENV["TARGET"] == "web"
+  "wasm browser"
+else # ENV["TARGET"] == "node"
+  "wasm"
 end
 
 require "bundler/setup"

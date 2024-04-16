@@ -167,60 +167,19 @@ jobs:
           path: public
           retention-days: 1
 
-  wasm-node:
-    name: WebAssembly - Node
+  wasm:
+    name: WebAssembly
     needs: [test, lint, assets]
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        target: [web, node]
     steps:
       - uses: actions/checkout@v4
       - name: Install build tools from apt
         run: sudo apt-get install ruby bison make autoconf git curl build-essential libyaml-dev zlib1g-dev -y
-      - name: Setup `wasmtime`
+      - name: Install wasmtime
         uses: bytecodealliance/actions/wasmtime/setup@v1
-      - name: Workaround for Debian ruby distribution
-        run: |
-          # avoid using system rubygems while installing docs
-          # related issue: https://github.com/rubygems/rubygems/issues/3831
-          sudo rm -rf /usr/lib/ruby/vendor_ruby/rubygems/defaults
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Cache wasm node build
-        id: cache-wasm-node
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-wasm-node
-        with:
-          path: |
-            build
-            rubies
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - uses: actions/download-artifact@v4
-        with:
-          name: assets
-          path: public
-      - run: ls -lahR public
-      - run: echo ${{ secrets.RAILS_MASTER_WASM_KEY }} > config/credentials/wasm.key
-      - name: Build rails wasm for node
-        run: bin/wasm/build
-      - name: Pack rails wasm for node
-        run: bin/wasm/pack
-      - name: Test rails wasm for node successful with wasmtime
-        run: bin/wasm/test-node
-
-  wasm-web:
-    name: WebAssembly - Browser
-    needs: [test, lint, assets]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install build tools from apt
-        run: sudo apt-get install ruby bison make autoconf git curl build-essential libyaml-dev zlib1g-dev -y
       - name: Install brotli from apt
         run: sudo apt-get install brotli -y
       - name: Workaround for Debian ruby distribution
@@ -231,11 +190,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Cache wasm web
-        id: cache-wasm-web
+      - name: Cache wasm
+        id: cache-wasm
         uses: actions/cache@v4
         env:
-          cache-name: cache-wasm-web
+          cache-name: cache-wasm-${{ matrix.target }}
         with:
           path: |
             build
@@ -252,9 +211,16 @@ jobs:
       - run: ls -lahR public
       - run: echo ${{ secrets.RAILS_MASTER_WASM_KEY }} > config/credentials/wasm.key
       - name: Build rails wasm for web
-        run: BROWSER=true bin/wasm/build
+        run: TARGET=${{ matrix.target }} bin/wasm/build
       - name: Pack rails wasm for web
-        run: BROWSER=true bin/wasm/pack
+        run: TARGET=${{ matrix.target }} bin/wasm/pack
+      - name: Test rails wasm for node successful with wasmtime
+        run: |
+          if [[ "${{ matrix.target }}" == "node" ]]; then
+            bin/wasm/test-node
+          else
+            echo "Skipping test for wasm web"
+          fi
       - name: Compress the wasm files
         run: bin/wasm/compress
       - run: ls -lahR public
@@ -263,9 +229,9 @@ jobs:
           if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
             RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_PRODUCTION_KEY }} \
             RAILS_ENV=production \
-            bin/wasm-upload-web
+            bin/rails wasm:upload
           else
             RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_TEST_KEY }} \
             RAILS_ENV=test \
-            bin/wasm-upload-web
+            bin/rails wasm:upload
           fi
