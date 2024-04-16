@@ -12,6 +12,9 @@ on:
 concurrency:
   group: production
 
+env:
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_TEST_KEY }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
