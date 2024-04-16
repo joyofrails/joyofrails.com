@@ -71,11 +71,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
 
-      - name: Setup geckodriver
-        uses: browser-actions/setup-geckodriver@latest
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Node version
         run: |
           node --version
