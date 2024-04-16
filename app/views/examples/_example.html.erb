@@ -1,4 +1,3 @@
-<% id ||= 1 %>
-<div id="example_<%= id %>">
-  <%= render CodeBlock.new(example, language: "ruby", enable_run: true) %>
+<div id="example_<%= example.basename(".*") %>">
+  <%= render CodeBlock.new(example.source, language: "ruby", filename: example.app_path, enable_run: true) %>
 </div>
