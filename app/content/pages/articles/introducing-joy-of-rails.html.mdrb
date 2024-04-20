@@ -1,0 +1,66 @@
+---
+title: Introducing Joy of Rails
+author: Ross Kaffenberger
+layout: article
+summary:
+description: Another programmer decides to start a Rails blog
+published: '2024-04-23'
+no_toc: true
+tags:
+  - Rails
+---
+
+## How it started, how it’s going
+
+In 2007, at my first programming job—a software consultancy—a colleague pulled me aside to demo an app he was building. We huddles around one of the office iMacs where I saw a browser, a basic text editor, and a terminal. In his text editor, there was some html markup mixed in with some new programming language called Ruby. The terminal was spitting out a screen full of text. It all looked like the Matrix.
+
+Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. To this day, I don't even remember what that first application was even about, but there's one feeling I had in that moment that has stuck with me.
+
+This is awesome.
+
+We wrote some new code and saw our changes displayed on the browser right away. The terminal spewed more nonsense. My colleague explained some bits of Ruby syntax. Though foreign, Ruby appeared concise and accessible.
+
+It was so much fun.
+
+---
+
+As you’ve surely guessed, the app was running with Ruby on Rails. Back then, it was a hot new thing. Node.js and React was several years from taking web development by storm. Nothing invented since has captured my imagination like that first Rails app on the iMac. Soon after, I got my first job working on Rails full-times. I've been building applications with Ruby on Rails ever since.
+
+Along the way, I’ve had a lot of fun. I've made lots of friends at work and in the community. At this point, it’s hard for me to imagine having this much fun and being this productive with any other programming framework. I want to build applications for the Web and and I want to use Rails.
+
+## Built with Joy
+
+I also want to share what I've learned through my journey with Ruby on Rails. So I launched [Joy of Rails](/).
+
+So why Joy of Rails? I've already written numerous articles on my personal blog, [rossta.net](https://rossta.net). My blog is a static website, built on the Ruby-based static site generator [Middleman](https://middlemanapp.com/). It's had hundreds of thousands of visits and—I'd like to think—it's been helpful to some.
+
+With Joy of Rails, I want to do something a little different.
+
+Joy of Rails will be dedicated to Rails and its ecosystem, including Ruby and JavaScript. But I want to be able to do more than I can with a static website. I want to demonstrate Rails concepts with Rails.
+
+So Joy of Rails is built with Rails.
+
+Joy of Rails runs on Ruby <%= RUBY_VERSION %> Rails <%= Rails.version %>.
+
+```erb
+Joy of Rails runs on Ruby <%= RUBY_VERSION %> Rails <%= Rails.version %>.
+```
+
+Some day it will upgrade and those version numbers will change automatically.
+
+Joy of Rails embraces [the Rails doctrine](https://rubyonrails.org/doctrine). The application is a [majestic monolith](https://rubyonrails.org/doctrine#integrated-systems). It mostly sticks to the Rails [menu](https://rubyonrails.org/doctrine#omakase), but follow [no one paradigm](https://rubyonrails.org/doctrine#no-one-paradigm) strictly. Above all, Joy of Rails [optimizes not only for the programmer's (my) happiness](https://rubyonrails.org/doctrine#optimize-for-programmer-happiness) but for its readers (you) as its primary goal.
+
+Rails may be overkill for a blog in this day and age. I tend to agree. Somewhat ironically, when DHH first introduced Rails to the world, the killer app was a blog. Today with Joy, I want to do more than just a blog. Interactive blog.
+
+- Joy of Rails is
+
+- Built with Rails
+- A monolith
+- Open source
+- Can run code in your browser
+
+```ruby::run
+request = Rack::MockRequest.env_for("http://localhost:3000/examples/hello", {"HTTP_HOST" => "localhost"})
+
+puts Rails.application.call(request)
+```
