@@ -37,5 +37,10 @@ module Examples
       File.extname(@path)
     end
     alias_method :extension, :extname
+
+    def repo_url
+      branch = `git rev-parse --abbrev-ref HEAD`
+      "https://github.com/joyofrails/joyofrails.com/blob/#{branch}/#{app_path}"
+    end
   end
 end
