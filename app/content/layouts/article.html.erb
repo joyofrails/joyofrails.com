@@ -1,4 +1,6 @@
 <% header_classes remove: "bg-joy-bg-1" %>
+<% hide_toc = current_page.data["no_toc"] %>
+
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
   <header class="page-title bg-joy-bg-2 relative">
@@ -18,24 +20,26 @@
     <div class="h-16 bg-joy-bg-1 sticky top-0 z-[9]"></div>
     <div class="container lg:mt-12 md:mt-8">
       <div id="start-here" class="anchor sr-only"></div>
-      <div class="lg:flex lg:flex-row-reverse">
-        <aside
-          class="
-            hidden lg:block lg:sticky lg:self-start lg:flex-1 ml-16 mt-1 top-[114px]
-          ">
-          <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
-          <!-- Disable Turbolinks for same-page Table of Contents navigation
-          -->
-          <nav
-            data-controller="table-of-contents"
-            data-turbo="false"
-            class="toc text-sm leading-6 text-gray-text">
-            <ul>
-              <li><a href="#introduction">Introduction</a></li>
-            </ul>
-            <%= render_toc(current_page) %>
-          </nav>
-        </aside>
+      <div class="article-container<%= hide_toc ? "" : " with-table-of-contents" %>">
+        <%- unless hide_toc -%>
+          <aside
+            class="
+              hidden lg:block lg:sticky lg:self-start lg:flex-1 ml-16 mt-1 top-[114px]
+            ">
+            <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
+            <!-- Disable Turbolinks for same-page Table of Contents navigation
+            -->
+            <nav
+              data-controller="table-of-contents"
+              data-turbo="false"
+              class="toc text-sm leading-6 text-gray-text">
+              <ul>
+                <li><a href="#introduction">Introduction</a></li>
+              </ul>
+              <%= render_toc(current_page) %>
+            </nav>
+          </aside>
+        <%- end -%>
         <article
           class="article prose dark:prose-invert sm:prose-lg lg:prose-xl">
           <h2
