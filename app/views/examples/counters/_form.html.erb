@@ -9,7 +9,7 @@
     </ul>
   </div>
 <% end %>
-<div class="flex items-center gap-x-3 mt-3">
+<div class="flex items-center gap-x-3 mt-3 plausible-event-name=Examples+Counter+Click">
   <%= button_to "Increment", examples_counters_path(counter: { count: counter.count + 1 }), method: :put, class: "button primary" %>
   <%= button_to "Decrement", examples_counters_path(counter: { count: counter.count - 1 }), method: :put, class: "button pink" %>
   <%= button_to "Reset", examples_counters_path, method: :delete, class: "button secondary" %>
