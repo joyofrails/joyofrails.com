@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   # Redirects www to root domain
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
 
-  resources :examples, only: [:index, :show]
   namespace :examples do
+    resource :counters, only: [:show, :update, :destroy]
     resource :hello, only: [:show]
   end
+  resources :examples, only: [:index, :show]
 
   sitepress_pages
 
