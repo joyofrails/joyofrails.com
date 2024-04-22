@@ -23,8 +23,8 @@
   --joy-scrollbar-thumb: var(--dracula-pink-200);
   --joy-scrollbar-track: var(--dracula-pink-900);
 
-  --joy-button-primary: var(--violet-9);
-  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-primary: var(--violet-10);
+  --joy-button-primary-hover: var(--violet-9);
   --joy-button-secondary: var(--slate-8);
   --joy-button-secondary-hover: var(--slate-7);
 }
@@ -49,8 +49,8 @@
   --joy-scrollbar-track: var(--dracula-cyan-100);
   --joy-scrollbar-thumb: var(--dracula-grey);
 
-  --joy-button-primary: var(--violet-9);
-  --joy-button-primary-hover: var(--violet-8);
+  --joy-button-primary: var(--violet-10);
+  --joy-button-primary-hover: var(--violet-9);
   --joy-button-secondary: var(--dracula-grey);
   --joy-button-secondary-hover: var(--dracula-grey-secondary);
 }

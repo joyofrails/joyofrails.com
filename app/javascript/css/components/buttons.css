@@ -15,6 +15,14 @@
     @apply bg-joy-button-secondary hover:bg-joy-button-secondary-hover;
   }
 
+  &.pink {
+    background-color: var(--pink-10);
+
+    &:hover {
+      background-color: var(--pink-9);
+    }
+  }
+
   &:hover {
     @apply text-white no-underline cursor-pointer;
   }
