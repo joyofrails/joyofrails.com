@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+import debug from '../utils/debug';
 
-const log = debug('app:javascript:controllers:darkmode');
+const console = debug('app:javascript:controllers:darkmode');
 
 const controllers = new Set();
 
@@ -71,7 +71,7 @@ export default class extends Controller {
 
   disconnect() {
     controllers.delete(this);
-    log('Darkmode Controller disconnect');
+    console.log('Darkmode Controller disconnect');
   }
 
   setMode(mode) {
@@ -109,7 +109,7 @@ export default class extends Controller {
   }
 
   setDark() {
-    log('Set Dark');
+    console.log('Set Dark');
     this.darkIconTarget.classList.remove('hidden');
     this.lightIconTarget.classList.add('hidden');
     this.systemIconTarget.classList.add('hidden');
@@ -117,7 +117,7 @@ export default class extends Controller {
   }
 
   setLight() {
-    log('Set Light');
+    console.log('Set Light');
     this.darkIconTarget.classList.add('hidden');
     this.lightIconTarget.classList.remove('hidden');
     this.systemIconTarget.classList.add('hidden');
@@ -125,7 +125,7 @@ export default class extends Controller {
   }
 
   setSystem() {
-    log('Set System');
+    console.log('Set System');
     this.darkIconTarget.classList.add('hidden');
     this.lightIconTarget.classList.add('hidden');
     this.systemIconTarget.classList.remove('hidden');
@@ -135,6 +135,6 @@ export default class extends Controller {
   setDescription(text) {
     const node = document.createTextNode(text);
     this.descriptionTarget.replaceChildren(node);
-    log('Set Description', this.descriptionTarget.innerHTML);
+    console.log('Set Description', this.descriptionTarget.innerHTML);
   }
 }
