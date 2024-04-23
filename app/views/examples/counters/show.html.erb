@@ -3,7 +3,9 @@
     <article class="prose dark:prose-invert sm:prose-lg lg:prose-xl">
       <h2>Example Counter</h2>
 
-      <%= render @examples_counter %>
+      <%= turbo_frame_tag dom_id(@examples_counter), class: "plausible-event-name=Examples+Counter+Click" do %>
+        <%= render @examples_counter %>
+      <% end %>
     </article>
   </div>
 </div>
