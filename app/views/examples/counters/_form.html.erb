@@ -9,8 +9,8 @@
     </ul>
   </div>
 <% end %>
-<div class="flex items-center gap-x-3 mt-3">
-  <%= button_to "Increment", examples_counters_path(counter: { count: counter.count + 1 }), method: :put, class: "button primary", form_class: "plausible-event-name=Examples+Counter+Click" %>
-  <%= button_to "Decrement", examples_counters_path(counter: { count: counter.count - 1 }), method: :put, class: "button pink", form_class: "plausible-event-name=Examples+Counter+Click" %>
-  <%= button_to "Reset", examples_counters_path, method: :delete, class: "button secondary", form_class: "plausible-event-name=Examples+Counter+Click" %>
-</div>
+<%= tag.div data: { controller: "plausible", plausible_event_value: "Examples Counter Click" }, class: "flex items-center gap-x-3 mt-3" do %>
+  <%= button_to "Increment", examples_counters_path(counter: { count: counter.count + 1 }), method: :put, class: "button primary", form: { data: { action: "submit->plausible#send" } } %>
+  <%= button_to "Decrement", examples_counters_path(counter: { count: counter.count - 1 }), method: :put, class: "button pink", form: { data: { action: "submit->plausible#send" } } %>
+  <%= button_to "Reset", examples_counters_path, method: :delete, class: "button secondary", form: { data: { action: "submit->plausible#send" } } %>
+<% end %>
