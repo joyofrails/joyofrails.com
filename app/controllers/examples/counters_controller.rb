@@ -18,7 +18,7 @@ class Examples::CountersController < ApplicationController
         redirect_to @examples_counter, notice: "Count was successfully updated.", status: :see_other
       }
       format.turbo_stream {
-        render turbo_stream: turbo_stream_replace_counter(@examples_counter)
+        render turbo_stream: turbo_stream_update_counter(@examples_counter)
       }
     end
   end
@@ -32,15 +32,15 @@ class Examples::CountersController < ApplicationController
         redirect_to @examples_counter, notice: "Count was successfully reset.", status: :see_other
       }
       format.turbo_stream {
-        render turbo_stream: turbo_stream_replace_counter(@examples_counter)
+        render turbo_stream: turbo_stream_update_counter(@examples_counter)
       }
     end
   end
 
   private
 
-  def turbo_stream_replace_counter(counter)
-    turbo_stream.replace(
+  def turbo_stream_update_counter(counter)
+    turbo_stream.update(
       counter,
       partial: "examples/counters/counter",
       locals: {counter: counter}
