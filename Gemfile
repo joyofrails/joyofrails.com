@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.3.0"
 
@@ -34,6 +35,8 @@ gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://gi
 gem "markdown-rails", group: [:default, :wasm] # Markdown as static templating language for Rails [https://github.com/sitepress/markdown-rails
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
+gem "phlex-rails"
+gem "phlex-markdown", github: "phlex-ruby/phlex-markdown"
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
