@@ -1,7 +1,12 @@
 module CodeHelper
-  def code_block_component(code, metadata, **options)
-    enable_code_example = options[:enable_code_example].present?
-    language, filename = metadata.split(":") if metadata
+  def code_block_component(code, metadata = "", **options)
+    language, filename, opts_string = metadata.to_s.split(":")
+
+    enable_code_example = if options[:run].present?
+      options[:run]
+    else
+      opts_string.to_s.split(",").include?("run")
+    end
 
     lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 
