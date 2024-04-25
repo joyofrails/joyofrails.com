@@ -4,6 +4,38 @@ require "inline_svg/action_view/helpers"
 
 class ApplicationMarkdown < Phlex::Markdown
   include InlineSvg::ActionView::Helpers
+  include Phlex::Rails::Helpers::LinkTo
+
+  class Handler
+    class << self
+      def call(template, content)
+        ApplicationMarkdown.new(content).call
+      end
+    end
+  end
+
+  def doc
+    Markly.parse(@content, flags: Markly::UNSAFE)
+  end
+
+  def visit(node)
+    return if node.nil?
+
+    case node.type
+    in :header
+      header(node.header_level) do
+        visit_children(node)
+      end
+    in :link
+      link(node.url, node.title) { visit_children(node) }
+    in :inline_html
+      unsafe_raw(node.string_content)
+    in :html
+      unsafe_raw(node.string_content)
+    else
+      super
+    end
+  end
 
   # # Reformats your boring punctation like " and " into “ and ” so you can look
   # # and feel smarter. Read the docs at https://github.com/vmg/redcarpet#also-now-our-pants-are-much-smarter
@@ -37,27 +69,26 @@ class ApplicationMarkdown < Phlex::Markdown
   #   }
   # end
 
-  # def renderer
-  #   ::Redcarpet::Markdown.new(self.class.new(options), **extensions)
-  # end
+  def header(header_level, &)
+    content = capture(&)
+    anchor = content.parameterize
+    send(:"h#{header_level}", id: anchor, class: "anchor group flex items-center") do
+      a(href: "##{anchor}", class: ["anchor-link not-prose"]) do
+        anchor_svg
+        span(class: "sr-only") { "Link to heading" }
+      end
+      plain content
+    end
+  end
 
-  # def link(url, title, text)
-  #   custom_link_to(url, text)
-  # end
+  def code_block(source, metadata, **options)
+    language, filename, opts_string = metadata.to_s.split(":")
 
-  # def autolink(url, link_type)
-  #   custom_link_to(url, url)
-  # end
-
-  # def header(text, header_level)
-  #   content_tag "h#{header_level}", id: text.parameterize, class: "anchor group flex items-center" do
-  #     anchor_tag(text, class: ["anchor-link not-prose"]) + text
-  #   end
-  # end
-
-  def code_block(code, metadata, **options)
-    enable_code_example = options[:enable_code_example].present?
-    language, filename = metadata.split(":") if metadata
+    enable_code_example = if options[:run].present?
+      options[:run]
+    else
+      opts_string.to_s.split(",").include?("run")
+    end
 
     lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 
@@ -84,18 +115,18 @@ class ApplicationMarkdown < Phlex::Markdown
       div(class: "code-body") do
         pre do
           code data: {code_example_target: "source"} do
-            unsafe_raw code_formatter.format(lexer.lex(code))
+            unsafe_raw code_formatter.format(lexer.lex(source))
           end
         end
-        clipboard_copy(code)
+        clipboard_copy(source)
       end
 
       if enable_code_example
         div(class: "code-footer") do
           div(class: "code-actions") do
-            button("Run", class: "button primary", data: {action: "click->code-example#run", code_example_target: "runButton"}) +
-              button("Clear", class: "button secondary hidden", data: {action: "click->code-example#clear", code_example_target: "clearButton"}) +
-              span(class: "code-action-status", data: {code_example_target: "status"})
+            button(class: "button primary", data: {action: "click->code-example#run", code_example_target: "runButton"}) { "Run" }
+            button(class: "button secondary hidden", data: {action: "click->code-example#clear", code_example_target: "clearButton"}) { "Clear" }
+            span(class: "code-action-status", data: {code_example_target: "status"})
           end
           pre(class: "code-output hidden", data: {code_example_target: "output"}) do
             code
@@ -116,54 +147,23 @@ class ApplicationMarkdown < Phlex::Markdown
     @code_formatter ||= Rouge::Formatters::HTML.new
   end
 
-  # def image(link, title, alt_text)
-  #   url = URI(link)
-  #   case url.host
-  #   when "www.youtube.com"
-  #     youtube_tag url, alt_text
-  #   else
-  #     image_tag(link, title: title, alt: alt_text, loading: "lazy")
-  #   end
-  # end
+  def link(url, title, **attrs, &)
+    attributes = attrs.dup
+    unless url.blank? || url.start_with?("/", "#")
+      attributes[:target] ||= "_blank"
+      attributes[:rel] ||= "noopener noreferrer"
+    end
 
-  # private
+    a(href: url, title: title, **attributes, &)
+  end
 
-  # # This is provided as an example; there's many more YouTube URLs that this wouldn't catch.
-  # def youtube_tag(url, alt)
-  #   embed_url = "https://www.youtube-nocookie.com/embed/#{CGI.parse(url.query).fetch("v").first}"
-  #   content_tag :iframe,
-  #     src: embed_url,
-  #     width: 560,
-  #     height: 325,
-  #     allow: "encrypted-media; picture-in-picture",
-  #     allowfullscreen: true \
-  #   do
-  #     alt
-  #   end
-  # end
+  private
 
-  # def custom_link_to(url, text)
-  #   attributes = {}
-
-  #   unless url.blank? || url.start_with?("/", "#")
-  #     attributes[:target] = "_blank"
-  #     attributes[:rel] = "noopener noreferrer"
-  #   end
-
-  #   link_to(raw(text), url, attributes)
-  # end
-
-  # def anchor_tag(text, **)
-  #   link_to("##{text.parameterize}", **) do
-  #     raw(anchor_svg) + content_tag(:span, "Link to heading", class: "sr-only")
-  #   end
-  # end
-
-  # def anchor_svg
-  #   <<-SVG
-  #     <svg version="1.1" aria-hidden="true" stroke="currentColor" viewBox="0 0 16 16" width="28" height="28">
-  #       <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
-  #     </svg>
-  #   SVG
-  # end
+  def anchor_svg
+    unsafe_raw(<<-SVG)
+      <svg version="1.1" aria-hidden="true" stroke="currentColor" viewBox="0 0 16 16" width="28" height="28">
+        <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+      </svg>
+    SVG
+  end
 end
