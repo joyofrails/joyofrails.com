@@ -1,30 +1,28 @@
 class MarkdownToc < Phlex::HTML
   def initialize(content)
     @content = content
-    @curr = nil
-    @prev = nil
   end
 
   def view_template
-    ul(class: "toc") {
-      visit(doc)
-    }
+    @tree = []
+    visit(doc)
 
-    # case node.header_level
-    #   in 1 then h1 { visit_children(node) }
-    #   in 2 then h2 { visit_children(node) }
-    #   in 3 then h3 { visit_children(node) }
-    #   in 4 then h4 { visit_children(node) }
-    #   in 5 then h5 { visit_children(node) }
-    #   in 6 then h6 { visit_children(node) }
-    # end
-  end
-
-  def header(node, &)
-    content = capture(&)
-    li do
-      a(href: "##{content.parameterize}", class: "header-level-#{node.header_level}") do
-        content
+    if @tree.any?
+      ul(class: "toc") do
+        @tree.each do |header, sub_headers|
+          li do
+            header_link(header)
+            if sub_headers.any?
+              ul do
+                sub_headers.each do |sub_header|
+                  li do
+                    header_link(sub_header)
+                  end
+                end
+              end
+            end
+          end
+        end
       end
     end
   end
@@ -37,20 +35,39 @@ class MarkdownToc < Phlex::HTML
     return if node.nil?
 
     case node.type
+
+    # collect header nodes in a 2-level hierarchy
     in :header
-      header(node) { visit_header_children(node) }
+      if @tree.empty? || node.header_level <= 2
+        @tree << [node, []]
+      elsif node.header_level > 2
+        @tree.last[1] << node
+      end
     else
       visit_children(node)
     end
   end
 
-  def visit_header_children(node)
-    node.each do |c|
-      plain(c.string_content)
+  def visit_children(node)
+    node.each { |c| visit(c) }
+  end
+
+  def header_link(node)
+    content = capture do
+      node.each do |child|
+        plain child.string_content
+      end
+    end
+    a(href: "##{content.parameterize}", class: "header-level-#{node.header_level}") do
+      plain content
     end
   end
 
-  def visit_children(node)
-    node.each { |c| visit(c) }
+  def capture_content(node)
+    capture do
+      node.each do |child|
+        plain child.string_content
+      end
+    end
   end
 end
