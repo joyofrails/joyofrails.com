@@ -3,14 +3,14 @@
 # Exit when any command fails
 set -e
 
-# Check Ruby code formatting
-bundle exec standardrb --fix
-
-# Check erb file formatting
-bundle exec erblint --lint-all
-
 # Run Ruby tests
 bin/rspec
 
 # Run JavaScript tests
 bin/vitest --watch=false
+
+# Check Ruby code formatting
+bundle exec standardrb --fix
+
+# Check erb file formatting
+bundle exec erblint --lint-all
