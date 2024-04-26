@@ -1,5 +1,3 @@
-# You should read the docs at https://github.com/vmg/redcarpet and probably
-# delete a bunch of stuff below if you don't need it.
 require "inline_svg/action_view/helpers"
 
 class ApplicationMarkdown < Phlex::Markdown
