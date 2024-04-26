@@ -1,5 +1,3 @@
-require "inline_svg/action_view/helpers"
-
 class ApplicationMarkdown < Phlex::Markdown
   class Handler
     class << self
