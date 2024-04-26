@@ -1,22 +1,51 @@
 require "rails_helper"
 
 RSpec.describe ErbMarkdown do
-  describe "#preprocess" do
-    subject { described_class.new }
-    it "doesn't alter markdown" do
-      expect(subject.preprocess("## Hello")).to eq("## Hello")
+  describe ".call" do
+    subject { ErbMarkdown.new }
+    let(:template) { instance_double(ActionView::Template, type: "") }
+
+    let(:code_block_class) do
+      Class.new(Phlex::HTML) do
+        def initialize(source, **)
+          @source = source
+        end
+
+        def view_template
+          plain @source
+        end
+      end
     end
 
-    it "processes unfenced erb" do
-      expect(subject.preprocess("<%= 1 + 1 %>")).to eq("2")
+    before do
+      stub_const("CodeBlock", code_block_class)
     end
 
-    it "does not process inline fenced erb" do
-      expect(subject.preprocess("`<%= 1 + 1 %>`")).to eq("`<%= 1 + 1 %>`")
+    def render(content, &block)
+      view = ErbMarkdown.new(content)
+      view.call(view_context: nil, &block)
+    end
+
+    it "processes text" do
+      expect(render("Hello")).to match "<p>Hello</p>"
+    end
+
+    it "ignores unfenced erb" do
+      expect(render("<%= 1 + 1 %>")).to eq("<p><%= 1 + 1 %></p>")
+    end
+
+    it "escapes inline fenced erb" do
+      expect(render("`<%= 1 + 1 %>`")).to eq("<p><code>&lt;%= 1 + 1 %&gt;</code></p>")
     end
 
     it "handles multiline fenced erb" do
-      expect(subject.preprocess("```\n<%= 1 + 1 %>\n```")).to eq("```\n<%= 1 + 1 %>\n```")
+      expect(
+        render(<<~MD)
+          ```
+          <%= 1 + 1 %>
+          ```
+        MD
+      ).to eq(%(&lt;%= 1 + 1 %&gt;\n))
     end
 
     it "handles multiline fenced with multiple erbs" do
@@ -26,25 +55,31 @@ RSpec.describe ErbMarkdown do
         <%= 2 + 2 %>
         ```
       HTML
-      expect(subject.preprocess(html)).to eq(html)
+      processed_html = <<~HTML
+        &lt;%= 1 + 1 %&gt;
+        &lt;%= 2 + 2 %&gt;
+      HTML
+      expect(render(html)).to eq(processed_html)
     end
 
-    it "processes erb outside fence and skips inside fence" do
+    it "handles multiple fences and unfenced areas" do
       given_html = <<~HTML
         <%= 1 + 1 %>
         ```
-        <%= 1 + 1 %>
         <%= 2 + 2 %>
         ```
-      HTML
-      processed_html = <<~HTML
-        2
+        <%= 3 + 3 %>
         ```
-        <%= 1 + 1 %>
-        <%= 2 + 2 %>
+        <%= 4 + 4 %>
         ```
+        <%= 5 + 5 %>
       HTML
-      expect(subject.preprocess(given_html)).to eq(processed_html)
+      processed_html = <<~HTML.strip
+        <p><%= 1 + 1 %></p>&lt;%= 2 + 2 %&gt;
+        <p><%= 3 + 3 %></p>&lt;%= 4 + 4 %&gt;
+        <p><%= 5 + 5 %></p>
+      HTML
+      expect(render(given_html)).to eq(processed_html)
     end
   end
 end

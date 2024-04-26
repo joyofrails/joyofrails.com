@@ -1,4 +1,4 @@
 <% id ||= 1 %>
 <div id="example_<%= id %>">
-  <%= code_block_component(example, "ruby:main.rb", enable_code_example: true) %>
+  <%= render CodeBlock.new(example, language: "ruby", enable_run: true) %>
 </div>

@@ -3,9 +3,6 @@
 require "inline_svg/action_view/helpers"
 
 class ApplicationMarkdown < Phlex::Markdown
-  include InlineSvg::ActionView::Helpers
-  include Phlex::Rails::Helpers::LinkTo
-
   class Handler
     class << self
       def call(template, content)
@@ -37,38 +34,6 @@ class ApplicationMarkdown < Phlex::Markdown
     end
   end
 
-  # # Reformats your boring punctation like " and " into “ and ” so you can look
-  # # and feel smarter. Read the docs at https://github.com/vmg/redcarpet#also-now-our-pants-are-much-smarter
-  # include Redcarpet::Render::SmartyPants
-
-  # # If you need access to ActionController::Base.helpers, you can delegate by uncommenting
-  # # and adding to the list below. Several are already included for you in the `MarkdownRails::Renderer::Rails`,
-  # # but you can add more here.
-  # #
-  # delegate \
-  #   :link_to,
-  #   :inline_svg,
-  #   :code_block_component,
-  #   :code_formatter,
-  #   :clipboard_copy,
-  #   to: :helpers
-
-  # def extensions
-  #   [
-  #     :autolink,
-  #     :disable_indented_code_blocks,
-  #     :fenced_code_blocks,
-  #     :no_intra_emphasis,
-  #     :smartypants
-  #   ].map { |feature| [feature, true] }.to_h
-  # end
-
-  # def options
-  #   {
-  #     with_toc_data: true
-  #   }
-  # end
-
   def header(header_level, &)
     content = capture(&)
     anchor = content.parameterize
@@ -81,70 +46,12 @@ class ApplicationMarkdown < Phlex::Markdown
     end
   end
 
-  def code_block(source, metadata, **options)
+  def code_block(source, metadata, **attributes)
     language, filename, opts_string = metadata.to_s.split(":")
 
-    enable_code_example = if options[:run].present?
-      options[:run]
-    else
-      opts_string.to_s.split(",").include?("run")
-    end
+    attributes[:enable_run] ||= opts_string.to_s.split(",").include?("run")
 
-    lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
-
-    data = {language: language}
-
-    if enable_code_example
-      data[:controller] = "code-example"
-      data[:code_example_vm_value] = :rails
-    end
-
-    div(
-      class: "code-wrapper highlight language-#{language}",
-      data: data
-    ) do
-      if filename
-        div(class: "code-header") do
-          unsafe_raw inline_svg("app-dots.svg", class: "app-dots")
-          if filename
-            span(class: "code-filename") { filename }
-          end
-        end
-      end
-
-      div(class: "code-body") do
-        pre do
-          code data: {code_example_target: "source"} do
-            unsafe_raw code_formatter.format(lexer.lex(source))
-          end
-        end
-        clipboard_copy(source)
-      end
-
-      if enable_code_example
-        div(class: "code-footer") do
-          div(class: "code-actions") do
-            button(class: "button primary", data: {action: "click->code-example#run", code_example_target: "runButton"}) { "Run" }
-            button(class: "button secondary hidden", data: {action: "click->code-example#clear", code_example_target: "clearButton"}) { "Clear" }
-            span(class: "code-action-status", data: {code_example_target: "status"})
-          end
-          pre(class: "code-output hidden", data: {code_example_target: "output"}) do
-            code
-          end
-          pre(class: "code-result hidden", data: {code_example_target: "result"}) do
-            code
-          end
-        end
-      end
-    end
-  end
-
-  def clipboard_copy(text)
-    ApplicationController.render partial: "components/clipboard_copy", locals: {text: text}
-  end
-
-  def code_formatter
-    @code_formatter ||= Rouge::Formatters::HTML.new
+    render CodeBlock.new(source, language: language, filename: filename, **attributes)
   end
 
   def link(url, title, **attrs, &)
