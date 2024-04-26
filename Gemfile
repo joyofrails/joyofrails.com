@@ -32,11 +32,10 @@ gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [
 # Rendering
 # gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
-gem "markdown-rails", group: [:default, :wasm] # Markdown as static templating language for Rails [https://github.com/sitepress/markdown-rails
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
-gem "phlex-rails"
-gem "phlex-markdown", github: "phlex-ruby/phlex-markdown"
+gem "phlex-rails", group: [:default, :wasm]
+gem "phlex-markdown", github: "phlex-ruby/phlex-markdown", group: [:default, :wasm]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 

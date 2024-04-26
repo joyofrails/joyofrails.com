@@ -269,11 +269,6 @@ GEM
     mail_interceptor (0.0.7)
       activesupport
     marcel (1.0.4)
-    markdown-rails (2.1.0)
-      actionview (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      railties (>= 6.0.0)
-      redcarpet (>= 3.0.0)
     markly (0.10.0)
     matrix (0.4.2)
     mime-types (3.5.2)
@@ -376,7 +371,6 @@ GEM
     rake (13.2.1)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redcarpet (3.6.0)
     reek (6.3.0)
       dry-schema (~> 1.13.0)
       parser (~> 3.3.0)
@@ -545,7 +539,6 @@ DEPENDENCIES
   letter_opener
   litestream
   mail_interceptor
-  markdown-rails
   mission_control-jobs
   phlex-markdown!
   phlex-rails
