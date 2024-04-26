@@ -25,8 +25,8 @@
 
   --joy-button-primary: var(--violet-10);
   --joy-button-primary-hover: var(--violet-9);
-  --joy-button-secondary: var(--slate-8);
-  --joy-button-secondary-hover: var(--slate-7);
+  --joy-button-secondary: var(--slate-10);
+  --joy-button-secondary-hover: var(--slate-9);
 }
 
 .dark[data-joy-theme='dracula'] {
@@ -51,6 +51,6 @@
 
   --joy-button-primary: var(--violet-10);
   --joy-button-primary-hover: var(--violet-9);
-  --joy-button-secondary: var(--dracula-grey);
-  --joy-button-secondary-hover: var(--dracula-grey-secondary);
+  --joy-button-secondary: var(--slate-10);
+  --joy-button-secondary-hover: var(--slate-9);
 }

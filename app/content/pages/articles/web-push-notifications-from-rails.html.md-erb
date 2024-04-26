@@ -4,8 +4,6 @@ author: Ross Kaffenberger
 layout: article
 summary: How to deliver desktop notifications from your Rails app
 description: This blog post describes how to set up a simple demonstration of the Web Push and Service Worker JavaScript APIs to send notifications to users from a Ruby on Rails application.
-published: '2024-12-31'
-draft: true
 tags:
   - Rails
   - JavaScript

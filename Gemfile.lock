@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/phlex-ruby/phlex-markdown.git
+  revision: ee1e2763fc842563577003a269982cfc4ac79006
+  specs:
+    phlex-markdown (0.3.0)
+      markly (~> 0.7)
+      phlex (>= 0.5)
+
+GIT
   remote: https://github.com/rubycdp/cuprite
   revision: 9e2788fac70a9d250364ced47a50b77e18fe31a5
   specs:
@@ -248,7 +256,8 @@ GEM
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
     lint_roller (1.1.0)
-    litestream (0.4.0)
+    litestream (0.4.0-arm64-darwin)
+    litestream (0.4.0-x86_64-linux)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -260,11 +269,7 @@ GEM
     mail_interceptor (0.0.7)
       activesupport
     marcel (1.0.4)
-    markdown-rails (2.1.0)
-      actionview (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      railties (>= 6.0.0)
-      redcarpet (>= 3.0.0)
+    markly (0.10.0)
     matrix (0.4.2)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
@@ -299,6 +304,10 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
+    phlex (1.10.1)
+    phlex-rails (1.2.1)
+      phlex (~> 1.10.0)
+      railties (>= 6.1, < 8)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -362,7 +371,6 @@ GEM
     rake (13.2.1)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redcarpet (3.6.0)
     reek (6.3.0)
       dry-schema (~> 1.13.0)
       parser (~> 3.3.0)
@@ -531,8 +539,9 @@ DEPENDENCIES
   letter_opener
   litestream
   mail_interceptor
-  markdown-rails
   mission_control-jobs
+  phlex-markdown!
+  phlex-rails
   puma (>= 5.0)
   rack (~> 2.2, >= 2.2.7)
   rack-mini-profiler

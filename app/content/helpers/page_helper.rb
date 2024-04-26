@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "redcarpet"
-
 module PageHelper
   DEFAULT_TITLE_KEY = "title"
 
@@ -38,7 +36,6 @@ module PageHelper
   end
 
   def render_toc(page)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML_TOC, with_toc_data: true)
-    raw markdown.render(page.asset.body)
+    render MarkdownToc.new(page.asset.body)
   end
 end

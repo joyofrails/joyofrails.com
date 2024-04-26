@@ -26,7 +26,8 @@ require "stimulus-rails"
 require "vite_rails"
 require "flipper"
 require "sitepress-rails"
-require "markdown-rails"
+require "phlex-rails"
+require "phlex/markdown"
 require "inline_svg"
 
 module Joy
