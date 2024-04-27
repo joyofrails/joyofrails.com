@@ -7,11 +7,11 @@ class CodeBlock < Phlex::HTML
     end
   end
 
-  def initialize(source, language:, filename: nil, enable_run: false)
+  def initialize(source, language:, filename: nil, run: false)
     @source = source
     @language = language
     @filename = filename
-    @enable_run = enable_run
+    @enable_run = run
   end
 
   def view_template
@@ -19,10 +19,10 @@ class CodeBlock < Phlex::HTML
       class: "code-wrapper highlight language-#{language}",
       data: code_example_data.keep_if { enable_run }.merge(data)
     ) do
-      if filename.present?
+      if title.present?
         div(class: "code-header") do
           plain inline_svg_tag("app-dots.svg", class: "app-dots")
-          span(class: "code-filename") { filename }
+          span(class: "code-title") { title }
         end
       end
 
@@ -56,6 +56,8 @@ class CodeBlock < Phlex::HTML
   private
 
   attr_reader :source, :language, :filename, :enable_run
+
+  def title = language || filename
 
   def code_formatter
     self.class.code_formatter

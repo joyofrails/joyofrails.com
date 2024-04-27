@@ -10,7 +10,7 @@
   @apply px-6 pt-6 pb-2 text-sm text-gray-400 hidden lg:flex lg:justify-between lg:items-center;
   line-height: 1;
 
-  & .code-filename {
+  & .code-title {
     @apply font-semibold text-gray-300;
     display: block;
     text-align: center;
