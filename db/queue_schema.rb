@@ -11,6 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_11_043213) do
+  create_table "_litestream_lock", id: false, force: :cascade do |t|
+    t.integer "id"
+  end
+
+  create_table "_litestream_seq", force: :cascade do |t|
+    t.integer "seq"
+  end
+
   create_table "queue", id: :text, default: -> { "hex(randomblob(32))" }, force: :cascade do |t|
     t.text "name", default: "default", null: false
     t.integer "fire_at", default: -> { "unixepoch()" }, null: false
