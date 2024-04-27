@@ -36,6 +36,6 @@ module PageHelper
   end
 
   def render_toc(page)
-    render MarkdownToc.new(page.asset.body)
+    render Markdown::Toc.new(page.asset.body)
   end
 end

@@ -1,8 +1,5 @@
-class MarkdownToc < Phlex::HTML
-  def initialize(content)
-    @content = content
-  end
-
+# Markdown::Toc == Markdown::TableOfContents
+class Markdown::Toc < Markdown::Base
   def view_template
     @tree = []
     visit(doc)
@@ -25,10 +22,6 @@ class MarkdownToc < Phlex::HTML
         end
       end
     end
-  end
-
-  def doc
-    Markly.parse(@content)
   end
 
   def visit(node)

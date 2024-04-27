@@ -1,14 +1,10 @@
-class ApplicationMarkdown < Phlex::Markdown
+class Markdown::Application < Markdown::Base
   class Handler
     class << self
       def call(template, content)
-        ApplicationMarkdown.new(content).call
+        Markdown::Application.new(content).call
       end
     end
-  end
-
-  def doc
-    Markly.parse(@content, flags: Markly::UNSAFE)
   end
 
   def visit(node)

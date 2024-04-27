@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe MarkdownToc do
+RSpec.describe Markdown::Toc do
   include Phlex::Testing::ViewHelper
 
   def squish_html(html)
@@ -8,7 +8,7 @@ RSpec.describe MarkdownToc do
   end
 
   it "renders nothing for a markdown document without headers" do
-    output = render(MarkdownToc.new(<<~MD))
+    output = render(Markdown::Toc.new(<<~MD))
       Hello
     MD
 
@@ -16,7 +16,7 @@ RSpec.describe MarkdownToc do
   end
 
   it "renders a table of contents from markdown with headers" do
-    output = render(MarkdownToc.new(<<~MD))
+    output = render(Markdown::Toc.new(<<~MD))
       ## Header 1
 
       Hello
@@ -31,7 +31,7 @@ RSpec.describe MarkdownToc do
     HTML
   end
   it "renders a table of contents from markdown with nested headers" do
-    output = render(MarkdownToc.new(<<~MD))
+    output = render(Markdown::Toc.new(<<~MD))
       ## Header 1
 
       Hello

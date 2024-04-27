@@ -1,11 +1,11 @@
 # DANGER! This parses Erb, which means arbitrary Ruby can be run. Make sure
 # you trust the source of your markdown and that its not user input.
 
-class ErbMarkdown < ApplicationMarkdown
+class Markdown::Erb < Markdown::Application
   class Handler
     class << self
       def call(template, content)
-        content = ErbMarkdown.new(content).call
+        content = Markdown::Erb.new(content, flags: Markly::UNSAFE).call
         erb.call(template, content)
       end
 
