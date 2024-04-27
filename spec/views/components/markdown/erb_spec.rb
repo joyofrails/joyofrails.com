@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe ErbMarkdown do
+RSpec.describe Markdown::Erb do
   describe ".call" do
-    subject { ErbMarkdown.new }
+    subject { Markdown::Erb.new }
     let(:template) { instance_double(ActionView::Template, type: "") }
 
     let(:code_block_class) do
@@ -22,7 +22,7 @@ RSpec.describe ErbMarkdown do
     end
 
     def render(content, &block)
-      view = ErbMarkdown.new(content)
+      view = Markdown::Erb.new(content)
       view.call(view_context: nil, &block)
     end
 

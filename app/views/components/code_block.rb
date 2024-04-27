@@ -21,7 +21,7 @@ class CodeBlock < Phlex::HTML
     ) do
       if filename.present?
         div(class: "code-header") do
-          unsafe_raw inline_svg("app-dots.svg", class: "app-dots")
+          plain inline_svg_tag("app-dots.svg", class: "app-dots")
           span(class: "code-filename") { filename }
         end
       end
@@ -32,7 +32,7 @@ class CodeBlock < Phlex::HTML
             unsafe_raw self.class.code_formatter.format(lexer.lex(source))
           end
         end
-        clipboard_copy
+        render ClipboardCopy.new(text: source)
       end
 
       if enable_run
@@ -57,8 +57,8 @@ class CodeBlock < Phlex::HTML
 
   attr_reader :source, :language, :filename, :enable_run
 
-  def clipboard_copy
-    ApplicationController.render partial: "components/clipboard_copy", locals: {text: source}
+  def code_formatter
+    self.class.code_formatter
   end
 
   def data = {language: language, lines:}

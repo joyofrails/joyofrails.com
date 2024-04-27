@@ -6,6 +6,7 @@ export default {
   content: [
     './app/**/*.html.erb',
     './public/*.html',
+    './app/views/**/*.rb',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.{js,css}',
     './app/assets/stylesheets/**/*.css',

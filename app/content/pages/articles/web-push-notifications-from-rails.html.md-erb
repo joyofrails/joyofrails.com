@@ -23,7 +23,7 @@ Want to see it in action first?
 
 Click the Subscribe button below. You can also unsubscribe anytime.
 
-<%= render "components/pwa/web_push_demo" %>
+<%= render Pwa::WebPushDemo.new(web_push_key: web_push_key) %>
 
 Not working? Check your system Notification settings for your browser and browser Notification settings for this site.
 
