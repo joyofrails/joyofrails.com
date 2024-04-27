@@ -1,6 +1,11 @@
 class Examples::CountersController < ApplicationController
   def show
     @examples_counter = Examples::Counter.new(count: get_session_count)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream { layout false }
+    end
   end
 
   def update
