@@ -1,11 +1,19 @@
 /* Typography overrides */
+.article-container {
+  @apply lg:flex;
+
+  &.with-table-of-contents {
+    @apply lg:flex-row-reverse;
+  }
+}
+
 .prose {
   max-width: 100%;
   width: 100%;
+}
 
-  &.article {
-    max-width: min(100%, 712px);
-  }
+.article-container.with-table-of-contents .prose.article {
+  max-width: min(100%, 712px);
 }
 
 .prose :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {

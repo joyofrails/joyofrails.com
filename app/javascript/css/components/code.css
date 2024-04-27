@@ -22,6 +22,10 @@
   @apply px-6 pb-6;
 }
 
+.code-output {
+  @apply text-gray-500;
+}
+
 .code-output,
 .code-result {
   padding: 0 !important; /* Override tailwind padding */

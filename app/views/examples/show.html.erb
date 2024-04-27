@@ -1,9 +1,7 @@
-<% example_1 = File.read(Rails.root.join("app", "views", "examples", "ruby", "1.rb")) %>
-
 <div class="container lg:mt-12 md:mt-8">
   <div class="lg:flex lg:flex-row-reverse">
     <article class="prose dark:prose-invert sm:prose-lg lg:prose-xl">
-      <%= render "example", example: example_1 %>
+      <%= render "example", example: example %>
     </article>
   </div>
 </div>
