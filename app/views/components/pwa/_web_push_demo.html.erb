@@ -1,11 +1,9 @@
-<script type="text/javascript">
-</script>
 <%= tag.div data: {
     controller: "pwa-web-push-demo",
     action: "pwa-web-push-subscription:subscription-changed->pwa-web-push-demo#onSubscriptionChanged pwa-web-push-subscription:subscription-error->pwa-web-push-demo#onError"
   },
   class: "not-prose" do %>
-  <%= render "components/pwa/web_push_subscription" %>
+  <%= render Pwa::WebPushSubscription.new(web_push_key: web_push_key) %>
 
   <p class="mt-6 mb-4">Try sending a web push notificaiton using the form below.</p>
   <%= form_for :web_push, url: pwa_web_pushes_path, data: {"pwa-web-push-demo-target": "sendDemoPushForm"} do |f| %>
