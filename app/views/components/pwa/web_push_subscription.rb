@@ -13,7 +13,7 @@ class Pwa::WebPushSubscription < Phlex::HTML
         controller: "pwa-web-push-subscription",
         web_push_key: web_push_key
       },
-      class: "pwa-web-push-subscription flex space-x-1"
+      class: "pwa-web-push-subscription flex gap-2"
     ) do
       div do
         button(
