@@ -40,7 +40,7 @@ layout: showcase
     <div>
       <h3 class="text-lg font-bold mb-2">Push Notifications</h3>
       <p>
-        <%= render "components/pwa/web_push_demo" %>
+        <%= render Pwa::WebPushDemo.new(web_push_key: web_push_key) %>
       </p>
     </div>
   </div>
