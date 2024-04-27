@@ -62,12 +62,4 @@ class MarkdownToc < Phlex::HTML
       plain content
     end
   end
-
-  def capture_content(node)
-    capture do
-      node.each do |child|
-        plain child.string_content
-      end
-    end
-  end
 end
