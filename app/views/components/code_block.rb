@@ -32,7 +32,7 @@ class CodeBlock < Phlex::HTML
             unsafe_raw self.class.code_formatter.format(lexer.lex(source))
           end
         end
-        clipboard_copy
+        render ClipboardCopy.new(text: source)
       end
 
       if enable_run
