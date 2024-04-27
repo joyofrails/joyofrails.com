@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Admin", type: :request do
+  before do
+    allow(Rails.env).to receive(:local?).and_return(false)
+  end
+
   describe "GET admin" do
     context "when signed in as admin user" do
       before { login_admin_user }
