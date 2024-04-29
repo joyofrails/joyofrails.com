@@ -48,7 +48,9 @@ Above all, Joy of Rails aims to [optimize for the programmer’s (my) happiness]
 
 Joy of Rails is open source. It’s hosted in a [public repository](https://github.com/joyofrails/joyofrails.com) on [Github](https://github.com).
 
-You can browse the source code in the repository. I can implement some Ruby or JavaScript code and share public links directly to the source files.
+Changes to Joy of Rails will be mostly introduced the pull requests. I’ll try to model healthy practices for git commits and pull request descriptions.
+
+You can browse the source code in the repository. When I implement some Ruby or JavaScript code, I can share public links directly to the source files.
 
 You can also [fork the repository](https://github.com/joyofrails/joyofrails.com/fork) and [contribute](https://github.com/joyofrails/joyofrails.com/blob/main/CONTRIBUTING.md).
 
@@ -70,7 +72,7 @@ We can show it in action too. Try clicking the buttons below:
 
 <div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path, loading: "lazy" %></div>
 
-This counter is backed by the Joy of Rails counters controller described above. Each click is results in server-side-rendered HTML which updated directly on the page in JavaScript via Hotwire. The count is saved in your session and can be removed when you reset.
+This counter is backed by the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> described above. Each click is results in server-side-rendered HTML which updated directly on the page in JavaScript via Hotwire. The count is saved in your session and can be removed when you reset.
 
 It would be harder to accomplish this with a WordPress blog or static website.
 
