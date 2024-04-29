@@ -1,5 +1,4 @@
 <% header_classes remove: "bg-joy-bg-1" %>
-<% hide_toc = current_page.data["no_toc"] %>
 
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
@@ -12,7 +11,7 @@
           text-joy-header-1 font-extrabold text-3xl lg:text-5xl sm:text-4xl leading-tighter
           lg:mb-10 mb-8
         ">
-        <%= current_page.data["title"] %>
+        <%= current_page.data.title! %>
       </h1>
     </div>
   </header>
@@ -20,8 +19,8 @@
     <div class="h-16 bg-joy-bg-1 sticky top-0 z-[9]"></div>
     <div class="container lg:mt-12 md:mt-8">
       <div id="start-here" class="anchor sr-only"></div>
-      <div class="article-container<%= hide_toc ? "" : " with-table-of-contents" %>">
-        <%- unless hide_toc -%>
+      <div class="<%= class_names("article-container", "with-aside", { "with-table-of-contents": current_page.data.toc }) %>">
+        <%- if current_page.data.toc -%>
           <aside
             class="
               hidden lg:block lg:sticky lg:self-start lg:flex-1 ml-16 mt-1 top-[114px]

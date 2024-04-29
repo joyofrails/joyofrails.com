@@ -5,7 +5,7 @@ layout: article
 summary:
 description: Another programmer decides to start a Rails blog
 published: '2024-04-23'
-no_toc: true
+toc: false
 tags:
   - Rails
 ---
