@@ -2,9 +2,9 @@
 
 ## Reporting a vulnerability
 
-If you uncover a vulnerability, please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.
+If you suspect you may uncovered a vulnerability, please do not broadcast on an open channel like a public GitHub issue, discussion, or pull request.
 
-Instead, [send an email to Ross](mailto:ross@rossta.net). 
+Instead, please send us a [private advisory](https://github.com/joyofrails/joyofrails.com/security/advisories/new).
 
 Please include as much of the information listed below to help explain and resolve the issue:
 
@@ -16,4 +16,4 @@ Please include as much of the information listed below to help explain and resol
 - Proof-of-concept or exploit code (if possible)
 - Impact of the issue, including how an attacker might exploit the issue
 
-This information will with triaging your report more quickly.
+This information will with addressing your report more quickly.
