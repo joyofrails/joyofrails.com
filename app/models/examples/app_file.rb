@@ -11,12 +11,30 @@ module Examples
 
         new(path)
       end
+
+      def from(path)
+        case path
+        when AppFile
+          path
+        when File
+          new(path.path)
+        when String, Pathname
+          new(path)
+        else
+          raise ArgumentError, "Invalid AppFile path: #{path.inspect}"
+        end
+      end
     end
 
     attr_reader :path
+    alias_method :filename, :path
 
     def initialize(path)
       @path = path
+    end
+
+    def readlines
+      File.readlines(@path)
     end
 
     def read

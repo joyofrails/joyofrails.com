@@ -7,14 +7,18 @@ class CodeBlock < Phlex::HTML
     end
   end
 
-  def initialize(source, language:, filename: nil, run: false)
+  def initialize(source = nil, language: nil, filename: nil, run: false)
     @source = source
     @language = language
     @filename = filename
     @enable_run = run
   end
 
-  def view_template
+  def view_template(&block)
+    # Capture the block content as the source if no source was provided
+    # The capture call appears to add a leading space, so we strip it.
+    @source ||= capture(&block)&.strip if block.present?
+
     div(
       class: "code-wrapper highlight language-#{language}",
       data: code_example_data.keep_if { enable_run }.merge(data)
@@ -22,7 +26,7 @@ class CodeBlock < Phlex::HTML
       if title.present?
         div(class: "code-header") do
           plain inline_svg_tag("app-dots.svg", class: "app-dots")
-          span(class: "code-title") { title }
+          span(class: "code-title") { title_content }
         end
       end
 
@@ -53,11 +57,18 @@ class CodeBlock < Phlex::HTML
     end
   end
 
+  def title_content
+    Rails.logger.info("CodeBlock#title_content #{title}, #{filename}, #{language}")
+    title
+  end
+
+  def title = filename || language
+
+  protected
+
   private
 
   attr_reader :source, :language, :filename, :enable_run
-
-  def title = language || filename
 
   def code_formatter
     self.class.code_formatter

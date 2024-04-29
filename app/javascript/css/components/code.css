@@ -16,6 +16,10 @@
     text-align: center;
     line-height: 1;
   }
+
+  & a.code-title {
+    @apply font-semibold text-gray-300 no-underline;
+  }
 }
 
 .code-footer {
