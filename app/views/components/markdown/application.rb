@@ -38,12 +38,10 @@ class Markdown::Application < Markdown::Base
     end
   end
 
-  def code_block(source, metadata, **attributes)
-    language, filename, opts_string = metadata.to_s.split(":")
-
-    attributes[:enable_run] ||= opts_string.to_s.split(",").include?("run")
-
-    render CodeBlock.new(source, language: language, filename: filename, **attributes)
+  def code_block(source, metadata = "", **attributes)
+    language, json_attributes = parse_code_block_metadata(metadata)
+    Rails.logger.debug("CODE_BLOCK: #{json_attributes.inspect}")
+    render CodeBlock.new(source, language: language, **json_attributes, **attributes)
   end
 
   def link(url, title, **attrs, &)
@@ -57,6 +55,33 @@ class Markdown::Application < Markdown::Base
   end
 
   private
+
+  # Parse the metadata string from a code block.
+  #
+  # @param metadata [String] the metadata string.
+  # @return [Array<String, Hash>] the language and attributes.
+  #
+  # @example
+  #   parse_code_block_metadata("ruby")
+  #   => ["ruby", {}]
+  # @example
+  #   parse_code_block_metadata("ruby:{ \"filename\": \"main.rb\" }")
+  #   => ["ruby", { filename: "main.rb" }]
+  # @example
+  #   parse_code_block_metadata("ruby:{ \"filename\": \"main.rb\", "run": true }")
+  #   => ["ruby", { filename: "main.rb", run: true }]
+  #
+  def parse_code_block_metadata(metadata)
+    language, json_string = metadata.split(":", 2)
+
+    json_attributes = begin
+      JSON.parse(json_string.to_s).symbolize_keys
+    rescue
+      {}
+    end
+
+    [language, json_attributes]
+  end
 
   def anchor_svg
     unsafe_raw(<<-SVG)
