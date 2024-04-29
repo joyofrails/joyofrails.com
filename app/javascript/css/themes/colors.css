@@ -12,8 +12,8 @@
   --joy-bg-active: var(--violet-11);
   --joy-text: var(--violet-11);
   --joy-text-contrast: var(--violet-12);
-  --joy-link: var(--dracula-purple-900);
-  --joy-link-hover: var(--dracula-purple-600);
+  --joy-link: var(--dracula-purple-dark);
+  --joy-link-hover: var(--dracula-purple);
   --joy-header-1: var(--violet-11);
   --joy-header-2: var(--violet-10);
   --joy-header-3: var(--violet-9);
