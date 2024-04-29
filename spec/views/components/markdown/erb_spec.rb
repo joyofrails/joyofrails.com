@@ -27,11 +27,11 @@ RSpec.describe Markdown::Erb do
     end
 
     it "processes text" do
-      expect(render("Hello")).to match "<p>Hello</p>"
+      expect(render("Hello")).to match "Hello"
     end
 
     it "ignores unfenced erb" do
-      expect(render("<%= 1 + 1 %>")).to eq("<p><%= 1 + 1 %></p>")
+      expect(render("<%= 1 + 1 %>")).to eq("<%= 1 + 1 %>")
     end
 
     it "escapes inline fenced erb" do
@@ -75,9 +75,9 @@ RSpec.describe Markdown::Erb do
         <%= 5 + 5 %>
       HTML
       processed_html = <<~HTML.strip
-        <p><%= 1 + 1 %></p>&lt;%= 2 + 2 %&gt;
-        <p><%= 3 + 3 %></p>&lt;%= 4 + 4 %&gt;
-        <p><%= 5 + 5 %></p>
+        <%= 1 + 1 %>&lt;%= 2 + 2 %&gt;
+        <%= 3 + 3 %>&lt;%= 4 + 4 %&gt;
+        <%= 5 + 5 %>
       HTML
       expect(render(given_html)).to eq(processed_html)
     end
