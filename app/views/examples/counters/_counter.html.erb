@@ -1,17 +1,31 @@
 <%# locals: (counter:, data: {}) -%>
 
 <div class="not-prose mx-auto max-w-7xl">
-  <div class="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4">
-    <div class="bg-gray-900 rounded-md px-4 py-6 sm:px-6 lg:px-8">
-      <p class="text-sm font-medium leading-6 text-gray-400">Count</p>
-      <p class="mt-2 flex items-baseline gap-x-2">
-        <span class="text-4xl font-semibold tracking-tight text-white"><%= counter.count %></span>
-      </p>
+  <div class="grid grid-cols-1 gap-px sm:grid-cols-2">
+    <div>
+      <div class="bg-gray-900 rounded-md px-4 py-6 sm:px-6 lg:px-8">
+        <p class="text-sm font-medium leading-6 text-gray-400">Count</p>
+        <p class="mt-2 flex items-baseline gap-x-2">
+          <span class="text-4xl font-semibold tracking-tight text-white"><%= counter.count %></span>
+        </p>
+      </div>
+      <%= tag.div data: data, class: "flex items-center gap-x-3 mt-3" do %>
+        <%= button_to "Increment",
+          examples_counters_path(counter: { count: counter.count + 1 }),
+          method: :put,
+          class: "button primary",
+          form: { data: { action: "submit->plausible#send" } } %>
+        <%= button_to "Decrement",
+          examples_counters_path(counter: { count: counter.count - 1 }),
+          method: :put,
+          class: "button pink",
+          form: { data: { action: "submit->plausible#send" } } %>
+        <%= button_to "Reset",
+          examples_counters_path,
+          method: :delete,
+          class: "button secondary",
+          form: { data: { action: "submit->plausible#send" } } %>
+      <% end %>
     </div>
   </div>
-  <%= tag.div data: data, class: "flex items-center gap-x-3 mt-3" do %>
-    <%= button_to "Increment", examples_counters_path(counter: { count: counter.count + 1 }), method: :put, class: "button primary", form: { data: { action: "submit->plausible#send" } } %>
-    <%= button_to "Decrement", examples_counters_path(counter: { count: counter.count - 1 }), method: :put, class: "button pink", form: { data: { action: "submit->plausible#send" } } %>
-    <%= button_to "Reset", examples_counters_path, method: :delete, class: "button secondary", form: { data: { action: "submit->plausible#send" } } %>
-  <% end %>
 </div>
