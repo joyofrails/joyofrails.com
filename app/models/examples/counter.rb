@@ -5,6 +5,6 @@ class Examples::Counter
   attribute :count, :integer, default: 0
 
   def to_param
-    "today"
+    "counter"
   end
 end
