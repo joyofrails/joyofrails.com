@@ -16,16 +16,18 @@ class Markdown::Erb < Markdown::Application
   end
 
   ERB_TAGS = %r{s*<%.*?%>}
+  ERB_TAGS_START = %r{\A<%.*?%>}
 
   def visit(node)
     return if node.nil?
 
     case node.type
     in :paragraph
-      # Markly will parse ERB tags as text nodes inside a paragraph; we don't want to nest
-      # generated HTML inside a paragraph by default, so we need to handle this case separately.
+      # Markly will parse ERB tags as text nodes inside a paragraph. When the
+      # text starts with ERB, we don't want to nest generated HTML inside a
+      # paragraph by default, so we need to handle this case separately.
       first_child = node.first
-      if first_child&.type == :text && first_child.string_content.match?(ERB_TAGS)
+      if first_child&.type == :text && first_child.string_content.match?(ERB_TAGS_START)
         visit_children(node)
       else
         super
