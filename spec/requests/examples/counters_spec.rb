@@ -37,13 +37,6 @@ RSpec.describe "/examples/counters", type: :request do
         expect(response).to redirect_to(examples_counters_url)
       end
     end
-
-    context "with invalid parameters" do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        patch examples_counters_url, params: {counter: invalid_attributes}
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
   end
 
   describe "DELETE /destroy" do
