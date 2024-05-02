@@ -36,17 +36,15 @@ Along the way, I’ve had a lot of fun. I’ve made lots of friends at work and 
 
 ## Introducing Joy
 
-So why Joy of Rails? I’ve already written numerous articles on my personal blog, [rossta.net](https://rossta.net). My blog is a static website, built on the Ruby-based static site generator [Middleman](https://middlemanapp.com/). It’s had hundreds of thousands of visits and—I’d like to think—it’s been helpful to some.
-
-### Built with Rails
+I’ve already written numerous articles on my personal blog, [rossta.net](https://rossta.net). My blog is a static website, built on the Ruby-based static site generator [Middleman](https://middlemanapp.com/). It’s had hundreds of thousands of visits and—I’d like to think—it’s been helpful to some.
 
 With Joy of Rails, I want to do something a little different—more than I can with a static website.
 
+### Built with Rails
+
 Joy of Rails is a Rails [monolith](https://rubyonrails.org/doctrine#integrated-systems) currently running on Ruby version **<%= RUBY_VERSION %>** and Rails version **<%= Rails.version %>**. It uses [Hotwire](https://hotwired.dev) features for page transitions and interactivity.
 
-This gives me a chance to "practice what I preach" by embracing [the Rails doctrine](https://rubyonrails.org/doctrine) and mostly sticking to the Rails [menu](https://rubyonrails.org/doctrine#omakase). I’ll also experiment, following [no one paradigm](https://rubyonrails.org/doctrine#no-one-paradigm) strictly.
-
-This also gives me a chance to both leverage and highlight the fine work of the broader Rails community.
+Using Rails also gives me a chance to both leverage and highlight the fine work of the broader Rails community. I can "practice what I preach" by embracing [the Rails doctrine](https://rubyonrails.org/doctrine) and mostly sticking to the Rails [menu](https://rubyonrails.org/doctrine#omakase). I’ll also experiment with [different paradigms](https://rubyonrails.org/doctrine#no-one-paradigm) and tools.
 
 ### Built in public
 
@@ -82,7 +80,7 @@ I want to do more than just a blog. I want to _show_ and tell.
 
 Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons below:
 
-<div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path, loading: "lazy" %></div>
+<div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
 
 I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
 
