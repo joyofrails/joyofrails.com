@@ -12,9 +12,10 @@ import PwaInstallation from './pwa/installation';
 import PwaWebPushSubscription from './pwa/web-push-subscription';
 import PwaWebPushDemo from './pwa/web-push-demo';
 
-import PlausibleCustomEvent from './plausible/custom-event';
+import AnalyticsCustomEvent from './analytics/custom-event';
 import TableOfContents from './table-of-contents';
 
+application.register('analytics', AnalyticsCustomEvent);
 application.register('code-example', CodeExample);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
@@ -22,6 +23,4 @@ application.register('darkmode', Darkmode);
 application.register('pwa-installation', PwaInstallation);
 application.register('pwa-web-push-subscription', PwaWebPushSubscription);
 application.register('pwa-web-push-demo', PwaWebPushDemo);
-
 application.register('table-of-contents', TableOfContents);
-application.register('plausible', PlausibleCustomEvent);
