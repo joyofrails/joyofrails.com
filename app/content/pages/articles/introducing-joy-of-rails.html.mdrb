@@ -3,8 +3,8 @@ title: Introducing Joy of Rails
 author: Ross Kaffenberger
 layout: article
 summary:
-description: Another programmer decides to start a Rails blog
-published: '2024-04-23'
+description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community
+published: '2024-05-02'
 toc: false
 tags:
   - Rails
