@@ -304,7 +304,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    phlex (1.10.1)
+    phlex (1.10.2)
     phlex-rails (1.2.1)
       phlex (~> 1.10.0)
       railties (>= 6.1, < 8)
