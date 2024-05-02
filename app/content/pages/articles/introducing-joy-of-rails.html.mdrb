@@ -1,0 +1,97 @@
+---
+title: Introducing Joy of Rails
+author: Ross Kaffenberger
+layout: article
+summary:
+description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community
+published: '2024-05-02'
+toc: false
+tags:
+  - Rails
+---
+
+## How it started, how it’s going
+
+In 2007, at my first programming job—a software consultancy—a colleague pulled me aside to demo an app he was building. We huddled around one of the office iMacs where I saw a browser, a basic text editor, and a terminal. In his text editor, there was some HTML markup mixed in with some new programming language called Ruby. The terminal was spitting out a screen full of text.
+
+To me, it looked like the Matrix.
+
+<%= image_tag("articles/introducing-joy-of-rails/matrix.gif", alt: "Screen of nonsensical text") %>
+
+Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
+
+This is awesome.
+
+<%= image_tag("articles/introducing-joy-of-rails/adventure-world.gif", alt: "Jake from Adventure World and Rainbows", class: "w-full") %>
+
+We wrote some new code and saw our changes displayed on the browser right away. The terminal spewed more nonsense. My colleague explained some bits of Ruby syntax. Though foreign, Ruby appeared concise and accessible.
+
+It was so much fun.
+
+---
+
+As you’ve surely guessed, the app was running with Ruby on Rails. Back then, it was a hot new thing. Node.js and React was several years from taking web development by storm. Nothing invented since has captured my imagination like that first Rails app on the iMac. Soon after, I got my first job working on Rails full-times. I’ve been building applications with Ruby on Rails ever since.
+
+Along the way, I’ve had a lot of fun. I’ve made lots of friends at work and in the community. At this point, it’s hard for me to imagine having this much fun and being this productive with any other programming framework. I want to build applications for the Web and and I want to use Rails.
+
+## Introducing Joy
+
+I’ve already written numerous articles on my personal blog, [rossta.net](https://rossta.net). My blog is a static website, built on the Ruby-based static site generator [Middleman](https://middlemanapp.com/). It’s had hundreds of thousands of visits and—I’d like to think—it’s been helpful to some.
+
+With Joy of Rails, I want to do something a little different—more than I can with a static website.
+
+### Built with Rails
+
+Joy of Rails is a Rails [monolith](https://rubyonrails.org/doctrine#integrated-systems) currently running on Ruby version **<%= RUBY_VERSION %>** and Rails version **<%= Rails.version %>**. It uses [Hotwire](https://hotwired.dev) features for page transitions and interactivity.
+
+Using Rails also gives me a chance to both leverage and highlight the fine work of the broader Rails community. I can "practice what I preach" by embracing [the Rails doctrine](https://rubyonrails.org/doctrine) and mostly sticking to the Rails [menu](https://rubyonrails.org/doctrine#omakase). I’ll also experiment with [different paradigms](https://rubyonrails.org/doctrine#no-one-paradigm) and tools.
+
+### Built in public
+
+Joy of Rails is open source. It’s hosted in a [public repository](https://github.com/joyofrails/joyofrails.com) on [Github](https://github.com). You can browse the source code right now. This means I can share public links directly to source files as I demonstrate concepts.
+
+You can use Joy of Rails source code in accordance with the [BSD-3 license](https://opensource.org/license/bsd-3-clause). You can also [fork the repository](https://github.com/joyofrails/joyofrails.com/fork) and [contribute](https://github.com/joyofrails/joyofrails.com/blob/main/CONTRIBUTING.md). I will do my be best to document my choices and keep the README up-to-date.
+
+Being that Joy is a web application and the guts of Joy are open to the public, I expect the code to be under scrutiny. I may make mistakes. There may be vulnerabilities in the code I write or in the libraries I use. In accordance with the [security policy](https://github.com/joyofrails/joyofrails.com/blob/main/SECURITY.md), if you suspect you may uncovered a vulnerability, please do not broadcast on an open channel like a public GitHub issue, discussion, or pull request. Instead, please send a [private advisory](https://github.com/joyofrails/joyofrails.com/security/advisories/new).
+
+### Built for Indie Hackers
+
+One of the single most powerful ideas behind Rails is that it’s a "One Person Framework".
+
+> A toolkit so powerful that it allows a single individual to create modern applications upon which they might build a competitive business. - DHH
+
+Since Rails 7 introduced the various frameworks of Hotwire, one person, or a small team, can build full-stack interactive applications without a large JavaScript application running on the frontend.
+
+To be clear, I love JavaScript. I use React and TypeScript heavily at my `$DAY_JOB`. But JavaScript ecosystem fatigue is real. Rails offers an viable alternative that I happen to think it pretty great.
+
+With Rails, there doesn’t have to be a hard line between front- and backend. A dev who prefers backend can build interactive user interfaces without knowing a lot of JavaScript. A frontend-focused dev can build out a secure and complex backend without knowing much about databases or encryption or how to prevent cross-site scripting or SQL injection. Rails provides just enough abstractions to do just enough of it all without you having to know it all yourself.
+
+Joy of Rails is built by a solo dev (me) with the solo dev and small team in mind. This mindset guides the choices I make around the Rails core.
+
+For example, Joy of Rails uses by SQLite as it’s primary datastore—there’s no need for Postgres or Redis for my purposes. The Rails application is deployed and hosted on a single VPS with [Hatchbox](https://hatchbox.io/) which can also help manage the processes I do need running in production.
+
+Joy of Rails doesn’t have a lot of moving parts because Rails makes it possible.
+
+### Built by Example
+
+Most blogs are built on top of a content-management system, like WordPress or Ghost, and others are static websites.
+
+I want to do more than just a blog. I want to _show_ and tell.
+
+Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons below:
+
+<div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
+
+I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
+
+<%= render CodeBlock::AppFile.new("app/controllers/examples/counters_controller.rb", language: "ruby") %>
+
+It would be harder to accomplish this with a WordPress blog or static website.
+
+### Built with Joy
+
+I’ve had a lot of fun with Rails over the years and I enjoy sharing what I’ve learned and what I’m learning now. I also want to do my part to make Rails welcoming, accessible, and approachable to newcomers.
+
+If I can help at least one of you experience that same feeling I had when I saw Rails in action for the first time, then I think I’ve done my part.
+
+That’s why I’m building [Joy of Rails](/).

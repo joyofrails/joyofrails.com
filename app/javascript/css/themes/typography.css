@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.article-container.with-table-of-contents .prose.article {
+.article-container.with-aside .prose.article {
   max-width: min(100%, 712px);
 }
 

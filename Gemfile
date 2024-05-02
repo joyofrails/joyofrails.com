@@ -22,7 +22,6 @@ gem "vite_rails", group: [:default, :wasm] # Leverage Vite to power the frontend
 
 # Utilities
 gem "bcrypt", "~> 3.1.7", group: [:default, :wasm] # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "kredis" # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 gem "flipper", group: [:default, :wasm] # Feature flipping for Ruby [https://www.flippercloud.io/]
 gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flippercloud.io/docs/adapters/active-record]
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
@@ -34,8 +33,8 @@ gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
-gem "phlex-rails", group: [:default, :wasm]
-gem "phlex-markdown", github: "phlex-ruby/phlex-markdown", group: [:default, :wasm]
+gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex-markdown", github: "phlex-ruby/phlex-markdown", group: [:default, :wasm] # A markdown component for Phlex [https://github.com/phlex-ruby/phlex-markdown]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
@@ -43,7 +42,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
-gem "fog-aws", require: false
+gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
 
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
@@ -77,9 +76,7 @@ end
 
 group :wasm do
   gem "activerecord-nulldb-adapter" # Use nulldb as the database for Active Record [https://github.com/nulldb/nulldb]
-
   gem "tzinfo-data" # WASM needs to include zoneinfo files, so bundle the tzinfo-data gem
-
   gem "ruby_wasm", "~> 2.5" # Building WebAssembly modules in Ruby [https://github.com/ruby/ruby.wasm]
 end
 

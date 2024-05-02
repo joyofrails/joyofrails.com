@@ -38,4 +38,9 @@ module PageHelper
   def render_toc(page)
     render Markdown::Toc.new(page.asset.body)
   end
+
+  def link_to_app_file(path, text = nil, *, **, &)
+    app_file = Examples::AppFile.from(path)
+    link_to(*[text, app_file.repo_url].compact, **, &)
+  end
 end
