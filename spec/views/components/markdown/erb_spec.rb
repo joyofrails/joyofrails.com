@@ -30,8 +30,12 @@ RSpec.describe Markdown::Erb do
       expect(render("Hello")).to match "Hello"
     end
 
-    it "ignores unfenced erb" do
+    it "ignores unfenced erb at start of line" do
       expect(render("<%= 1 + 1 %>")).to eq("<%= 1 + 1 %>")
+    end
+
+    it "ignores inline fenced erb following text" do
+      expect(render("This is the number <%= 1 + 1 %>")).to eq("<p>This is the number <%= 1 + 1 %></p>")
     end
 
     it "escapes inline fenced erb" do
