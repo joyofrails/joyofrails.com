@@ -12,8 +12,6 @@ gem "activerecord-enhancedsqlite3-adapter" # Enhanced SQLite3 adapter for Active
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
 gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/basecamp/solid_queue]
 
-gem "rack", "~> 2.2", ">= 2.2.7" # litestack's liteboard depends on hanami-router which does not currently support rack 3.x as of Dec 2023
-
 # Asset management
 gem "sprockets-rails", group: [:default, :wasm] # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "stimulus-rails", group: [:default, :wasm] # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
