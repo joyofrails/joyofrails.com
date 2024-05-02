@@ -20,6 +20,8 @@ export default (theme) => ({
   sm: {
     css: [
       {
+        // fontSize: rem(14),
+        // lineHeight: round(24 / 14),
         p: {
           marginTop: 0,
         },
@@ -39,9 +41,13 @@ export default (theme) => ({
       },
     ],
   },
-  DEFAULT: {
+  base: {
     css: [
       {
+        // fontSize: rem(16),
+        // lineHeight: round(28 / 16),
+        fontSize: rem(14),
+        lineHeight: round(24 / 14),
         '--tw-prose-links': theme('colors.joy-link'),
         '--tw-prose-invert-links': theme('colors.joy-link'),
         'code::before': {
@@ -75,6 +81,10 @@ export default (theme) => ({
   lg: {
     css: [
       {
+        // fontSize: rem(18),
+        // lineHeight: round(32 / 18),
+        fontSize: rem(16),
+        lineHeight: round(28 / 16),
         p: {
           marginTop: 0,
         },
@@ -100,6 +110,10 @@ export default (theme) => ({
   xl: {
     css: [
       {
+        // fontSize: rem(20),
+        // lineHeight: round(36 / 20),
+        fontSize: rem(18),
+        lineHeight: round(32 / 18),
         p: {
           marginTop: 0,
         },
@@ -125,6 +139,10 @@ export default (theme) => ({
   '2xl': {
     css: [
       {
+        // fontSize: rem(24),
+        // lineHeight: round(40 / 24),
+        fontSize: rem(20),
+        lineHeight: round(36 / 20),
         p: {
           marginTop: 0,
         },
