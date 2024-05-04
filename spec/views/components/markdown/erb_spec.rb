@@ -53,21 +53,21 @@ RSpec.describe Markdown::Erb do
     end
 
     it "handles multiline fenced with multiple erbs" do
-      html = <<~HTML
+      md = <<~MD
         ```
         <%= 1 + 1 %>
         <%= 2 + 2 %>
         ```
-      HTML
-      processed_html = <<~HTML
+      MD
+      html = <<~HTML
         &lt;%= 1 + 1 %&gt;
         &lt;%= 2 + 2 %&gt;
       HTML
-      expect(render(html)).to eq(processed_html)
+      expect(render(md)).to eq(html)
     end
 
     it "handles multiple fences and unfenced areas" do
-      given_html = <<~HTML
+      md = <<~MD
         <%= 1 + 1 %>
         ```
         <%= 2 + 2 %>
@@ -77,13 +77,23 @@ RSpec.describe Markdown::Erb do
         <%= 4 + 4 %>
         ```
         <%= 5 + 5 %>
-      HTML
-      processed_html = <<~HTML.strip
+      MD
+      html = <<~HTML.strip
         <%= 1 + 1 %>&lt;%= 2 + 2 %&gt;
         <%= 3 + 3 %>&lt;%= 4 + 4 %&gt;
         <%= 5 + 5 %>
       HTML
-      expect(render(given_html)).to eq(processed_html)
+      expect(render(md)).to eq(html)
+    end
+
+    it "renders arbitrary html" do
+      md = <<~MD
+        <div>Hello</div>
+      MD
+      html = <<~HTML
+        <div>Hello</div>
+      HTML
+      expect(render(md)).to eq(html)
     end
   end
 end

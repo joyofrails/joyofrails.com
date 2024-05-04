@@ -30,7 +30,7 @@ class Markdown::Toc < Markdown::Base
     case node.type
 
     # collect header nodes in a 2-level hierarchy
-    in :header
+    in :heading
       if @tree.empty? || node.header_level <= 2
         @tree << [node, []]
       elsif node.header_level > 2

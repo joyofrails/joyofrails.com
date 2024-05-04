@@ -2,19 +2,6 @@
 # you trust the source of your markdown and that its not user input.
 
 class Markdown::Erb < Markdown::Application
-  class Handler
-    class << self
-      def call(template, content)
-        content = Markdown::Erb.new(content, flags: Markly::UNSAFE).call
-        erb.call(template, content)
-      end
-
-      def erb
-        @erb ||= ActionView::Template.registered_template_handler(:erb)
-      end
-    end
-  end
-
   ERB_TAGS = %r{s*<%.*?%>}
   ERB_TAGS_START = %r{\A<%.*?%>}
 
@@ -40,6 +27,19 @@ class Markdown::Erb < Markdown::Application
       end
     else
       super
+    end
+  end
+
+  class Handler
+    class << self
+      def call(template, content)
+        content = Markdown::Erb.new(content).call
+        erb.call(template, content)
+      end
+
+      def erb
+        @erb ||= ActionView::Template.registered_template_handler(:erb)
+      end
     end
   end
 end
