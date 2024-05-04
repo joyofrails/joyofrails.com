@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/phlex-ruby/phlex-markdown.git
-  revision: ee1e2763fc842563577003a269982cfc4ac79006
-  specs:
-    phlex-markdown (0.3.0)
-      markly (~> 0.7)
-      phlex (>= 0.5)
-
-GIT
   remote: https://github.com/rubycdp/cuprite
   revision: 9e2788fac70a9d250364ced47a50b77e18fe31a5
   specs:
@@ -542,8 +534,8 @@ DEPENDENCIES
   letter_opener
   litestream
   mail_interceptor
+  markly
   mission_control-jobs
-  phlex-markdown!
   phlex-rails
   puma (>= 5.0)
   rack-mini-profiler
