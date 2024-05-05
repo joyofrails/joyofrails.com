@@ -412,7 +412,8 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
     ruby-progressbar (1.13.0)
-    ruby_wasm (2.5.0)
+    ruby_wasm (2.6.0-arm64-darwin)
+    ruby_wasm (2.6.0-x86_64-linux)
     rubyzip (2.3.2)
     sanitize (6.1.0)
       crass (~> 1.0.2)
@@ -545,7 +546,7 @@ DEPENDENCIES
   reek
   rouge
   rspec-rails
-  ruby_wasm (~> 2.5)
+  ruby_wasm (~> 2.6)
   selenium-webdriver
   sitepress-rails
   solid_cache

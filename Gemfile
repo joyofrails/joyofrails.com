@@ -75,7 +75,7 @@ end
 group :wasm do
   gem "activerecord-nulldb-adapter" # Use nulldb as the database for Active Record [https://github.com/nulldb/nulldb]
   gem "tzinfo-data" # WASM needs to include zoneinfo files, so bundle the tzinfo-data gem
-  gem "ruby_wasm", "~> 2.5" # Building WebAssembly modules in Ruby [https://github.com/ruby/ruby.wasm]
+  gem "ruby_wasm", "~> 2.6" # Building WebAssembly modules in Ruby [https://github.com/ruby/ruby.wasm]
 end
 
 group :browser do
