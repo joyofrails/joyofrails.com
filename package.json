@@ -3,7 +3,7 @@
   "private": "true",
   "dependencies": {
     "@babel/preset-env": "^7.23.5",
-    "@bjorn3/browser_wasi_shim": "^0.2.20",
+    "@bjorn3/browser_wasi_shim": "^0.3.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.4",
     "@ruby/wasm-wasi": "^2.5.0",
