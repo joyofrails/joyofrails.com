@@ -1,22 +1,27 @@
 # frozen_string_literal: true
 
 require "phlex"
-require "markly"
+require "commonmarker"
 
 class Markdown::Base < Phlex::HTML
-  def initialize(content, flags: Markly::DEFAULT)
+  def initialize(content, **options)
     @content = content
-    @flags = flags
+    @options = default_commonmarker_options.merge(options)
   end
 
-  def template
+  def view_template
     visit(doc)
   end
 
-  private
+  protected
 
   def doc
-    Markly.parse(@content, flags: @flags)
+    Commonmarker.parse(@content, options: @options)
+  end
+
+  # Options for CommonMarker
+  def default_commonmarker_options
+    {}
   end
 
   def visit(node)
@@ -30,7 +35,7 @@ class Markdown::Base < Phlex::HTML
       visit_children(node)
     in :text
       plain(node.string_content)
-    in :header
+    in :heading
       case node.header_level
       in 1 then h1 { visit_children(node) }
       in 2 then h2 { visit_children(node) }
@@ -48,7 +53,7 @@ class Markdown::Base < Phlex::HTML
         p { visit_children(node) }
       end
     in :link
-      a(href: node.url, title: node.title) { visit_children(node) }
+      link(node.url, node.title) { visit_children(node) }
     in :image
       img(
         src: node.url,
@@ -61,10 +66,10 @@ class Markdown::Base < Phlex::HTML
       strong { visit_children(node) }
     in :list
       case node.list_type
-      in :ordered_list then ol { visit_children(node) }
-      in :bullet_list then ul { visit_children(node) }
+      in :ordered then ol { visit_children(node) }
+      in :bullet then ul { visit_children(node) }
       end
-    in :list_item
+    in :item
       li { visit_children(node) }
     in :code
       inline_code do |**attributes|
@@ -78,10 +83,12 @@ class Markdown::Base < Phlex::HTML
           end
         end
       end
-    in :hrule
+    in :thematic_break
       hr
-    in :blockquote
+    in :block_quote
       blockquote { visit_children(node) }
+    in :html_block
+      # This is a raw HTML block, so we skip here in safe mode
     end
   end
 
@@ -92,6 +99,12 @@ class Markdown::Base < Phlex::HTML
   def code_block(code, language, **attributes)
     yield(**attributes)
   end
+
+  def link(url, title, **attrs, &)
+    a(href: url, title: title, &)
+  end
+
+  private
 
   def visit_children(node)
     node.each { |c| visit(c) }

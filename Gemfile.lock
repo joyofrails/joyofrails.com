@@ -124,6 +124,8 @@ GEM
     childprocess (5.0.0)
     code_analyzer (0.5.5)
       sexp_processor
+    commonmarker (1.1.2-arm64-darwin)
+    commonmarker (1.1.2-x86_64-linux)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crack (1.0.0)
@@ -264,7 +266,6 @@ GEM
     mail_interceptor (0.0.7)
       activesupport
     marcel (1.0.4)
-    markly (0.10.0)
     matrix (0.4.2)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
@@ -517,6 +518,7 @@ DEPENDENCIES
   brakeman
   bundle-audit
   capybara
+  commonmarker
   cuprite!
   debug
   device_detector
@@ -534,7 +536,6 @@ DEPENDENCIES
   letter_opener
   litestream
   mail_interceptor
-  markly
   mission_control-jobs
   phlex-rails
   puma (>= 5.0)
