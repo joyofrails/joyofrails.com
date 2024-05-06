@@ -5,16 +5,16 @@ Rails.application.routes.draw do
   # Redirects www to root domain
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
 
+  # Defines the root path route ("/")
+  sitepress_root controller: :site
+
+  sitepress_pages controller: :site
+
   namespace :examples do
     resource :counters, only: [:show, :update, :destroy]
     resource :hello, only: [:show]
   end
   resources :examples, only: [:index, :show]
-
-  sitepress_pages
-
-  # Defines the root path route ("/")
-  sitepress_root
 
   namespace :pwa do
     resource :installation_instructions, only: [:show]
