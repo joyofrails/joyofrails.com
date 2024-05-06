@@ -267,6 +267,7 @@ GEM
       activesupport
     marcel (1.0.4)
     matrix (0.4.2)
+    memory_profiler (1.0.1)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0305)
@@ -450,6 +451,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
+    stackprof (0.2.26)
     standard (1.35.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -536,6 +538,7 @@ DEPENDENCIES
   letter_opener
   litestream
   mail_interceptor
+  memory_profiler
   mission_control-jobs
   phlex-rails
   puma (>= 5.0)
@@ -552,6 +555,7 @@ DEPENDENCIES
   solid_queue
   sprockets-rails
   sqlite3
+  stackprof
   standard
   stimulus-rails
   turbo-rails

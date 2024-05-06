@@ -44,10 +44,14 @@ gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web S
 
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
+gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+
+gem "stackprof", require: false # A sampling call-stack profiler for Ruby [https://github.com/tmm1/stackprof]
+gem "memory_profiler", require: false # Memory profiling tools for Ruby [https://github.com/SamSaffron/memory_profiler]
+
 group :development do
   gem "erb_lint", require: false # ERB linting tool [https://github.com/Shopify/erb-lint]
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
-  gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
 end
 
