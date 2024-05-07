@@ -3,7 +3,10 @@ module LitestreamExtensions
     module_function
 
     def configure_litestream
-      return if Rails.env.wasm?
+      if Rails.env.wasm? || litestream_bucket.blank?
+        Rails.logger.debug "[#{self}] Skipping Litestream configuration"
+        return
+      end
       File.write(config_path, YAML.dump(litestream_config))
     end
 
@@ -31,7 +34,7 @@ module LitestreamExtensions
     end
 
     def litestream_bucket
-      Rails.application.credentials.litestream.bucket
+      Rails.application.credentials.litestream&.bucket
     end
   end
 end
