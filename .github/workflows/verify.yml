@@ -90,6 +90,45 @@ jobs:
           RAILS_ENV: test
         run: bin/rspec
 
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: development
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Node version
+        run: |
+          node --version
+
+      - name: Install packages
+        run: |
+          npm ci
+
+      - name: Run local setup script
+        env:
+          RAILS_ENV: test
+        run: bin/setup
+
+      - name: Run local setup script idempotently
+        env:
+          RAILS_ENV: test
+        run: bin/setup
+
   npm-test:
     name: Tests - JavaScript
     runs-on: ubuntu-latest
