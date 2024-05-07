@@ -12,8 +12,8 @@ module Authentication
     request.env["warden"]
   end
 
-  def redirect_if_authenticated
-    redirect_to root_path, alert: "You are already logged in." if admin_user_signed_in?
+  def redirect_admin_if_authenticated
+    redirect_to admin_root_path, alert: "You are already logged in." if admin_user_signed_in?
   end
 
   protected

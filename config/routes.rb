@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   unless Rails.env.wasm?
     scope :admin, constraints: Routes::AdminAccessConstraint.new do
+      root to: "admin/home#index", as: :admin_root
+
       mount Flipper::UI.app(Flipper) => "/flipper"
       mount MissionControl::Jobs::Engine, at: "/jobs"
     end
