@@ -19,7 +19,13 @@ module LitestreamExtensions
         "dbs" => database_paths.map do |database_path|
           {
             "path" => "./#{database_path}",
-            "replicas" => [{"url" => "s3://#{litestream_bucket}/#{database_path}"}]
+            "replicas" => [
+              {
+                "url" => "s3://#{litestream_bucket}/#{database_path}",
+                "access-key-id" => Rails.application.credentials.litestream&.access_key_id,
+                "secret-access-key" => Rails.application.credentials.litestream&.secret_access_key
+              }
+            ]
           }
         end
       }
