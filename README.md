@@ -71,47 +71,6 @@ Run the following to run all tests
 bin/verify
 ```
 
-### WASM
-
-Joy of Rails is WASM-ified: it is designed to compile to WebAssembly so that it can be loaded directly in the browser.
-
-For development of the WASM build, first
-
-Install the WASM dependencies:
-
-- Install [wasi-vfs](https://github.com/kateinoigakukun/wasi-vfs):
-
-  ```sh
-  brew tap kateinoigakukun/wasi-vfs https://github.com/kateinoigakukun/wasi-vfs.git
-  brew install kateinoigakukun/wasi-vfs/wasi-vfs
-  ```
-
-- Install Rust toolchain:
-
-  ```sh
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  ```
-
-The minimal WASM version of the app can be built as follows:
-
-- Build the ruby WASM module (this take awhile first time):
-
-  ```sh
-  bin/wasm/build
-  ```
-
-- Pack the Rails app code to produce the Ruby+Rails WASM module:
-
-  ```sh
-  bin/wasm/pack
-  ```
-
-- Compress the WASM module and copy to the assets directory:
-
-  ```sh
-  bin/wasm/compress
-  ```
-
 ## License
 
 Copyright 2024 Ross Kaffenberger under the [BSD 3 Clause License](https://opensource.org/license/bsd-3-clause).
