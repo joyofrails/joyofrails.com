@@ -10,7 +10,7 @@ class CodeBlock::AppFile < Phlex::HTML
   end
 
   def view_template
-    render ::CodeBlock::Article.new("", **attributes) do |code_block|
+    render ::CodeBlock::Article.new(**attributes) do |code_block|
       code_block.title do
         a(href: app_file.repo_url, target: "_blank", class: "not-prose flex items-center gap-1") {
           plain app_file.filename
