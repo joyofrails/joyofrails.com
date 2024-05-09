@@ -1,4 +1,4 @@
 <div id="example_<%= example.basename(".*") %>">
-  <%= render CodeBlock.new(example.source, language: "ruby", filename: example.app_path, run: true) %>
+  <%= render CodeBlock::AppFile.new(example.app_path, language: "ruby", run: true) %>
   <%= link_to "Source", example.repo_url %>
 </div>

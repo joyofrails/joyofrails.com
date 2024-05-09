@@ -1,12 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Markdown::Toc do
-  include Phlex::Testing::ViewHelper
-
-  def squish_html(html)
-    html.gsub(/\n+/, "").gsub(/>\s+</, "><").gsub(/^\s+/, "")
-  end
-
   it "renders nothing for a markdown document without headers" do
     output = render(Markdown::Toc.new(<<~MD))
       Hello
@@ -67,5 +61,9 @@ RSpec.describe Markdown::Toc do
         </li>
       </ul>
     HTML
+  end
+
+  def squish_html(html)
+    html.gsub(/\n+/, "").gsub(/>\s+</, "><").gsub(/^\s+/, "")
   end
 end

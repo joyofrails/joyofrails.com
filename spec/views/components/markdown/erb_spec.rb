@@ -18,12 +18,11 @@ RSpec.describe Markdown::Erb do
     end
 
     before do
-      stub_const("CodeBlock", code_block_class)
+      stub_const("CodeBlock::Article", code_block_class)
     end
 
     def render(content, &block)
-      view = Markdown::Erb.new(content)
-      view.call(view_context: nil, &block)
+      Markdown::Erb.new(content).call(&block)
     end
 
     it "processes text" do

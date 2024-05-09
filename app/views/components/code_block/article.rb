@@ -1,13 +1,8 @@
-class CodeBlock < Phlex::HTML
+class CodeBlock::Article < Phlex::HTML
   include InlineSvg::ActionView::Helpers
+  include Phlex::DeferredRender
 
-  class << self
-    def code_formatter
-      @code_formatter ||= Rouge::Formatters::HTML.new
-    end
-  end
-
-  def initialize(source = nil, language: nil, filename: nil, run: false)
+  def initialize(source = "", language: nil, filename: nil, run: false)
     @source = source
     @language = language
     @filename = filename
@@ -23,19 +18,13 @@ class CodeBlock < Phlex::HTML
       class: "code-wrapper highlight language-#{language}",
       data: code_example_data.keep_if { enable_run }.merge(data)
     ) do
-      if title.present?
-        div(class: "code-header") do
-          plain inline_svg_tag("app-dots.svg", class: "app-dots")
-          span(class: "code-title") { title_content }
-        end
+      div(class: "code-header") do
+        plain inline_svg_tag("app-dots.svg", class: "app-dots")
+        span(class: "code-title", &title_content)
       end
 
       div(class: "code-body") do
-        pre do
-          code data: {code_example_target: "source"} do
-            unsafe_raw self.class.code_formatter.format(lexer.lex(source))
-          end
-        end
+        render CodeBlock::Basic.new(source, language: language, data: {code_example_target: "source"})
         render ClipboardCopy.new(text: source)
       end
 
@@ -57,12 +46,18 @@ class CodeBlock < Phlex::HTML
     end
   end
 
-  def title_content
-    Rails.logger.info("CodeBlock#title_content #{title}, #{filename}, #{language}")
-    title
+  def title(&block)
+    @title = block
   end
 
-  def title = filename || language
+  # Overwite the source code with a block
+  def source_code(&)
+    @source = capture(&)
+  end
+
+  def title_content
+    @title || -> { filename || language }
+  end
 
   protected
 
