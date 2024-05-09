@@ -4,9 +4,8 @@ class CodeBlock::AppFile < Phlex::HTML
   # @param filename [String] the file path or an Examples::AppFile.
   # @param file [String] the file path or an Examples::AppFile.
   def initialize(filename, lines: nil, revision: nil, **attributes)
-    @app_file = Examples::AppFile.from(filename)
+    @app_file = Examples::AppFile.from(filename, revision: revision)
     @lines = lines
-    @revision = revision
     @attributes = attributes
   end
 
