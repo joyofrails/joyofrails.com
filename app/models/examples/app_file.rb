@@ -12,33 +12,32 @@ module Examples
         new(path)
       end
 
-      def from(path)
+      def from(path, **)
         case path
-        when AppFile
-          path
-        when File
-          new(path.path)
+        when AppFile, File
+          new(path.path, **)
         when String, Pathname
-          new(path)
+          new(path, **)
         else
           raise ArgumentError, "Invalid AppFile path: #{path.inspect}"
         end
       end
     end
 
-    attr_reader :path
+    attr_reader :path, :revision
     alias_method :filename, :path
 
-    def initialize(path)
+    def initialize(path, revision: "HEAD")
       @path = path
+      @revision = revision
     end
 
     def readlines
-      File.readlines(@path)
+      read.scan(%r{.*\n})
     end
 
     def read
-      File.read(@path)
+      `git show #{@revision}:#{@path}`.strip
     end
     alias_method :content, :read
     alias_method :source, :read
@@ -57,8 +56,7 @@ module Examples
     alias_method :extension, :extname
 
     def repo_url
-      branch = `git rev-parse --abbrev-ref HEAD`
-      "https://github.com/joyofrails/joyofrails.com/blob/#{branch}/#{app_path}"
+      "https://github.com/joyofrails/joyofrails.com/blob/#{revision}/#{app_path}"
     end
   end
 end
