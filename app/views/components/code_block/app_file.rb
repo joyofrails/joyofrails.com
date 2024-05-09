@@ -33,7 +33,7 @@ class CodeBlock::AppFile < CodeBlock
 
     content = if lines.present?
       readlines = app_file.readlines
-      lines = lines.map { |e| [*e] }.flatten
+      lines = lines.map { |e| [*e] }.flatten.map(&:to_i).map { |e| e - 1 }
 
       readlines.values_at(*lines).join.strip
     else
