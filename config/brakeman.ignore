@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "7297db165692a1744273cd4c5f755daee483c999bf28b7cce39ff84ca9c3a64f",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/examples/app_file.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`git show #{@revision}:#{@path}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Examples::AppFile",
+        "method": "read"
+      },
+      "user_input": "@revision",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "We mark this warning as ignored since we expect to only run this code on app files and not on user-generated content."
+    }
+  ],
+  "updated": "2024-05-09 20:09:09 -0400",
+  "brakeman_version": "6.1.2"
+}
