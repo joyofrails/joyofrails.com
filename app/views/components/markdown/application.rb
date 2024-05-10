@@ -33,7 +33,7 @@ class Markdown::Application < Markdown::Base
 
   def code_block(source, metadata = "", **attributes)
     language, json_attributes = parse_code_block_metadata(metadata)
-    render CodeBlock.new(source, language: language, **json_attributes, **attributes)
+    render ::CodeBlock::Article.new(source, language: language, **json_attributes, **attributes)
   end
 
   def link(url, title, **attrs, &)
