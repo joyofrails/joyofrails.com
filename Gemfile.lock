@@ -304,6 +304,11 @@ GEM
     phlex-rails (1.2.1)
       phlex (~> 1.10.0)
       railties (>= 6.1, < 8)
+    postmark (1.25.0)
+      json
+    postmark-rails (0.22.1)
+      actionmailer (>= 3.0.0)
+      postmark (>= 1.21.3, < 2.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -538,6 +543,7 @@ DEPENDENCIES
   mail_interceptor
   mission_control-jobs
   phlex-rails
+  postmark-rails
   puma (>= 5.0)
   rack-mini-profiler
   rails (~> 7.1)
