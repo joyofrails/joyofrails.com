@@ -25,6 +25,7 @@ gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flip
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
 gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
+gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 
 # Rendering
 # gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -65,7 +66,6 @@ group :development, :test do
   gem "dotenv" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
   gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
-  gem "mail_interceptor" # Intercepts and forwards emails in non-production environments [https://github.com/bigbinary/mail_interceptor]
   gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
