@@ -263,8 +263,6 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mail_interceptor (0.0.7)
-      activesupport
     marcel (1.0.4)
     matrix (0.4.2)
     mime-types (3.5.2)
@@ -540,7 +538,6 @@ DEPENDENCIES
   js
   letter_opener
   litestream
-  mail_interceptor
   mission_control-jobs
   phlex-rails
   postmark-rails
