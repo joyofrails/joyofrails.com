@@ -21,6 +21,10 @@ development:
     <<: *default
     database: storage/development/queue.sqlite3
     migrations_paths: db/migrate_queue
+  cable:
+    <<: *default
+    database: storage/development/cable.sqlite3
+    migrations_paths: db/migrate_cable
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -57,6 +61,9 @@ production:
     <<: *default
     database: storage/production/queue.sqlite3
     migrations_paths: db/migrate_queue
+  cable:
+    database: storage/production/cable.sqlite3
+    migrations_paths: db/migrate_cable
 
 wasm:
   adapter: nulldb
