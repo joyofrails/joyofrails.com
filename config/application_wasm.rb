@@ -54,5 +54,7 @@ module Joy
     if ENV["RAILS_LOG_TO_STDOUT"] == "true"
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
     end
+
+    config.solid_cable = ActiveSupport::OrderedOptions.new
   end
 end
