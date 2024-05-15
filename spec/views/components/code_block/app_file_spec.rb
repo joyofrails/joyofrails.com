@@ -33,7 +33,7 @@ RSpec.describe CodeBlock::AppFile, type: :view do
   end
 
   it "renders contents of file by heterogeneous line number collection" do
-    page = render_page(CodeBlock::AppFile.new("config/database.yml", lines: [7..8, 51]))
+    page = render_page(CodeBlock::AppFile.new("config/database.yml", lines: [7..8, 58]))
     expect(page).to have_content(<<~YAML.strip)
       default: &default
         adapter: sqlite3

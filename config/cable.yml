@@ -1,8 +1,13 @@
 development:
-  adapter: async
+  adapter: solid_cable
+  silence_polling: true
+  polling_interval: 1
+  keep_messages_around_for: 30.minutes
 
 test:
   adapter: test
 
 production:
-  adapter: async
+  adapter: solid_cable
+  polling_interval: 0.1
+  keep_messages_around_for: 10.minutes
