@@ -41,3 +41,12 @@
     </li>
   </ul>
 </div>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.channels?.heartbeat?.subscribe) {
+      console.log('Subscribing to Action Cable heartbeat channel');
+      window.channels.heartbeat.subscribe();
+    }
+  });
+</script>

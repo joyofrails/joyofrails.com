@@ -41,7 +41,10 @@ test:
     <<: *default
     database: storage/test/queue.sqlite3
     migrations_paths: db/migrate_queue
-
+  cable:
+    <<: *default
+    database: storage/test/cable.sqlite3
+    migrations_paths: db/migrate_cable
 
 # SQLite3 write its data on the local filesystem, as such it requires
 # persistent disks. If you are deploying to a managed service, you should

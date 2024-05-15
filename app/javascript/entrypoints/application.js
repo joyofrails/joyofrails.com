@@ -3,12 +3,12 @@ import debug from 'debug';
 import '@hotwired/turbo-rails';
 import '../controllers';
 
-import railsWasmUrl from '../ruby-wasm/rails/url';
-
 import {
   turboScrollSmoothWorkaround,
   registerServiceWorker,
 } from '../initializers';
+
+import * as channels from '../channels';
 
 const log = debug('app:javascript:entrypoints:application');
 // To see this message, add the following to the `<head>` section in your
@@ -46,4 +46,4 @@ log('Vite ⚡️ Rails');
 registerServiceWorker();
 turboScrollSmoothWorkaround();
 
-console.log('railsWasmUrl', railsWasmUrl);
+window.channels = channels;
