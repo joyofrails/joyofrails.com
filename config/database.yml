@@ -65,6 +65,7 @@ production:
     database: storage/production/queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
+    <<: *default
     database: storage/production/cable.sqlite3
     migrations_paths: db/migrate_cable
 
