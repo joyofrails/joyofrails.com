@@ -1,3 +1,5 @@
 require "solid_cable"
 
-SolidCable.connects_to = {database: {writing: :cable, reading: :cable}}
+Rails.application.config.solid_cable.each do |name, value|
+  SolidCable.public_send(:"#{name}=", value)
+end
