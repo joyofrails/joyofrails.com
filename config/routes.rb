@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   sitepress_root controller: :site
-
   sitepress_pages controller: :site
 
   namespace :examples do
@@ -20,6 +19,8 @@ Rails.application.routes.draw do
     resource :installation_instructions, only: [:show]
     resources :web_pushes, only: [:create]
   end
+
+  resources :feed, only: [:index], format: "xml"
 
   # Render dynamic PWA files from app/views/pwa/*
   get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}

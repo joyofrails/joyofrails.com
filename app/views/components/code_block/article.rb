@@ -56,7 +56,7 @@ class CodeBlock::Article < Phlex::HTML
   end
 
   def title_content
-    @title || -> { filename || language }
+    @title || ->(*) { filename || language }
   end
 
   protected

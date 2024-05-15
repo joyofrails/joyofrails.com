@@ -100,7 +100,7 @@ for push subscriptions and notifications.
 
 Here's an example from [Joy of Rails](/manifest.json):
 
-```json:manifest.json
+```json
 {
   "name": "Joy of Rails",
   "start_url": "/",
@@ -121,7 +121,7 @@ Here's an example from [Joy of Rails](/manifest.json):
   "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "portrait",
-  "author": "Ross Kaffenberger",
+  "author": "Ross Kaffenberger"
 }
 ```
 
