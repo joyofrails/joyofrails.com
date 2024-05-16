@@ -307,6 +307,11 @@ GEM
     postmark-rails (0.22.1)
       actionmailer (>= 3.0.0)
       postmark (>= 1.21.3, < 2.0)
+    propshaft (0.8.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -541,6 +546,7 @@ DEPENDENCIES
   mission_control-jobs
   phlex-rails
   postmark-rails
+  propshaft
   puma (>= 5.0)
   rack-mini-profiler
   rails (~> 7.1)
@@ -553,7 +559,6 @@ DEPENDENCIES
   sitepress-rails
   solid_cache
   solid_queue
-  sprockets-rails
   sqlite3
   standard
   stimulus-rails
