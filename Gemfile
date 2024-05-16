@@ -13,7 +13,7 @@ gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://githu
 gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/basecamp/solid_queue]
 
 # Asset management
-gem "sprockets-rails", group: [:default, :wasm] # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "propshaft", group: [:default, :wasm] # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "stimulus-rails", group: [:default, :wasm] # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "turbo-rails", group: [:default, :wasm] # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "vite_rails", group: [:default, :wasm] # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
