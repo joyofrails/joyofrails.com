@@ -14,6 +14,8 @@ class Markdown::Application < Markdown::Base
     case node.type
     in :html_block
       unsafe_raw(node.to_html(options: @options))
+    in :heading
+      header(node.header_level) { visit_children(node) }
     else
       super
     end

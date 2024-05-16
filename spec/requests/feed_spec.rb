@@ -10,7 +10,7 @@ RSpec.describe "Feed", type: :request do
 
       expect(page).to have_content("Introducing Joy of Rails")
       expect(page).to have_content("/introducing-joy-of-rails")
-      expect(page).to have_content("<h2>How it started, How it’s going</h2>")
+      expect(page).to have_content("How it started, How it’s going</h2>")
       expect(page).to have_content("<pre><code data-code-example-target=\"source\">")
     end
   end
