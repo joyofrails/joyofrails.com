@@ -1,0 +1,15 @@
+:root {
+  --sans-serif: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --serif: 'Georgia', 'Times', serif;
+  --mono: font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --leading: 1.6;
+  --ratio: 1.61803;
+  --width-measure: 60ch;
+  --width-margin: calc(var(--width-measure) / 1.618);
+  --width-padding: var(--space-none-3xl);
+  --border-thin: 1px;
+  --border-thick: 2px;
+  --border-chunky: 4px;
+  --scrollbar-width: 10px;
+}
