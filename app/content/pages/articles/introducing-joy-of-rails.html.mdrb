@@ -1,7 +1,7 @@
 ---
 title: Introducing Joy of Rails
 author: Ross Kaffenberger
-layout: article
+layout: redesign/article
 summary:
 description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community
 published: '2024-05-02'
@@ -19,9 +19,11 @@ To me, it looked like the Matrix.
 
 <%= image_tag "articles/introducing-joy-of-rails/matrix.gif", title: "Screen of nonsensical text" %>
 
-Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
+Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at.
 
-This is awesome.
+I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
+
+> This is awesome.
 
 <%= image_tag("articles/introducing-joy-of-rails/adventure-world.gif", alt: "Jake from Adventure World and Rainbows", class: "w-full") %>
 

@@ -1,0 +1,29 @@
+<%= render "application/skip_to_content" %>
+<%= render_layout "redesign" do %>
+  <article>
+    <header>
+      <h1>
+        <%= current_page.data.title! %>
+      </h1>
+    </header>
+    <%- if current_page.data.toc -%>
+      <aside>
+        <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
+        <!-- Disable Turbolinks for same-page Table of Contents navigation
+        -->
+        <nav
+          data-controller="table-of-contents"
+          data-turbo="false"
+          class="toc">
+          <%= render_toc(current_page) %>
+        </nav>
+      </aside>
+    <%- end -%>
+    <div class="article-body">
+      <%= yield %>
+    </div>
+  </article>
+  <section class="container mt-16">
+    <%= render "newsletter/banner" %>
+  </section>
+<% end %>
