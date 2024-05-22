@@ -1,0 +1,82 @@
+@import 'config/variables.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font: 400 var(--step-0) / var(--leading) var(--serif);
+  color: var(--theme-text);
+  background-color: var(--theme-background);
+  margin: 0;
+  padding: 0;
+}
+
+body > * {
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-gutter);
+  margin-inline: auto;
+}
+
+body > *,
+main > article,
+.article-content {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
+  gap: var(--grid-gutter);
+}
+
+main > *,
+article > *,
+.article-content > * {
+  grid-column: col-start / span var(--grid-columns);
+}
+
+.article-content {
+  grid-auto-flow: row;
+  grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
+  row-gap: var(--space-xs-s);
+}
+
+.article-content > img {
+  display: block;
+  align-self: start;
+  max-inline-size: initial;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+}
+
+@media screen and (min-width: $screen-md) {
+  header > *,
+  main > *,
+  footer > * {
+    grid-column: col-start 2 / span 10;
+  }
+}
+
+@media screen and (min-width: $screen-lg) {
+  header > *,
+  main > *,
+  footer > * {
+    grid-column: col-start 1 / span var(--grid-columns);
+  }
+
+  .article-content > * {
+    grid-column: col-start 1 / span 8;
+  }
+
+  .article-content > img {
+    grid-column: col-start 9 / span 4;
+    grid-row-start: span 4;
+  }
+
+  .article-content > .code-wrapper {
+    grid-column: col-start / span var(--grid-columns);
+  }
+}

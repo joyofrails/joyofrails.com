@@ -1,8 +1,15 @@
 @import './config/type.css';
 @import './config/space.css';
 @import './config/grid.css';
+@import './config/colors.css';
+@import './config/theme.css';
 @import './config/settings.css';
 
 @import './reset.css';
+@import './utilities.css';
+@import './theme.css';
 
-@import './layout.css';
+@import './layout.scss';
+
+@import './components/button.css';
+@import './components/code.scss';

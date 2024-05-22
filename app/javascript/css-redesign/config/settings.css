@@ -2,7 +2,8 @@
   --sans-serif: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --serif: 'Georgia', 'Times', serif;
-  --mono: font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
   --leading: 1.6;
   --ratio: 1.61803;
   --width-measure: 60ch;

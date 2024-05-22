@@ -18,6 +18,7 @@
 
     <%= vite_stylesheet_tag "redesign.css", media: "all", "data-turbo-track": "reload" %>
     <%= vite_javascript_tag "redesign.js", media: "all", "data-turbo-track": "reload" %>
+    <%= render "application/theme/code" %>
 
     <%= auto_discovery_link_tag(:rss, feed_index_url, {title: "joyofrails.com"}) %>
 
