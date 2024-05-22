@@ -16,14 +16,13 @@ body {
   padding: 0;
 }
 
-body > * {
+.container {
   max-width: var(--grid-max-width);
   padding-inline: var(--grid-gutter);
   margin-inline: auto;
 }
 
-body > *,
-main > article,
+main > *,
 .article-content {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);

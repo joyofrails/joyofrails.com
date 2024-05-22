@@ -1,13 +1,13 @@
 <%= tag.header aria: { label: "header" } do %>
-  <nav class="">
-    <%= link_to root_path do %>
-      <div>
+  <div class="container">
+    <nav class="">
+      <%= link_to root_path, class: "logo" do %>
         <%= inline_svg_tag "joy-logo.svg", class: "fill-current", style: "max-width: 32px;" %>
-      </div>
-      <span class>Joy of Rails</span>
+        <span>Joy of Rails</span>
+      <% end %>
+    </nav>
+    <%= turbo_frame_tag :header_navigation, src: users_header_navigation_path, target: :_top do %>
+      <%= render partial: "application/header/nav", layout: "layouts/header/nav" %>
     <% end %>
-  </nav>
-  <%= turbo_frame_tag :header_navigation, src: users_header_navigation_path, target: :_top do %>
-    <%= render partial: "application/header/nav", layout: "layouts/header/nav" %>
   <% end %>
-<% end %>
+  </div>

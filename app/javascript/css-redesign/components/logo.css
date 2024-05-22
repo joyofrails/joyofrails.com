@@ -1,0 +1,9 @@
+.logo {
+  display: flex;
+  align-items: center;
+  font-family: var(--sans-serif-thick);
+
+  svg {
+    width: 2rem;
+  }
+}
