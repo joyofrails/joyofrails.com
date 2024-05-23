@@ -1,49 +1,40 @@
 <%= tag.footer class: "" do %>
-  <div class="container">
-    <nav aria-label="footer">
-      <div>
-        <%= link_to root_path do %>
-          <div class="">
-            <%= inline_svg_tag "joy-logo.svg", style: "width: 32px;" %>
-          </div>
-          <div class=""><span class="font-bold">Sharing and experiencing the</span>
-            <span class="">Joy of Rails</span>
-          </div>
-        <% end %>
-      </div>
-      <div
-        class="">
-        <ul>
-          <li class=""><a
-              class=""
-              href="/articles">Articles</a>
-          </li>
-          <% if Flipper.enabled?(:pwa_showcase_navigation) %>
-            <li class=""><a
-                class=""
-                href="/pwa-showcase">Progress Web Apps on Rails Showcase</a>
-            </li>
-          <% end %>
-          <% if Flipper.enabled?(:headwind_redesign, current_admin_user) %>
-            <li class=""><a
-                class=""
-                href="#">Redesign</a>
-            </li>
-          <% end %>
-        </ul>
-        <ul>
-          <li class=""><a
-              class=""
-              href="mailto:support@joyofrails.com">support@joyofrails.com</a></li>
-        </ul>
-      </div>
-    </nav>
-    <small class="">
-      <div>© 2023-present joyofrails. All rights reserved.</div>
-      <%# <a class="" href="/terms">Terms &amp; Conditions</a>
-      <a class="" href="/privacy">Privacy Policy</a>
-      <a class="" href="/faq">FAQ</a> %>
-      <%= render "darkmode/switch" %>
-    </small>
-  </div>
+  <nav aria-label="footer">
+    <div>
+      <%= link_to root_path, class: "logo" do %>
+        <div class="">
+          <%= inline_svg_tag "joy-logo.svg", style: "width: 32px;" %>
+        </div>
+        <div class=""><span class="font-bold">Sharing and experiencing the</span>
+          <span class="">Joy of Rails</span>
+        </div>
+      <% end %>
+    </div>
+    <div
+      class="">
+      <ul>
+        <li class="">
+          <a
+            class=""
+            href="/articles">Articles</a>
+        </li>
+        <li class="">
+          <a class=""
+            href="/about">About</a>
+        </li>
+      </ul>
+      <ul>
+        <li class=""><a
+            class=""
+            href="mailto:hello@joyofrails.com">hello@joyofrails.com</a></li>
+      </ul>
+    </div>
+  </nav>
+  <small class="">
+    <div>© 2023-present joyofrails. All rights reserved.</div>
+    <%# <a class="" href="/terms">Terms &amp; Conditions</a>
+    <a class="" href="/privacy">Privacy Policy</a>
+    <a class="" href="/faq">FAQ</a> %>
+    <%= render "darkmode/switch" %>
+  </small>
 <% end %>

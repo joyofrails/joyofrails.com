@@ -16,6 +16,8 @@ body {
   padding: 0;
 }
 
+body > header,
+body > footer,
 .container {
   max-width: var(--grid-max-width);
   padding-inline: var(--grid-gutter);
@@ -23,6 +25,7 @@ body {
 }
 
 main > *,
+.section-content,
 .article-content {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
@@ -31,6 +34,7 @@ main > *,
 
 main > *,
 article > *,
+section > *,
 .article-content > * {
   grid-column: col-start / span var(--grid-columns);
 }
@@ -66,6 +70,7 @@ article > *,
     grid-column: col-start 1 / span var(--grid-columns);
   }
 
+  .section-content > *,
   .article-content > * {
     grid-column: col-start 1 / span 8;
   }

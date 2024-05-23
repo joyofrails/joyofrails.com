@@ -20,11 +20,11 @@
     display: none;
   }
   &.primary {
-    @apply bg-joy-button-primary hover:bg-joy-button-primary-hover;
+    background-color: var(--theme-accent);
   }
 
   &.secondary {
-    /* background-color: var(--joy-button-secondary); */
+    background-color: var(--theme-accent);
   }
 
   fieldset[disabled] &,
