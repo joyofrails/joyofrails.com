@@ -1,6 +1,7 @@
 @import './config/type.css';
 @import './config/space.css';
 @import './config/grid.css';
+@import './config/colors-tailwind.css';
 @import './config/colors.css';
 @import './config/theme.css';
 @import './config/settings.css';

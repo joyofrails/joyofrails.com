@@ -86,3 +86,5 @@ end
 group :browser do
   gem "js" # JavaScript bindings for ruby.wasm [https://github.com/ruby/ruby.wasm/blob/main/packages/gems/js]
 end
+
+gem "color_conversion", "~> 0.1.1"

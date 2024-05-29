@@ -124,6 +124,7 @@ GEM
     childprocess (5.0.0)
     code_analyzer (0.5.5)
       sexp_processor
+    color_conversion (0.1.1)
     commonmarker (1.1.2-arm64-darwin)
     commonmarker (1.1.2-x86_64-linux)
     concurrent-ruby (1.2.3)
@@ -546,6 +547,7 @@ DEPENDENCIES
   brakeman
   bundle-audit
   capybara
+  color_conversion (~> 0.1.1)
   commonmarker
   cuprite!
   debug
