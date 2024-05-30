@@ -6,70 +6,65 @@
   box-sizing: border-box;
 }
 
-body {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font: 400 var(--step-0) / var(--leading) var(--serif);
-  color: var(--theme-text);
-  background-color: var(--theme-background);
-  margin: 0;
-  padding: 0;
-}
-
-body > header,
-body > footer,
+.site-header,
+.footer-content,
 .container {
+  width: 100%;
   max-width: var(--grid-max-width);
   padding-inline: var(--grid-gutter);
   margin-inline: auto;
 }
 
+body > *,
 main > *,
+.header-content,
 .section-content,
+.footer-content,
 .article-content {
   display: grid;
-  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
-  gap: var(--grid-gutter);
 }
 
 main > *,
-article > *,
-section > *,
+.header-content,
+.section-content,
+.article-content {
+  gap: var(--grid-gutter);
+}
+
+body > *,
+main > *,
+.header-content,
+.footer-content {
+  grid-template-columns: 1fr;
+}
+
+.section-content,
+.article-content {
+  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
+  grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
+}
+
+.section-content,
+.article-content {
+  grid-auto-flow: row;
+  row-gap: var(--space-m);
+}
+
+.header-content,
+.footer-content {
+  grid-auto-flow: row;
+  row-gap: var(--space-3xs-2xs);
+}
+
+.section-content > *,
 .article-content > * {
   grid-column: col-start / span var(--grid-columns);
 }
 
-.article-content {
-  grid-auto-flow: row;
-  grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
-  row-gap: var(--space-xs-s);
-}
-
-.article-content > img {
-  display: block;
-  align-self: start;
-  max-inline-size: initial;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  z-index: 100;
-}
-
 @media screen and (min-width: $screen-md) {
-  header > *,
-  main > *,
-  footer > * {
-    grid-column: col-start 2 / span 10;
-  }
 }
 
 @media screen and (min-width: $screen-lg) {
-  header > *,
-  main > *,
-  footer > * {
-    grid-column: col-start 1 / span var(--grid-columns);
-  }
-
   .section-content > *,
   .article-content > * {
     grid-column: col-start 1 / span 8;

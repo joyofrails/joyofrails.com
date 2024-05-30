@@ -2,6 +2,7 @@
 @import './config/space.css';
 @import './config/grid.css';
 @import './config/colors-tailwind.css';
+@import './config/colors-uicolors.css';
 @import './config/colors.css';
 @import './config/theme.css';
 @import './config/settings.css';
@@ -12,7 +13,11 @@
 
 @import './layout.scss';
 
+@import './components/logo.css';
 @import './components/button.css';
 @import './components/code.scss';
+@import './components/page-header.css';
+@import './components/skip-to-content.css';
 @import './components/site-header.css';
-@import './components/logo.css';
+@import './components/article-content.css';
+@import './components/footer-content.css';

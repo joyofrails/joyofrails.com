@@ -1,15 +1,13 @@
 @import '../config/variables.scss';
 
 .code-wrapper {
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  border-radius: 0.5rem;
+  border-radius: var(--space-2xs-xs);
 }
 
 @media screen and (min-width: $screen-md) {
   .code-wrapper {
-    margin-left: -1.5rem;
-    margin-right: -1.5rem;
+    margin-inline-start: calc(var(--space-m) * -1);
+    margin-inline-end: calc(var(--space-m) * -1);
   }
 }
 
@@ -24,10 +22,10 @@
     margin-top: 0;
     margin-bottom: 0;
     border-radius: 0.5rem;
-    padding-top: 1.1111111em;
-    padding-inline-end: 1.3333333em;
-    padding-bottom: 1.1111111em;
-    padding-inline-start: 1.3333333em;
+    padding-top: var(--space-m);
+    padding-inline-end: var(--space-m);
+    padding-bottom: var(--space-m);
+    padding-inline-start: var(--space-m);
     background-color: inherit;
   }
 }

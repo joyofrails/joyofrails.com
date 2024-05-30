@@ -13,8 +13,13 @@ html,
 }
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font: 400 var(--step-0) / var(--leading) var(--serif);
+  color: var(--theme-text);
+  background-color: var(--theme-background);
   margin: 0;
-  line-height: inherit;
+  padding: 0;
 }
 
 hr {
@@ -514,7 +519,7 @@ a:focus > * {
 a:active,
 a.active,
 a:active > * {
-  background-color: var(--theme-link-1);
+  background-color: var(--theme-link-2);
   text-decoration: none;
 }
 
@@ -608,8 +613,4 @@ select {
 
 svg {
   fill: currentColor;
-}
-
-time {
-  font-style: italic;
 }

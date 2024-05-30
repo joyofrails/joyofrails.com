@@ -1,0 +1,15 @@
+.page-header {
+  background-color: var(--theme-background-highlight);
+  padding-block-start: var(--space-m);
+  padding-block-end: var(--space-m);
+
+  & .description {
+    font-style: italic;
+    font-size: var(--step-1);
+  }
+
+  & time {
+    font-size: var(--font-size-s);
+    color: var(--theme-text-light);
+  }
+}

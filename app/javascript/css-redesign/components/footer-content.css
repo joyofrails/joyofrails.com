@@ -1,0 +1,10 @@
+.footer-content {
+  padding-top: var(--space-2xs-xs);
+  padding-bottom: var(--space-3xl);
+
+  & nav > * {
+    display: flex;
+    padding-top: var(--space-2xs-xs);
+    padding-bottom: var(--space-2xs-xs);
+  }
+}

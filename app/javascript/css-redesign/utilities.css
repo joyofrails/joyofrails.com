@@ -630,6 +630,18 @@
     'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
 }
 
+.font-sans {
+  font-family: var(--sans-serif);
+}
+
+.font-serif {
+  font-family: var(--serif);
+}
+
+.font-mono {
+  font-family: var(--monospace);
+}
+
 .text-2xl {
   font-size: 1.25rem;
   line-height: 1.5;
@@ -744,26 +756,6 @@
 
 .text-gray-text {
   color: var(--slate-11);
-}
-
-.text-joy-header-1 {
-  color: var(--joy-header-1);
-}
-
-.text-joy-header-3 {
-  color: var(--joy-header-3);
-}
-
-.text-joy-header-5 {
-  color: var(--joy-header-5);
-}
-
-.text-joy-text {
-  color: var(--joy-text);
-}
-
-.text-joy-title {
-  color: var(--joy-title);
 }
 
 .text-pink-700 {

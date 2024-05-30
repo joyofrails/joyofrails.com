@@ -3,6 +3,7 @@
   padding: 0.5rem 0.75rem;
   display: inline-flex;
   font-size: 0.875rem;
+  font-family: var(--sans-serif);
   line-height: 1.5715;
   font-weight: 600;
   --tw-text-opacity: 1;
@@ -20,11 +21,13 @@
     display: none;
   }
   &.primary {
-    background-color: var(--theme-accent);
+    background-color: var(--theme-button-primary);
   }
-
   &.secondary {
-    background-color: var(--theme-accent);
+    background-color: var(--theme-button-secondary);
+  }
+  &.warn {
+    background-color: var(--theme-button-warn);
   }
 
   fieldset[disabled] &,
