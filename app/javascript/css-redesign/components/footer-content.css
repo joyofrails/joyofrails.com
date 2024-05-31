@@ -1,5 +1,9 @@
+footer {
+  background-color: var(--theme-background-highlight);
+}
+
 .footer-content {
-  padding-top: var(--space-2xs-xs);
+  padding-top: var(--space-3xl);
   padding-bottom: var(--space-3xl);
 
   & nav > * {

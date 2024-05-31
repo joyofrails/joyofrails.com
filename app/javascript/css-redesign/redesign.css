@@ -21,3 +21,4 @@
 @import './components/site-header.css';
 @import './components/article-content.css';
 @import './components/footer-content.css';
+@import './components/anchors.scss';

@@ -5,8 +5,7 @@ html,
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
+  font-family: var(--sans-serif);
   font-feature-settings: normal;
   font-variation-settings: normal;
   -webkit-tap-highlight-color: transparent;
@@ -48,6 +47,10 @@ a {
   text-decoration: inherit;
 }
 
+p {
+  font-family: var(--serif);
+}
+
 b,
 strong {
   font-weight: bolder;
@@ -57,8 +60,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    Liberation Mono, Courier New, monospace;
+  font-family: var(--monospace);
   font-feature-settings: normal;
   font-variation-settings: normal;
   font-size: 1em;

@@ -1,0 +1,44 @@
+@import '../config/variables.scss';
+
+.anchor {
+  position: relative;
+  scroll-margin-top: var(--space-m);
+}
+
+.group:hover .anchor-link {
+  opacity: 0.6;
+}
+
+.anchor-link {
+  /* @apply lg:flex-col lg:justify-center my-auto absolute opacity-0 focus:opacity-60 group-hover:opacity-60 hover:opacity-60 hidden lg:flex; */
+  transform: translateX(-150%);
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  transition: opacity 250ms ease 0s;
+
+  &:has(> .group:hover),
+  &:focus,
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+@media screen and (min-width: $screen-lg) {
+  .anchor-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-150%);
+  }
+}

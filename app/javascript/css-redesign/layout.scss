@@ -33,9 +33,12 @@ main > *,
 
 body > *,
 main > *,
-.header-content,
-.footer-content {
+.header-content {
   grid-template-columns: 1fr;
+}
+
+.footer-content {
+  grid-template-columns: 2fr;
 }
 
 .section-content,
@@ -70,6 +73,7 @@ main > *,
     grid-column: col-start 1 / span 8;
   }
 
+  .article-content > .outside,
   .article-content > img {
     grid-column: col-start 9 / span 4;
     grid-row-start: span 4;

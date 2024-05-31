@@ -919,6 +919,10 @@
   }
 }
 
+.group:hover .group-hover\:opacity-60 {
+  opacity: 0.6;
+}
+
 .group:focus .group-focus\:inline-block {
   display: inline-block;
 }

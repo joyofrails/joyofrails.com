@@ -3,7 +3,7 @@ title: Introducing Joy of Rails
 author: Ross Kaffenberger
 layout: redesign/article
 summary:
-description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open source on Github.
+description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open sourced on Github.
 published: '2024-05-02'
 toc: false
 uuid: 4106248b-ae8f-40a3-9853-48b91d815a71
@@ -85,9 +85,9 @@ Most blogs are built on top of a content-management system, like WordPress or Gh
 
 I want to do more than just a blog. I want to _show_ and tell.
 
-Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons below:
+Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons in the figure:
 
-<div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
+<div class="mb-8 outside"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
 
 I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
 
