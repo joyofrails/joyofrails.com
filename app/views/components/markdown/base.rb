@@ -36,14 +36,7 @@ class Markdown::Base < Phlex::HTML
     in :text
       plain(node.string_content)
     in :heading
-      case node.header_level
-      in 1 then h1 { visit_children(node) }
-      in 2 then h2 { visit_children(node) }
-      in 3 then h3 { visit_children(node) }
-      in 4 then h4 { visit_children(node) }
-      in 5 then h5 { visit_children(node) }
-      in 6 then h6 { visit_children(node) }
-      end
+      header(node.header_level) { visit_children(node) }
     in :paragraph
       grandparent = node.parent&.parent
 
@@ -90,6 +83,10 @@ class Markdown::Base < Phlex::HTML
     in :html_block
       # This is a raw HTML block, so we skip here in safe mode
     end
+  end
+
+  def header(header_level, &)
+    send(:"h#{header_level}", &)
   end
 
   def inline_code(**attributes)
