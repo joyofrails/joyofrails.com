@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :web_pushes, only: [:create]
   end
 
-  resources :feed, only: [:index], format: "xml"
+  resources :feed, only: [:index], format: "atom"
 
   # Render dynamic PWA files from app/views/pwa/*
   get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
