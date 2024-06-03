@@ -65,10 +65,6 @@ class CodeBlock::Article < Phlex::HTML
 
   attr_reader :source, :language, :filename, :enable_run
 
-  def code_formatter
-    self.class.code_formatter
-  end
-
   def data = {language: language, lines:}
 
   def code_example_data = {
@@ -77,6 +73,4 @@ class CodeBlock::Article < Phlex::HTML
   }
 
   def lines = source.scan("\n").count + 1
-
-  def lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
 end
