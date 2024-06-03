@@ -86,7 +86,7 @@ Let’s say I wanted to describe how to build a basic counter with Rails and Hot
 
 I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
 
-<%= render CodeBlock::AppFile.new("app/controllers/examples/counters_controller.rb", language: "ruby", revision: "504f449e34232fc5299da78056344fffe04460de") %>
+<%= render_code_block_app_file("app/controllers/examples/counters_controller.rb", language: "ruby", revision: "504f449e34232fc5299da78056344fffe04460de") %>
 
 It would be harder to accomplish this with a WordPress blog or static website.
 

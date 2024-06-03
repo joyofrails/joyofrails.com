@@ -5,6 +5,8 @@ class Markdown::Application < Markdown::Base
     case node.type
     in :html_block
       unsafe_raw(node.to_html(options: @options))
+    in :html_inline
+      unsafe_raw(node.to_html(options: @options))
     else
       super
     end

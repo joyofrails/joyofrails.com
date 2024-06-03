@@ -28,12 +28,12 @@ module Markdown::AllowsErb
   end
 
   class Handler
-    def initialize(component)
-      @component = component
+    def initialize(component_class)
+      @component_class = component_class
     end
 
     def call(template, content)
-      content = Markdown::Atom.new(content).call
+      content = @component_class.new(content).call
       erb.call(template, content)
     end
 

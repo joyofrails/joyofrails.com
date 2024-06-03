@@ -80,8 +80,8 @@ class Markdown::Base < Phlex::HTML
       hr
     in :block_quote
       blockquote { visit_children(node) }
-    in :html_block
-      # This is a raw HTML block, so we skip here in safe mode
+    in :html_block # This is a raw HTML block, so we skip here in safe mode
+    in :html_inline # This is a raw HTML inline element, so we skip here in safe mode
     end
   end
 
