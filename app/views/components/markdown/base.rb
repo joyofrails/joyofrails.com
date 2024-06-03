@@ -48,11 +48,7 @@ class Markdown::Base < Phlex::HTML
     in :link
       link(node.url, node.title) { visit_children(node) }
     in :image
-      img(
-        src: node.url,
-        alt: node.each.first.string_content,
-        title: node.title
-      )
+      image(node.url, alt: node.each.first.string_content, title: node.title)
     in :emph
       em { visit_children(node) }
     in :strong
@@ -87,6 +83,10 @@ class Markdown::Base < Phlex::HTML
 
   def header(header_level, &)
     send(:"h#{header_level}", &)
+  end
+
+  def image(src, alt: "", title: "")
+    img(src: src, alt: alt, title: title)
   end
 
   def inline_code(**attributes)
