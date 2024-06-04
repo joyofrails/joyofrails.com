@@ -9,6 +9,7 @@
   }
 
   svg {
-    width: 2rem;
+    width: 32px;
+    margin-right: 0.4rem;
   }
 }
