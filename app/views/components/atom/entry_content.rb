@@ -20,6 +20,14 @@ class Atom::EntryContent
       frame.remove
     end
 
+    doc.css("img").each do |img|
+      img["src"] = base_url + img["src"] if img["src"].start_with?("/")
+    end
+
+    doc.css("a").each do |a|
+      a["href"] = base_url + a["href"] if a["href"].start_with?("/")
+    end
+
     doc.to_html
   end
 
