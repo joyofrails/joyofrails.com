@@ -26,7 +26,7 @@ RSpec.describe Atom::EntryContent do
       expect(doc.css("img").any? { |img| img["src"].start_with?("http://example.com/assets") }).to be(true), "Expected some images to have the base url prepended but found none"
 
       expect(doc.css("a").any? { |a| a["href"].start_with?("/") }).to be(false), "Expected all link to be absolute urls but found: #{doc.css("a").select { |a| a["href"].start_with?("/") }}"
-      expect(doc.css("a").any? { |a| a["href"].start_with?("http://example.com") }).to be(true), "Expected some links to have the base url prepended but found none"
+      expect(doc.css("a").any? { |a| a["href"].start_with?("http://example.com/") }).to be(true), "Expected some links to have the base url prepended but found none"
     end
   end
 end
