@@ -1,6 +1,8 @@
 # Atom::EntryContent knows how to render a Sitepress::Model as an Atom feed entry.
 # It uses a different Markdown component to avoid rendering "fancy" elements in the atom feed.
-# It post-processes the rendered HTML to remove turbo-frames and replace them with a link.
+# It post-processes the rendered HTML to
+# - remove turbo-frames and replace them with a link
+# - replace relative URLs with absolute URLs in images and links
 class Atom::EntryContent
   include ActionView::Helpers::UrlHelper
 
