@@ -1,4 +1,6 @@
 class Atom::EntryContent
+  include ActionView::Helpers::UrlHelper
+
   # @param article [Sitepress::Model] the article to render for atom feed
   def initialize(article, request: nil)
     @article = article
@@ -8,8 +10,14 @@ class Atom::EntryContent
   def render
     html = render_template_html
 
-    Nokogiri::HTML.fragment(html).tap do |fragment|
-    end.to_html
+    doc = Nokogiri::HTML.fragment(html)
+
+    doc.css("turbo-frame").each do |frame|
+      frame.add_next_sibling(link_to("Click here to see content", article_url))
+      frame.remove
+    end
+
+    doc.to_html
   end
 
   private
@@ -18,6 +26,10 @@ class Atom::EntryContent
 
   def base_url
     request&.base_url || ""
+  end
+
+  def article_url
+    base_url + article.request_path
   end
 
   def render_template_html

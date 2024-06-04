@@ -13,7 +13,7 @@ RSpec.describe Atom::EntryContent do
     it "rewrites turbo frame content" do
       html = described_class.new(subject).render
       expect(html).not_to include("<turbo-frame")
-      expect(html).to include("<a href=\"/articles/introducing-joy-of-rails\">Click here to see demo</a>")
+      expect(html).to include("<a href=\"/articles/introducing-joy-of-rails\">Click here to see content</a>")
     end
   end
 end
