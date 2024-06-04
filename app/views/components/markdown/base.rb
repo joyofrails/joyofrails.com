@@ -76,8 +76,10 @@ class Markdown::Base < Phlex::HTML
       hr
     in :block_quote
       blockquote { visit_children(node) }
-    in :html_block # This is a raw HTML block, so we skip here in safe mode
+    in :html_block
+      html_block(node.to_html(options: @options))
     in :html_inline # This is a raw HTML inline element, so we skip here in safe mode
+      html_inline(node.to_html(options: @options))
     end
   end
 
@@ -99,6 +101,14 @@ class Markdown::Base < Phlex::HTML
 
   def link(url, title, **attrs, &)
     a(href: url, title: title, &)
+  end
+
+  def html_block(html)
+    # We skip rendering of arbitrary HTML here in safe mode
+  end
+
+  def html_inline(html)
+    # We skip rendering of arbitrary HTML here in safe mode
   end
 
   private

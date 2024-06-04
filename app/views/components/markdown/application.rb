@@ -1,17 +1,4 @@
 class Markdown::Application < Markdown::Base
-  def visit(node)
-    return if node.nil?
-
-    case node.type
-    in :html_block
-      unsafe_raw(node.to_html(options: @options))
-    in :html_inline
-      unsafe_raw(node.to_html(options: @options))
-    else
-      super
-    end
-  end
-
   # Options for CommonMarker
   def default_commonmarker_options
     {
@@ -33,6 +20,14 @@ class Markdown::Application < Markdown::Base
     end
 
     a(href: url, title: title, **attributes, &)
+  end
+
+  def html_block(html)
+    unsafe_raw(html)
+  end
+
+  def html_inline(html)
+    unsafe_raw(html)
   end
 
   private
