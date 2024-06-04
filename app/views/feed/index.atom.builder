@@ -5,6 +5,7 @@ atom_feed do |feed|
   @articles.take(50).each do |article|
     feed.entry(
       article,
+      id: "tag:#{request.host},2005:article/#{article.data.uuid!}",
       url: request.base_url + article.request_path
     ) do |entry|
       entry.title(article.title)
