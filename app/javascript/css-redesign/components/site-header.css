@@ -1,12 +1,11 @@
 header {
-  background-color: var(--theme-background-highlight);
+  background-color: var(--theme-background-header);
 }
 
 .site-header {
   width: 100%;
-  margin-block-start: var(--space-m);
-  margin-block-end: var(--space-xs-s);
-  padding-block-end: var(--space-xs-s);
+  margin-top: var(--grid-gutter);
+  margin-bottom: var(--grid-gutter);
   display: flex;
   flex-direction: row;
   align-items: center;

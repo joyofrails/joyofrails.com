@@ -1,7 +1,7 @@
 .page-header {
-  background-color: var(--theme-background-highlight);
-  padding-block-start: var(--space-m);
-  padding-block-end: var(--space-m);
+  background-color: var(--theme-background-header);
+  padding-block-start: var(--grid-gutter);
+  padding-block-end: var(--grid-gutter);
 
   & .description {
     font-style: italic;

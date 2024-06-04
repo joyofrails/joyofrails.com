@@ -1,7 +1,9 @@
 :root {
   --theme-background: var(--color-watercourse-50);
   --theme-background-clean: white;
-  --theme-background-highlight: var(--color-watercourse-100);
+  --theme-background-header: var(--color-watercourse-100);
+  --theme-background-banner: var(--color-watercourse-100);
+  --theme-background-footer: var(--color-watercourse-200);
   --theme-text: var(--color-dark);
   --theme-text-subtle: var(--color-stone-700);
   --theme-background-mask: var(--color-darken);

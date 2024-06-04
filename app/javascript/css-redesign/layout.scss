@@ -24,11 +24,8 @@ main > *,
   display: grid;
 }
 
-main > *,
-.header-content,
-.section-content,
-.article-content {
-  gap: var(--grid-gutter);
+main > * {
+  row-gap: var(--grid-gutter);
 }
 
 body > *,
@@ -41,8 +38,8 @@ main > *,
   grid-template-columns: 2fr;
 }
 
-.section-content,
-.article-content {
+.article-content,
+.section-content {
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
 }
@@ -59,7 +56,6 @@ main > *,
   row-gap: var(--space-3xs-2xs);
 }
 
-.section-content > *,
 .article-content > * {
   grid-column: col-start / span var(--grid-columns);
 }
@@ -68,9 +64,12 @@ main > *,
 }
 
 @media screen and (min-width: $screen-lg) {
-  .section-content > *,
   .article-content > * {
     grid-column: col-start 1 / span 8;
+  }
+
+  .lg\:grid-cols-1\/2 {
+    grid-template-columns: 1fr 2fr;
   }
 
   .article-content > .outside,

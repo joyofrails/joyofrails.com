@@ -38,8 +38,40 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: inherit;
-  font-weight: inherit;
+  font-family: var(--sans-serif);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
+  text-wrap: balance;
+  align-self: end;
+  max-inline-size: 100%;
+}
+
+h1 {
+  font-size: var(--step-4);
+  letter-spacing: -2px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--step-2);
+}
+
+h3 {
+  font-size: var(--step-1);
+}
+
+h4 {
+  font-size: var(--step-0);
+}
+
+h5 {
+  font-size: var(--step--1);
+}
+
+h6 {
+  font-size: var(--step--2);
 }
 
 a {
@@ -523,48 +555,6 @@ a.active,
 a:active > * {
   background-color: var(--theme-link-2);
   text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--sans-serif);
-  font-weight: 800;
-  line-height: 1.1;
-  margin: 0;
-  padding: 0;
-  text-wrap: balance;
-  align-self: end;
-  max-inline-size: 100%;
-}
-
-h1 {
-  font-size: var(--step-4);
-  letter-spacing: -2px;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: var(--step-2);
-}
-
-h3 {
-  font-size: var(--step-1);
-}
-
-h4 {
-  font-size: var(--step-0);
-}
-
-h5 {
-  font-size: var(--step--1);
-}
-
-h6 {
-  font-size: var(--step--2);
 }
 
 pre {

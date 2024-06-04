@@ -1,0 +1,16 @@
+section:has(.newsletter-banner) {
+  background-color: var(--theme-background-banner);
+}
+
+.newsletter-banner {
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+
+  & h3 {
+    align-self: start;
+
+    & span {
+      color: var(--theme-link-9);
+    }
+  }
+}
