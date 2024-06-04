@@ -16,7 +16,7 @@ In 2007, at my first programming job—a software consultancy—a colleague pull
 
 To me, it looked like the Matrix.
 
-![Screen of nonsensical text yo](/assets/articles/introducing-joy-of-rails/matrix.gif)
+<%= image_tag "articles/introducing-joy-of-rails/matrix.gif", title: "Screen of nonsensical text" %>
 
 Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
 
