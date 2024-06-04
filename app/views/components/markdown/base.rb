@@ -36,14 +36,7 @@ class Markdown::Base < Phlex::HTML
     in :text
       plain(node.string_content)
     in :heading
-      case node.header_level
-      in 1 then h1 { visit_children(node) }
-      in 2 then h2 { visit_children(node) }
-      in 3 then h3 { visit_children(node) }
-      in 4 then h4 { visit_children(node) }
-      in 5 then h5 { visit_children(node) }
-      in 6 then h6 { visit_children(node) }
-      end
+      header(node.header_level) { visit_children(node) }
     in :paragraph
       grandparent = node.parent&.parent
 
@@ -55,11 +48,7 @@ class Markdown::Base < Phlex::HTML
     in :link
       link(node.url, node.title) { visit_children(node) }
     in :image
-      img(
-        src: node.url,
-        alt: node.each.first.string_content,
-        title: node.title
-      )
+      image(node.url, alt: node.each.first.string_content, title: node.title)
     in :emph
       em { visit_children(node) }
     in :strong
@@ -88,8 +77,18 @@ class Markdown::Base < Phlex::HTML
     in :block_quote
       blockquote { visit_children(node) }
     in :html_block
-      # This is a raw HTML block, so we skip here in safe mode
+      html_block(node.to_html(options: @options))
+    in :html_inline # This is a raw HTML inline element, so we skip here in safe mode
+      html_inline(node.to_html(options: @options))
     end
+  end
+
+  def header(header_level, &)
+    send(:"h#{header_level}", &)
+  end
+
+  def image(src, alt: "", title: "")
+    img(src: src, alt: alt, title: title)
   end
 
   def inline_code(**attributes)
@@ -102,6 +101,14 @@ class Markdown::Base < Phlex::HTML
 
   def link(url, title, **attrs, &)
     a(href: url, title: title, &)
+  end
+
+  def html_block(html)
+    # We skip rendering of arbitrary HTML here in safe mode
+  end
+
+  def html_inline(html)
+    # We skip rendering of arbitrary HTML here in safe mode
   end
 
   private

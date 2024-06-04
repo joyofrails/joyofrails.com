@@ -16,7 +16,7 @@ In 2007, at my first programming job—a software consultancy—a colleague pull
 
 To me, it looked like the Matrix.
 
-<%= image_tag("articles/introducing-joy-of-rails/matrix.gif", alt: "Screen of nonsensical text") %>
+<%= image_tag "articles/introducing-joy-of-rails/matrix.gif", title: "Screen of nonsensical text" %>
 
 Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
 
@@ -86,7 +86,7 @@ Let’s say I wanted to describe how to build a basic counter with Rails and Hot
 
 I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
 
-<%= render CodeBlock::AppFile.new("app/controllers/examples/counters_controller.rb", language: "ruby", revision: "504f449e34232fc5299da78056344fffe04460de") %>
+<%= render_code_block_app_file("app/controllers/examples/counters_controller.rb", language: "ruby", revision: "504f449e34232fc5299da78056344fffe04460de") %>
 
 It would be harder to accomplish this with a WordPress blog or static website.
 

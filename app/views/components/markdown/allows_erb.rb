@@ -1,7 +1,4 @@
-# DANGER! This parses Erb, which means arbitrary Ruby can be run. Make sure
-# you trust the source of your markdown and that its not user input.
-
-class Markdown::Erb < Markdown::Application
+module Markdown::AllowsErb
   ERB_TAGS = %r{s*<%.*?%>}
   ERB_TAGS_START = %r{\A<%.*?%>}
 
@@ -10,8 +7,8 @@ class Markdown::Erb < Markdown::Application
 
     case node.type
     in :paragraph
-      # Markly will parse ERB tags as text nodes inside a paragraph. When the
-      # text starts with ERB, we don't want to nest generated HTML inside a
+      # Commonmarker will parse ERB tags as text nodes inside a paragraph. When
+      # the text starts with ERB, we don't want to nest generated HTML inside a
       # paragraph by default, so we need to handle this case separately.
       first_child = node.first
       if first_child&.type == :text && first_child.string_content.match?(ERB_TAGS_START)
@@ -31,15 +28,19 @@ class Markdown::Erb < Markdown::Application
   end
 
   class Handler
-    class << self
-      def call(template, content)
-        content = Markdown::Erb.new(content).call
-        erb.call(template, content)
-      end
+    def initialize(component_class)
+      @component_class = component_class
+    end
 
-      def erb
-        @erb ||= ActionView::Template.registered_template_handler(:erb)
-      end
+    def call(template, content)
+      content = @component_class.new(content).call
+      erb.call(template, content)
+    end
+
+    private
+
+    def erb
+      @erb ||= ActionView::Template.registered_template_handler(:erb)
     end
   end
 end

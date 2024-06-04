@@ -40,7 +40,6 @@ module Examples
       `git show #{@revision}:#{@path}`.strip
     end
     alias_method :content, :read
-    alias_method :source, :read
 
     def app_path
       @path.sub(Rails.root.to_s + "/", "")
@@ -57,6 +56,20 @@ module Examples
 
     def repo_url
       "https://github.com/joyofrails/joyofrails.com/blob/#{revision}/#{app_path}"
+    end
+
+    def source(lines: nil)
+      lines = Array(lines)
+
+      content = if lines.present?
+        lines = lines.map { |e| [*e] }.flatten.map(&:to_i).map { |e| e - 1 }
+
+        readlines.values_at(*lines).join
+      else
+        read
+      end
+
+      content.strip.html_safe
     end
   end
 end

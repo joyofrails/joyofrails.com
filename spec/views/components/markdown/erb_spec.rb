@@ -1,28 +1,21 @@
 require "rails_helper"
 
-RSpec.describe Markdown::Erb do
+RSpec.describe "Markdown with Erb" do
   describe ".call" do
-    subject { Markdown::Erb.new }
-    let(:template) { instance_double(ActionView::Template, type: "") }
+    subject do
+      Class.new(Markdown::Base) do
+        include Markdown::AllowsErb
 
-    let(:code_block_class) do
-      Class.new(Phlex::HTML) do
-        def initialize(source, **)
-          @source = source
-        end
-
-        def view_template
-          plain @source
+        def code_block(source, metadata = "", **attributes)
+          plain source
         end
       end
     end
 
-    before do
-      stub_const("CodeBlock::Article", code_block_class)
-    end
+    let(:template) { instance_double(ActionView::Template, type: "") }
 
     def render(content, &block)
-      Markdown::Erb.new(content).call(&block)
+      subject.new(content).call(&block)
     end
 
     it "processes text" do
@@ -81,16 +74,6 @@ RSpec.describe Markdown::Erb do
         <%= 1 + 1 %>&lt;%= 2 + 2 %&gt;
         <%= 3 + 3 %>&lt;%= 4 + 4 %&gt;
         <%= 5 + 5 %>
-      HTML
-      expect(render(md)).to eq(html)
-    end
-
-    it "renders arbitrary html" do
-      md = <<~MD
-        <div>Hello</div>
-      MD
-      html = <<~HTML
-        <div>Hello</div>
       HTML
       expect(render(md)).to eq(html)
     end
