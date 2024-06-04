@@ -1,5 +1,5 @@
 module Rails
-  module HTML4
+  module HTML
     class Sanitizer
       def sanitize(html, ...) = html
 
