@@ -14,4 +14,9 @@ class User < ApplicationRecord
   def confirmed?
     confirmed_at.present?
   end
+
+  def send_confirmation_email!
+    confirmation_token = generate_confirmation_token
+    Emails::UserMailer.confirmation(self, confirmation_token).deliver_now
+  end
 end
