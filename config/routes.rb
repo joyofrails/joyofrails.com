@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     resource :header_navigation, only: [:show]
+    resource :registration, only: [:new, :create]
   end
 
   namespace :admin_users do
