@@ -4,7 +4,11 @@ module Authentication
 
   included do
     before_action :current_admin_user
+    before_action :current_user
+
     helper_method :current_admin_user
+    helper_method :current_user
+    helper_method :user_signed_in?
     helper_method :admin_user_signed_in?
   end
 
@@ -18,11 +22,19 @@ module Authentication
 
   protected
 
+  def current_user
+    Current.user ||= warden.user(scope: :user)
+  end
+
   def current_admin_user
     Current.admin_user ||= warden.user(scope: :admin_user)
   end
 
+  def user_signed_in?
+    current_user.present?
+  end
+
   def admin_user_signed_in?
-    Current.admin_user.present?
+    current_admin_user.present?
   end
 end
