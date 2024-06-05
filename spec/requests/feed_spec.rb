@@ -23,7 +23,7 @@ RSpec.describe "Feed", type: :request do
       validator = W3CValidators::FeedValidator.new
       validator_results = validator.validate_text(response.body) # W3CValidators::Results
 
-      expect(validator_results.is_valid?).to be(true)
+      expect(validator_results.is_valid?).to be(true), "Expected feed to be valid, but got: #{validator_results.errors.map(&:to_s).join(", ")}"
     end
   end
 end

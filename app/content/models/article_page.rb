@@ -15,10 +15,6 @@ class ArticlePage < Sitepress::Model
     all.filter { |article| article.published.blank? }
   end
 
-  def id
-    File.basename(request_path)
-  end
-
   def persisted?
     false
   end
