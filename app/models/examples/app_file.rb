@@ -37,7 +37,9 @@ module Examples
     end
 
     def read
-      `git show #{@revision}:#{@path}`.strip
+      Dir.chdir(ENV.fetch("REPOSITORY_ROOT", ".")) do
+        `git show #{@revision}:#{@path}`.strip
+      end
     end
     alias_method :content, :read
 
