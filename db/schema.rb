@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_030240) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_031226) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_030240) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
+    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 end
