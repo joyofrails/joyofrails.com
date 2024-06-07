@@ -35,8 +35,8 @@ Rails.application.routes.draw do
     resource :header_navigation, only: [:show]
     resource :registration, only: [:new, :create]
     resources :confirmations, only: [:new, :edit, :create, :update], param: :confirmation_token
-
     resources :sessions, only: [:new, :create, :destroy]
+    resources :passwords, only: [:new, :create, :edit, :update]
   end
 
   namespace :admin_users do
