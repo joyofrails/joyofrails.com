@@ -32,46 +32,37 @@ class Users::Registrations::NewView < Phlex::HTML
                 li { message }
               end
             end
-
           end
           div do
-            plain form.label :email,
-              "Email address",
-              class: "block text-sm font-medium leading-6"
+            div(class: "flex items-center justify-between") do
+              form_label form, :email, "Email address"
+            end
             div(class: "mt-2") do
-              plain form.email_field :email,
+              form_field form, :email_field, :email,
                 autocomplete: "email",
-                required: true,
-                class:
-                  "block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required: true
             end
           end
           div do
             div(class: "flex items-center justify-between") do
-              plain form.label :password,
-                class: "block text-sm font-medium leading-6"
+              form_label form, :password
             end
             div(class: "mt-2") do
-              plain form.password_field :password,
+              form_field form, :password_field, :password,
                 type: "password",
                 autocomplete: "current-password",
-                required: true,
-                class:
-                  "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required: true
             end
           end
           div do
             div(class: "flex items-center justify-between") do
-              plain form.label :password_confirmation,
-                class: "block text-sm font-medium leading-6"
+              form_label form, :password_confirmation
             end
             div(class: "mt-2") do
-              plain form.password_field :password_confirmation,
+              form_field form, :password_field, :password_confirmation,
                 type: "password",
                 autocomplete: "current-password",
-                required: true,
-                class:
-                  "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                required: true
             end
           end
           div(class: "pt-6") do
@@ -83,5 +74,15 @@ class Users::Registrations::NewView < Phlex::HTML
         end
       end
     end
+  end
+
+  private
+
+  def form_label(form, *, **)
+    plain form.label(*, class: "block text-sm font-medium leading-6", **)
+  end
+
+  def form_field(form, method, *, **)
+    plain form.send(method, *, class: "block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", **)
   end
 end
