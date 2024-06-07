@@ -1,4 +1,5 @@
 require_relative "../app/lib/routes/admin_access_constraint"
+require_relative "../app/lib/routes/users_access_constraint"
 
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
@@ -33,7 +34,9 @@ Rails.application.routes.draw do
   namespace :users do
     resource :header_navigation, only: [:show]
     resource :registration, only: [:new, :create]
-    resource :confirmations, only: [:new, :edit, :create], param: :confirmation_token
+    resources :confirmations, only: [:new, :edit, :create, :update], param: :confirmation_token
+
+    resources :sessions, only: [:new, :create, :destroy]
   end
 
   namespace :admin_users do
@@ -44,10 +47,14 @@ Rails.application.routes.draw do
     end
   end
 
-  unless Rails.env.wasm?
-    scope :admin, constraints: Routes::AdminAccessConstraint.new do
-      root to: "admin/home#index", as: :admin_root
+  scope :users, constraints: Routes::UsersAccessConstraint.new do
+    get "dashboard" => "dashboard#index", :as => :users_dashboard
+  end
 
+  scope :admin, constraints: Routes::AdminAccessConstraint.new do
+    root to: "admin/home#index", as: :admin_root
+
+    unless Rails.env.wasm?
       mount Flipper::UI.app(Flipper) => "/flipper"
       mount MissionControl::Jobs::Engine, at: "/jobs"
     end

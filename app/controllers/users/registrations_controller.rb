@@ -1,10 +1,12 @@
 # app/controllers/users_controller.rb
 class Users::RegistrationsController < ApplicationController
+  before_action :redirect_if_authenticated, only: [:create, :new]
+
   def create
     @user = User.new(user_params)
     if @user.save
       @user.send_confirmation_email!
-      redirect_to root_path, notice: "Please check your email for confirmation instructions."
+      redirect_to users_dashboard_path, notice: "Please check your email for confirmation instructions."
     else
       render :new, status: :unprocessable_entity
     end
