@@ -3,6 +3,7 @@ class PasswordsController < ApplicationController
   before_action :redirect_if_authenticated
 
   def new
+    render Users::Passwords::NewView.new
   end
 
   def create

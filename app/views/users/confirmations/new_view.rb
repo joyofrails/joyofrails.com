@@ -19,7 +19,7 @@ class Users::Confirmations::NewView < Phlex::HTML
           alt: "Joy of Rails"
         h2(
           class: "mt-4 text-center text-2xl font-bold leading-9 tracking-tight"
-        ) { "Resend confirmation email" }
+        ) { "Resend confirmation instructions" }
       end
       div(class: "mt-10 sm:mx-auto sm:w-full sm:max-w-sm") do
         form_with model: @user,
@@ -45,7 +45,7 @@ class Users::Confirmations::NewView < Phlex::HTML
             end
           end
           div(class: "pt-6") do
-            plain form.button "Confirm email",
+            plain form.button "Send me confirmation instructions",
               type: :submit,
               class:
                 "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
