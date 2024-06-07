@@ -17,7 +17,7 @@ module Authentication
   end
 
   def authenticate_user!
-    redirect_to root_path if !user_signed_in?
+    redirect_to new_users_session_path, alert: "You need to login to access that page." unless user_signed_in?
   end
 
   def redirect_admin_if_authenticated

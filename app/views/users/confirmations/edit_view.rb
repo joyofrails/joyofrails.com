@@ -1,4 +1,4 @@
-class Users::Confirmations::EditView < Phlex::HTML
+class Users::Confirmations::EditView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::Object
   include Phlex::Rails::Helpers::Routes

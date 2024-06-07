@@ -1,4 +1,4 @@
-class Users::Confirmations::NewView < Phlex::HTML
+class Users::Confirmations::NewView < ApplicationView
   include Phlex::Rails::Helpers::EmailField
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::Label

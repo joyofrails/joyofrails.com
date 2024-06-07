@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_reader :current_password
+
   has_one :pending_unconfirmed_email, -> { pending }, dependent: :destroy
   has_many :unconfirmed_emails, dependent: :destroy
 
@@ -10,6 +12,8 @@ class User < ApplicationRecord
 
   generates_token_for :confirmation, expires_in: 6.hours
   generates_token_for :password_reset, expires_in: 10.minutes
+
+  accepts_nested_attributes_for :unconfirmed_emails, reject_if: :reject_unconfirmed_emails, limit: 1
 
   def confirmable_email
     if pending_unconfirmed_email.present?
@@ -52,5 +56,9 @@ class User < ApplicationRecord
   def send_password_reset_email!
     password_reset_token = generate_token_for(:password_reset)
     Emails::UserMailer.password_reset(self, password_reset_token).deliver_now
+  end
+
+  def reject_unconfirmed_emails(attributes)
+    attributes["email"].blank?
   end
 end

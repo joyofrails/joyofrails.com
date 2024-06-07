@@ -1,4 +1,6 @@
-class Users::Registrations::NewView < ApplicationView
+# frozen_string_literal: true
+
+class Users::Registrations::EditView < ApplicationView
   include Phlex::Rails::Helpers::EmailField
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::Label
@@ -40,7 +42,19 @@ class Users::Registrations::NewView < ApplicationView
             div(class: "mt-2") do
               form_field form, :email_field, :email,
                 autocomplete: "email",
-                required: true
+                disabled: true
+            end
+          end
+          form.fields_for :unconfirmed_mails do |builder|
+            div do
+              div(class: "flex items-center justify-between") do
+                form_label builder, :email_field, "Email address"
+              end
+              div(class: "mt-2") do
+                form_field builder, :email_field, :email,
+                  autocomplete: "email",
+                  required: false
+              end
             end
           end
           div do
@@ -51,7 +65,7 @@ class Users::Registrations::NewView < ApplicationView
               form_field form, :password_field, :password,
                 type: "password",
                 autocomplete: "current-password",
-                required: true
+                required: false
             end
           end
           div do
@@ -62,11 +76,22 @@ class Users::Registrations::NewView < ApplicationView
               form_field form, :password_field, :password_confirmation,
                 type: "password",
                 autocomplete: "current-password",
-                required: true
+                required: false
+            end
+          end
+          div do
+            div(class: "flex items-center justify-between") do
+              form_label form, :current_password, "Current password (we need your current password to confirm your changes)"
+            end
+            div(class: "mt-2") do
+              form_field form, :password_field, :current_password,
+                type: "password",
+                autocomplete: "current-password",
+                required: false
             end
           end
           div(class: "pt-6") do
-            plain form.button "Sign in",
+            plain form.button "Update account",
               type: :submit,
               class:
                 "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
