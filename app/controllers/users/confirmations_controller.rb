@@ -30,13 +30,16 @@ class Users::ConfirmationsController < ApplicationController
   def update
     @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
 
-    if @user.present?
-      @user.confirm!
+    if @user.blank?
+      return redirect_to new_users_confirmations_path, alert: "Invalid token"
+    end
+
+    if @user.confirm!
       warden.set_user(@user, scope: :user)
 
       redirect_to users_dashboard_path, notice: "Your account has been confirmed"
     else
-      redirect_to new_users_confirmations_path, alert: "Invalid token"
+      redirect_to new_users_confirmations_path, alert: "Something went wrong"
     end
   end
 end

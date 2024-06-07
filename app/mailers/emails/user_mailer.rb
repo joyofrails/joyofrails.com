@@ -10,7 +10,7 @@ class Emails::UserMailer < ApplicationMailer
     @user = user
     @confirmation_token = confirmation_token
 
-    mail to: @user.email, subject: "Confirm your email address"
+    mail to: @user.confirmable_email, subject: "Confirm your email address"
   end
 
   def password_reset(user, password_reset_token)
