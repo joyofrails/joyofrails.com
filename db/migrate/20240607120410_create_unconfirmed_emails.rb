@@ -7,5 +7,8 @@ class CreateUnconfirmedEmails < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    # Ensure that each user has only one pending unconfirmed email for a given email address
+    add_index :unconfirmed_emails, [:user_id, :email], unique: true, where: "status = 0"
   end
 end

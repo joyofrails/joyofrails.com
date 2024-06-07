@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_120410) do
     t.string "status", default: "0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "email"], name: "index_unconfirmed_emails_on_user_id_and_email", unique: true, where: "status = 0"
     t.index ["user_id"], name: "index_unconfirmed_emails_on_user_id"
   end
 
