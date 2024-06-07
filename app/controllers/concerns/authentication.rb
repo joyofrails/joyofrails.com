@@ -24,6 +24,10 @@ module Authentication
     redirect_to admin_root_path, alert: "You are already logged in." if admin_user_signed_in?
   end
 
+  def redirect_if_authenticated
+    redirect_to root_path, alert: "You are already logged in." if user_signed_in?
+  end
+
   protected
 
   def current_user
