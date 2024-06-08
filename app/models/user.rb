@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_reader :current_password
 
-  has_one :pending_unconfirmed_email, -> { pending }, dependent: :destroy
+  has_one :pending_unconfirmed_email, -> { pending }, dependent: :destroy, class_name: "UnconfirmedEmail"
   has_many :unconfirmed_emails, dependent: :destroy
 
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}, presence: true, uniqueness: true

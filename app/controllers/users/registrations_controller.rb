@@ -12,9 +12,9 @@ class Users::RegistrationsController < ApplicationController
     @user = User.new(create_user_params)
     if @user.save
       @user.send_confirmation_email!
-      redirect_to root_path, notice: "Please check your email for confirmation instructions."
+      redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions."
     else
-      render :new, status: :unprocessable_entity
+      render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
     end
   end
 
