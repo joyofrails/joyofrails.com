@@ -17,6 +17,7 @@ module Authentication
   end
 
   def authenticate_user!
+    store_location
     redirect_to new_users_session_path, alert: "You need to login to access that page." unless user_signed_in?
   end
 
@@ -25,10 +26,14 @@ module Authentication
   end
 
   def redirect_if_authenticated
-    redirect_to root_path, alert: "You are already logged in." if user_signed_in?
+    redirect_back fallback_location: login_success_path, alert: "You are already logged in." if user_signed_in?
   end
 
   protected
+
+  def login_success_path
+    session.delete(:user_return_to) || users_dashboard_path
+  end
 
   def current_user
     Current.user ||= warden.user(scope: :user)
@@ -44,5 +49,9 @@ module Authentication
 
   def admin_user_signed_in?
     current_admin_user.present?
+  end
+
+  def store_location
+    session[:user_return_to] = request.original_url if request.get? && request.local?
   end
 end

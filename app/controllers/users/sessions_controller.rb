@@ -11,14 +11,14 @@ class Users::SessionsController < ApplicationController
 
     warden.authenticate!(:password, scope: :user)
 
-    redirect_to users_dashboard_path, notice: "Signed in."
+    redirect_to login_success_path, notice: "Signed in."
   end
 
   def destroy
     warden.logout(:user)
     warden.clear_strategies_cache!(scope: :user)
 
-    redirect_to new_users_session_path, notice: "Signed out successfully."
+    redirect_to root_path, notice: "Signed out successfully."
   end
 
   def fail
