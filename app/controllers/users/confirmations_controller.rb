@@ -23,6 +23,9 @@ class Users::ConfirmationsController < ApplicationController
     if !@user.present?
       return redirect_to new_users_confirmations_path, alert: "Invalid token"
     end
+    if !@user.needs_confirmation?
+      return redirect_to root_path, notice: "Your account has already been confirmed"
+    end
 
     render Users::Confirmations::EditView.new(user: @user, confirmation_token: params[:confirmation_token])
   end
@@ -32,6 +35,9 @@ class Users::ConfirmationsController < ApplicationController
 
     if @user.blank?
       return redirect_to new_users_confirmations_path, alert: "Invalid token"
+    end
+    if !@user.needs_confirmation?
+      return redirect_to root_path, notice: "Your account has already been confirmed"
     end
 
     if @user.confirm!
