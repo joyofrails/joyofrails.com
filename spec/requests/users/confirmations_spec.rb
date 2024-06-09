@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Confirmations", type: :request do
   include ActiveSupport::Testing::TimeHelpers
 
-  describe "create" do
+  describe "POST create" do
     it "succeeds" do
       user = FactoryBot.create(:user, :unconfirmed)
 
@@ -38,12 +38,38 @@ RSpec.describe "Confirmations", type: :request do
     end
   end
 
-  describe "update" do
-    it "succeeds" do
+  describe "GET edit" do
+    it "succeeds for unconfirmed user with valid token" do
       user = FactoryBot.create(:user, :unconfirmed)
-      token = user.generate_token_for(:confirmation)
 
-      put users_confirmation_path(confirmation_token: token)
+      get edit_users_confirmation_path(confirmation_token: user.generate_token_for(:confirmation))
+
+      expect(response.status).to eq(200)
+    end
+
+    it "disallows a user to confirm email address with invalid token" do
+      get edit_users_confirmation_path(confirmation_token: "invalid_token")
+
+      expect(response).to redirect_to(new_users_confirmation_path)
+
+      expect(flash[:alert]).to eq("This link is invalid or expired")
+    end
+
+    it "disallows an already confirmed user" do
+      user = FactoryBot.create(:user, :confirmed)
+
+      get edit_users_confirmation_path(confirmation_token: user.generate_token_for(:confirmation))
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("Your account has already been confirmed")
+    end
+  end
+
+  describe "PUT update" do
+    it "succeeds for unconfirmed user with valid token" do
+      user = FactoryBot.create(:user, :unconfirmed)
+
+      put users_confirmation_path(confirmation_token: user.generate_token_for(:confirmation))
 
       expect(response).to redirect_to(users_dashboard_path)
       expect(flash[:notice]).to eq("Thank you for confirming your email address")
@@ -55,7 +81,7 @@ RSpec.describe "Confirmations", type: :request do
       put users_confirmation_path(confirmation_token: token)
 
       expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("Invalid token")
+      expect(flash[:alert]).to eq("This link is invalid or expired")
     end
 
     it "disallows a user to confirm their email address with expired token" do
@@ -67,14 +93,13 @@ RSpec.describe "Confirmations", type: :request do
       put users_confirmation_path(confirmation_token: token)
 
       expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("Invalid token")
+      expect(flash[:alert]).to eq("This link is invalid or expired")
     end
 
     it "disallows a user to confirm their email address with already confirmed email address" do
       user = FactoryBot.create(:user, :confirmed)
-      token = user.generate_token_for(:confirmation)
 
-      put users_confirmation_path(confirmation_token: token)
+      put users_confirmation_path(confirmation_token: user.generate_token_for(:confirmation))
 
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq("Your account has already been confirmed")

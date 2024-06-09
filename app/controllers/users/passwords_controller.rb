@@ -13,7 +13,7 @@ class PasswordsController < ApplicationController
         @user.send_password_reset_email!
         redirect_to root_path, notice: "If that user exists we've sent instructions to their email."
       else
-        redirect_to new_users_confirmations_path, alert: "Please confirm your email first."
+        redirect_to new_users_confirmation_path, alert: "Please confirm your email first."
       end
     else
       redirect_to root_path, notice: "If that user exists we've sent instructions to their email."
@@ -23,7 +23,7 @@ class PasswordsController < ApplicationController
   def edit
     @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
     if @user.present? && @user.unconfirmed?
-      redirect_to new_users_confirmations_path, alert: "You must confirm your email before you can sign in."
+      redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in."
     elsif @user.nil?
       redirect_to new_users_password_path, alert: "Invalid or expired token."
     end
@@ -33,7 +33,7 @@ class PasswordsController < ApplicationController
     @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
     if @user
       if @user.unconfirmed?
-        redirect_to new_users_confirmations_path, alert: "You must confirm your email before you can sign in."
+        redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in."
       elsif @user.update(password_params)
         redirect_to new_users_sessions_path, notice: "Sign in."
       else
