@@ -46,6 +46,8 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {host: "joyofrails.com"}
 
+  config.action_mailer.raise_delivery_errors = true
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -66,4 +68,7 @@ Rails.application.configure do
 
   # Limit logging in test environment
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "warn")
+
+  # Use perform_enqueued_jobs to run active jobs in test
+  config.active_job.queue_adapter = :test
 end

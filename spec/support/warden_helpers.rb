@@ -2,6 +2,10 @@ module WardenHelpers
   def login_admin_user(admin_user = FactoryBot.create(:admin_user))
     login_as(admin_user, scope: :admin_user)
   end
+
+  def login_user(user = FactoryBot.create(:user))
+    login_as(user, scope: :user)
+  end
 end
 
 RSpec.configure do |config|
