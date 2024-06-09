@@ -2,10 +2,10 @@
 class Emails::UserMailerPreview < ActionMailer::Preview
   # Preview this email at http://localhost:3000/rails/mailers/emails/user/confirmation
   def confirmation
-    Emails::UserMailer.confirmation(User.first, "confirmation_token")
+    Emails::UserMailer.confirmation(FactoryBot.build(:user), "confirmation_token")
   end
 
   def password_reset
-    Emails::UserMailer.password_reset(User.first, "password_reset_token")
+    Emails::UserMailer.password_reset(FactoryBot.build(:user), "password_reset_token")
   end
 end
