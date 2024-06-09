@@ -12,7 +12,7 @@ class Users::Confirmations::EditView < ApplicationView
   def view_template
     render Layouts::FrontDoor.new(title: "One-click confirm") do
       form_with model: @user,
-        url: users_confirmations_path(@confirmation_token),
+        url: users_confirmation_path(@confirmation_token),
         class: "space-y-6" do |form|
         div(class: "pt-6") do
           plain form.button "Confirm email: #{@user.email}",

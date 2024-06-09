@@ -13,6 +13,11 @@ RSpec.describe "Registrations", type: :system do
 
     expect(page).to have_content("Welcome to Joy of Rails! Please check your email for confirmation instructions.")
 
+    perform_enqueued_jobs # Process event job
+    perform_enqueued_jobs # Process mailer job
+
+    expect(User.last).not_to be_confirmed
+
     mail = find_mail_to("user1@example.com")
 
     expect(mail.subject).to eq "Confirm your email address"

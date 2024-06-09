@@ -7,13 +7,13 @@ class Users::ConfirmationsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
 
     if @user.present? && @user.unconfirmed?
       @user.send_confirmation_email!
       redirect_to root_path, notice: "Check your email for confirmation instructions"
     else
-      redirect_to new_users_confirmations_path, alert: "We could not find a user with that email or that email has already been confirmed"
+      redirect_to new_users_confirmation_path, alert: "We are unable to confirm that email address"
     end
   end
 
@@ -34,7 +34,7 @@ class Users::ConfirmationsController < ApplicationController
     @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
 
     if @user.blank?
-      return redirect_to new_users_confirmations_path, alert: "Invalid token"
+      return redirect_to new_users_confirmation_path, alert: "Invalid token"
     end
     if !@user.needs_confirmation?
       return redirect_to root_path, notice: "Your account has already been confirmed"
@@ -43,9 +43,9 @@ class Users::ConfirmationsController < ApplicationController
     if @user.confirm!
       warden.set_user(@user, scope: :user)
 
-      redirect_to users_dashboard_path, notice: "Your account has been confirmed"
+      redirect_to users_dashboard_path, notice: "Thank you for confirming your email address"
     else
-      redirect_to new_users_confirmations_path, alert: "Something went wrong"
+      redirect_to new_users_confirmation_path, alert: "Something went wrong"
     end
   end
 end

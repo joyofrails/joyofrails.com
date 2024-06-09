@@ -4,5 +4,11 @@ FactoryBot.define do
 
     password { "password" }
     password_confirmation { "password" }
+
+    trait :unconfirmed
+
+    trait :confirmed do
+      confirmed_at { Time.current }
+    end
   end
 end

@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
 
   scope :users, constraints: Routes::UsersAccessConstraint.new do
-    get "dashboard" => "dashboard#index", :as => :users_dashboard
+    get "dashboard" => "users/dashboard#index", :as => :users_dashboard
   end
 
   scope :admin, constraints: Routes::AdminAccessConstraint.new do

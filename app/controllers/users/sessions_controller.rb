@@ -2,6 +2,7 @@ class Users::SessionsController < ApplicationController
   before_action :redirect_if_authenticated, only: [:create, :new]
 
   def new
+    render Users::Sessions::NewView.new
   end
 
   def create

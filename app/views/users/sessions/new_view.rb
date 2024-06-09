@@ -6,11 +6,6 @@ class Users::Sessions::NewView < ApplicationView
   include Phlex::Rails::Helpers::Routes
   include InlineSvg::ActionView::Helpers
 
-  def initialize(user:, confirmation_token:)
-    @user = user
-    @confirmation_token = confirmation_token
-  end
-
   def view_template
     render Layouts::FrontDoor.new(title: "Login") do
       form_with model: @user,
@@ -43,7 +38,7 @@ class Users::Sessions::NewView < ApplicationView
           end
         end
         div(class: "pt-6") do
-          plain form.button "Confirm email: #{@user.email}",
+          plain form.button "Log in",
             type: :submit,
             class:
               "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
