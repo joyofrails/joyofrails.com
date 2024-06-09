@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_07_120410) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -43,6 +43,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_120410) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
+  create_table "notification_events", force: :cascade do |t|
+    t.string "type"
+    t.json "params"
+    t.integer "notifications_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "type"
+    t.integer "notification_event_id", null: false
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "read_at"
+    t.datetime "seen_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_event_id"], name: "index_notifications_on_notification_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
   create_table "unconfirmed_emails", force: :cascade do |t|
     t.string "email", null: false
     t.integer "user_id", null: false
@@ -62,5 +83,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_120410) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "notifications", "notification_events"
   add_foreign_key "unconfirmed_emails", "users"
 end

@@ -11,7 +11,7 @@ class Users::RegistrationsController < ApplicationController
     create_user_params = params.require(:user).permit(:email, :password, :password_confirmation)
     @user = User.new(create_user_params)
     if @user.save
-      @user.send_confirmation_email!
+      EmailConfirmationNotifier.deliver_to(@user)
       redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions."
     else
       render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
@@ -33,7 +33,7 @@ class Users::RegistrationsController < ApplicationController
     end
 
     if params[:user][:unconfirmed_emails_attributes].present?
-      @user.send_confirmation_email!
+      EmailConfirmationNotifier.deliver_to(@user)
       redirect_to root_path, notice: "Check your email for confirmation instructions."
     else
       redirect_to root_path, notice: "Account updated."
