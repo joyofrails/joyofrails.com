@@ -50,16 +50,6 @@ class User < ApplicationRecord
 
   def unconfirmed? = !confirmed?
 
-  def send_confirmation_email!
-    confirmation_token = generate_token_for(:confirmation)
-    Emails::UserMailer.confirmation(self, confirmation_token).deliver_now
-  end
-
-  def send_password_reset_email!
-    password_reset_token = generate_token_for(:password_reset)
-    Emails::UserMailer.password_reset(self, password_reset_token).deliver_now
-  end
-
   def reject_unconfirmed_emails(attributes)
     attributes["email"].blank?
   end

@@ -10,7 +10,7 @@ class Users::ConfirmationsController < ApplicationController
     @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
 
     if @user.present? && @user.unconfirmed?
-      @user.send_confirmation_email!
+      EmailConfirmationNotifier.deliver_to(@user)
       redirect_to root_path, notice: "Check your email for confirmation instructions"
     else
       redirect_to new_users_confirmation_path, alert: "We are unable to confirm that email address"
