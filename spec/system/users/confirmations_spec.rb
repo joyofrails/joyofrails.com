@@ -8,8 +8,7 @@ RSpec.describe "Confirmations", type: :system do
     expect(user).not_to be_confirmed
 
     EmailConfirmationNotifier.deliver_to(user)
-    perform_enqueued_jobs
-    perform_enqueued_jobs
+    perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
     mail = find_mail_to(user.email)
 

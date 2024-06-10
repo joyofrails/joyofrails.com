@@ -14,6 +14,8 @@ RSpec.describe "Confirmations", type: :request do
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq("Check your email for confirmation instructions")
 
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
       expect(ActionMailer::Base.deliveries.count).to eq(1)
 
       mail = find_mail_to(user.email)

@@ -14,6 +14,11 @@ module MailHelpers
     localize_link(link)
   end
 
+  def perform_enqueued_jobs_and_subsequently_enqueued_jobs
+    perform_enqueued_jobs # Process event job
+    perform_enqueued_jobs # Process mailer job
+  end
+
   private
 
   def localize_link(link)

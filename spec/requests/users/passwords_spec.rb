@@ -24,6 +24,8 @@ RSpec.describe "Passwords", type: :request do
       user = FactoryBot.create(:user, :confirmed)
       post users_passwords_path, params: {user: {email: user.email}}
 
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
       expect(response).to redirect_to(new_users_session_path)
       expect(flash[:notice]).to eq("If that user exists we’ve sent instructions to their email")
 

@@ -17,7 +17,8 @@ class Users::PasswordsController < ApplicationController
       return redirect_to new_users_confirmation_path, alert: "Please confirm your email first"
     end
 
-    @user.send_password_reset_email!
+    PasswordResetNotifier.deliver_to(@user)
+
     redirect_to new_users_session_path, notice: "If that user exists we’ve sent instructions to their email"
   end
 
