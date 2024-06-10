@@ -36,6 +36,12 @@ RSpec.describe "Confirmations", type: :request do
       expect(flash[:alert]).to eq("We are unable to confirm that email address")
       expect(ActionMailer::Base.deliveries.count).to eq(0)
     end
+
+    it "disallows when missing email param" do
+      post users_confirmations_path, params: {}
+
+      expect(response).to have_http_status(:bad_request)
+    end
   end
 
   describe "GET edit" do
@@ -44,7 +50,7 @@ RSpec.describe "Confirmations", type: :request do
 
       get edit_users_confirmation_path(confirmation_token: user.generate_token_for(:confirmation))
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
     end
 
     it "disallows a user to confirm email address with invalid token" do
@@ -81,7 +87,7 @@ RSpec.describe "Confirmations", type: :request do
       put users_confirmation_path(confirmation_token: token)
 
       expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("This link is invalid or expired")
+      expect(flash[:alert]).to eq("That link is invalid or expired")
     end
 
     it "disallows a user to confirm their email address with expired token" do
@@ -93,7 +99,7 @@ RSpec.describe "Confirmations", type: :request do
       put users_confirmation_path(confirmation_token: token)
 
       expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("This link is invalid or expired")
+      expect(flash[:alert]).to eq("That link is invalid or expired")
     end
 
     it "disallows a user to confirm their email address with already confirmed email address" do

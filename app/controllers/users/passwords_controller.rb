@@ -1,5 +1,5 @@
 # app/controllers/passwords_controller.rb
-class PasswordsController < ApplicationController
+class Users::PasswordsController < ApplicationController
   before_action :redirect_if_authenticated
 
   def new
@@ -7,42 +7,45 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email].downcase)
-    if @user.present?
-      if @user.confirmed?
-        @user.send_password_reset_email!
-        redirect_to root_path, notice: "If that user exists we've sent instructions to their email."
-      else
-        redirect_to new_users_confirmation_path, alert: "Please confirm your email first."
-      end
-    else
-      redirect_to root_path, notice: "If that user exists we've sent instructions to their email."
+    @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
+
+    if !@user.present?
+      return redirect_to new_users_session_path, notice: "If that user exists we’ve sent instructions to their email"
     end
+
+    if !@user.confirmed?
+      return redirect_to new_users_confirmation_path, alert: "Please confirm your email first"
+    end
+
+    @user.send_password_reset_email!
+    redirect_to new_users_session_path, notice: "If that user exists we’ve sent instructions to their email"
   end
 
   def edit
     @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
     if @user.present? && @user.unconfirmed?
-      redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in."
+      return redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in"
     elsif @user.nil?
-      redirect_to new_users_password_path, alert: "Invalid or expired token."
+      return redirect_to new_users_password_path, alert: "That link is invalid or expired"
     end
+
+    render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:password_reset_token])
   end
 
   def update
     @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
     if @user
       if @user.unconfirmed?
-        redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in."
+        redirect_to new_users_confirmation_path, alert: "Please confirm your email before you can sign in"
       elsif @user.update(password_params)
-        redirect_to new_users_sessions_path, notice: "Sign in."
+        redirect_to new_users_session_path, notice: "Password updated! Please sign in"
       else
         flash.now[:alert] = @user.errors.full_messages.to_sentence
-        render :edit, status: :unprocessable_entity
+        render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:password_reset_token]), status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = "Invalid or expired token."
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "That link is invalid or expired"
+      render Users::Passwords::NewView.new, status: :unprocessable_entity
     end
   end
 

@@ -11,4 +11,12 @@ end
 RSpec.configure do |config|
   config.include WardenHelpers, type: :request
   config.include WardenHelpers, type: :system
+
+  config.before(:each) do
+    Warden.test_mode!
+  end
+
+  config.after(:each) do
+    Warden.test_reset!
+  end
 end

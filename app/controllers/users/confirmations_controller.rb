@@ -34,7 +34,7 @@ class Users::ConfirmationsController < ApplicationController
     @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
 
     if @user.blank?
-      return redirect_to new_users_confirmation_path, alert: "This link is invalid or expired"
+      return redirect_to new_users_confirmation_path, alert: "That link is invalid or expired"
     end
     if !@user.needs_confirmation?
       return redirect_to root_path, notice: "Your account has already been confirmed"
