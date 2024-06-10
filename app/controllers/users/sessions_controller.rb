@@ -6,20 +6,23 @@ class Users::SessionsController < ApplicationController
   end
 
   def create
-    if User.find_by(email: params[:user][:email].downcase).unconfirmed?
+    email = params.require(:user).permit(:email)[:email].to_s.downcase
+    user = User.find_by(email: email)
+
+    if user.unconfirmed?
       return redirect_to new_users_confirmation_path, alert: "Please confirm your email address first."
     end
 
     warden.authenticate!(:password, scope: :user)
 
-    redirect_to login_success_path, notice: "Signed in."
+    redirect_to login_success_path, notice: "Signed in"
   end
 
   def destroy
     warden.logout(:user)
     warden.clear_strategies_cache!(scope: :user)
 
-    redirect_to root_path, notice: "Signed out successfully."
+    redirect_to root_path, notice: "Signed out successfully"
   end
 
   def fail
@@ -30,6 +33,6 @@ class Users::SessionsController < ApplicationController
       flash.now[:alert] = "Incorrect email or password."
     end
 
-    render :new, status: :unprocessable_entity
+    render Users::Sessions::NewView.new, status: :unprocessable_entity
   end
 end

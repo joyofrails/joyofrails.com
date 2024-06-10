@@ -8,6 +8,8 @@ module MailHelpers
   end
 
   def email_link(email, string)
+    raise ArgumentError, "Email is missing" if email.blank?
+
     document = Capybara.string(email.html_part.body.to_s)
     link = document.find(:link, string)[:href]
 

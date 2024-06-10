@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_one :pending_unconfirmed_email, -> { pending }, dependent: :destroy, class_name: "UnconfirmedEmail"
   has_many :unconfirmed_emails, dependent: :destroy
 
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
 
   normalizes :email, with: ->(email) { email.downcase.strip }
 

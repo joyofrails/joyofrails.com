@@ -6,10 +6,14 @@ class Users::Passwords::NewView < ApplicationView
   include Phlex::Rails::Helpers::Routes
   include InlineSvg::ActionView::Helpers
 
+  def initialize(user:)
+    @user = user
+  end
+
   def view_template
     render Layouts::FrontDoor.new(title: "Forgot your password?") do
       form_with model: @user,
-        url: users_sessions_path,
+        url: users_passwords_path,
         class: "space-y-6" do |form|
         div do
           plain form.label :email,

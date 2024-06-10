@@ -34,8 +34,8 @@ RSpec.describe "Confirmations", type: :request do
       user = FactoryBot.create(:user, :confirmed)
       post users_confirmations_path, params: {user: {email: user.email}}
 
-      expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("We are unable to confirm that email address")
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("Your account has already been confirmed")
       expect(ActionMailer::Base.deliveries.count).to eq(0)
     end
 

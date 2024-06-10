@@ -9,20 +9,26 @@ class Users::ConfirmationsController < ApplicationController
   def create
     @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
 
-    if @user.present? && @user.unconfirmed?
-      EmailConfirmationNotifier.deliver_to(@user)
-      redirect_to root_path, notice: "Check your email for confirmation instructions"
-    else
-      redirect_to new_users_confirmation_path, alert: "We are unable to confirm that email address"
+    if @user.blank?
+      return redirect_to new_users_confirmation_path, alert: "We are unable to confirm that email address"
     end
+
+    if !@user.needs_confirmation?
+      return redirect_to root_path, notice: "Your account has already been confirmed"
+    end
+
+    EmailConfirmationNotifier.deliver_to(@user)
+
+    redirect_to root_path, notice: "Check your email for confirmation instructions"
   end
 
   def edit
     @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
 
-    if !@user.present?
+    if @user.blank?
       return redirect_to new_users_confirmation_path, alert: "This link is invalid or expired"
     end
+
     if !@user.needs_confirmation?
       return redirect_to root_path, notice: "Your account has already been confirmed"
     end
