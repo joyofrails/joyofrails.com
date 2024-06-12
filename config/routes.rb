@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     resources :passwords, only: [:new, :create, :edit, :update], param: :password_reset_token
     resources :sessions, only: [:new, :create] do
       collection do
-        delete "sign_out" => "sessions#destroy", :as => "destroy"
+        delete "sign_out" => "sessions#destroy", :as => :destroy
       end
     end
   end

@@ -18,21 +18,28 @@ class Users::RegistrationsController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+    @user.email_exchanges.build
+
+    render Users::Registrations::EditView.new(user: @user)
+  end
+
   def update
-    update_user_params = params.require(:user).permit(:current_password, :password, :password_confirmation, unconfirmed_emails_attributes: [:email])
+    update_user_params = params.require(:user).permit(:current_password, :password, :password_confirmation, email_exchanges_attributes: [:email])
 
     @user = current_user
 
     if !@user.authenticate(params[:user][:current_password])
       flash.now[:error] = "Incorrect password"
-      return render :edit, status: :unprocessable_entity
+      return render Users::Registrations::EditView.new(user: @user), status: :unprocessable_entity
     end
 
     if !@user.update(update_user_params)
-      return render :edit, status: :unprocessable_entity
+      return render Users::Registrations::EditView.new(user: @user), status: :unprocessable_entity
     end
 
-    if params[:user][:unconfirmed_emails_attributes].present?
+    if update_user_params[:email_exchanges_attributes].present?
       EmailConfirmationNotifier.deliver_to(@user)
       redirect_to root_path, notice: "Check your email for confirmation instructions."
     else

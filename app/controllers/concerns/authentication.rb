@@ -18,7 +18,7 @@ module Authentication
 
   def authenticate_user!
     store_location
-    redirect_to new_users_session_path, alert: "You need to login to access that page." unless user_signed_in?
+    redirect_to new_users_session_path, alert: "You need to login to access that page" unless user_signed_in?
   end
 
   def redirect_admin_if_authenticated

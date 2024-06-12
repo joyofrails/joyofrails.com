@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
+  create_table "email_exchanges", force: :cascade do |t|
+    t.string "email", null: false
+    t.integer "user_id", null: false
+    t.string "status", default: "0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "email"], name: "index_email_exchanges_on_user_id_and_email", unique: true, where: "status = 0"
+    t.index ["user_id"], name: "index_email_exchanges_on_user_id"
+  end
+
   create_table "flipper_features", force: :cascade do |t|
     t.string "key", null: false
     t.datetime "created_at", null: false
@@ -64,25 +74,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "unconfirmed_emails", force: :cascade do |t|
-    t.string "email", null: false
-    t.integer "user_id", null: false
-    t.string "status", default: "0", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "email"], name: "index_unconfirmed_emails_on_user_id_and_email", unique: true, where: "status = 0"
-    t.index ["user_id"], name: "index_unconfirmed_emails_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "confirmed_at"
-    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "email_exchanges", "users"
   add_foreign_key "notifications", "notification_events"
-  add_foreign_key "unconfirmed_emails", "users"
 end

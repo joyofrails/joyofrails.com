@@ -6,11 +6,22 @@ class Users::Sessions::NewView < ApplicationView
   include Phlex::Rails::Helpers::Routes
   include InlineSvg::ActionView::Helpers
 
+  def initialize(user: User.new)
+    @user = user
+  end
+
   def view_template
     render Layouts::FrontDoor.new(title: "Login") do
       form_with model: @user,
         url: users_sessions_path,
         class: "space-y-6" do |form|
+        if form.object.errors.any?
+          ul do
+            form.object.errors.full_messages.each do |message|
+              li { message }
+            end
+          end
+        end
         div do
           plain form.label :email,
             "Email address",

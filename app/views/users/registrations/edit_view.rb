@@ -2,7 +2,8 @@
 
 class Users::Registrations::EditView < ApplicationView
   include Phlex::Rails::Helpers::EmailField
-  include Phlex::Rails::Helpers::FormWith
+  include Phlex::Rails::Helpers::FormFor
+  include Phlex::Rails::Helpers::FieldsFor
   include Phlex::Rails::Helpers::Label
   include Phlex::Rails::Helpers::Object
   include Phlex::Rails::Helpers::PasswordField
@@ -25,7 +26,7 @@ class Users::Registrations::EditView < ApplicationView
         ) { "Create a new account" }
       end
       div(class: "mt-10 sm:mx-auto sm:w-full sm:max-w-sm") do
-        form_with model: @user,
+        form_for @user,
           url: users_registration_path,
           class: "space-y-6" do |form|
           if form.object.errors.any?
@@ -37,7 +38,7 @@ class Users::Registrations::EditView < ApplicationView
           end
           div do
             div(class: "flex items-center justify-between") do
-              form_label form, :email, "Email address"
+              form_label form, :email, "Current email address"
             end
             div(class: "mt-2") do
               form_field form, :email_field, :email,
@@ -45,13 +46,13 @@ class Users::Registrations::EditView < ApplicationView
                 disabled: true
             end
           end
-          form.fields_for :unconfirmed_mails do |builder|
+          form.fields_for :email_exchanges do |email_form|
             div do
               div(class: "flex items-center justify-between") do
-                form_label builder, :email_field, "Email address"
+                form_label email_form, :email, "Change email address"
               end
               div(class: "mt-2") do
-                form_field builder, :email_field, :email,
+                form_field email_form, :email_field, :email,
                   autocomplete: "email",
                   required: false
               end
@@ -81,7 +82,7 @@ class Users::Registrations::EditView < ApplicationView
           end
           div do
             div(class: "flex items-center justify-between") do
-              form_label form, :current_password, "Current password (we need your current password to confirm your changes)"
+              form_label form, :current_password, "Current password to confirm changes"
             end
             div(class: "mt-2") do
               form_field form, :password_field, :current_password,

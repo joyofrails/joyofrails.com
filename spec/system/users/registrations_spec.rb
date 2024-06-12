@@ -37,4 +37,40 @@ RSpec.describe "Registrations", type: :system do
 
     expect(User.count).to eq(user_count)
   end
+
+  it "allows logged in user to update their account" do
+    user = FactoryBot.create(:user, email: "hello@example.com", password: "password", password_confirmation: "password")
+
+    login_user(user)
+
+    visit edit_users_registration_path
+
+    fill_in "Current password", with: "password"
+
+    fill_in "Change email address", with: "newemail@example.com"
+    fill_in "Password", with: "newpassword"
+    fill_in "Password confirmation", with: "newpassword"
+
+    click_button "Update account"
+
+    expect(page).to have_content("Check your email for confirmation instructions")
+    user = User.last
+    expect(user.email).to eq("hello@example.com") # not yet updated
+    expect(user.email_exchanges.last.email).to eq("newemail@example.com")
+    expect(User.authenticate_by(email: "hello@example.com", password: "newpassword")).to eq(user)
+
+    perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+    mail = find_mail_to("newemail@example.com")
+
+    expect(mail.subject).to eq "Confirm your email address"
+
+    visit email_link(mail, "Confirm your email address")
+
+    click_button "Confirm email"
+
+    user = User.last
+    expect(user).to be_confirmed
+    expect(user.email).to eq("newemail@example.com")
+  end
 end

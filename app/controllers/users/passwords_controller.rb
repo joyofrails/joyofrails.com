@@ -14,7 +14,7 @@ class Users::PasswordsController < ApplicationController
     end
 
     if @user.unconfirmed?
-      return redirect_to new_users_confirmation_path, alert: "Please confirm your email first"
+      return redirect_to new_users_confirmation_path, alert: "Please confirm your email address first"
     end
 
     PasswordResetNotifier.deliver_to(@user)

@@ -5,9 +5,10 @@ require_relative "../../app/lib/warden_extensions/password_strategy"
 Rails.configuration.middleware.use Warden::Manager do |manager|
   manager.failure_app = proc { |env|
     env["REQUEST_METHOD"] = "GET"
-    Users::SessionsController.action(:fail).call(env)
+    scope_class = env["warden.options"][:scope].to_s.classify.pluralize.constantize
+    scope_class.const_get(:SessionsController).action(:fail).call(env)
   }
-  manager.default_strategies :password # needs to be defined
+  manager.default_strategies :password
 end
 
 WardenExtensions::Setup.configure_manager

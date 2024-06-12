@@ -48,7 +48,7 @@ RSpec.describe "Passwords", type: :request do
       post users_passwords_path, params: {user: {email: user.email}}
 
       expect(response).to redirect_to(new_users_confirmation_path)
-      expect(flash[:alert]).to eq("Please confirm your email first")
+      expect(flash[:alert]).to eq("Please confirm your email address first")
       expect(ActionMailer::Base.deliveries.count).to eq(0)
     end
 

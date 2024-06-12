@@ -1,19 +1,13 @@
 class Users::SessionsController < ApplicationController
   before_action :redirect_if_authenticated, only: [:create, :new]
+  before_action :authenticate_user!, only: [:destroy]
 
   def new
     render Users::Sessions::NewView.new
   end
 
   def create
-    email = params.require(:user).permit(:email)[:email].to_s.downcase
-    user = User.find_by(email: email)
-
-    if user.unconfirmed?
-      return redirect_to new_users_confirmation_path, alert: "Please confirm your email address first."
-    end
-
-    warden.authenticate!(:password, scope: :user)
+    @user = warden.authenticate!(:password, scope: :user)
 
     redirect_to login_success_path, notice: "Signed in"
   end
@@ -25,14 +19,23 @@ class Users::SessionsController < ApplicationController
     redirect_to root_path, notice: "Signed out successfully"
   end
 
+  # This method is called when Warden authentication fails
   def fail
     warden_options = request.env["warden.options"] || {}
     warden_message = warden_options[:message]
 
-    if warden_message == :invalid
-      flash.now[:alert] = "Incorrect email or password."
+    message = case warden_message
+    when :invalid
+      "Incorrect email or password"
+    when :unconfirmed
+      "Please confirm your email address first"
     end
 
-    render Users::Sessions::NewView.new, status: :unprocessable_entity
+    flash.now[:alert] = message
+
+    email = params.require(:user).permit(:email)[:email].to_s.downcase
+    user = User.new(email: email)
+
+    render Users::Sessions::NewView.new(user: user), status: :unprocessable_entity
   end
 end

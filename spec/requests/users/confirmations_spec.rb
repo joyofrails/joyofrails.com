@@ -20,6 +20,8 @@ RSpec.describe "Confirmations", type: :request do
 
       mail = find_mail_to(user.email)
       expect(mail.subject).to eq("Confirm your email address")
+
+      expect(user.email_exchanges.all?(&:archived?)).to eq(true)
     end
 
     it "disallows when user not found with given email" do
