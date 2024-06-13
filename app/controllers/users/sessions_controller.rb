@@ -9,7 +9,7 @@ class Users::SessionsController < ApplicationController
   def create
     @user = warden.authenticate!(:password, scope: :user)
 
-    redirect_to login_success_path, notice: "Signed in"
+    redirect_to login_success_path, notice: "Signed in successfully"
   end
 
   def destroy

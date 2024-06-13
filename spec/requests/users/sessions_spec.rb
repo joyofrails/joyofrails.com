@@ -25,7 +25,7 @@ RSpec.describe "Users::Sessions", type: :request do
       perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
       expect(response).to redirect_to(users_dashboard_path)
-      expect(flash[:notice]).to eq("Signed in")
+      expect(flash[:notice]).to eq("Signed in successfully")
     end
 
     it "disallows when user not found with given email" do
@@ -64,7 +64,7 @@ RSpec.describe "Users::Sessions", type: :request do
       delete destroy_users_sessions_path
 
       expect(response).to have_http_status(:found)
-      expect(flash[:alert]).to eq("You need to login to access that page")
+      expect(flash[:alert]).to eq("You need to sign in to access that page")
     end
   end
 end
