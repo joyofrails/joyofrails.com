@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Emails::UserMailer < ApplicationMailer
   default from: "no-reply@joyofrails.com"
 

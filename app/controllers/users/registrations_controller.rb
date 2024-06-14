@@ -1,4 +1,5 @@
-# app/controllers/users_controller.rb
+# frozen_string_literal: true
+
 class Users::RegistrationsController < ApplicationController
   before_action :redirect_if_authenticated, only: [:create, :new]
 

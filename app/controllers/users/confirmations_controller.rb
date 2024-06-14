@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::ConfirmationsController < ApplicationController
   before_action :redirect_if_authenticated, only: [:create, :new]
 

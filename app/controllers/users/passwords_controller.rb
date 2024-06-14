@@ -1,4 +1,5 @@
-# app/controllers/passwords_controller.rb
+# frozen_string_literal: true
+
 class Users::PasswordsController < ApplicationController
   before_action :redirect_if_authenticated
 
