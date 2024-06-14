@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < ApplicationController
+  before_action :feature_enabled!
   before_action :redirect_if_authenticated
 
   def new
@@ -61,5 +62,9 @@ class Users::PasswordsController < ApplicationController
 
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def feature_enabled!
+    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration)
   end
 end

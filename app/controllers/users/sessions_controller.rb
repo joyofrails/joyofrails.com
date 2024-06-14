@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < ApplicationController
+  before_action :feature_enabled!
   before_action :redirect_if_authenticated, only: [:create, :new]
   before_action :authenticate_user!, only: [:destroy]
 
@@ -39,5 +40,11 @@ class Users::SessionsController < ApplicationController
     user = User.new(email: email)
 
     render Users::Sessions::NewView.new(user: user), status: :unprocessable_entity
+  end
+
+  private
+
+  def feature_enabled!
+    redirect_to root_path, notice: "Coming soon!" unless Flipper[:user_registration].enabled?
   end
 end

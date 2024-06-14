@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Registrations", type: :system do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   it "allows a new user to register for an account" do
     visit new_users_registration_path
 

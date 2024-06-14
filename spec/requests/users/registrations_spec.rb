@@ -3,7 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "Registrations", type: :request do
-  include ActiveSupport::Testing::TimeHelpers
+  before do
+    Flipper[:user_registration].enable
+  end
 
   describe "GET create" do
     it "succeeds for signed out user" do
@@ -77,6 +79,18 @@ RSpec.describe "Registrations", type: :request do
       }.not_to change(User, :count)
 
       expect(response).to redirect_to(users_dashboard_path)
+    end
+
+    it "disallows if feature is disabled" do
+      Flipper[:user_registration].disable
+
+      expect {
+        post users_registration_path,
+          params: {user: {email: FactoryBot.generate(:email), password: "password", password_confirmation: "password"}}
+      }.not_to change(User, :count)
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq "Coming soon!"
     end
   end
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < ApplicationController
+  before_action :feature_enabled!
   before_action :redirect_if_authenticated, only: [:create, :new]
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
@@ -53,5 +54,11 @@ class Users::RegistrationsController < ApplicationController
     current_user.destroy
     reset_session
     redirect_to root_path, notice: "Your account has been deleted"
+  end
+
+  private
+
+  def feature_enabled!
+    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration)
   end
 end

@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Confirmations", type: :system do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   it "allows a user to confirm their email address" do
     user = FactoryBot.create(:user)
     expect(user).not_to be_confirmed

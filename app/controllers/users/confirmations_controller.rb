@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::ConfirmationsController < ApplicationController
+  before_action :feature_enabled!
   before_action :redirect_if_authenticated, only: [:create, :new]
 
   def new
@@ -55,5 +56,11 @@ class Users::ConfirmationsController < ApplicationController
     else
       redirect_to new_users_confirmation_path, alert: "Something went wrong"
     end
+  end
+
+  private
+
+  def feature_enabled!
+    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration)
   end
 end

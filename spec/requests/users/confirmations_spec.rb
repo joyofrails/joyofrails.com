@@ -5,6 +5,10 @@ require "rails_helper"
 RSpec.describe "Confirmations", type: :request do
   include ActiveSupport::Testing::TimeHelpers
 
+  before do
+    Flipper[:user_registration].enable
+  end
+
   describe "POST create" do
     it "succeeds" do
       user = FactoryBot.create(:user, :unconfirmed)

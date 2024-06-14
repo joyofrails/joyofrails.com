@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Passwords", type: :request do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   describe "GET new" do
     it "succeeds" do
       get new_users_password_path

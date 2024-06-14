@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Users::Sessions", type: :request do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   describe "GET new" do
     it "succeeds" do
       get new_users_session_path

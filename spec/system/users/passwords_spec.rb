@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Passwords", type: :system do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   it "allows a user to reset their password" do
     user = FactoryBot.create(:user, :confirmed)
 

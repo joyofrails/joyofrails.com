@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe "Sessions", type: :system do
+  before do
+    Flipper[:user_registration].enable
+  end
+
   it "allows a confirmed user to sign in" do
     user = FactoryBot.create(:user, :confirmed, password: "password", password_confirmation: "password")
 
