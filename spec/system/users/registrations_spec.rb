@@ -11,7 +11,7 @@ RSpec.describe "Registrations", type: :system do
     fill_in "Password confirmation", with: "password"
     click_button "Sign up"
 
-    expect(page).to have_content("Welcome to Joy of Rails! Please check your email for confirmation instructions.")
+    expect(page).to have_content("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
     perform_enqueued_jobs_and_subsequently_enqueued_jobs
 

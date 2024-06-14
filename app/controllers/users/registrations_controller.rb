@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < ApplicationController
   before_action :redirect_if_authenticated, only: [:create, :new]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -13,7 +14,7 @@ class Users::RegistrationsController < ApplicationController
     @user = User.new(create_user_params)
     if @user.save
       EmailConfirmationNotifier.deliver_to(@user)
-      redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions."
+      redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
     else
       render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
     end
@@ -42,15 +43,15 @@ class Users::RegistrationsController < ApplicationController
 
     if update_user_params[:email_exchanges_attributes].present?
       EmailConfirmationNotifier.deliver_to(@user)
-      redirect_to root_path, notice: "Check your email for confirmation instructions."
+      redirect_to users_dashboard_path, notice: "Check your email for confirmation instructions"
     else
-      redirect_to root_path, notice: "Account updated."
+      redirect_to users_dashboard_path, notice: "Account updated"
     end
   end
 
   def destroy
     current_user.destroy
     reset_session
-    redirect_to root_path, notice: "Your account has been deleted."
+    redirect_to root_path, notice: "Your account has been deleted"
   end
 end
