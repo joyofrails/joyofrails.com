@@ -121,7 +121,7 @@ RSpec.describe "Registrations", type: :request do
       login_user(user)
 
       put users_registration_path,
-        params: {user: {current_password: "password", password: "newpassword", password_confirmation: "newpassword"}}
+        params: {user: {password_challenge: "password", password: "newpassword", password_confirmation: "newpassword"}}
 
       expect(response).to redirect_to(users_dashboard_path)
       expect(flash[:notice]).to eq("Account updated")
@@ -136,7 +136,7 @@ RSpec.describe "Registrations", type: :request do
 
       expect {
         put users_registration_path,
-          params: {user: {current_password: "password", email_exchanges_attributes: [{email: new_email}]}}
+          params: {user: {password_challenge: "password", email_exchanges_attributes: [{email: new_email}]}}
       }.to change(user.email_exchanges, :count).by(1)
 
       expect(response).to redirect_to(users_dashboard_path)

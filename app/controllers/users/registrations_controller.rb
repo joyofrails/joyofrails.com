@@ -29,11 +29,11 @@ class Users::RegistrationsController < ApplicationController
   end
 
   def update
-    update_user_params = params.require(:user).permit(:current_password, :password, :password_confirmation, email_exchanges_attributes: [:email])
+    update_user_params = params.require(:user).permit(:password_challenge, :password, :password_confirmation, email_exchanges_attributes: [:email])
 
     @user = current_user
 
-    if !@user.authenticate(params[:user][:current_password])
+    if !@user.authenticate(params[:user][:password_challenge])
       flash.now[:error] = "Incorrect password"
       return render Users::Registrations::EditView.new(user: @user), status: :unprocessable_entity
     end

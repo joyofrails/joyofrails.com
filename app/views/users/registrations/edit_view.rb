@@ -45,8 +45,8 @@ class Users::Registrations::EditView < ApplicationView
             required: false
         end
         fieldset do
-          layout.form_label form, :current_password, "Current password to confirm changes"
-          layout.form_field form, :password_field, :current_password,
+          layout.form_label form, :password_challenge, "Current password to confirm changes"
+          layout.form_field form, :password_field, :password_challenge,
             type: "password",
             autocomplete: "current-password",
             required: false

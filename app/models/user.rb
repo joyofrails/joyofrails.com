@@ -13,8 +13,6 @@ class User < ApplicationRecord
   generates_token_for :confirmation, expires_in: 6.hours
   generates_token_for :password_reset, expires_in: 10.minutes
 
-  attribute :current_password
-
   def confirmable_email
     if pending_email_exchange.present?
       pending_email_exchange.email
