@@ -457,6 +457,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite-ulid (0.2.1-arm64-darwin)
+    sqlite-ulid (0.2.1-x86_64-linux)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
     standard (1.35.1)
@@ -565,6 +567,7 @@ DEPENDENCIES
   sitepress-rails
   solid_cache
   solid_queue
+  sqlite-ulid
   sqlite3
   standard
   stimulus-rails

@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
 
   create_table "email_exchanges", force: :cascade do |t|
     t.string "email", null: false
-    t.integer "user_id", null: false
+    t.string "user_id", null: false
     t.string "status", default: "0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
     t.string "type"
     t.integer "notification_event_id", null: false
     t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
+    t.string "recipient_id", null: false
     t.datetime "read_at"
     t.datetime "seen_at"
     t.datetime "created_at", null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
