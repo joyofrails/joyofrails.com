@@ -61,6 +61,6 @@ class Users::ConfirmationsController < ApplicationController
   private
 
   def feature_enabled!
-    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration)
+    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration, current_admin_user)
   end
 end
