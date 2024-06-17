@@ -10,7 +10,7 @@ class Users::SessionsController < ApplicationController
   end
 
   def create
-    @user = warden.authenticate!(:password, scope: :user)
+    @user = warden.authenticate!(scope: :user)
 
     redirect_to login_success_path, notice: "Signed in successfully"
   end

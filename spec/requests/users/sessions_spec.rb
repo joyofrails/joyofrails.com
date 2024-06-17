@@ -22,14 +22,31 @@ RSpec.describe "Users::Sessions", type: :request do
   end
 
   describe "POST create" do
-    it "signs in user" do
+    it "signs in user with valid email and password" do
       user = FactoryBot.create(:user, :confirmed, password: "password", password_confirmation: "password")
+      expect(user.last_sign_in_at).to be_nil
+
       post users_sessions_path, params: {user: {email: user.email, password: "password"}}
 
       perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
       expect(response).to redirect_to(users_dashboard_path)
       expect(flash[:notice]).to eq("Signed in successfully")
+      expect(user.reload.last_sign_in_at).to be_present
+    end
+
+    it "signs in user with valid magic session token" do
+      user = FactoryBot.create(:user, :confirmed)
+      token = user.generate_token_for(:magic_session)
+      expect(user.last_sign_in_at).to be_nil
+
+      post users_sessions_path, params: {token: token}
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      expect(response).to redirect_to(users_dashboard_path)
+      expect(flash[:notice]).to eq("Signed in successfully")
+      expect(user.reload.last_sign_in_at).to be_present
     end
 
     it "disallows when user not found with given email" do

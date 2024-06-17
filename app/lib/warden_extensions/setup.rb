@@ -11,6 +11,13 @@ module WardenExtensions
         class_name.constantize.find(id)
       end
 
+      Warden::Manager.after_authentication do |user, auth, opts|
+        case opts[:scope]
+        when :user
+          user.touch(:last_sign_in_at)
+        end
+      end
+
       # Hooks
       # Warden::Manager.after_set_user do |user, auth, opts|
       #   unless user.active?

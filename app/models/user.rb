@@ -12,6 +12,9 @@ class User < ApplicationRecord
 
   generates_token_for :confirmation, expires_in: 6.hours
   generates_token_for :password_reset, expires_in: 10.minutes
+  generates_token_for :magic_session, expires_in: 1.hour do
+    last_sign_in_at
+  end
 
   def confirmable_email
     if pending_email_exchange.present?

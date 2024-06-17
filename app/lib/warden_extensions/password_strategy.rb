@@ -1,7 +1,7 @@
 module WardenExtensions
   class PasswordStrategy < ::Warden::Strategies::Base
     def valid?
-      scoped_params["email"] && scoped_params["password"]
+      !!(scoped_params["email"] && scoped_params["password"])
     end
 
     def authenticate!
@@ -13,11 +13,14 @@ module WardenExtensions
       success!(user)
     end
 
+    private
+
     def scoped_params
-      params[scope.to_s] || {}
+      params[scope.to_s] || params
     end
 
     def scope_class
+      return User unless scope
       scope.to_s.classify.constantize
     end
   end
