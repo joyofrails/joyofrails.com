@@ -5,8 +5,12 @@ module WardenExtensions
     end
 
     def authenticate!
-      user = scope_class.authenticate(email: scoped_params["email"], password: scoped_params["password"])
-      user ? success!(user) : fail!(:invalid)
+      user = scope_class.authenticate_by(email: scoped_params["email"].to_s.downcase, password: scoped_params["password"])
+
+      return fail!(:invalid) if !user
+      return fail!(:unconfirmed) if user.needs_confirmation?
+
+      success!(user)
     end
 
     def scoped_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_07_205755) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_09_132723) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -25,6 +25,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_07_205755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
+  end
+
+  create_table "email_exchanges", force: :cascade do |t|
+    t.string "email", null: false
+    t.integer "user_id", null: false
+    t.string "status", default: "0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "email"], name: "index_email_exchanges_on_user_id_and_email", unique: true, where: "status = 0"
+    t.index ["user_id"], name: "index_email_exchanges_on_user_id"
   end
 
   create_table "flipper_features", force: :cascade do |t|
@@ -42,4 +52,37 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_07_205755) do
     t.datetime "updated_at", null: false
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
+
+  create_table "notification_events", force: :cascade do |t|
+    t.string "type"
+    t.json "params"
+    t.integer "notifications_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "type"
+    t.integer "notification_event_id", null: false
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.datetime "read_at"
+    t.datetime "seen_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_event_id"], name: "index_notifications_on_notification_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "email_exchanges", "users"
+  add_foreign_key "notifications", "notification_events"
 end

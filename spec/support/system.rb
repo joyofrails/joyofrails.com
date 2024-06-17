@@ -14,6 +14,7 @@ Capybara.disable_animation = true
 RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :system
   config.include Rails.application.routes.url_helpers, type: :system
+  config.include ActiveJob::TestHelper
 
   config.before(:each, type: :system) do
     driven_by(:cuprite, screen_size: [1440, 810], options: {
