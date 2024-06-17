@@ -2,7 +2,7 @@ class CreateEmailExchanges < ActiveRecord::Migration[7.1]
   def change
     create_table :email_exchanges do |t|
       t.string :email, null: false
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, type: :string
       t.string :status, null: false, default: 0 # pending
 
       t.timestamps
