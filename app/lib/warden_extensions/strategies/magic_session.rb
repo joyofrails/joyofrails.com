@@ -1,5 +1,13 @@
-module WardenExtensions
-  class MagicSessionStrategy < ::Warden::Strategies::Base
+module WardenExtensions::Strategies
+  class MagicSession < ::Warden::Strategies::Base
+    def self.key
+      name.demodulize.underscore.to_sym
+    end
+
+    def key
+      self.class.key
+    end
+
     def valid?
       !!token
     end
@@ -8,7 +16,6 @@ module WardenExtensions
       user = scope_class.find_by_token_for(:magic_session, token)
 
       return fail!(:invalid) if !user
-      return fail!(:unconfirmed) if user.needs_confirmation?
 
       success!(user)
     end
@@ -26,4 +33,4 @@ module WardenExtensions
   end
 end
 
-::Warden::Strategies.add(:magic_session, WardenExtensions::MagicSessionStrategy)
+::Warden::Strategies.add(:magic_session, WardenExtensions::Strategies::MagicSession)

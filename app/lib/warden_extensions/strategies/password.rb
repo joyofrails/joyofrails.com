@@ -1,5 +1,13 @@
-module WardenExtensions
-  class PasswordStrategy < ::Warden::Strategies::Base
+module WardenExtensions::Strategies
+  class Password < ::Warden::Strategies::Base
+    def self.key
+      name.demodulize.underscore.to_sym
+    end
+
+    def key
+      self.class.key
+    end
+
     def valid?
       !!(scoped_params["email"] && scoped_params["password"])
     end
@@ -26,4 +34,4 @@ module WardenExtensions
   end
 end
 
-::Warden::Strategies.add(:password, WardenExtensions::PasswordStrategy)
+::Warden::Strategies.add(:password, WardenExtensions::Strategies::Password)
