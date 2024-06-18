@@ -39,8 +39,6 @@ RSpec.describe CodeBlock::AppFile, type: :view do
         adapter: sqlite3
     YAML
 
-    puts page
-
     expect(page).to have_content("database: storage/production/data.sqlite3")
     expect(page).not_to have_content("database: storage/development/data.sqlite3")
   end
