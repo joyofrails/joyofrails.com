@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::Sessions::NewView < ApplicationView
+  include Phlex::Rails::Helpers::LinkTo
+
   def initialize(user: User.new)
     @user = user
   end
@@ -30,6 +32,13 @@ class Users::Sessions::NewView < ApplicationView
             required: true
         end
         layout.form_button form, "Sign in"
+      end
+
+      p do
+        plain "You can also"
+        whitespace
+        link_to "sign in without a password instead", new_users_magic_session_token_path
+        plain "."
       end
     end
   end

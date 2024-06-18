@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resource :registration, only: [:new, :create, :edit, :update, :destroy]
     resources :confirmations, only: [:new, :create, :edit, :update], param: :confirmation_token
     resources :passwords, only: [:new, :create, :edit, :update], param: :password_reset_token
+    resources :magic_session_tokens, only: [:new, :create, :show], param: :token
     resources :sessions, only: [:new, :create] do
       collection do
         delete "sign_out" => "sessions#destroy", :as => :destroy
