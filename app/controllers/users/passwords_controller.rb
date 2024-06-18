@@ -9,7 +9,8 @@ class Users::PasswordsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
+    email = params.require(:user).permit(:email).dig(:email).to_s.downcase
+    @user = User.find_by(email: email)
 
     if @user.blank?
       return redirect_to new_users_session_path, notice: "If that user exists we’ve sent instructions to their email"
@@ -25,7 +26,7 @@ class Users::PasswordsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
+    @user = User.find_by_token_for(:password_reset, params[:token])
 
     if @user.blank?
       return redirect_to new_users_password_path, alert: "That link is invalid or expired"
@@ -35,11 +36,11 @@ class Users::PasswordsController < ApplicationController
       return redirect_to new_users_confirmation_path, alert: "You must confirm your email before you can sign in"
     end
 
-    render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:password_reset_token])
+    render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:token])
   end
 
   def update
-    @user = User.find_by_token_for(:password_reset, params[:password_reset_token])
+    @user = User.find_by_token_for(:password_reset, params[:token])
 
     if @user.blank?
       flash.now[:alert] = "That link is invalid or expired"
@@ -54,7 +55,7 @@ class Users::PasswordsController < ApplicationController
       redirect_to new_users_session_path, notice: "Password updated! Please sign in"
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
-      render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:password_reset_token]), status: :unprocessable_entity
+      render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:token]), status: :unprocessable_entity
     end
   end
 

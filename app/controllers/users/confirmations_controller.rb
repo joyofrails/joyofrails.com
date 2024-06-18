@@ -10,7 +10,8 @@ class Users::ConfirmationsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params.require(:user).permit(:email).dig(:email).to_s.downcase)
+    email = params.require(:user).permit(:email).dig(:email).to_s.downcase
+    @user = User.find_by(email: email)
 
     if @user.blank?
       return redirect_to new_users_confirmation_path, alert: "We are unable to confirm that email address"
@@ -26,7 +27,7 @@ class Users::ConfirmationsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
+    @user = User.find_by_token_for(:confirmation, params[:token])
 
     if @user.blank?
       return redirect_to new_users_confirmation_path, alert: "This link is invalid or expired"
@@ -36,11 +37,11 @@ class Users::ConfirmationsController < ApplicationController
       return redirect_to root_path, notice: "Your account has already been confirmed"
     end
 
-    render Users::Confirmations::EditView.new(user: @user, confirmation_token: params[:confirmation_token])
+    render Users::Confirmations::EditView.new(user: @user, confirmation_token: params[:token])
   end
 
   def update
-    @user = User.find_by_token_for(:confirmation, params[:confirmation_token])
+    @user = User.find_by_token_for(:confirmation, params[:token])
 
     if @user.blank?
       return redirect_to new_users_confirmation_path, alert: "That link is invalid or expired"
