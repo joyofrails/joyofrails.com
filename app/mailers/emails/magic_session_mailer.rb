@@ -7,6 +7,6 @@ class Emails::MagicSessionMailer < ApplicationMailer
   end
 
   def no_account_found(email)
-    mail to: email, subject: "No account found"
+    mail to: email, subject: "No account found", support_email: support_email
   end
 end

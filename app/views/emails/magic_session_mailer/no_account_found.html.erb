@@ -1,7 +1,7 @@
 <h1>Is this the right email?</h1>
 
 <p>
-It looks like there isn’t an account on test tied to this email address.
+It looks like there isn’t a Joy of Rails account on test tied to this email address.
 </p>
 
 <p>
@@ -10,4 +10,8 @@ You can always try again with a different email:
 
 <p>
 <%= link_to "Try a different email", new_users_magic_session_token_url %>
+</p>
+
+<p>
+If you think this is a mistake, please contact us at <%= mail_to support_email %>.
 </p>
