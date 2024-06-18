@@ -23,8 +23,24 @@ RSpec.describe "Magic Sessions", type: :request do
     end
   end
 
-  describe "POST create" do
+  describe "GET show" do
     it "succeeds" do
+      get new_users_magic_session_token_path
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "redirects if authenticated" do
+      login_user
+
+      get new_users_magic_session_token_path
+
+      expect(response).to have_http_status(:found)
+    end
+  end
+
+  describe "POST create" do
+    it "succeeds for confirmed user" do
       user = FactoryBot.create(:user, :confirmed)
       post users_magic_session_tokens_path, params: {user: {email: user.email}}
 

@@ -42,7 +42,11 @@ class User < ApplicationRecord
       end
     end
 
-    update_column(:confirmed_at, Time.current)
+    touch :confirmed_at
+  end
+
+  def signed_in!
+    touch :last_sign_in_at
   end
 
   def confirmed?

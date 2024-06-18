@@ -14,17 +14,20 @@ module WardenExtensions
       Warden::Manager.after_authentication do |user, auth, opts|
         case opts[:scope]
         when :user
-          user.touch(:last_sign_in_at)
+          user.signed_in!
+        when :admin_user
+          # no op
+        end
+
+        case auth.winning_strategy&.key
+        when :magic_session
+          user.confirm!
+        when :password
+          # no op
+        else # nil, as with test helpers
+          # no op
         end
       end
-
-      # Hooks
-      # Warden::Manager.after_set_user do |user, auth, opts|
-      #   unless user.active?
-      #     auth.logout
-      #     throw(:warden, :message => "User not active")
-      #   end
-      # end
     end
   end
 end

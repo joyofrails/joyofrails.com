@@ -22,7 +22,7 @@ RSpec.describe "Users::Sessions", type: :request do
   end
 
   describe "POST create" do
-    it "signs in user with valid email and password" do
+    it "signs in confirmed user with valid email and password" do
       user = FactoryBot.create(:user, :confirmed, password: "password", password_confirmation: "password")
       expect(user.last_sign_in_at).to be_nil
 
@@ -35,7 +35,7 @@ RSpec.describe "Users::Sessions", type: :request do
       expect(user.reload.last_sign_in_at).to be_present
     end
 
-    it "signs in user with valid magic session token" do
+    it "signs in confirmed user with valid magic session token" do
       user = FactoryBot.create(:user, :confirmed)
       token = user.generate_token_for(:magic_session)
       expect(user.last_sign_in_at).to be_nil
@@ -49,6 +49,24 @@ RSpec.describe "Users::Sessions", type: :request do
       expect(user.reload.last_sign_in_at).to be_present
     end
 
+    it "signs in unconfirmed user with valid magic session token" do
+      user = FactoryBot.create(:user, :unconfirmed)
+      token = user.generate_token_for(:magic_session)
+      expect(user.last_sign_in_at).to be_nil
+
+      post users_sessions_path, params: {token: token}
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      expect(response).to redirect_to(users_dashboard_path)
+      expect(flash[:notice]).to eq("Signed in successfully")
+
+      user.reload
+
+      expect(user.last_sign_in_at).to be_present
+      expect(user).to be_confirmed
+    end
+
     it "disallows when user not found with given email" do
       post users_sessions_path, params: {user: {email: "hello#{SecureRandom.hex(5)}@example.com", password: "password"}}
 
@@ -56,7 +74,7 @@ RSpec.describe "Users::Sessions", type: :request do
       expect(flash[:alert]).to eq("Incorrect email or password")
     end
 
-    it "disallows when user is not confirmed" do
+    it "disallows password sign in when user is not confirmed" do
       user = FactoryBot.create(:user, :unconfirmed, password: "password", password_confirmation: "password")
       post users_sessions_path, params: {user: {email: user.email, password: "password"}}
 
