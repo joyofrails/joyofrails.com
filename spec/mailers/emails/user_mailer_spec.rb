@@ -8,7 +8,7 @@ RSpec.describe Emails::UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Confirm your email address")
       expect(mail.to).to eq(["to@example.com"])
-      expect(mail.from).to eq(["no-reply@joyofrails.com"])
+      expect(mail.from).to eq(["hello@joyofrails.com"])
     end
 
     it "renders the body" do
@@ -23,7 +23,7 @@ RSpec.describe Emails::UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Reset your password")
       expect(mail.to).to eq(["to@example.com"])
-      expect(mail.from).to eq(["no-reply@joyofrails.com"])
+      expect(mail.from).to eq(["hello@joyofrails.com"])
     end
 
     it "renders the body" do

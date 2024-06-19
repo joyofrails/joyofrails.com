@@ -5,7 +5,7 @@ class Users::Confirmations::EditView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "One-click confirm") do |layout|
+    render Layouts::FrontDoorForm.new(title: "Click to confirm") do |layout|
       layout.form_with model: @user,
         url: users_confirmation_path(@confirmation_token) do |form|
         layout.form_button form, "Confirm email: #{@user.email}"

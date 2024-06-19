@@ -52,10 +52,6 @@ module Joy
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
     end
 
-    # Configure Postmark
-    config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = {api_token: Rails.application.credentials.postmark&.api_token || "POSTMARK_API_TEST"}
-
     # Set up solid cable options
     config.solid_cable = ActiveSupport::OrderedOptions.new
   end
