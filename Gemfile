@@ -57,6 +57,9 @@ group :test do
   gem "capybara" # Acceptance test framework for web applications [https://github.com/teamcapybara/capybara]
   gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
   gem "cuprite", git: "https://github.com/rubycdp/cuprite"
+  gem "simplecov", require: false # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov-tailwindcss", require: false # Alternative HTML formatter for SimpleCov [https://github.com/chiefpansancolt/simplecov-tailwindcss]
+  gem "simplecov-cobertura", require: false # Produces Cobertura formatted XML from SimpleCov. [https://github.com/dashingrocket/simplecov-cobertura]
   gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
 end
 

@@ -138,6 +138,7 @@ GEM
       reline (>= 0.3.8)
     device_detector (1.1.2)
     diff-lcs (1.5.1)
+    docile (1.4.0)
     dotenv (3.1.0)
     drb (2.2.1)
     dry-cli (1.0.0)
@@ -432,6 +433,17 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sexp_processor (4.17.1)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-cobertura (2.1.0)
+      rexml
+      simplecov (~> 0.19)
+    simplecov-html (0.12.3)
+    simplecov-tailwindcss (2.2.0)
+      simplecov (~> 0.16)
+    simplecov_json_formatter (0.1.4)
     sitepress-core (4.0.2)
       mime-types (>= 2.99)
     sitepress-rails (4.0.2)
@@ -564,6 +576,9 @@ DEPENDENCIES
   rspec-rails
   ruby_wasm (~> 2.5)
   selenium-webdriver
+  simplecov
+  simplecov-cobertura
+  simplecov-tailwindcss
   sitepress-rails
   solid_cache
   solid_queue

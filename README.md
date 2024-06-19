@@ -1,5 +1,9 @@
 # joyofrails.com
 
+[![Build Status](https://github.com/joyofrails/joyofrails.com/workflows/verify.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
+[![Deploy Status](https://github.com/joyofrails/joyofrails.com/workflows/deploy.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
+[![Code Coverage](https://codecov.io/gh/joyofrails/joyofrails.com/graph/badge.svg?token=PRKDIXWQ7I)](https://codecov.io/gh/joyofrails/joyofrails.com)
+
 A place to learn and celebrate the joy of using Ruby on Rails
 
 https://www.joyofrails.com
@@ -20,9 +24,10 @@ Building a Rails application to help people learn more about building Rails appl
 
   Use a Ruby version manager to install and manage Ruby versions, such as
 
+  - [chruby](https://github.com/postmodern/chruby)
   - [asdf](https://asdf-vm.com/)
   - [rvm](https://rvm.io/)
-  - [chruby](https://github.com/postmodern/chruby)
+  - [rbenv](https://github.com/rbenv/rbenv)
 
   To use YJIT, Rust must first be installed and be found on `PATH`:
 
