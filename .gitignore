@@ -70,3 +70,5 @@ config/litestream/*.yml
 
 # Ignore rspec failure file
 spec/failures.txt
+
+/coverage
