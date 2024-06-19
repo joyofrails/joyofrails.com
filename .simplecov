@@ -1,4 +1,12 @@
-SimpleCov.start :rails do
+# frozen_string_literal: true
+
+require "simplecov-tailwindcss"
+
+SimpleCov.formatter = SimpleCov::Formatter::TailwindFormatter
+
+SimpleCov.profiles.define :joyofrails do
+  load_profile "test_frameworks"
+
   add_group "Controllers", "app/controllers"
   add_group "Content", "app/content"
   add_group "Helpers", "app/helpers"
@@ -22,4 +30,8 @@ SimpleCov.start :rails do
 
   add_filter %r{^/lib/assets/}
   add_filter %r{^/lib/rails-wasm/}
+
+  track_files "{app,lib}/**/*.rb"
 end
+
+SimpleCov.start :joyofrails

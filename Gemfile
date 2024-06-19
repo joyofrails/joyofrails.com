@@ -58,6 +58,7 @@ group :test do
   gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
   gem "cuprite", git: "https://github.com/rubycdp/cuprite"
   gem "simplecov", require: false # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov-tailwindcss", require: false
   gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
 end
 

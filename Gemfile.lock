@@ -438,6 +438,8 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
+    simplecov-tailwindcss (2.2.0)
+      simplecov (~> 0.16)
     simplecov_json_formatter (0.1.4)
     sitepress-core (4.0.2)
       mime-types (>= 2.99)
@@ -572,6 +574,7 @@ DEPENDENCIES
   ruby_wasm (~> 2.5)
   selenium-webdriver
   simplecov
+  simplecov-tailwindcss
   sitepress-rails
   solid_cache
   solid_queue
