@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     unless Rails.env.wasm?
       mount Flipper::UI.app(Flipper) => "/flipper"
       mount MissionControl::Jobs::Engine, at: "/jobs"
+      mount Litestream::Engine, at: "/litestream"
     end
   end
 end
