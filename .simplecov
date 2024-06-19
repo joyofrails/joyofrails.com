@@ -26,6 +26,9 @@ SimpleCov.profiles.define :joyofrails do
   add_filter %r{^/db/}
   add_filter %r{^/log/}
   add_filter %r{^/storage/}
+  add_filter %r{^/node_modules/}
+  add_filter %r{^/docs/}
+  add_filter %r{^/public/}
   add_filter %r{^/tmp/}
   add_filter %r{^/vendor/}
 
