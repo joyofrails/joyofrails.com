@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-require "simplecov-tailwindcss"
-
-SimpleCov.formatter = SimpleCov::Formatter::TailwindFormatter
+if ENV["CI"]
+  require "simplecov-cobertura"
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+else
+  require "simplecov-tailwindcss"
+  SimpleCov.formatter = SimpleCov::Formatter::TailwindFormatter
+end
 
 SimpleCov.profiles.define :joyofrails do
   load_profile "test_frameworks"
