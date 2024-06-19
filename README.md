@@ -1,5 +1,9 @@
 # joyofrails.com
 
+[![Build Status](https://github.com/joyofrails/joyofrails.com/workflows/verify.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
+[![Deploy Status](https://github.com/joyofrails/joyofrails.com/workflows/deploy.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
+[![Code Coverage](https://codecov.io/gh/joyofrails/joyofrails.com/graph/badge.svg?token=PRKDIXWQ7I)](https://codecov.io/gh/joyofrails/joyofrails.com)
+
 A place to learn and celebrate the joy of using Ruby on Rails
 
 https://www.joyofrails.com
