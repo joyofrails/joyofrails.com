@@ -1,17 +1,21 @@
-@import './config/type.css';
-@import './config/space.css';
-@import './config/grid.css';
-@import './config/colors-tailwind.css';
-@import './config/colors-uicolors.css';
-@import './config/colors.css';
-@import './config/theme.css';
-@import './config/settings.css';
+@layer reset, theme, layout;
 
-@import './reset.css';
-@import './baseline.css';
+@import './reset.css' layer(reset);
+
+@import './config/colors-tailwind.css' layer(theme);
+@import './config/colors-uicolors.css' layer(theme);
+@import './config/colors.css' layer(theme);
+@import './config/theme.css' layer(theme);
+@import './config/settings.css' layer(theme);
+@import './baseline.css' layer(theme);
+
+@import './config/type.css' layer(theme);
+
+@import './config/space.css' layer(layout);
+@import './config/grid.css' layer(layout);
+@import './layout.scss' layer(layout);
+
 @import './utilities.css';
-
-@import './layout.scss';
 
 @import './components/logo.css';
 @import './components/button.css';
