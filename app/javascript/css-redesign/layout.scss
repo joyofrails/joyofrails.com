@@ -41,6 +41,7 @@ main > *,
 .article-content,
 .section-content {
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
+  grid-gap: var(--grid-gutter);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
 }
 
