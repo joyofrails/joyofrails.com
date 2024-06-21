@@ -87,7 +87,7 @@ I want to do more than just a blog. I want to _show_ and tell.
 
 Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons in the figure:
 
-<div class="mb-8 outside"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
+<div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
 
 I can also link to and embed the code that makes this work, like the <%= link_to_app_file("app/controllers/examples/counters_controller.rb", "counters controller") %> that saves the count in your session and renders the HTML for this counter dynamically:
 
