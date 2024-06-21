@@ -1,0 +1,11 @@
+<%
+  my_color = 'arapawa'
+  ui_colors_color_increments = [50, *1.upto(9).map { |n| n*100}, 950 ]
+%>
+<style>
+  :root {
+    <% ui_colors_color_increments.each do |n| %>
+    --my-color-<%= n %>: var(--color-<%= my_color %>-<%= n %>);
+    <% end %>
+  }
+</style>
