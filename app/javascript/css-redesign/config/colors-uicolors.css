@@ -405,17 +405,17 @@
   --color-cosmic-950: hsla(324, 38%, 17%, 1);
 
   /* cyan-/-aqua */
-  --color-cyan-/-aqua-50: hsla(176, 89%, 96%, 1);
-  --color-cyan-/-aqua-100: hsla(177, 84%, 90%, 1);
-  --color-cyan-/-aqua-200: hsla(180, 83%, 82%, 1);
-  --color-cyan-/-aqua-300: hsla(180, 82%, 64%, 1);
-  --color-cyan-/-aqua-400: hsla(181, 76%, 53%, 1);
-  --color-cyan-/-aqua-500: hsla(182, 83%, 43%, 1);
-  --color-cyan-/-aqua-600: hsla(185, 81%, 36%, 1);
-  --color-cyan-/-aqua-700: hsla(186, 72%, 31%, 1);
-  --color-cyan-/-aqua-800: hsla(188, 61%, 27%, 1);
-  --color-cyan-/-aqua-900: hsla(190, 57%, 24%, 1);
-  --color-cyan-/-aqua-950: hsla(190, 68%, 15%, 1);
+  --color-cyan-aqua-50: hsla(176, 89%, 96%, 1);
+  --color-cyan-aqua-100: hsla(177, 84%, 90%, 1);
+  --color-cyan-aqua-200: hsla(180, 83%, 82%, 1);
+  --color-cyan-aqua-300: hsla(180, 82%, 64%, 1);
+  --color-cyan-aqua-400: hsla(181, 76%, 53%, 1);
+  --color-cyan-aqua-500: hsla(182, 83%, 43%, 1);
+  --color-cyan-aqua-600: hsla(185, 81%, 36%, 1);
+  --color-cyan-aqua-700: hsla(186, 72%, 31%, 1);
+  --color-cyan-aqua-800: hsla(188, 61%, 27%, 1);
+  --color-cyan-aqua-900: hsla(190, 57%, 24%, 1);
+  --color-cyan-aqua-950: hsla(190, 68%, 15%, 1);
 
   /* danube */
   --color-danube-50: hsla(205, 75%, 97%, 1);
