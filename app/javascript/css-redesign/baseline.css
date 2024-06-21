@@ -46,6 +46,7 @@ h6 {
   text-wrap: balance;
   align-self: end;
   max-inline-size: 100%;
+  color: var(--theme-text-heading);
 }
 
 h1 {
@@ -81,6 +82,7 @@ a {
 
 p {
   font-family: var(--serif);
+  color: var(--theme-text);
 }
 
 b,

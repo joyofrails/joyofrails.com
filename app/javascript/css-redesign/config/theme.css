@@ -84,7 +84,7 @@
   --theme-background-footer: var(--color-slate-800);
   --theme-text: var(--theme-color-50);
   --theme-text-subtle: var(--color-stone-700);
-  --theme-text-heading: var(--theme-color-50);
+  --theme-text-heading: var(--theme-color-200);
   --theme-background-mask: var(--color-lighten);
   --theme-divide: var(--color-stone-200);
   --theme-accent: var(--color-blue-800);
