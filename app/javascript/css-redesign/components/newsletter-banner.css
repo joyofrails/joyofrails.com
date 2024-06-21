@@ -10,7 +10,7 @@ section:has(.newsletter-banner) {
     align-self: start;
 
     & span {
-      color: var(--theme-link-9);
+      color: var(--theme-link-primary);
     }
   }
 }

@@ -9,16 +9,83 @@
   --theme-color-700: var(--my-color-700, var(--color-watercourse-700));
   --theme-color-800: var(--my-color-800, var(--color-watercourse-800));
   --theme-color-900: var(--my-color-900, var(--color-watercourse-900));
-  --theme-color-900: var(--my-color-950, var(--color-watercourse-950));
+  --theme-color-950: var(--my-color-950, var(--color-watercourse-950));
 
-  --theme-background: var(--theme-color-50);
+  --theme-light: var(--color-white);
+  --theme-lighten: var(--color-lighten);
+  --theme-dark: var(--color-dark);
+  --theme-darken: var(--color-darken);
+
+  --theme-link-0: var(--theme-color-50);
+  --theme-link-1: var(--theme-color-100);
+  --theme-link-2: var(--theme-color-200);
+  --theme-link-3: var(--theme-color-300);
+  --theme-link-4: var(--theme-color-400);
+  --theme-link-5: var(--theme-color-500);
+  --theme-link-6: var(--theme-color-600);
+  --theme-link-7: var(--theme-color-700);
+  --theme-link-8: var(--theme-color-800);
+  --theme-link-9: var(--theme-color-900);
+
   --theme-background-clean: white;
+  --theme-background: var(--theme-color-50);
   --theme-background-header: var(--theme-color-100);
   --theme-background-banner: var(--theme-color-100);
   --theme-background-footer: var(--theme-color-200);
+  --theme-background-mask: var(--color-darken);
+
   --theme-text: var(--color-dark);
   --theme-text-subtle: var(--color-stone-700);
-  --theme-background-mask: var(--color-darken);
+
+  --theme-text-heading: var(--color-slate-950);
+
+  --theme-divide: var(--color-stone-200);
+  --theme-accent: var(--color-blue-800);
+
+  --theme-shadow-highlight: var(--color-stone-200);
+  --theme-shadow-lowlight: var(--color-stone-400);
+  --theme-input-background: var(--theme-background-clean);
+  --theme-input-border: var(--color-stone-300);
+  --theme-input-highlight: var(--color-stone-300);
+  --theme-input-lowlight: var(--color-stone-500);
+  --theme-syntax-highlight: var(--color-yellow-100);
+  --theme-highlight: var(--color-yellow-100);
+  --theme-insert: var(--color-green-100);
+  --theme-delete: var(--color-red-100);
+  --theme-link-primary: var(--theme-link-6);
+  --theme-link-visited: var(--theme-link-9);
+  --theme-link-decoration: var(--theme-link-1);
+  --theme-link-active: var(--theme-link-2);
+  --theme-button-primary: var(--theme-color-600);
+  --theme-button-secondary: var(--color-slate-500);
+  --theme-button-warn: var(--color-red-500);
+  --theme-update-primary: var(--color-stone-700);
+  --theme-update-secondary: var(--color-stone-200);
+  --theme-update-tertiary: var(--color-stone-100);
+  --theme-tip-primary: var(--color-slate-700);
+  --theme-tip-secondary: var(--color-slate-200);
+  --theme-tip-tertiary: var(--color-slate-100);
+  --theme-info-primary: var(--theme-color-700);
+  --theme-info-secondary: var(--theme-color-200);
+  --theme-info-tertiary: var(--theme-color-100);
+  --theme-warn-primary: var(--color-yellow-700);
+  --theme-warn-secondary: var(--color-yellow-100);
+  --theme-warn-tertiary: var(--color-yellow-50);
+  --theme-stop-primary: var(--color-red-600);
+  --theme-stop-secondary: var(--color-red-100);
+  --theme-stop-tertiary: var(--color-red-50);
+}
+
+.dark {
+  --theme-background-clean: --color-slate-950;
+  --theme-background: var(--color-slate-950);
+  --theme-background-header: var(--color-slate-900);
+  --theme-background-banner: var(--color-slate-900);
+  --theme-background-footer: var(--color-slate-800);
+  --theme-text: var(--theme-color-50);
+  --theme-text-subtle: var(--color-stone-700);
+  --theme-text-heading: var(--theme-color-50);
+  --theme-background-mask: var(--color-lighten);
   --theme-divide: var(--color-stone-200);
   --theme-accent: var(--color-blue-800);
   --theme-shadow-highlight: var(--color-stone-200);
@@ -31,16 +98,10 @@
   --theme-highlight: var(--color-yellow-100);
   --theme-insert: var(--color-green-100);
   --theme-delete: var(--color-red-100);
-  --theme-link-0: var(--theme-color-50);
-  --theme-link-1: var(--theme-color-100);
-  --theme-link-2: var(--theme-color-200);
-  --theme-link-3: var(--theme-color-300);
-  --theme-link-4: var(--theme-color-400);
-  --theme-link-5: var(--theme-color-500);
-  --theme-link-6: var(--theme-color-600);
-  --theme-link-7: var(--theme-color-700);
-  --theme-link-8: var(--theme-color-800);
-  --theme-link-9: var(--theme-color-900);
+  --theme-link-primary: var(--theme-link-4);
+  --theme-link-visited: var(--theme-link-3);
+  --theme-link-decoration: var(--theme-link-8);
+  --theme-link-active: var(--theme-link-8);
   --theme-button-primary: var(--theme-color-600);
   --theme-button-secondary: var(--color-slate-500);
   --theme-button-warn: var(--color-red-500);

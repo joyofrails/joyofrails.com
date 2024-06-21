@@ -520,12 +520,11 @@ select {
   outline: 1px auto -webkit-focus-ring-color;
 }
 
-a,
-a > * {
+a {
   background-color: transparent;
   border-radius: 4px;
-  color: var(--theme-link-6);
-  text-decoration-color: var(--theme-link-1);
+  color: var(--theme-link-primary);
+  text-decoration-color: var(--theme-link-decoration);
   text-decoration-line: underline;
   text-decoration-skip-ink: auto;
   text-decoration-thickness: from-font;
@@ -535,7 +534,7 @@ a > * {
 a:visited,
 a.visited,
 a:visited > * {
-  color: var(--theme-link-9);
+  color: var(--theme-link-visited);
 }
 
 a:hover,
@@ -553,7 +552,7 @@ a:focus > * {
 a:active,
 a.active,
 a:active > * {
-  background-color: var(--theme-link-2);
+  background-color: var(--theme-link-active);
   text-decoration: none;
 }
 

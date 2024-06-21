@@ -7,7 +7,7 @@
   & h4,
   & h5,
   & h6 {
-    color: var(--color-slate-950);
+    color: var(--theme-text-heading);
     margin-block-start: var(--space-m);
   }
 
@@ -39,7 +39,7 @@
   & hr,
   & hr:before,
   & hr:after {
-    background-color: var(--color-slate-950);
+    background-color: var(--theme-text-heading);
     block-size: 0.3125rem;
     border-radius: 50%;
     inline-size: 0.3125rem;
