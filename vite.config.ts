@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [
     Rails({
       envVars: { RAILS_ENV: process.env.RAILS_ENV || 'development' },
+      fullReload: {
+        additionalPaths: ['app/assets/**/*', 'app/content/**/*'],
+      },
     }),
   ],
 });
