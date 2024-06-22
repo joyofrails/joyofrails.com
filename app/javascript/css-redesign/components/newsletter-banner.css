@@ -1,5 +1,5 @@
 section:has(.newsletter-banner) {
-  background-color: var(--theme-background-banner);
+  background-color: var(--joy-background-banner);
 }
 
 .newsletter-banner {
@@ -10,7 +10,7 @@ section:has(.newsletter-banner) {
     align-self: start;
 
     & span {
-      color: var(--theme-link-primary);
+      color: var(--joy-link-primary);
     }
   }
 }

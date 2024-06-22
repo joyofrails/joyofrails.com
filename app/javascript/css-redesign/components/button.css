@@ -21,13 +21,13 @@
     display: none;
   }
   &.primary {
-    background-color: var(--theme-button-primary);
+    background-color: var(--joy-button-primary);
   }
   &.secondary {
-    background-color: var(--theme-button-secondary);
+    background-color: var(--joy-button-secondary);
   }
   &.warn {
-    background-color: var(--theme-button-warn);
+    background-color: var(--joy-button-warn);
   }
 
   fieldset[disabled] &,

@@ -1,5 +1,5 @@
 .page-header {
-  background-color: var(--theme-background-header);
+  background-color: var(--joy-background-header);
   padding-block-start: var(--grid-gutter);
   padding-block-end: var(--grid-gutter);
 
@@ -10,6 +10,6 @@
 
   & time {
     font-size: var(--font-size-s);
-    color: var(--theme-text-light);
+    color: var(--joy-text-light);
   }
 }

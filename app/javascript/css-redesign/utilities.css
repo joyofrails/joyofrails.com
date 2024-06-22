@@ -957,3 +957,7 @@ focus\:ring-0:focus {
   outline-offset: 2px;
   outline-color: #6366f1;
 }
+
+.emphasis {
+  color: var(--joy-text-emphasis);
+}

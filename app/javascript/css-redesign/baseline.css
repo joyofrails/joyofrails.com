@@ -15,8 +15,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font: 400 var(--step-0) / var(--leading) var(--serif);
-  color: var(--theme-text);
-  background-color: var(--theme-background);
+  color: var(--joy-text);
+  background-color: var(--joy-background);
   margin: 0;
   padding: 0;
 }
@@ -46,7 +46,7 @@ h6 {
   text-wrap: balance;
   align-self: end;
   max-inline-size: 100%;
-  color: var(--theme-text-heading);
+  color: var(--joy-text-heading);
 }
 
 h1 {
@@ -81,8 +81,8 @@ a {
 }
 
 p {
-  font-family: var(--serif);
-  color: var(--theme-text);
+  font-family: var(--sans-serif);
+  color: var(--joy-text);
 }
 
 b,
@@ -525,8 +525,8 @@ select {
 a {
   background-color: transparent;
   border-radius: 4px;
-  color: var(--theme-link-primary);
-  text-decoration-color: var(--theme-link-decoration);
+  color: var(--joy-link-primary);
+  text-decoration-color: var(--joy-link-decoration);
   text-decoration-line: underline;
   text-decoration-skip-ink: auto;
   text-decoration-thickness: from-font;
@@ -536,7 +536,7 @@ a {
 a:visited,
 a.visited,
 a:visited > * {
-  color: var(--theme-link-visited);
+  color: var(--joy-link-visited);
 }
 
 a:hover,
@@ -554,7 +554,7 @@ a:focus > * {
 a:active,
 a.active,
 a:active > * {
-  background-color: var(--theme-link-active);
+  background-color: var(--joy-link-active);
   text-decoration: none;
 }
 
