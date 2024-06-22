@@ -20,6 +20,7 @@ main > *,
 .header-content,
 .section-content,
 .footer-content,
+.main-content,
 .article-content {
   display: grid;
 }
@@ -38,6 +39,7 @@ main > *,
   grid-template-columns: 2fr;
 }
 
+.main-content,
 .article-content,
 .section-content {
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
@@ -45,6 +47,7 @@ main > *,
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
 }
 
+.main-content,
 .section-content,
 .article-content {
   grid-auto-flow: row;
@@ -57,6 +60,7 @@ main > *,
   row-gap: var(--space-3xs-2xs);
 }
 
+.main-content > *,
 .article-content > * {
   grid-column: col-start / span var(--grid-columns);
 }
@@ -65,6 +69,7 @@ main > *,
 }
 
 @media screen and (min-width: $screen-lg) {
+  .main-content > *,
   .article-content > * {
     grid-column: col-start 1 / span 8;
   }
