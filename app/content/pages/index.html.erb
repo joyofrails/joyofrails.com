@@ -2,9 +2,28 @@
 title: Joy of Rails
 ---
 
-<div class="container">
-  <section class="max-w-screen-lg py-16 mx-auto lg:py-20">
-    <h1 class="pb-16 text-2xl font-bold text-center md:text-4xl"><%= current_page.data['title'] %></h1>
+<section>
+  <%= render PageHeader.new(description: "Learn how to build web applications with Ruby on Rails") do |header| %>
+    <% header.title do %>
+      Experience the <span class="emphasis">Joy of Rails</span>
+    <% end %>
+  <% end %>
+  <section style="min-height: 51vh">
+    <div class="main-content container">
+      <h2>Recently published</h2>
+      <% ArticlePage.published.each do |page| %>
+        <article class="content-grid">
+          <h3>
+            <%= link_to_page page do %>
+              <%= page.title %>
+            <% end %>
+          </h3>
+          <div>
+            <%= page.description %>
+          </div>
+        </article>
+      <% end %>
+    </div>
   </section>
-  <%= render "newsletter/banner" %>
-</div>
+</section>
+<section><%= render "newsletter/banner" %></section>

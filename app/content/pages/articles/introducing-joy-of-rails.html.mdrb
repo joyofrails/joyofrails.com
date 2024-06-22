@@ -1,7 +1,7 @@
 ---
 title: Introducing Joy of Rails
 author: Ross Kaffenberger
-layout: redesign/article
+layout: article
 summary:
 description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open sourced on Github.
 published: '2024-05-02'
