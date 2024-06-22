@@ -19,3 +19,8 @@
   display: grid;
   gap: var(--grid-gutter);
 }
+
+.content-grid {
+  display: grid;
+  gap: var(--space-m);
+}
