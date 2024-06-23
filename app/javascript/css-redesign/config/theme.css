@@ -38,7 +38,7 @@
   --joy-text: var(--color-dark);
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-emphasis: var(--joy-color-700);
-  --joy-text-heading: var(--color-slate-950);
+  --joy-text-heading: var(--color-slate-900);
 
   --joy-link-primary: var(--joy-link-6);
   --joy-link-visited: var(--joy-link-9);

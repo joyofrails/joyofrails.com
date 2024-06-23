@@ -1,9 +1,7 @@
 :root {
   --color-white: hsla(0, 0%, 100%, 1);
-  --color-dark: hsla(12, 6%, 15%, 1);
+  --color-dark: var(--color-slate-900);
+  --color-light: var(--color-slate-50);
   --color-darken: hsla(12, 6%, 15%, 0.1);
   --color-lighten: hsla(0, 0%, 98%, 0.05);
-
-  --color-dark: hsla(0, 0%, 7%, 1);
-  --color-darken: hsla(0, 0%, 7%, 0.1);
 }
