@@ -13,13 +13,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "application/config" %>
-    <%= render "application/my_css" %>
+    <%= render "application/theme/color" %>
+    <%= render "application/theme/code" %>
     <%= render "darkmode/setup" %>
     <%= vite_client_tag %>
 
-    <%= vite_stylesheet_tag "redesign.css", media: "all", "data-turbo-track": "reload" %>
-    <%= vite_javascript_tag "redesign.js", media: "all", "data-turbo-track": "reload" %>
-    <%= render "application/theme/code" %>
+    <%= vite_stylesheet_tag "application.css", media: "all", "data-turbo-track": "reload" %>
+    <%= vite_javascript_tag "application.js", media: "all", "data-turbo-track": "reload" %>
 
     <%= auto_discovery_link_tag(:rss, feed_index_url, {title: "joyofrails.com"}) %>
 
@@ -28,12 +28,12 @@
   </head>
   <%= tag.body do %>
     <%= yield :top %>
-    <%= render "application/redesign/header" %>
+    <%= render "application/header" %>
     <main class="">
       <div id="start-here"></div>
       <div class="flash"><%= render "flash" %></div>
       <%= yield %>
     </main>
-    <%= render "application/redesign/footer" %>
+    <%= render "application/footer" %>
   <% end %>
 </html>

@@ -1,10 +1,13 @@
-@keyframes appear-then-fade {
-  0%,
-  100% {
-    opacity: 0;
+@keyframes animatedGradient {
+  0% {
+    background-position: 0 50%;
   }
-  10%,
-  60% {
-    opacity: 1;
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  to {
+    background-position: 0 50%;
   }
 }

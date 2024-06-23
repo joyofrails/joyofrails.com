@@ -1,68 +1,43 @@
-<%= tag.footer class: footer_classes do %>
-  <div class="container">
+<%= tag.footer class: "" do %>
+  <div class="footer-content">
+    <%= link_to root_path, class: "logo" do %>
+      <div class="">
+        <%= inline_svg_tag "joy-logo.svg", class: "fill-current" %>
+      </div>
+      <div class=""><span class="font-bold">Sharing and experiencing the</span>
+        <span class="">Joy of Rails</span>
+      </div>
+    <% end %>
     <nav
-      aria-label="footer"
-      class="
-        flex flex-col items-center justify-between w-full gap-6 pt-16 pb-16 space-y-6
-        md:space-y-0 md:flex-row md:items-start md:pt-14 lg:pb-40
-      ">
-      <div
-        class="
-          flex flex-col items-center h-full space-y-5 md:items-start max-w-[18rem]
-        ">
-        <%= link_to root_path, class: "text-color-text flex flex-col items-center space-y-3 text-center md:flex-row md:items-start md:text-left md:space-x-2 md:space-y-0" do %>
-          <div class="flex-shrink-0 w-12 md:w-8">
-            <%= inline_svg_tag "joy-logo.svg",
-            class: "fill-joy-text",
-            style: "max-width: 32px;" %>
-          </div>
-          <div class="mt-1 text-lg text-joy-text"><span class="font-bold">Sharing and experiencing the</span>
-            <span class="font-logo">Joy of Rails</span>
-          </div>
-        <% end %>
-      </div>
-      <div
-        class="
-          text-gray-text
-          grid items-center w-full grid-cols-1 text-center md:grid-cols-2 lg:pr-6
-          md:gap-10 md:text-left md:items-start md:w-auto
-        ">
-        <ul>
-          <li class="py-1 leading-relaxed md:text-sm"><a
-              class="
-                transition-colors duration-150 ease-in-out hover:text-joy-link-hover
-              "
-              href="/articles">Articles</a>
-          </li>
-          <% if Flipper.enabled?(:pwa_showcase_navigation) %>
-            <li class="py-1 leading-relaxed md:text-sm"><a
-                class="
-                  transition-colors duration-150 ease-in-out hover:text-joy-link-hover
-                "
-                href="/pwa-showcase">Progress Web Apps on Rails Showcase</a>
-            </li>
-          <% end %>
-        </ul>
-        <ul>
-          <li class="py-1 leading-relaxed md:text-sm"><a
-              class="
-                transition-colors duration-150 ease-in-out hover:text-joy-link-hover
-              "
-              href="mailto:support@joyofrails.com">support@joyofrails.com</a></li>
-        </ul>
-      </div>
+      class="">
+      <ul>
+        <li class="">
+          <a
+            class=""
+            href="/articles">Articles</a>
+        </li>
+      </ul>
+      <ul>
+        <li class="">
+          <a class=""
+            href="/about">About</a>
+        </li>
+      </ul>
+      <ul>
+        <li class=""><a
+            class=""
+            href="mailto:hello@joyofrails.com">hello@joyofrails.com</a></li>
+      </ul>
     </nav>
-    <small
-      class="
-        flex items-center justify-center w-full py-6 space-x-6
-        text-xs text-gray-text
-        md:justify-end
-      ">
-      <div>© 2023-present joyofrails. All rights reserved.</div>
-      <%# <a class="" href="/terms">Terms &amp; Conditions</a>
-      <a class="" href="/privacy">Privacy Policy</a>
-      <a class="" href="/faq">FAQ</a> %>
-      <%= render "darkmode/switch" %>
-    </small>
+    <div>
+      <small class="">
+        <div>© 2023-present joyofrails. All rights reserved.</div>
+        <%#
+        <a class="" href="/terms">Terms &amp; Conditions</a>
+        <a class="" href="/privacy">Privacy Policy</a>
+        <a class="" href="/faq">FAQ</a>
+        %>
+      </small>
+    </div>
   </div>
 <% end %>

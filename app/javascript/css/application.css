@@ -1,19 +1,30 @@
-@import './theme.css';
-@import './highlight.css';
-@import './components.css';
+@layer reset, theme, layout;
 
-html {
-  @apply bg-joy-bg-2;
-  height: 100%;
-}
+@import './reset.css' layer(reset);
 
-body {
-  &:has(dialog[open]) {
-    overflow: hidden;
-    padding-right: 15px;
-  }
-}
+@import './config/colors-tailwind.css' layer(theme);
+@import './config/colors-uicolors.css' layer(theme);
+@import './config/colors.css' layer(theme);
+@import './config/theme.css' layer(theme);
+@import './config/settings.css' layer(theme);
+@import './baseline.css' layer(theme);
 
-dialog {
-  max-width: min(90%, 940px);
-}
+@import './config/type.css' layer(theme);
+
+@import './config/space.css' layer(layout);
+@import './config/grid.css' layer(layout);
+@import './layout.scss' layer(layout);
+
+@import './utilities.css';
+
+@import './components/logo.css';
+@import './components/button.css';
+@import './components/code.scss';
+@import './components/page-header.css';
+@import './components/skip-to-content.css';
+@import './components/site-header.css';
+@import './components/main-content.css';
+@import './components/article-content.css';
+@import './components/footer-content.css';
+@import './components/newsletter-banner.css';
+@import './components/anchors.scss';
