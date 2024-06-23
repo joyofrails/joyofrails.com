@@ -4,7 +4,6 @@
   padding-block-end: var(--grid-gutter);
 
   & .description {
-    font-style: italic;
     font-size: var(--step-1);
   }
 

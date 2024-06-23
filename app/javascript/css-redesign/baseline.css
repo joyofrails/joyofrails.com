@@ -529,7 +529,7 @@ a {
   text-decoration-color: var(--joy-link-decoration);
   text-decoration-line: underline;
   text-decoration-skip-ink: auto;
-  text-decoration-thickness: from-font;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
@@ -554,8 +554,7 @@ a:focus > * {
 a:active,
 a.active,
 a:active > * {
-  background-color: var(--joy-link-active);
-  text-decoration: none;
+  color: var(--joy-link-active);
 }
 
 pre {
@@ -606,4 +605,10 @@ select {
 
 svg {
   fill: currentColor;
+}
+
+.dark {
+  p {
+    font-weight: 300;
+  }
 }

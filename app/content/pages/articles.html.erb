@@ -3,17 +3,16 @@
   <section>
     <div class="main-content container">
       <% ArticlePage.published.each do |page| %>
-        <article class="content-grid">
-          <%= link_to_page page do %>
-            <h2><%= page.title %></h2>
-          <% end %>
-          <div>
-            <%= time_ago_in_words(page.published_on) %> ago
-          </div>
+        <div>
+          <h2>
+            <%= link_to_page page do %>
+              <%= page.title %>
+            <% end %>
+          </h2>
           <div>
             <%= page.description %>
           </div>
-        </article>
+        </div>
       <% end %>
     </div>
   </section>

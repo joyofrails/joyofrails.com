@@ -12,16 +12,16 @@ title: Joy of Rails
     <div class="main-content container">
       <h2>Recently published</h2>
       <% ArticlePage.published.each do |page| %>
-        <article class="content-grid">
-          <h3>
+        <div>
+          <h2>
             <%= link_to_page page do %>
               <%= page.title %>
             <% end %>
-          </h3>
+          </h2>
           <div>
             <%= page.description %>
           </div>
-        </article>
+        </div>
       <% end %>
     </div>
   </section>
