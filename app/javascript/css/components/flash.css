@@ -6,9 +6,9 @@
   transform: translateX(-50%);
 
   width: max-content;
+}
 
-  &__message {
-    @apply text-sm p-4 text-white rounded-md font-semibold bg-joy-bg-active;
-    animation: appear-then-fade 4s both;
-  }
+.flash__message {
+  @apply text-sm p-4 text-white rounded-md font-semibold bg-joy-bg-active;
+  animation: appear-then-fade 4s both;
 }
