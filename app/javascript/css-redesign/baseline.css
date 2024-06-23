@@ -14,7 +14,7 @@ html,
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font: 400 var(--step-0) / var(--leading) var(--serif);
+  font: 400 var(--step-0) / var(--leading) var(--sans-serif);
   color: var(--joy-text);
   background-color: var(--joy-background);
   margin: 0;

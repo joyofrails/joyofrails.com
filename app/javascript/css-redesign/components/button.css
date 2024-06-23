@@ -2,6 +2,7 @@
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
   display: inline-flex;
+  align-items: center;
   font-size: 0.875rem;
   font-family: var(--sans-serif);
   line-height: 1.5715;
