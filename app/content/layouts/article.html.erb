@@ -4,7 +4,7 @@
     <%= render PageHeader.new(
       title: current_page.data.title!,
       description: current_page.data.description,
-      published_on: current_page.data.published.to_date
+      published_on: current_page.data.published&.to_date
     ) %>
     <%- if current_page.data.toc -%>
       <aside>

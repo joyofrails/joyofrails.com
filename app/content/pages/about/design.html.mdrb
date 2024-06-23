@@ -1,0 +1,14 @@
+---
+title: Site Design
+layout: article
+---
+
+I’d like to first acknowledge the layout and aesthetic of this site borrows heavily from [garrettdimon.com](https://garrettdimon.com)—I love the simplicity of Garrett‘s site along with his commitment to accessibility. He also has "meta" content to help educate readers; not only is there a meta section of the website, but the HTML source often includes explanatory comments addressed to folks like me peeking under the hood. This is very much in spirit with what I‘d like for Joy of Rails. Please check out [Garrett’s site](https://garrettdimon.com/) for great content related to software development and running a SaaS business, among other topics.
+
+The design leans heavily into CSS grid. I’m a relatively new student of CSS grid so I’m sure the approach could be improved. I built a 12 column layout from using https://utopia.fyi to generate based grid, layout, and type settings as CSS variables.
+
+Speaking of, the color theme of the site is also driven by CSS variables. Taking a cue from Tailwind’s default color palettes, I liked the idea of building the color theme off a monochromatic scale. This led me to [`chroma-js` ](https://www.npmjs.com/package/chroma-js) which can generate a scale given seed colors. Joy of Rails can now swap out its color theme given a recognized color name. It’s currently hard-coded but a future release will allow readers to swap out the color themselves.
+
+The first iteration of this site’s design was built with Tailwind. With the new design taking shape, I’ve decided to remove Tailwind. I want to Joy of Rails to "own more" of its dependencies—part of why I implemented [Authentication from Scratch](https://github.com/joyofrails/joyofrails.com/pull/149). I love Tailwind, but in moving in this direction, it felt freeing to realize I [don’t need a CSS framework](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/). This does mean a more work is required in HTML and CSS to make styles and accessibility work better for readers.
+
+Even though I’ve removed Tailwind as a dependency, I copied many of the Tailwind utility classes I was using directly into my application styles help with the transition. Over time, I may be able to pare down this set of classes, but I can see how many of them will continue to be useful in the future.
