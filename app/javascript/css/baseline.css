@@ -297,6 +297,7 @@ select {
   appearance: none;
   background-color: #fff;
   border-color: #6b7280;
+  border-style: solid;
   border-width: 1px;
   border-radius: 0;
   padding: 0.5rem 0.75rem;
