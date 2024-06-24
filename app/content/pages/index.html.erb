@@ -2,28 +2,11 @@
 title: Joy of Rails
 ---
 
-<section>
-  <%= render PageHeader.new(description: "Learn how to build web applications with Ruby on Rails") do |header| %>
-    <% header.title do %>
-      Experience the <span class="emphasis">Joy of Rails</span>
+<section style="min-height: 51vh">
+  <div class="main-content container py-3xl">
+    <% ArticlePage.published.take(3).zip(%w[left right]).each do |(page, side)| %>
+      <%= render Pages::Summary.from_page(page, side: side) %>
     <% end %>
-  <% end %>
-  <section style="min-height: 51vh">
-    <div class="main-content container">
-      <h2>Recently published</h2>
-      <% ArticlePage.published.each do |page| %>
-        <div>
-          <h2>
-            <%= link_to_page page do %>
-              <%= page.title %>
-            <% end %>
-          </h2>
-          <div>
-            <%= page.description %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </section>
+  </div>
 </section>
 <section><%= render "newsletter/banner" %></section>

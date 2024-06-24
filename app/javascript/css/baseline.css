@@ -57,6 +57,12 @@ h1 {
 
 h2 {
   font-size: var(--step-2);
+
+  &.important {
+    font-size: var(--step-4);
+    letter-spacing: -2px;
+    font-weight: 800;
+  }
 }
 
 h3 {

@@ -1,7 +1,7 @@
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
   <article>
-    <%= render PageHeader.new(
+    <%= render Pages::Header.new(
       title: current_page.data.title!,
       description: current_page.data.description,
       published_on: current_page.data.published&.to_date

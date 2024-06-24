@@ -1,4 +1,4 @@
-class PageHeader < ApplicationComponent
+class Pages::Header < ApplicationComponent
   include Phlex::DeferredRender
   include Phlex::Rails::Helpers::TimeTag
 

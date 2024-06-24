@@ -1,19 +1,7 @@
 <section>
-  <%= render PageHeader.new(title: "Articles") %>
-  <section>
-    <div class="main-content container">
-      <% ArticlePage.published.each do |page| %>
-        <div>
-          <h2>
-            <%= link_to_page page do %>
-              <%= page.title %>
-            <% end %>
-          </h2>
-          <div>
-            <%= page.description %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </section>
+  <div class="main-content container py-3xl">
+    <% ArticlePage.published.take(20).zip(%w[left right]).each do |(page, side)| %>
+      <%= render Pages::Summary.from_page(page, side: side) %>
+    <% end %>
+  </div>
 </section>

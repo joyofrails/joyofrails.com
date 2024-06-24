@@ -23,12 +23,6 @@ module PageHelper
     end
   end
 
-  # Conditionally renders the block if an arg is present. If all the args are nil,
-  # the block is not rendered. Handy for laconic templating languages like slim, haml, etc.
-  def with(*args, &block)
-    block.call(*args) unless args.all?(&:nil?)
-  end
-
   # Render a block within a layout. This is a useful, and prefered way, to handle
   # nesting layouts, within Sitepress.
   def render_layout(layout, **, &)

@@ -17,6 +17,7 @@
 
 body > *,
 main > *,
+.grid,
 .header-content,
 .section-content,
 .footer-content,
@@ -39,23 +40,33 @@ main > *,
   grid-template-columns: 2fr;
 }
 
+.grid {
+  grid-gap: var(--grid-gutter);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .main-content,
 .article-content,
 .section-content {
-  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-gap: var(--grid-gutter);
+  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
 }
 
 .main-content,
 .section-content,
-.article-content {
+.article-content,
+.grid-row-mid {
   grid-auto-flow: row;
   row-gap: var(--space-m);
 }
 
 .header-content,
-.footer-content {
+.footer-content,
+.grid-row-tight {
   grid-auto-flow: row;
   row-gap: var(--space-3xs-2xs);
 }
@@ -69,7 +80,6 @@ main > *,
 }
 
 @media screen and (min-width: $screen-lg) {
-  .main-content > *,
   .article-content > * {
     grid-column: col-start 1 / span 8;
   }
