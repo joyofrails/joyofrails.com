@@ -57,7 +57,7 @@ class Pages::Summary < ApplicationComponent
   def image(**)
     div(**) do
       figure(class: "page-summary--image") do
-        image_tag @image
+        image_tag @image, class: "w-full"
       end
     rescue
       ActionView::Template::Error
