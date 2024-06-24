@@ -59,6 +59,8 @@ class Pages::Summary < ApplicationComponent
       figure(class: "page-summary--image") do
         image_tag @image
       end
+    rescue
+      ActionView::Template::Error
     end
   end
 end
