@@ -30,7 +30,7 @@
   --joy-background-clean: white;
   --joy-background: var(--joy-color-50);
   --joy-background-header: var(--joy-color-100);
-  --joy-background-banner: var(--joy-color-100);
+  --joy-background-banner: var(--joy-color-200);
   --joy-background-footer: var(--joy-color-100);
   --joy-background: var(--joy-color-50);
   --joy-background-mask: var(--color-darken);
@@ -53,8 +53,8 @@
   --joy-background-clean: --color-slate-950;
   --joy-background: var(--color-slate-950);
   --joy-background-header: var(--color-slate-900);
-  --joy-background-banner: var(--color-slate-900);
-  --joy-background-footer: var(--color-slate-800);
+  --joy-background-banner: var(--color-slate-800);
+  --joy-background-footer: var(--color-slate-900);
   --joy-background-mask: var(--color-lighten);
 
   --joy-text: var(--joy-color-50);
