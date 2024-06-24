@@ -1,0 +1,13 @@
+section:has(.newsletter-banner) {
+  background-color: var(--joy-background-banner);
+}
+
+.newsletter-banner {
+  & h3 {
+    align-self: start;
+
+    & span {
+      color: var(--joy-link-primary);
+    }
+  }
+}

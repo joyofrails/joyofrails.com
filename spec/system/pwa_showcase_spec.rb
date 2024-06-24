@@ -8,11 +8,7 @@ RSpec.describe "PWA Showcase", type: :system do
   end
 
   it "renders the Install to Homescreen button" do
-    Flipper.enable(:pwa_showcase_navigation)
-
-    visit "/"
-
-    click_link "Progress Web Apps on Rails Showcase"
+    visit "/pwa-showcase"
 
     expect(page).to have_button("Install to Homescreen")
   end
@@ -23,11 +19,8 @@ RSpec.describe "PWA Showcase", type: :system do
     end
 
     it "renders the Install to Homescreen button" do
-      Flipper.enable(:pwa_showcase_navigation)
+      visit "/pwa-showcase"
 
-      visit "/"
-
-      click_link "Progress Web Apps on Rails Showcase"
       click_link "Install to Homescreen"
 
       expect(page).to have_content("PWA installation is not currently supported in Firefox on desktop.")

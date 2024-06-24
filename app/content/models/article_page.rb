@@ -3,7 +3,7 @@ class ArticlePage < Sitepress::Model
   include ActiveModel::Conversion
 
   collection glob: "articles/*.html*"
-  data :title, :published, :updated, :summary, :description, :tags
+  data :title, :published, :updated, :summary, :description, :tags, :image
 
   delegate :mime_type, :handler, to: :page
 

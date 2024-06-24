@@ -1,0 +1,15 @@
+.logo {
+  display: flex;
+  align-items: center;
+  font-family: var(--sans-serif-thick);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  svg {
+    width: 32px;
+    margin-right: 0.4rem;
+  }
+}

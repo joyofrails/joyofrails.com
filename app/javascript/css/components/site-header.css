@@ -1,0 +1,13 @@
+header {
+  background-color: var(--joy-background-header);
+}
+
+.site-header {
+  width: 100%;
+  margin-top: var(--grid-gutter);
+  margin-bottom: var(--grid-gutter);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

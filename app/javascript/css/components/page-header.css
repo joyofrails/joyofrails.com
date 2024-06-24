@@ -1,0 +1,14 @@
+.page-header {
+  background-color: var(--joy-background-header);
+  padding-block-start: var(--grid-gutter);
+  padding-block-end: var(--grid-gutter);
+
+  & .description {
+    font-size: var(--step-1);
+  }
+
+  & time {
+    font-size: var(--font-size-s);
+    color: var(--joy-text-light);
+  }
+}

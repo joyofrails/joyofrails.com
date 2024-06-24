@@ -67,7 +67,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Limit logging in test environment
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "warn")
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "fatal")
 
   # Use perform_enqueued_jobs to run active jobs in test
   config.active_job.queue_adapter = :test

@@ -1,0 +1,104 @@
+@import 'config/variables.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.site-header,
+.footer-content,
+.container {
+  width: 100%;
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-gutter);
+  margin-inline: auto;
+}
+
+body > *,
+main > *,
+.grid,
+.header-content,
+.section-content,
+.footer-content,
+.main-content,
+.article-content {
+  display: grid;
+}
+
+main > * {
+  row-gap: var(--grid-gutter);
+}
+
+body > *,
+main > *,
+.header-content {
+  grid-template-columns: 1fr;
+}
+
+.footer-content {
+  grid-template-columns: 2fr;
+}
+
+.grid {
+  grid-gap: var(--grid-gutter);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.main-content,
+.article-content {
+  grid-gap: var(--grid-gutter);
+  grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
+  grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
+}
+
+.main-content,
+.section-content,
+.article-content,
+.grid-row-mid {
+  grid-auto-flow: row;
+  row-gap: var(--space-m);
+}
+
+.header-content,
+.footer-content,
+.grid-row-tight {
+  grid-auto-flow: row;
+  row-gap: var(--space-3xs-2xs);
+}
+
+.main-content > *,
+.article-content > * {
+  grid-column: col-start / span var(--grid-columns);
+}
+
+@media screen and (min-width: $screen-md) {
+}
+
+@media screen and (min-width: $screen-lg) {
+  .article-content > * {
+    grid-column: col-start 1 / span 8;
+  }
+
+  .lg\:grid-cols-1\/2 {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .article-content > .outside,
+  .article-content > img {
+    grid-column: col-start 9 / span 4;
+    grid-row-start: span 4;
+  }
+
+  // For making code blocks span the full width of the article
+  // .article-content > .code-wrapper {
+  //   grid-column: col-start / span var(--grid-columns);
+  // }
+}

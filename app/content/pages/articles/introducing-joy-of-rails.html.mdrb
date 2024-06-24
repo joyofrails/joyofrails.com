@@ -3,10 +3,11 @@ title: Introducing Joy of Rails
 author: Ross Kaffenberger
 layout: article
 summary:
-description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community
+description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open sourced on Github.
 published: '2024-05-02'
 toc: false
 uuid: 4106248b-ae8f-40a3-9853-48b91d815a71
+image: articles/introducing-joy-of-rails/adventure-world.gif
 tags:
   - Rails
 ---
@@ -19,9 +20,13 @@ To me, it looked like the Matrix.
 
 <%= image_tag "articles/introducing-joy-of-rails/matrix.gif", title: "Screen of nonsensical text" %>
 
-Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at. I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
+Up to this point in my programming journey, I’d mostly used Java. With Java, I rarely was required to leave the comfort zone of my JetBrains IDE. What my colleague showed me was raw and new. I could barely make sense of what I was looking at.
 
-This is awesome.
+I don’t even remember what that first application was even about, but there’s one feeling I had in that moment that has stuck with me to this day.
+
+> This is awesome.
+
+_I want to learn this_.
 
 <%= image_tag("articles/introducing-joy-of-rails/adventure-world.gif", alt: "Jake from Adventure World and Rainbows", class: "w-full") %>
 
@@ -81,7 +86,7 @@ Most blogs are built on top of a content-management system, like WordPress or Gh
 
 I want to do more than just a blog. I want to _show_ and tell.
 
-Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons below:
+Let’s say I wanted to describe how to build a basic counter with Rails and Hotwire. We can show it in action right here in a post. Try clicking the buttons in the figure:
 
 <div class="mb-8"><%= turbo_frame_tag dom_id(Examples::Counter.new), src: examples_counters_path %></div>
 

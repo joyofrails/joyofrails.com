@@ -1,0 +1,117 @@
+@import '../config/variables.scss';
+
+.code-wrapper {
+  border-radius: var(--space-3xs-2xs);
+}
+
+@media screen and (min-width: $screen-md) {
+  .code-wrapper {
+    margin-inline-start: calc(var(--space-m) * -1);
+    margin-inline-end: calc(var(--space-m) * -1);
+  }
+}
+
+.code-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow-x: auto;
+
+  pre {
+    line-height: 1.7777778;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0.5rem;
+    padding-top: var(--space-m);
+    padding-inline-end: var(--space-m);
+    padding-bottom: var(--space-m);
+    padding-inline-start: var(--space-m);
+    background-color: inherit;
+  }
+}
+
+.code-header {
+  line-height: 1;
+  display: none;
+  padding: 1.5rem 1.5rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5715;
+  /* color: rgb(156 163 175 / var(--tw-text-opacity)); */
+
+  & .code-title {
+    font-weight: 600;
+    /* color: rgb(209 213 219 / var(--tw-text-opacity)); */
+    display: block;
+    text-align: center;
+    line-height: 1;
+
+    & a {
+      font-family: var(--sans-serif);
+      font-weight: 600;
+      gap: 0.25rem;
+      align-items: center;
+      display: flex;
+      text-decoration: var(--joy-link-0);
+    }
+  }
+}
+@media (min-width: $screen-lg) {
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.code-footer {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.code-output {
+  /* color: rgb(156 163 175 / var(--tw-text-opacity)); */
+}
+
+.code-output,
+.code-result {
+  padding: 0 !important; /* Override tailwind padding */
+}
+
+.code-actions {
+  flex-direction: row-reverse;
+  /* color: rgb(156 163 175 / var(--tw-text-opacity)); */
+}
+
+@media (min-width: 1024px) {
+  .code-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.code-action-status {
+  font-size: 0.875rem;
+  line-height: 1.5715;
+}
+
+svg {
+  fill: currentColor;
+
+  &.app-dots {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  &.copy-text {
+    /* width: 24px; */
+  }
+  &.check-mark {
+    /* width: 24px; */
+  }
+}
+
+.clipboard-copy-container {
+  font-family: var(--sans-serif);
+}

@@ -1,0 +1,41 @@
+@import '../config/variables.scss';
+
+@media screen and (min-width: $screen-md) {
+  .md\:mt-3 {
+    margin-top: 0.75rem;
+  }
+  .md\:mr-4 {
+    margin-right: 1rem;
+  }
+  .md\:w-\[20px\] {
+    width: 20px;
+  }
+  .md\:p-2 {
+    padding: 0.5rem;
+  }
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: -0.017em;
+  }
+  .md\:top-\[3px\] {
+    top: 3px;
+  }
+  .md\:left-\[-72px\] {
+    left: -72px;
+  }
+}
+
+@media screen and (min-width: $screen-lg) {
+  .lg\:text-left {
+    text-align: left;
+  }
+  .lg\:text-right {
+    text-align: right;
+  }
+
+  .lg\:py-3xl {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+}

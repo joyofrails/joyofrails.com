@@ -1,0 +1,72 @@
+:root {
+  --joy-color-50: var(--my-color-50, var(--color-watercourse-50));
+  --joy-color-100: var(--my-color-100, var(--color-watercourse-100));
+  --joy-color-200: var(--my-color-200, var(--color-watercourse-200));
+  --joy-color-300: var(--my-color-300, var(--color-watercourse-300));
+  --joy-color-400: var(--my-color-400, var(--color-watercourse-400));
+  --joy-color-500: var(--my-color-500, var(--color-watercourse-500));
+  --joy-color-600: var(--my-color-600, var(--color-watercourse-600));
+  --joy-color-700: var(--my-color-700, var(--color-watercourse-700));
+  --joy-color-800: var(--my-color-800, var(--color-watercourse-800));
+  --joy-color-900: var(--my-color-900, var(--color-watercourse-900));
+  --joy-color-950: var(--my-color-950, var(--color-watercourse-950));
+
+  --joy-light: var(--color-white);
+  --joy-lighten: var(--color-lighten);
+  --joy-dark: var(--color-dark);
+  --joy-darken: var(--color-darken);
+
+  --joy-link-0: var(--joy-color-50);
+  --joy-link-1: var(--joy-color-100);
+  --joy-link-2: var(--joy-color-200);
+  --joy-link-3: var(--joy-color-300);
+  --joy-link-4: var(--joy-color-400);
+  --joy-link-5: var(--joy-color-500);
+  --joy-link-6: var(--joy-color-600);
+  --joy-link-7: var(--joy-color-700);
+  --joy-link-8: var(--joy-color-800);
+  --joy-link-9: var(--joy-color-900);
+
+  --joy-background-clean: white;
+  --joy-background: var(--joy-color-50);
+  --joy-background-header: var(--joy-color-100);
+  --joy-background-banner: var(--joy-color-200);
+  --joy-background-footer: var(--joy-color-100);
+  --joy-background: var(--joy-color-50);
+  --joy-background-mask: var(--color-darken);
+
+  --joy-text: var(--color-dark);
+  --joy-text-subtle: var(--color-stone-700);
+  --joy-text-emphasis: var(--joy-color-700);
+  --joy-text-heading: var(--color-slate-900);
+
+  --joy-link-primary: var(--joy-link-6);
+  --joy-link-visited: var(--joy-link-9);
+  --joy-link-decoration: var(--joy-link-1);
+  --joy-link-active: var(--joy-link-2);
+  --joy-button-primary: var(--joy-color-600);
+  --joy-button-secondary: var(--color-slate-500);
+  --joy-button-warn: var(--color-red-500);
+}
+
+.dark {
+  --joy-background-clean: --color-slate-950;
+  --joy-background: var(--color-slate-950);
+  --joy-background-header: var(--color-slate-900);
+  --joy-background-banner: var(--color-slate-800);
+  --joy-background-footer: var(--color-slate-900);
+  --joy-background-mask: var(--color-lighten);
+
+  --joy-text: var(--joy-color-50);
+  --joy-text-subtle: var(--color-stone-700);
+  --joy-text-heading: var(--joy-color-200);
+  --joy-text-emphasis: var(--joy-color-500);
+
+  --joy-link-primary: var(--joy-link-4);
+  --joy-link-visited: var(--joy-link-3);
+  --joy-link-decoration: var(--joy-link-8);
+  --joy-link-active: var(--joy-link-5);
+  --joy-button-primary: var(--joy-color-600);
+  --joy-button-secondary: var(--color-slate-500);
+  --joy-button-warn: var(--color-red-500);
+}

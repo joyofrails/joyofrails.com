@@ -1,0 +1,12 @@
+---
+title: About Joy of Rails
+layout: article
+description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open sourced on Github.
+updated: 2024-06-23
+---
+
+Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is [open sourced on Github](https://github.com/joyofrails/joyofrails.com).
+
+## Design
+
+I’ve written more in-depth about the [design](/about/design) of this site.

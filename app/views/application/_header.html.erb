@@ -1,11 +1,11 @@
-<%= tag.header class: header_classes, aria: { label: "header" } do %>
-  <div class="container flex items-center justify-between w-full h-full sticky">
-    <%= link_to root_path, class: "text-joy-title flex items-center pr-2" do %>
-      <div class="flex-shrink-0 w-12 md:w-8">
-        <%= inline_svg_tag "joy-logo.svg", class: "fill-current", style: "max-width: 32px;" %>
-      </div>
-      <span class="inline-block text-lg font-logo">Joy of Rails</span>
-    <% end %>
+<%= tag.header aria: { label: "header" } do %>
+  <div class="site-header container">
+    <nav class="">
+      <%= link_to root_path, class: "logo" do %>
+        <%= inline_svg_tag "joy-logo.svg", class: "fill-current" %>
+        <span>Joy of Rails</span>
+      <% end %>
+    </nav>
     <%= turbo_frame_tag :header_navigation, src: users_header_navigation_path, target: :_top do %>
       <%= render partial: "application/header/nav", layout: "layouts/header/nav" %>
     <% end %>
