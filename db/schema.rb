@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_17_150504) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_24_203236) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -76,7 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_17_150504) do
 
   create_table "users", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.string "email", null: false
-    t.string "password_digest", null: false
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "confirmed_at"
