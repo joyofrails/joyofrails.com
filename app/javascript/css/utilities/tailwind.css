@@ -1,4 +1,4 @@
-@import 'config/variables.scss';
+/* Utilities copied from tailwind */
 
 .sr-only {
   position: absolute;
@@ -885,38 +885,6 @@
   width: 16px;
 }
 
-@media (min-width: 768px) {
-  .md\:w-\[20px\] {
-    width: 20px;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:p-2 {
-    padding: 0.5rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:text-base {
-    font-size: 1rem;
-    line-height: 1.5;
-    letter-spacing: -0.017em;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:top-\[3px\] {
-    top: 3px;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:left-\[-72px\] {
-    left: -72px;
-  }
-}
-
 .group:hover .group-hover\:opacity-60 {
   opacity: 0.6;
 }
@@ -931,17 +899,6 @@
 
 .group:focus .group-focus\:hidden {
   display: none;
-}
-
-@media (min-width: 768px) {
-  .md\:mt-3 {
-    margin-top: 0.75rem;
-  }
-}
-@media (min-width: 768px) {
-  .md\:mr-4 {
-    margin-right: 1rem;
-  }
 }
 
 focus\:ring-0:focus {
@@ -970,28 +927,4 @@ focus\:ring-0:focus {
 
 .text-right {
   text-align: right;
-}
-
-/* Custom utilities */
-
-.py-gap {
-  padding-top: var(--grid-gutter);
-  padding-bottom: var(--grid-gutter);
-}
-
-@media screen and (min-width: $screen-md) {
-}
-
-@media screen and (min-width: $screen-lg) {
-  lg\:text-left {
-    text-align: left;
-  }
-  lg\:text-right {
-    text-align: right;
-  }
-
-  lg\.py-3xl {
-    padding-top: var(--space-3xl);
-    padding-bottom: var(--space-3xl);
-  }
 }

@@ -1,4 +1,4 @@
-@layer reset, theme, layout;
+@layer reset, theme, layout, utilities;
 
 @import './reset.css' layer(reset);
 
@@ -15,7 +15,9 @@
 @import './config/grid.css' layer(layout);
 @import './layout.scss' layer(layout);
 
-@import './utilities.css';
+@import './utilities/tailwind.css';
+@import './utilities/tailwind-media.scss';
+@import './utilities/custom.css';
 
 @import './components/logo.css';
 @import './components/button.css';
