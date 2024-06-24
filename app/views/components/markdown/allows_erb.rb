@@ -22,14 +22,6 @@ module Markdown::AllowsErb
       else
         super
       end
-    in :image
-      figure(class: "figure") do
-        img(
-          src: node.url,
-          alt: node.each.first.string_content,
-          title: node.title
-        )
-      end
     else
       super
     end
