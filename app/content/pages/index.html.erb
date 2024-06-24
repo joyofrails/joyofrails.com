@@ -3,7 +3,7 @@ title: Joy of Rails
 ---
 
 <section style="min-height: 51vh">
-  <div class="main-content container py-3xl">
+  <div class="main-content container py-gap lg:py-3xl">
     <% ArticlePage.published.take(3).zip(%w[left right]).each do |(page, side)| %>
       <%= render Pages::Summary.from_page(page, side: side) %>
     <% end %>

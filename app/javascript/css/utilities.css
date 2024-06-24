@@ -1,3 +1,5 @@
+@import 'config/variables.scss';
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -969,9 +971,27 @@ focus\:ring-0:focus {
 .text-right {
   text-align: right;
 }
+
 /* Custom utilities */
 
-.py-3xl {
-  padding-top: var(--space-3xl);
-  padding-bottom: var(--space-3xl);
+.py-gap {
+  padding-top: var(--grid-gutter);
+  padding-bottom: var(--grid-gutter);
+}
+
+@media screen and (min-width: $screen-md) {
+}
+
+@media screen and (min-width: $screen-lg) {
+  lg\:text-left {
+    text-align: left;
+  }
+  lg\:text-right {
+    text-align: right;
+  }
+
+  lg\.py-3xl {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
 }

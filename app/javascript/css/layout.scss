@@ -49,8 +49,7 @@ main > *,
 }
 
 .main-content,
-.article-content,
-.section-content {
+.article-content {
   grid-gap: var(--grid-gutter);
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
@@ -86,6 +85,10 @@ main > *,
 
   .lg\:grid-cols-1\/2 {
     grid-template-columns: 1fr 2fr;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .article-content > .outside,
