@@ -17,31 +17,25 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
 
       expect(response).to have_http_status(:ok)
     end
-
-    it "redirects for signed-in subscribed user" do
-      login_user FactoryBot.create(:user, :subscribed)
-
-      get new_users_newsletter_subscription_path
-
-      expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("You are already subscribed to our newsletter")
-    end
   end
 
   describe "POST create" do
     it "succeeds for unauthenticated request" do
       email = FactoryBot.generate(:email)
+
       expect {
         post users_newsletter_subscriptions_path,
           params: {user: {email: email}}
       }.to change(User, :count).by(1)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
       expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
-      expect(User.last).not_to be_confirmed
+      user = User.last
+      expect(user).not_to be_confirmed
+      expect(user.newsletter_subscription).to be_present
 
       mail = find_mail_to(email)
 
@@ -49,17 +43,32 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
     end
 
     it "quietly succeeds for a user subscribing with an already subscribed email" do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, :subscribed)
 
       expect {
         post users_newsletter_subscriptions_path,
           params: {user: {email: user.email}}
-      }.not_to change(User, :count)
+      }.not_to change(NewsletterSubscription, :count)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
       expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
+      expect(user.reload.newsletter_subscription).to be_present
       # assert "already subscribed" email sent
+    end
+
+    it "succeeds for a user with existing accout who is not currently subscribed email" do
+      user = FactoryBot.create(:user, :unsubscribed)
+
+      expect {
+        post users_newsletter_subscriptions_path,
+          params: {user: {email: user.email}}
+      }.to change(NewsletterSubscription, :count).by(1)
+
+      expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
+      expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
+
+      expect(user.reload.newsletter_subscription).to be_present
     end
 
     it "disallows a user to subscribe with an invalid email" do

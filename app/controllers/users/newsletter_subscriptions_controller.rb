@@ -1,15 +1,25 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
+  # TODO: Implement singular resource index action for logged in user
+  # before_action :authenticate_user!, only: [:index]
+
+  # def index
+  #   @newsletter_subscription = current_user.newsletter_subscription || current_user.build_newsletter_subscription
+  #   render :show
+  # end
+
+  def show
+    @newsletter_subscription = NewsletterSubscription.find(params[:id]) or raise ActiveRecord::RecordNotFound
+  end
+
   def new
-    if current_user&.subscribed_to_newsletter?
-      return redirect_to root_path, notice: "You are already subscribed to our newsletter"
-    end
-    render Users::NewsletterSubscriptions::NewView.new(user: current_user || User.new)
+    @user = current_user || User.new
   end
 
   def create
     create_user_params = params.require(:user).permit(:email)
-    @user = User.find_or_initialize_by(email: create_user_params[:email])
-    @user.subscribing = true
+    @user = User.find_or_initialize_by(email: create_user_params[:email]) do |u|
+      u.subscribing = true
+    end
 
     if !@user.subscribed_to_newsletter?
       @user.build_newsletter_subscription
@@ -17,8 +27,10 @@ class Users::NewsletterSubscriptionsController < ApplicationController
     end
 
     if @user.errors.any?
-      return render Users::NewsletterSubscriptions::NewView.new(user: @user), status: :unprocessable_entity
+      return render :new, status: :unprocessable_entity
     end
+
+    @newsletter_subscription = @user.newsletter_subscription
 
     if @user.needs_confirmation?
       EmailConfirmationNotifier.deliver_to(@user)
@@ -26,10 +38,8 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       # TODO: Send already subscribed email
     end
 
-    redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
-  end
-
-  def show
+    redirect_to users_newsletter_subscription_path(@newsletter_subscription),
+      notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
   end
 
   def unsubscribe

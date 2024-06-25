@@ -29,7 +29,7 @@ RSpec.describe "Confirmations", type: :request do
     end
 
     it "succeeds for unconfirmed subscriber" do
-      user = FactoryBot.create(:user, :unconfirmed, :subscriber)
+      user = FactoryBot.create(:user, :unconfirmed, :subscribed)
 
       post users_confirmations_path, params: {user: {email: user.email}}
 

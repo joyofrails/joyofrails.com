@@ -1,0 +1,11 @@
+<div class="newsletter-banner section-content container py-gap lg:py-3xl lg:grid-cols-1/2">
+  <h3 class="font-semibold">The Joy of Rails Newsletter:
+    <span>A spark of joy for your inbox</span>
+  </h3>
+  <div>
+    <p class="mb-4">I'll notify you when I post new content about Ruby on Rails. No spam.
+      Unsubscribe at any time.</p>
+
+    <%= turbo_frame_tag :newsletter_subscription, src: new_users_newsletter_subscription_path %>
+  </div>
+</div>
