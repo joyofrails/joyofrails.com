@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_one :pending_email_exchange, -> { pending }, dependent: :destroy, class_name: "EmailExchange"
   has_many :email_exchanges, dependent: :destroy
 
+  has_one :newsletter_subscription, as: :subscriber, dependent: :destroy
+
   accepts_nested_attributes_for :email_exchanges, limit: 1
 
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
