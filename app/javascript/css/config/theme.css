@@ -35,6 +35,10 @@
   --joy-background: var(--joy-color-50);
   --joy-background-mask: var(--color-darken);
 
+  --joy-background-success: var(--dracula-green-800);
+  --joy-background-error: var(--dracula-red-900);
+  --joy-background-warn: var(--dracula-orange-800);
+
   --joy-text: var(--color-dark);
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-emphasis: var(--joy-color-700);
@@ -56,6 +60,10 @@
   --joy-background-banner: var(--color-slate-800);
   --joy-background-footer: var(--color-slate-900);
   --joy-background-mask: var(--color-lighten);
+
+  --joy-background-success: var(--dracula-green-400);
+  --joy-background-error: var(--dracula-red-500);
+  --joy-background-warn: var(--dracula-orange-500);
 
   --joy-text: var(--joy-color-50);
   --joy-text-subtle: var(--color-stone-700);

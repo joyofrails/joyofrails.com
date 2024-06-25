@@ -17,3 +17,15 @@
   padding-top: var(--space-3xl);
   padding-bottom: var(--space-3xl);
 }
+
+.bg-success {
+  background-color: var(--joy-background-success);
+}
+
+.bg-error {
+  background-color: var(--joy-background-error);
+}
+
+.bg-warn {
+  background-color: var(--joy-background-warn);
+}

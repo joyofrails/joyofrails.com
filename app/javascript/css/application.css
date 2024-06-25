@@ -5,6 +5,7 @@
 @import './config/colors-tailwind.css' layer(theme);
 @import './config/colors-uicolors.css' layer(theme);
 @import './config/colors.css' layer(theme);
+@import './config/dracula.css' layer(theme);
 @import './config/theme.css' layer(theme);
 @import './config/settings.css' layer(theme);
 @import './baseline.css' layer(theme);
@@ -30,3 +31,4 @@
 @import './components/footer-content.css';
 @import './components/newsletter-banner.css';
 @import './components/anchors.scss';
+@import './components/callout.css';
