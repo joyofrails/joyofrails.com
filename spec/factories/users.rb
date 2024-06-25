@@ -10,9 +10,20 @@ FactoryBot.define do
     password_confirmation { "password" }
 
     trait :unconfirmed
+    trait :unsubscribed
 
     trait :confirmed do
       confirmed_at { Time.current }
+    end
+
+    trait :subscribing do
+      subscribing { true }
+      password { nil }
+      password_confirmation { nil }
+    end
+
+    trait :subscribed do
+      newsletter_subscription
     end
   end
 end

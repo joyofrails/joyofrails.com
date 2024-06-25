@@ -43,7 +43,7 @@ RSpec.describe "Registrations", type: :request do
       expect(mail.subject).to eq "Confirm your email address"
     end
 
-    it "disallows a user to register with existing email" do
+    it "disallows a user to subscribe with existing email" do
       user = FactoryBot.create(:user)
 
       expect {
@@ -56,7 +56,7 @@ RSpec.describe "Registrations", type: :request do
 
     it "disallows when missing email param" do
       expect {
-        post users_confirmations_path, params: {password: "password", password_confirmation: "password"}
+        post users_registration_path, params: {password: "password", password_confirmation: "password"}
       }.not_to change(User, :count)
 
       expect(response).to have_http_status(:bad_request)
@@ -64,7 +64,7 @@ RSpec.describe "Registrations", type: :request do
 
     it "disallows when missing password confirmation param" do
       expect {
-        post users_confirmations_path, params: {email: FactoryBot.generate(:email), password: "password"}
+        post users_registration_path, params: {email: FactoryBot.generate(:email), password: "password"}
       }.not_to change(User, :count)
 
       expect(response).to have_http_status(:bad_request)

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :subscribing
+
   has_secure_password
 
   has_one :pending_email_exchange, -> { pending }, dependent: :destroy, class_name: "EmailExchange"
@@ -56,4 +58,16 @@ class User < ApplicationRecord
   end
 
   def unconfirmed? = !confirmed?
+
+  def subscribed_to_newsletter? = newsletter_subscription.present?
+
+  # We want built-in validations provided by has_secure_password but to make
+  # room for users who are only subscribing for newsletter content, we need to
+  # bypass the presence validations for password when subscribing.
+  # This techinque is a bit of a hack though it is suggested by the Rails docs
+  # for has_secure_password
+  # https://api.rubyonrails.org/v7.1.3/classes/ActiveModel/SecurePassword/ClassMethods.html
+  def errors
+    super.tap { |errors| errors.delete(:password, :blank) if subscribing }
+  end
 end
