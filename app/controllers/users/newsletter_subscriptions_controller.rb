@@ -9,10 +9,16 @@ class Users::NewsletterSubscriptionsController < ApplicationController
 
   def show
     @newsletter_subscription = NewsletterSubscription.find(params[:id]) or raise ActiveRecord::RecordNotFound
+
+    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription)
   end
 
   def new
-    @user = current_user || User.new
+    @newsletter_subscription = current_user&.newsletter_subscription || NewsletterSubscription.new do |ns|
+      ns.subscriber = current_user || User.new
+    end
+
+    render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription)
   end
 
   def create
@@ -26,11 +32,11 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       @user.save
     end
 
-    if @user.errors.any?
-      return render :new, status: :unprocessable_entity
-    end
-
     @newsletter_subscription = @user.newsletter_subscription
+
+    if @user.errors.any?
+      return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_entity
+    end
 
     if @user.needs_confirmation?
       EmailConfirmationNotifier.deliver_to(@user)
