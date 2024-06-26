@@ -1,13 +1,13 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
   invisible_captcha only: [:create]
 
-  # TODO: Implement singular resource index action for logged in user
-  # before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user_or_not_found!, only: [:index]
 
-  # def index
-  #   @newsletter_subscription = current_user.newsletter_subscription || current_user.build_newsletter_subscription
-  #   render :show
-  # end
+  def index
+    @newsletter_subscription = current_user.newsletter_subscription || current_user.build_newsletter_subscription
+
+    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription)
+  end
 
   def show
     @newsletter_subscription = NewsletterSubscription.find(params[:id]) or raise ActiveRecord::RecordNotFound
@@ -59,7 +59,7 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       # all because has_one is not enforced as a constraint
       NewsletterSubscription.where(subscriber: current_user).destroy_all
     else
-      raise ActiveRecord::RecordNotFound
+      not_found!
     end
 
     if request.post? && params["List-Unsubscribe"] == "One-Click"

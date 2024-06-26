@@ -19,6 +19,45 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
     end
   end
 
+  describe "GET show" do
+    it "succeeds for existing subscription" do
+      subscription = FactoryBot.create(:newsletter_subscription)
+      get users_newsletter_subscription_path(subscription)
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "fails otherwise" do
+      get users_newsletter_subscription_path("not-found")
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe "GET index" do
+    it "succeeds for logged in user with subscription" do
+      login_user FactoryBot.create(:user, :subscribed)
+
+      get users_newsletter_subscriptions_path
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "succeeds for logged in user without subscription" do
+      login_user FactoryBot.create(:user, :unsubscribed)
+
+      get users_newsletter_subscriptions_path
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "requires authentication" do
+      get users_newsletter_subscriptions_path
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe "POST create" do
     it "succeeds for unauthenticated request" do
       email = FactoryBot.generate(:email)
