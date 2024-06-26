@@ -37,19 +37,6 @@ class Layouts::FrontDoorForm < Phlex::HTML
     )
   end
 
-  def form_header(&block)
-    div(class: "mx-auto w-full max-w-sm") do
-      plain inline_svg_tag "joy-logo.svg",
-        class: "fill-current mx-auto",
-        style: "max-width: 64px;",
-        alt: "Joy of Rails"
-      h2(
-        class: "text-center text-2xl font-bold leading-9 tracking-tight",
-        &block
-      )
-    end
-  end
-
   def form_label(form, *args, **opts)
     div(class: "flex items-center justify-between") do
       plain form.label(*args, class: "block text-sm font-medium leading-6", **opts)
