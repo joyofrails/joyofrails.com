@@ -1,4 +1,6 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
+  invisible_captcha only: [:create]
+
   # TODO: Implement singular resource index action for logged in user
   # before_action :authenticate_user!, only: [:index]
 
