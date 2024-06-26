@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
   def unconfirmed? = !confirmed?
 
-  def subscribed_to_newsletter? = newsletter_subscription.present?
+  def subscribed_to_newsletter? = !!newsletter_subscription&.persisted?
 
   # We want built-in validations provided by has_secure_password but to make
   # room for users who are only subscribing for newsletter content, we need to

@@ -11,6 +11,10 @@
   color: rgb(255 255 255 / var(--tw-text-opacity));
   line-height: inherit;
 
+  &:is(a) {
+    text-decoration: none;
+  }
+
   &:hover {
     cursor: pointer;
     --tw-text-opacity: 1;
@@ -28,6 +32,9 @@
     background-color: var(--joy-button-secondary);
   }
   &.warn {
+    background-color: var(--joy-button-warn);
+  }
+  &.danger {
     background-color: var(--joy-button-warn);
   }
 

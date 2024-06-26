@@ -11,7 +11,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
   end
 
   def view_template
-    form_with model: @newsletter_subscription.subscriber, url: form_url, class: "lg:w-1/2" do |f|
+    form_with model: @newsletter_subscription.subscriber, url: form_url, method: :post, class: "lg:w-1/2" do |f|
       invisible_captcha
       div(class: "flex flex-row items-center mt-2") do
         div(class: "flex-grow mr-2") do

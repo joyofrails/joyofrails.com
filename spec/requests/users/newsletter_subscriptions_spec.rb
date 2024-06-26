@@ -81,7 +81,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       expect(mail.subject).to eq "Confirm your email address"
     end
 
-    it "quietly succeeds for a user subscribing with an already subscribed email" do
+    it "disallows for a subscribing with an already subscribed email" do
       user = FactoryBot.create(:user, :subscribed)
 
       expect {
@@ -128,6 +128,63 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       }.not_to change(User, :count)
 
       expect(response).to have_http_status(:unprocessable_entity)
+    end
+  end
+
+  describe "POST subscribe" do
+    it "subscribes unsubscribed, logged-in user" do
+      user = FactoryBot.create(:user, :unsubscribed)
+      login_user user
+
+      expect(user.newsletter_subscription).to be_nil
+
+      expect {
+        post subscribe_users_newsletter_subscriptions_path
+      }.to change(NewsletterSubscription, :count).by(1)
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("Success!")
+
+      expect(user.reload.newsletter_subscription).to be_present
+    end
+
+    it "sends confirmation email" do
+      user = FactoryBot.create(:user, :unconfirmed, :unsubscribed)
+      login_user user
+
+      post subscribe_users_newsletter_subscriptions_path
+
+      expect(user.reload.newsletter_subscription).to be_present
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      mail = find_mail_to(user.email)
+
+      expect(mail.subject).to eq "Confirm your email address"
+    end
+
+    it "quietly succeeds for already subscribed user" do
+      user = FactoryBot.create(:user, :subscribed)
+      login_user user
+
+      expect(user.newsletter_subscription).to be_present
+
+      expect {
+        post subscribe_users_newsletter_subscriptions_path
+      }.not_to change(NewsletterSubscription, :count)
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("Success!")
+
+      expect(user.reload.newsletter_subscription).to be_present
+    end
+
+    it "disallows for unauthenticated user" do
+      expect {
+        post subscribe_users_newsletter_subscriptions_path
+      }.not_to change(NewsletterSubscription, :count)
+
+      expect(response).to have_http_status(:not_found)
     end
   end
 

@@ -37,7 +37,12 @@ Rails.application.routes.draw do
     resources :confirmations, only: [:new, :create, :edit, :update], param: :token
     resources :passwords, only: [:new, :create, :edit, :update], param: :token
 
-    resources :newsletter_subscriptions, only: [:new, :create, :index, :show]
+    resources :newsletter_subscriptions, only: [:new, :create, :index, :show] do
+      collection do
+        post :subscribe
+      end
+    end
+
     resources :newsletter_subscriptions, only: [], param: :token do
       match :unsubscribe, on: :collection, via: [:get, :post, :delete]
       match :unsubscribe, on: :member, via: [:get, :post, :delete]

@@ -1,24 +1,25 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
   invisible_captcha only: [:create]
 
-  before_action :authenticate_user_or_not_found!, only: [:index]
+  before_action :authenticate_user_or_not_found!, only: [:index, :subscribe]
+  before_action :authenticate_user!, only: [:subscribe]
+  before_action :redirect_if_authenticated, only: [:create]
 
   def index
     @newsletter_subscription = current_user.newsletter_subscription || current_user.build_newsletter_subscription
 
-    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription)
+    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription, show_unsubscribe: true)
   end
 
   def show
     @newsletter_subscription = NewsletterSubscription.find(params[:id]) or raise ActiveRecord::RecordNotFound
 
-    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription)
+    render Users::NewsletterSubscriptions::ShowView.new(newsletter_subscription: @newsletter_subscription, show_unsubscribe: false)
   end
 
   def new
-    @newsletter_subscription = current_user&.newsletter_subscription || NewsletterSubscription.new do |ns|
-      ns.subscriber = current_user || User.new
-    end
+    user = current_user || User.new
+    @newsletter_subscription = user.newsletter_subscription || user.build_newsletter_subscription
 
     render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription)
   end
@@ -29,12 +30,9 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       u.subscribing = true
     end
 
-    if !@user.subscribed_to_newsletter?
-      @user.build_newsletter_subscription
-      @user.save
-    end
+    @newsletter_subscription = @user.newsletter_subscription || @user.build_newsletter_subscription
 
-    @newsletter_subscription = @user.newsletter_subscription
+    @user.save
 
     if @user.errors.any?
       return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_entity
@@ -48,6 +46,23 @@ class Users::NewsletterSubscriptionsController < ApplicationController
 
     redirect_to users_newsletter_subscription_path(@newsletter_subscription),
       notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
+  end
+
+  def subscribe
+    if !current_user.subscribed_to_newsletter?
+      current_user.create_newsletter_subscription
+    end
+
+    @newsletter_subscription = current_user.newsletter_subscription
+
+    if current_user.needs_confirmation?
+      EmailConfirmationNotifier.deliver_to(current_user)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Success!" }
+      format.turbo_stream { redirect_to users_newsletter_subscription_path(@newsletter_subscription) }
+    end
   end
 
   def unsubscribe
@@ -67,7 +82,13 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       # could render show action instead
       render plain: "You have been unsubscribed", status: :ok
     else
-      redirect_to root_path, notice: "You have been unsubscribed"
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "You have been unsubscribed" }
+        format.turbo_stream {
+          redirect_path = current_user ? users_newsletter_subscriptions_path : new_users_newsletter_subscription_path
+          redirect_to redirect_path
+        }
+      end
     end
   end
 end
