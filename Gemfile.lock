@@ -237,6 +237,8 @@ GEM
     inline_svg (1.9.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
+    invisible_captcha (2.3.0)
+      rails (>= 5.2)
     io-console (0.7.2)
     irb (1.13.1)
       rdoc (>= 4.0.0)
@@ -562,6 +564,7 @@ DEPENDENCIES
   fog-aws
   honeybadger
   inline_svg
+  invisible_captcha
   js
   letter_opener
   litestream

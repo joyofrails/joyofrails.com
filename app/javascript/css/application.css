@@ -5,6 +5,7 @@
 @import './config/colors-tailwind.css' layer(theme);
 @import './config/colors-uicolors.css' layer(theme);
 @import './config/colors.css' layer(theme);
+@import './config/dracula.css' layer(theme);
 @import './config/theme.css' layer(theme);
 @import './config/settings.css' layer(theme);
 @import './baseline.css' layer(theme);
@@ -15,9 +16,9 @@
 @import './config/grid.css' layer(layout);
 @import './layout.scss' layer(layout);
 
-@import './utilities/tailwind.css';
-@import './utilities/tailwind-media.scss';
-@import './utilities/custom.css';
+@import './utilities/tailwind.css' layer(utilities);
+@import './utilities/tailwind-media.scss' layer(utilities);
+@import './utilities/custom.css' layer(utilities);
 
 @import './components/logo.css';
 @import './components/button.css';
@@ -30,3 +31,4 @@
 @import './components/footer-content.css';
 @import './components/newsletter-banner.css';
 @import './components/anchors.scss';
+@import './components/callout.css';

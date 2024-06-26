@@ -21,6 +21,10 @@ module Authentication
     redirect_to new_users_session_path, alert: "You need to sign in to access that page" unless user_signed_in?
   end
 
+  def authenticate_user_or_not_found!
+    user_signed_in? || not_found!
+  end
+
   def redirect_admin_if_authenticated
     redirect_to admin_root_path, alert: "You are already logged in." if admin_user_signed_in?
   end

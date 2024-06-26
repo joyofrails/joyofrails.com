@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < ApplicationController
+  invisible_captcha only: [:create]
+
   before_action :feature_enabled!
   before_action :redirect_if_authenticated, only: [:create, :new]
   before_action :authenticate_user!, only: [:edit, :update, :destroy]

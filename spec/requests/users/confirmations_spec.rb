@@ -10,8 +10,26 @@ RSpec.describe "Confirmations", type: :request do
   end
 
   describe "POST create" do
-    it "succeeds" do
+    it "succeeds for unconfirmed user" do
       user = FactoryBot.create(:user, :unconfirmed)
+
+      post users_confirmations_path, params: {user: {email: user.email}}
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("Check your email for confirmation instructions")
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+
+      mail = find_mail_to(user.email)
+      expect(mail.subject).to eq("Confirm your email address")
+
+      expect(user.email_exchanges.all?(&:archived?)).to eq(true)
+    end
+
+    it "succeeds for unconfirmed subscriber" do
+      user = FactoryBot.create(:user, :unconfirmed, :subscribed)
 
       post users_confirmations_path, params: {user: {email: user.email}}
 

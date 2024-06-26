@@ -35,6 +35,7 @@ gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://g
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
 gem "commonmarker", require: false
+gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 

@@ -28,6 +28,7 @@ require "flipper"
 require "sitepress-rails"
 require "phlex-rails"
 require "inline_svg"
+require "invisible_captcha"
 
 module Joy
   class Application < Rails::Application

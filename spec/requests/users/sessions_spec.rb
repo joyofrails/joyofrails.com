@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Users::Sessions", type: :request do
+RSpec.describe "Sessions", type: :request do
   before do
     Flipper[:user_registration].enable
   end
@@ -86,6 +86,14 @@ RSpec.describe "Users::Sessions", type: :request do
       post users_sessions_path, params: {}
 
       expect(response).to have_http_status(:bad_request)
+    end
+
+    it "disallows use of password param for subscriber user" do
+      user = FactoryBot.create(:user, :subscribing)
+
+      post users_sessions_path, params: {user: {email: user.email, password: "password"}}
+
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 
