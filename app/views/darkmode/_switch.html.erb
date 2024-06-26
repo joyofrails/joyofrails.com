@@ -17,8 +17,8 @@
     "
     aria-label="Change Color Scheme"
     role="button">
-    <%= inline_svg_tag "darkmode/moon.svg", data: { "darkmode-target" => "darkIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>
-    <%= inline_svg_tag "darkmode/sun.svg", data: { "darkmode-target" => "lightIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>
-    <%= inline_svg_tag "darkmode/eclipse.svg", data: { "darkmode-target" => "systemIcon" }, class: "hidden w-5 h-5", fill: "currentColor" %>
+    <%= inline_svg_tag "darkmode/moon.svg", data: { "darkmode-target" => "darkIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "Dark mode", desc: "Dark mode for the site is enabled", aria: true %>
+    <%= inline_svg_tag "darkmode/sun.svg", data: { "darkmode-target" => "lightIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "Light mode", desc: "Light mode for the site is enabled", aria: true %>
+    <%= inline_svg_tag "darkmode/eclipse.svg", data: { "darkmode-target" => "systemIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "System mode", desc: "System mode for the site is enabled", aria: true %>
   </button>
 </div>
