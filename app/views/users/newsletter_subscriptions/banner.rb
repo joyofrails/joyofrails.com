@@ -12,7 +12,7 @@ class Users::NewsletterSubscriptions::Banner < ApplicationComponent
 
       div do
         p(class: "mb-4") do
-          "I'll notify you when I post new content about Ruby on Rails. No spam. Unsubscribe at any time."
+          "I'll notify you when I post new content about Ruby on Rails. Positive vibes only."
         end
         div(&block)
       end
