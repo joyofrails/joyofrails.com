@@ -29,11 +29,13 @@
 
   --joy-background-clean: white;
   --joy-background: var(--joy-color-50);
-  --joy-background-header: var(--joy-color-100);
-  --joy-background-banner: var(--joy-color-200);
-  --joy-background-footer: var(--joy-color-100);
+  --joy-background-header: var(--joy-color-200);
+  --joy-background-banner: var(--joy-color-100);
+  --joy-background-footer: var(--joy-color-200);
   --joy-background: var(--joy-color-50);
   --joy-background-mask: var(--color-darken);
+
+  --joy-border-subtle: var(--joy-color-200);
 
   --joy-background-success: var(--dracula-green-800);
   --joy-background-error: var(--dracula-red-900);
@@ -43,6 +45,7 @@
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-emphasis: var(--joy-color-700);
   --joy-text-heading: var(--color-slate-900);
+  --joy-text-theme: var(--joy-color-800);
 
   --joy-link-primary: var(--joy-link-6);
   --joy-link-visited: var(--joy-link-9);
@@ -56,19 +59,22 @@
 .dark {
   --joy-background-clean: --color-slate-950;
   --joy-background: var(--color-slate-950);
-  --joy-background-header: var(--color-slate-900);
-  --joy-background-banner: var(--color-slate-800);
-  --joy-background-footer: var(--color-slate-900);
+  --joy-background-header: var(--color-slate-800);
+  --joy-background-banner: var(--color-slate-900);
+  --joy-background-footer: var(--color-slate-800);
   --joy-background-mask: var(--color-lighten);
 
   --joy-background-success: var(--dracula-green-400);
   --joy-background-error: var(--dracula-red-500);
   --joy-background-warn: var(--dracula-orange-500);
 
+  --joy-border-subtle: var(--joy-color-900);
+
   --joy-text: var(--joy-color-50);
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-heading: var(--joy-color-200);
   --joy-text-emphasis: var(--joy-color-500);
+  --joy-text-theme: var(--joy-text);
 
   --joy-link-primary: var(--joy-link-4);
   --joy-link-visited: var(--joy-link-3);

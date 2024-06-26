@@ -29,3 +29,7 @@
 .bg-warn {
   background-color: var(--joy-background-warn);
 }
+
+.text-theme {
+  color: var(--joy-text-theme);
+}
