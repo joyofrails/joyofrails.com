@@ -170,5 +170,31 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       expect(response).to have_http_status(:not_found)
       expect(user.newsletter_subscription).to be_present
     end
+
+    it "unsubscribes a logged in user with an existing subscription on collection route" do
+      user = FactoryBot.create(:user, :subscribed)
+      login_user user
+
+      expect(user.newsletter_subscription).to be_present
+
+      expect {
+        delete unsubscribe_users_newsletter_subscriptions_path
+      }.to change(NewsletterSubscription, :count).by(-1)
+
+      user.reload
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to eq("You have been unsubscribed")
+
+      expect(user.newsletter_subscription).to be_nil
+    end
+
+    it "disallows when not logged in on collection route" do
+      expect {
+        post unsubscribe_users_newsletter_subscriptions_path
+      }.not_to change(NewsletterSubscription, :count)
+
+      expect(response).to have_http_status(:not_found)
+    end
   end
 end

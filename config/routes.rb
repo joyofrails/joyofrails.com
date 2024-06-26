@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
     resources :newsletter_subscriptions, only: [:new, :create, :show]
     resources :newsletter_subscriptions, only: [], param: :token do
+      match :unsubscribe, on: :collection, via: [:get, :post, :delete]
       match :unsubscribe, on: :member, via: [:get, :post, :delete]
     end
 

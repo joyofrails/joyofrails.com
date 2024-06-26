@@ -51,9 +51,16 @@ class Users::NewsletterSubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    subscription = find_subscription or raise ActiveRecord::RecordNotFound
-
-    subscription.destroy
+    if params[:token]
+      subscription = NewsletterSubscription.find_by_token_for(:unsubscribe, params[:token]) or raise ActiveRecord::RecordNotFound
+      subscription.destroy
+    elsif current_user
+      # Even though we model the subscription as a has_one, we should destroy
+      # all because has_one is not enforced as a constraint
+      NewsletterSubscription.where(subscriber: current_user).destroy_all
+    else
+      raise ActiveRecord::RecordNotFound
+    end
 
     if request.post? && params["List-Unsubscribe"] == "One-Click"
       # must not redirect according to RFC 8058
@@ -61,16 +68,6 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       render plain: "You have been unsubscribed", status: :ok
     else
       redirect_to root_path, notice: "You have been unsubscribed"
-    end
-  end
-
-  private
-
-  def find_subscription
-    if params[:token]
-      NewsletterSubscription.find_by_token_for(:unsubscribe, params[:token])
-    elsif current_user&.subscribed_to_newsletter?
-      current_user.newsletter_subscription
     end
   end
 end
