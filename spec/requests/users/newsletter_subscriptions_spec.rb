@@ -68,7 +68,6 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       }.to change(User, :count).by(1)
 
       expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
-      expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
@@ -90,7 +89,6 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       }.not_to change(NewsletterSubscription, :count)
 
       expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
-      expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       expect(user.reload.newsletter_subscription).to be_present
       # assert "already subscribed" email sent
@@ -105,7 +103,6 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       }.to change(NewsletterSubscription, :count).by(1)
 
       expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
-      expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       expect(user.reload.newsletter_subscription).to be_present
     end

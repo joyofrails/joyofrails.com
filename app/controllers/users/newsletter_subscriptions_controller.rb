@@ -44,8 +44,7 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       # TODO: Send already subscribed email
     end
 
-    redirect_to users_newsletter_subscription_path(@newsletter_subscription),
-      notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
+    redirect_to users_newsletter_subscription_path(@newsletter_subscription)
   end
 
   def subscribe
