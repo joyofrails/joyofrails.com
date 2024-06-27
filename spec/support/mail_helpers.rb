@@ -17,8 +17,9 @@ module MailHelpers
   end
 
   def perform_enqueued_jobs_and_subsequently_enqueued_jobs
-    perform_enqueued_jobs # Process event job
-    perform_enqueued_jobs # Process mailer job
+    3.times do
+      perform_enqueued_jobs
+    end
   end
 
   private

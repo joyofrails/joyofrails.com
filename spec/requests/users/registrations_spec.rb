@@ -43,6 +43,20 @@ RSpec.describe "Registrations", type: :request do
       expect(mail.subject).to eq "Confirm your email address"
     end
 
+    it "notifies admin" do
+      email = FactoryBot.generate(:email)
+      admin = FactoryBot.create(:admin_user)
+
+      post users_registration_path,
+        params: {user: {email: email, password: "password", password_confirmation: "password"}}
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      mail = find_mail_to(admin.email)
+
+      expect(mail.subject).to eq "New Joy of Rails User"
+    end
+
     it "disallows a user to subscribe with existing email" do
       user = FactoryBot.create(:user)
 

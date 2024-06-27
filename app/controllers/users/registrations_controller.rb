@@ -16,7 +16,7 @@ class Users::RegistrationsController < ApplicationController
     create_user_params = params.require(:user).permit(:email, :password, :password_confirmation)
     @user = User.new(create_user_params)
     if @user.save
-      EmailConfirmationNotifier.deliver_to(@user)
+      NewUserNotificationJob.perform_later(@user)
       redirect_to thanks_users_registration_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
     else
       render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
