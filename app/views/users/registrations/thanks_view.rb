@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::Dashboard::IndexView < ApplicationView
+class Users::Registration::ThanksView < ApplicationView
   include Phlex::Rails::Helpers::LinkTo
 
   def view_template

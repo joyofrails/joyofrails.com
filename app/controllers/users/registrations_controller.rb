@@ -17,7 +17,7 @@ class Users::RegistrationsController < ApplicationController
     @user = User.new(create_user_params)
     if @user.save
       EmailConfirmationNotifier.deliver_to(@user)
-      redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
+      redirect_to thanks_users_registration_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
     else
       render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
     end
@@ -56,6 +56,10 @@ class Users::RegistrationsController < ApplicationController
     current_user.destroy
     reset_session
     redirect_to root_path, notice: "Your account has been deleted"
+  end
+
+  def thanks
+    render Users::Dashboard::IndexView.new
   end
 
   private

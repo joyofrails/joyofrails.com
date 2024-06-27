@@ -7,7 +7,7 @@ RSpec.describe "Registrations", type: :request do
     Flipper[:user_registration].enable
   end
 
-  describe "GET create" do
+  describe "GET new" do
     it "succeeds for signed out user" do
       get new_users_registration_path
 
@@ -31,7 +31,7 @@ RSpec.describe "Registrations", type: :request do
           params: {user: {email: email, password: "password", password_confirmation: "password"}}
       }.to change(User, :count).by(1)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(thanks_users_registration_path)
       expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       perform_enqueued_jobs_and_subsequently_enqueued_jobs

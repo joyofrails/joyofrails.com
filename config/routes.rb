@@ -33,7 +33,11 @@ Rails.application.routes.draw do
 
   namespace :users do
     resource :header_navigation, only: [:show]
-    resource :registration, only: [:new, :create, :edit, :update, :destroy]
+    resource :registration, only: [:new, :create, :edit, :update, :destroy] do
+      collection do
+        get :thanks
+      end
+    end
     resources :confirmations, only: [:new, :create, :edit, :update], param: :token
     resources :passwords, only: [:new, :create, :edit, :update], param: :token
 
