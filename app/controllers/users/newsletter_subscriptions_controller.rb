@@ -38,10 +38,10 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_entity
     end
 
-    if @user.needs_confirmation?
+    if @user.previously_new_record?
+      NewUserNotificationJob.perform_later(@user)
+    elsif @user.needs_confirmation?
       EmailConfirmationNotifier.deliver_to(@user)
-    else
-      # TODO: Send already subscribed email
     end
 
     redirect_to users_newsletter_subscription_path(@newsletter_subscription)
