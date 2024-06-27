@@ -39,8 +39,10 @@ class Users::NewsletterSubscriptionsController < ApplicationController
     end
 
     if @user.previously_new_record?
-      NewUserNotificationJob.perform_later(@user)
-    elsif @user.needs_confirmation?
+      NewUserNotifier.deliver_to(AdminUser.all, user: @user)
+    end
+
+    if @user.needs_confirmation?
       EmailConfirmationNotifier.deliver_to(@user)
     end
 
