@@ -1,5 +1,5 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
-  invisible_captcha only: [:create]
+  # invisible_captcha only: [:create]
 
   before_action :authenticate_user_or_not_found!, only: [:index, :subscribe]
   before_action :authenticate_user!, only: [:subscribe]
