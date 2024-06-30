@@ -22,6 +22,11 @@ FactoryBot.define do
       password_confirmation { nil }
     end
 
+    trait :subscriber do
+      subscribing
+      newsletter_subscription
+    end
+
     trait :subscribed do
       newsletter_subscription
     end

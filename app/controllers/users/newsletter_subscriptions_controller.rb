@@ -26,10 +26,8 @@ class Users::NewsletterSubscriptionsController < ApplicationController
 
   def create
     create_user_params = params.require(:user).permit(:email)
-    @user = User.find_or_initialize_by(email: create_user_params[:email]) do |u|
-      u.subscribing = true
-    end
-
+    @user = User.find_or_initialize_by(email: create_user_params[:email])
+    @user.subscribing = true
     @newsletter_subscription = @user.newsletter_subscription || @user.build_newsletter_subscription
 
     @user.save

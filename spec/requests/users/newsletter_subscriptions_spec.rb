@@ -95,7 +95,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
     end
 
     it "disallows for a subscribing with an already subscribed email" do
-      user = FactoryBot.create(:user, :subscribed)
+      user = FactoryBot.create(:user, :subscriber)
 
       expect {
         post users_newsletter_subscriptions_path,
