@@ -27,6 +27,15 @@ class Users::NewsletterSubscriptions::ShowView < ApplicationView
             render Users::NewsletterSubscriptions::SubscribeButton.new
           end
         end
+
+        script(type: "text/javascript") do
+          unsafe_raw <<~JS
+            if (window.plausible) {
+              window.plausible("Newsletter signup");
+              console.log("Newsletter signup");
+            }
+          JS
+        end
       end
     end
   end
