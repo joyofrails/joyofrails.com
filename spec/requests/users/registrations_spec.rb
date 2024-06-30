@@ -173,5 +173,27 @@ RSpec.describe "Registrations", type: :request do
       expect(flash.now[:error]).to eq("Incorrect password")
       expect(response).to have_http_status(:unprocessable_entity)
     end
+
+    it "allows for subscriber setting password first time" do
+      user = FactoryBot.create(:user, :confirmed, :subscriber)
+      login_user(user)
+
+      put users_registration_path,
+        params: {user: {password: "password", password_confirmation: "password"}}
+
+      expect(response).to redirect_to(users_dashboard_path)
+      expect(flash[:notice]).to eq("Account updated")
+    end
+
+    it "disallows for subscriber setting password first time without password confirmation" do
+      user = FactoryBot.create(:user, :confirmed, :subscriber)
+      login_user(user)
+
+      put users_registration_path,
+        params: {user: {password: "password", password_confirmation: "wrongpassword"}}
+
+      expect(flash.now[:error]).to eq("Password confirmation doesn't match Password")
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
   end
 end

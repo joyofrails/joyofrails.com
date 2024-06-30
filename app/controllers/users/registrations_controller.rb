@@ -37,12 +37,13 @@ class Users::RegistrationsController < ApplicationController
 
     user = current_user
 
-    if !user.authenticate(params[:user][:password_challenge])
+    if user.password_digest_was.present? && !user.authenticate(params[:user][:password_challenge])
       flash.now[:error] = "Incorrect password"
       return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
     end
 
     if !user.update(update_user_params)
+      flash.now[:error] = user.errors.full_messages.to_sentence
       return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
     end
 
