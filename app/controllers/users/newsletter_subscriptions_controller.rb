@@ -1,5 +1,5 @@
 class Users::NewsletterSubscriptionsController < ApplicationController
-  invisible_captcha only: [:create]
+  # invisible_captcha only: [:create]
 
   before_action :authenticate_user_or_not_found!, only: [:index, :subscribe]
   before_action :authenticate_user!, only: [:subscribe]
@@ -26,10 +26,8 @@ class Users::NewsletterSubscriptionsController < ApplicationController
 
   def create
     create_user_params = params.require(:user).permit(:email)
-    @user = User.find_or_initialize_by(email: create_user_params[:email]) do |u|
-      u.subscribing = true
-    end
-
+    @user = User.find_or_initialize_by(email: create_user_params[:email])
+    @user.subscribing = true
     @newsletter_subscription = @user.newsletter_subscription || @user.build_newsletter_subscription
 
     @user.save
@@ -38,10 +36,12 @@ class Users::NewsletterSubscriptionsController < ApplicationController
       return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_entity
     end
 
+    if @user.previously_new_record?
+      NewUserNotifier.deliver_to(AdminUser.all, user: @user)
+    end
+
     if @user.needs_confirmation?
       EmailConfirmationNotifier.deliver_to(@user)
-    else
-      # TODO: Send already subscribed email
     end
 
     redirect_to users_newsletter_subscription_path(@newsletter_subscription)

@@ -12,11 +12,16 @@ RSpec.describe "Newsletter subscriptions", type: :system do
     fill_in "user[email]", with: "hello@example.com"
     click_button "Subscribe"
 
-    expect(page).to have_content("You are subscribed to the Joy of Rails newsletter! Please check your email for a confirmation link.")
+    expect(page).to have_content("Thank you for subscribing to the Joy of Rails newsletter! Please check your email for a confirmation link.")
 
     user = User.last
     expect(user.email).to eq("hello@example.com")
     expect(user.subscribed_to_newsletter?).to eq(true)
+
+    click_link "Thank you"
+
+    expect(page).to have_content("Welcome to Joy of Rails!")
+    expect(page).to have_content("Thank you for signing up")
   end
 
   it "allows a logged-in user to subscribe to the newsletter" do
@@ -28,7 +33,7 @@ RSpec.describe "Newsletter subscriptions", type: :system do
 
     click_button "Subscribe"
 
-    expect(page).to have_content("You are subscribed to the Joy of Rails newsletter! Please check your email for a confirmation link.")
+    expect(page).to have_content("Thank you for subscribing to the Joy of Rails newsletter! Please check your email for a confirmation link.")
 
     expect(user.reload.subscribed_to_newsletter?).to be_truthy
 

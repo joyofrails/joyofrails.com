@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", :as => :rails_health_check
 
   namespace :users do
+    resource :thank_you, only: [:show]
     resource :header_navigation, only: [:show]
     resource :registration, only: [:new, :create, :edit, :update, :destroy]
     resources :confirmations, only: [:new, :create, :edit, :update], param: :token

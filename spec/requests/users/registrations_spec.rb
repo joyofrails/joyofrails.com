@@ -7,7 +7,7 @@ RSpec.describe "Registrations", type: :request do
     Flipper[:user_registration].enable
   end
 
-  describe "GET create" do
+  describe "GET new" do
     it "succeeds for signed out user" do
       get new_users_registration_path
 
@@ -31,7 +31,7 @@ RSpec.describe "Registrations", type: :request do
           params: {user: {email: email, password: "password", password_confirmation: "password"}}
       }.to change(User, :count).by(1)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(users_thank_you_path)
       expect(flash[:notice]).to eq("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
       perform_enqueued_jobs_and_subsequently_enqueued_jobs
@@ -41,6 +41,20 @@ RSpec.describe "Registrations", type: :request do
       mail = find_mail_to(email)
 
       expect(mail.subject).to eq "Confirm your email address"
+    end
+
+    it "notifies admin" do
+      email = FactoryBot.generate(:email)
+      admin = FactoryBot.create(:admin_user)
+
+      post users_registration_path,
+        params: {user: {email: email, password: "password", password_confirmation: "password"}}
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      mail = find_mail_to(admin.email)
+
+      expect(mail.subject).to eq "New Joy of Rails User"
     end
 
     it "disallows a user to subscribe with existing email" do
@@ -157,6 +171,28 @@ RSpec.describe "Registrations", type: :request do
         params: {user: {email_exchanges_attributes: {email: FactoryBot.generate(:email)}}}
 
       expect(flash.now[:error]).to eq("Incorrect password")
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "allows for subscriber setting password first time" do
+      user = FactoryBot.create(:user, :confirmed, :subscriber)
+      login_user(user)
+
+      put users_registration_path,
+        params: {user: {password: "password", password_confirmation: "password"}}
+
+      expect(response).to redirect_to(users_dashboard_path)
+      expect(flash[:notice]).to eq("Account updated")
+    end
+
+    it "disallows for subscriber setting password first time without password confirmation" do
+      user = FactoryBot.create(:user, :confirmed, :subscriber)
+      login_user(user)
+
+      put users_registration_path,
+        params: {user: {password: "password", password_confirmation: "wrongpassword"}}
+
+      expect(flash.now[:error]).to eq("Password confirmation doesn't match Password")
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end

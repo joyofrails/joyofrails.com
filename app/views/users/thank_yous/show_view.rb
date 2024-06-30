@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::Dashboard::IndexView < ApplicationView
+class Users::ThankYous::ShowView < ApplicationView
   include Phlex::Rails::Helpers::LinkTo
 
   def view_template
@@ -27,6 +27,10 @@ class Users::Dashboard::IndexView < ApplicationView
             strong { link_to("articles", "/articles") }
             whitespace
             plain "I’ve written on Ruby, Rails, and Hotwire."
+            if ArticlePage.published.length < 5
+              whitespace
+              plain "I’m working on adding some new content, so check back soon!"
+            end
           end
           li do
             plain "If you’re interested in learning how this app is built or even contributing to it, check out the"

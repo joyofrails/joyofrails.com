@@ -80,8 +80,22 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       expect(mail.subject).to eq "Confirm your email address"
     end
 
+    it "notifies admin for new user" do
+      email = FactoryBot.generate(:email)
+      admin = FactoryBot.create(:admin_user)
+
+      post users_newsletter_subscriptions_path,
+        params: {user: {email: email, password: "password", password_confirmation: "password"}}
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      mail = find_mail_to(admin.email)
+
+      expect(mail.subject).to eq "New Joy of Rails User"
+    end
+
     it "disallows for a subscribing with an already subscribed email" do
-      user = FactoryBot.create(:user, :subscribed)
+      user = FactoryBot.create(:user, :subscriber)
 
       expect {
         post users_newsletter_subscriptions_path,
@@ -94,7 +108,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       # assert "already subscribed" email sent
     end
 
-    it "succeeds for a user with existing accout who is not currently subscribed email" do
+    it "succeeds for a user with existing account who is not currently subscribed email" do
       user = FactoryBot.create(:user, :unsubscribed)
 
       expect {
@@ -105,6 +119,28 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
 
       expect(user.reload.newsletter_subscription).to be_present
+    end
+
+    it "sends confirmation for an unconfirmed user with existing account who is not currently subscribed email" do
+      user = FactoryBot.create(:user, :unsubscribed, :unconfirmed)
+      admin = FactoryBot.create(:admin_user)
+
+      expect {
+        post users_newsletter_subscriptions_path,
+          params: {user: {email: user.email}}
+      }.to change(NewsletterSubscription, :count).by(1)
+
+      expect(response).to redirect_to(users_newsletter_subscription_path(User.last.newsletter_subscription))
+
+      expect(user.reload.newsletter_subscription).to be_present
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      mail = find_mail_to(user.email)
+
+      expect(mail.subject).to eq "Confirm your email address"
+
+      expect(find_mail_to(admin.email)).to be_nil
     end
 
     it "disallows a user to subscribe with an invalid email" do

@@ -8,44 +8,47 @@ class Users::RegistrationsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   def new
-    @user = User.new
-    render Users::Registrations::NewView.new(user: @user)
+    user = User.new
+    render Users::Registrations::NewView.new(user: user)
   end
 
   def create
     create_user_params = params.require(:user).permit(:email, :password, :password_confirmation)
-    @user = User.new(create_user_params)
-    if @user.save
-      EmailConfirmationNotifier.deliver_to(@user)
-      redirect_to root_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
+    user = User.new(create_user_params)
+    if user.save
+      NewUserNotifier.deliver_to(AdminUser.all, user: user)
+      EmailConfirmationNotifier.deliver_to(user)
+
+      redirect_to users_thank_you_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
     else
-      render Users::Registrations::NewView.new(user: @user), status: :unprocessable_entity
+      render Users::Registrations::NewView.new(user: user), status: :unprocessable_entity
     end
   end
 
   def edit
-    @user = current_user
-    @user.email_exchanges.build
+    user = current_user
+    user.email_exchanges.build
 
-    render Users::Registrations::EditView.new(user: @user)
+    render Users::Registrations::EditView.new(user: user)
   end
 
   def update
     update_user_params = params.require(:user).permit(:password_challenge, :password, :password_confirmation, email_exchanges_attributes: [:email])
 
-    @user = current_user
+    user = current_user
 
-    if !@user.authenticate(params[:user][:password_challenge])
+    if user.password_digest_was.present? && !user.authenticate(params[:user][:password_challenge])
       flash.now[:error] = "Incorrect password"
-      return render Users::Registrations::EditView.new(user: @user), status: :unprocessable_entity
+      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
     end
 
-    if !@user.update(update_user_params)
-      return render Users::Registrations::EditView.new(user: @user), status: :unprocessable_entity
+    if !user.update(update_user_params)
+      flash.now[:error] = user.errors.full_messages.to_sentence
+      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
     end
 
     if update_user_params[:email_exchanges_attributes].present?
-      EmailConfirmationNotifier.deliver_to(@user)
+      EmailConfirmationNotifier.deliver_to(user)
       redirect_to users_dashboard_path, notice: "Check your email for confirmation instructions"
     else
       redirect_to users_dashboard_path, notice: "Account updated"

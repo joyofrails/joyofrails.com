@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::NewsletterSubscriptions::ShowView < ApplicationView
+  include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::TurboFrameTag
 
   def initialize(newsletter_subscription:, show_unsubscribe: false)
@@ -26,12 +27,23 @@ class Users::NewsletterSubscriptions::ShowView < ApplicationView
             render Users::NewsletterSubscriptions::SubscribeButton.new
           end
         end
+
+        script(type: "text/javascript") do
+          unsafe_raw <<~JS
+            if (window.plausible) {
+              window.plausible("Newsletter signup");
+              console.log("Newsletter signup");
+            }
+          JS
+        end
       end
     end
   end
 
   def subscribed_message
-    plain "You are subscribed to the Joy of Rails newsletter!"
+    link_to("Thank you", users_thank_you_path, class: "font-bold", data: {turbo_frame: "_top"})
+    whitespace
+    plain "for subscribing to the Joy of Rails newsletter!"
     if @newsletter_subscription.subscriber.needs_confirmation?
       whitespace
       plain "Please check your email for a confirmation link."
