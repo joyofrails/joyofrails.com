@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "color_conversion"
+
 class ColorScale < ApplicationRecord
   APP_DEFAULT = {
     name: "Custom Cerulean Blue",

@@ -3,7 +3,7 @@
 @import './reset.css' layer(reset);
 
 @import './config/colors-tailwind.css' layer(theme);
-@import './config/colors-uicolors.css' layer(theme);
+/* @import './config/colors-uicolors.css' layer(theme); */
 @import './config/colors.css' layer(theme);
 @import './config/dracula.css' layer(theme);
 @import './config/theme.css' layer(theme);
