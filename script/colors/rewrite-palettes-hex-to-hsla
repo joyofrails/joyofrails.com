@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "json"
+require "color_conversion"
+require "active_support/deprecation"
+require "active_support/deprecator"
+require "active_support/core_ext/string"
+
+Color = ColorConversion::Color
+
+filename = ARGV.shift
+raise "Usage: #{$0} <filename>" unless filename
+
+hex_json = JSON.parse(File.read(filename))
+
+hsl_json = hex_json.sort_by { |color, _| color }.each_with_object({}) do |(color, weight_hex_pairs), config|
+  config[color] = weight_hex_pairs.map do |weight, hex|
+    hsl = Color.new(hex).hsl
+    [weight, "hsla(#{hsl[:h]}, #{hsl[:s]}%, #{hsl[:l]}%, 1)"]
+  end.to_h
+end
+
+puts hsl_json.to_json
