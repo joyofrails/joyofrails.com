@@ -6,3 +6,5 @@ AdminUser.find_or_create_by!(
   u.password = password
   u.password_confirmation = password
 end
+
+ColorScale.find_or_create_default
