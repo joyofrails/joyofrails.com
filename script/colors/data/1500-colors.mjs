@@ -1,4 +1,5 @@
-const colors = [
+/* Credit: https://github.com/PetrochukM/1500-color-names */
+export const colors = [
   ['000000', 'Black'],
   ['000080', 'Navy Blue'],
   ['0000C8', 'Dark Blue'],

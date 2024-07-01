@@ -11,7 +11,7 @@ weight = nil
 
 puts ":root {"
 
-File.readlines("./tailwind-colors-hex").each do |line|
+File.readlines("./input/tailwind-colors-hex").each do |line|
   value = line.strip
   if line.start_with?("#")
     hex = value

@@ -39,8 +39,4 @@ class ColorScale < ApplicationRecord
       hash[weight] = send(:"weight_#{weight}")
     end
   end
-
-  def to_css
-    weights.map { |weight, value| "--color-#{name.dasherize}-#{weight}: #{value};" }.join("\n")
-  end
 end
