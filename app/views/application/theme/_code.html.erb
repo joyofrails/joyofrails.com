@@ -1,3 +1,1 @@
-<style>
-  <%= File.read(Rails.root.join("app", "javascript", "css", "theme", "code", "dracula.css")) %>
-</style>
+<%= vite_stylesheet_tag "entrypoints/code/dracula.css", media: "all", "data-turbo-track": "reload" %>
