@@ -20,6 +20,11 @@ class ColorScale < ApplicationRecord
 
   VALID_WEIGHTS = %w[50 100 200 300 400 500 600 700 800 900 950].freeze
 
+  def self.curated
+    names = YAML.load_file(Rails.root.join("config", "curated_colors.yml"))
+    where(name: names)
+  end
+
   def self.find_or_create_default
     find_or_create_by(name: APP_DEFAULT[:name]) do |cs|
       APP_DEFAULT[:weights].each do |weight, value|
