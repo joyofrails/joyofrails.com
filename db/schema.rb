@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_24_221419) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_121018) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -25,6 +25,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_24_221419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
+  end
+
+  create_table "color_scales", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "weight_50", null: false
+    t.string "weight_100", null: false
+    t.string "weight_200", null: false
+    t.string "weight_300", null: false
+    t.string "weight_400", null: false
+    t.string "weight_500", null: false
+    t.string "weight_600", null: false
+    t.string "weight_700", null: false
+    t.string "weight_800", null: false
+    t.string "weight_900", null: false
+    t.string "weight_950", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "email_exchanges", force: :cascade do |t|
