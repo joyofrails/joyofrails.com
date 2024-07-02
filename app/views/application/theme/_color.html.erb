@@ -1,8 +1,5 @@
 <%
-  my_color = 'cerulean-blue'
-  ui_colors_color_increments = [50, *1.upto(9).map { |n| n*100}, 950 ]
-
-  color_scale = ColorScale.find_or_create_default
+  color_scale = @color_scale || ColorScale.find_or_create_default
 %>
 <style>
   :root {
