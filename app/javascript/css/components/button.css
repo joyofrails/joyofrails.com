@@ -7,8 +7,7 @@
   font-family: var(--sans-serif);
   line-height: 1.5715;
   font-weight: 600;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: var(--joy-light);
   line-height: inherit;
 
   &:is(a) {
@@ -17,8 +16,6 @@
 
   &:hover {
     cursor: pointer;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
     text-decoration-line: none;
   }
 
@@ -27,12 +24,31 @@
   }
   &.primary {
     background-color: var(--joy-button-primary);
+
+    &:hover {
+      background-color: var(--joy-button-primary-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-primary-active);
+    }
   }
   &.secondary {
     background-color: var(--joy-button-secondary);
+    &:hover {
+      background-color: var(--joy-button-secondary-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-secondary-active);
+    }
   }
   &.warn {
     background-color: var(--joy-button-warn);
+    &:hover {
+      background-color: var(--joy-button-warn-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-warn);
+    }
   }
   &.danger {
     background-color: var(--joy-button-warn);
