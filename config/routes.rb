@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   end
   resources :examples, only: [:index, :show]
 
+  resource :color_theme, only: [:show, :update]
+
   namespace :pwa do
     resource :installation_instructions, only: [:show]
     resources :web_pushes, only: [:create]

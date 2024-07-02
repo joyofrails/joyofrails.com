@@ -25,6 +25,16 @@ class ColorScale < ApplicationRecord
     where(name: names)
   end
 
+  def self.cached_curated
+    cached_ids = Rails.cache.read("curated_color_scale_ids")
+
+    return where(id: cached_ids) if cached_ids
+
+    curated.tap do |collection|
+      Rails.cache.write("curated_color_scale_ids", collection.map(&:id))
+    end
+  end
+
   def self.find_or_create_default
     find_or_create_by(name: APP_DEFAULT[:name]) do |cs|
       APP_DEFAULT[:weights].each do |weight, value|
@@ -41,7 +51,11 @@ class ColorScale < ApplicationRecord
 
   def weights
     VALID_WEIGHTS.each_with_object({}) do |weight, hash|
-      hash[weight] = send(:"weight_#{weight}")
+      hash[weight] = ColorConversion::Color.new(send(:"weight_#{weight}"))
     end
+  end
+
+  def display_name
+    name.gsub("Custom ", "")
   end
 end

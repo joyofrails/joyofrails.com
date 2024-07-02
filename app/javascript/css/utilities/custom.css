@@ -1,3 +1,11 @@
+.mb-gap {
+  margin-bottom: var(--grid-gutter);
+}
+
+.mb-gap {
+  margin-bottom: var(--grid-gutter);
+}
+
 .py-gap {
   padding-top: var(--grid-gutter);
   padding-bottom: var(--grid-gutter);
