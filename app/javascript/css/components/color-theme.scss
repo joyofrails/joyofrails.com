@@ -1,9 +1,16 @@
+@import '../config/variables.scss';
+
 .color-theme {
   color: var(--joy-background-clean);
-  margin-bottom: var(--space-3xl);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   border-radius: 0.5rem;
+}
+
+@media screen and (min-width: $screen-md) {
+  .color-theme {
+    flex-direction: row;
+  }
 }
 
 .color-swatch {

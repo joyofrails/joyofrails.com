@@ -621,7 +621,11 @@ svg {
 
   button,
   input,
+  select,
   textarea {
     background-color: var(--joy-dark);
+  }
+  select {
+    color: var(--joy-text);
   }
 }

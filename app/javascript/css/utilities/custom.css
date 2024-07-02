@@ -41,3 +41,7 @@
 .text-theme {
   color: var(--joy-text-theme);
 }
+
+.text-small {
+  font-size: var(--step--1);
+}
