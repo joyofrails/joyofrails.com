@@ -28,12 +28,13 @@ class ColorScale < ApplicationRecord
   end
 
   def self.cached_curated
-    cached_ids = Rails.cache.read("curated_color_scale_ids")
+    cache_key = "curated_color_scale_ids"
+    cached_ids = Rails.cache.read(cache_key)
 
     return where(id: cached_ids) if cached_ids
 
     curated.tap do |collection|
-      Rails.cache.write("curated_color_scale_ids", collection.map(&:id))
+      Rails.cache.write(cache_key, collection.map(&:id))
     end
   end
 
@@ -42,6 +43,17 @@ class ColorScale < ApplicationRecord
       APP_DEFAULT[:weights].each do |weight, value|
         cs.set_weight(weight, value)
       end
+    end
+  end
+
+  def self.cached_default
+    cache_key = "default_color_scale_id"
+    cached_id = Rails.cache.read(cache_key)
+
+    return where(id: cached_id).first if cached_id
+
+    where(name: APP_DEFAULT[:name]).first.tap do |cs|
+      Rails.cache.write("default_color_scale_id", cs.id)
     end
   end
 

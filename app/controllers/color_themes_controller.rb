@@ -5,7 +5,8 @@ class ColorThemesController < ApplicationController
 
     render ColorThemes::ShowView.new(
       color_scale: @color_scale,
-      curated_color_scales: curated_color_scales
+      curated_color_scales: curated_color_scales,
+      selected: params[:id].present?
     )
   end
 end
