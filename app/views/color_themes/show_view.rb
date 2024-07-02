@@ -4,8 +4,9 @@ class ColorThemes::ShowView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
 
-  def initialize(color_scale:, curated_color_scales: [], selected: false)
-    @color_scale = color_scale
+  def initialize(color_theme:, curated_color_scales: [], selected: false)
+    @color_theme = color_theme
+    @color_scale = color_theme.color_scale
     @curated_color_scales = curated_color_scales
     @selected = selected
   end
@@ -17,9 +18,10 @@ class ColorThemes::ShowView < ApplicationView
 
       p { "You can preview and save your desired color theme for this site. We have curated some options for you below." }
 
-      form_with(url: url_for, method: :get) do |f|
+      form_with(model: @color_theme, url: url_for, method: :get) do |f|
         fieldset(class: "flex items-center") do
-          f.select :id,
+          f.select(
+            :color_scale_id,
             @curated_color_scales.map { |cs| [cs.display_name, cs.id] },
             {
               prompt: "Pick one!",
@@ -29,9 +31,10 @@ class ColorThemes::ShowView < ApplicationView
             # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
             onchange: "this.form.requestSubmit()",
             class: "mr-2 bg-gray-50 border border-gray-300 text-small rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          )
 
           span(class: "mr-2 text-small") { "OR" }
-          link_to "I feel lucky!", url_for(id: @curated_color_scales.sample.id), class: "button primary mr-2"
+          link_to "I feel lucky!", url_for(color_theme: {color_scale_id: @curated_color_scales.sample.id}), class: "button primary mr-2"
           if @selected
             span(class: "mr-2 text-small") { unsafe_raw "&bull;" }
             link_to "Reset to default", url_for, class: "button secondary"
