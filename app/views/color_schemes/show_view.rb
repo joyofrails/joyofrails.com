@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class ColorThemes::ShowView < ApplicationView
+class ColorSchemes::ShowView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::ButtonTo
   include Phlex::Rails::Helpers::ContentFor
 
-  def initialize(color_theme:, fallback_color_scale: nil, curated_color_scales: [], selected: false, saved: false)
-    @color_theme = color_theme
-    @color_scale = color_theme.color_scale
+  def initialize(settings:, fallback_color_scale: nil, curated_color_scales: [], selected: false, saved: false)
+    @settings = settings
+    @color_scale = settings.color_scale
     @fallback_color_scale = fallback_color_scale
     @curated_color_scales = curated_color_scales
     @selected = selected
@@ -38,7 +38,7 @@ class ColorThemes::ShowView < ApplicationView
       div(class: "flex items-center") do
         span(class: "mr-2 text-small") { "Preview" }
 
-        form_with(model: @color_theme, url: url_for, method: :get) do |f|
+        form_with(model: @settings, url: url_for, method: :get) do |f|
           fieldset do
             f.select(
               :color_scale_id,
@@ -58,14 +58,14 @@ class ColorThemes::ShowView < ApplicationView
         span(class: "mr-2 text-small") { "OR" }
 
         link_to "I feel lucky!",
-          color_theme_path(color_theme: {color_scale_id: @curated_color_scales.sample.id}),
+          settings_color_scheme_path(settings: {color_scale_id: @curated_color_scales.sample.id}),
           class: "button secondary mr-2"
 
         if @selected && @color_scale != @fallback_color_scale
           span(class: "mr-2 text-small") { "OR" }
 
           button_to "Reset preview",
-            color_theme_path(color_theme: {color_scale_id: @fallback_color_scale.id}),
+            settings_color_scheme_path(settings: {color_scale_id: @fallback_color_scale.id}),
             method: :patch,
             class: "button tertiary mr-2"
         end
@@ -76,14 +76,14 @@ class ColorThemes::ShowView < ApplicationView
           span(class: "mr-2 text-small") { plain "Save" }
 
           button_to "Save this color scheme",
-            color_theme_path(color_theme: {color_scale_id: @color_scale.id}),
+            settings_color_scheme_path(settings: {color_scale_id: @color_scale.id}),
             method: :patch,
             class: "button primary mr-2"
 
           span(class: "mr-2 text-small") { unsafe_raw "&bull;" }
 
           button_to "Reset to default",
-            color_theme_path(color_theme: {color_scale_id: ColorScale.cached_default.id}),
+            settings_color_scheme_path(settings: {color_scale_id: ColorScale.cached_default.id}),
             method: :patch,
             class: "button tertiary mr-2"
         end

@@ -1,4 +1,4 @@
-class ColorTheme
+class Settings
   include ActiveModel::Model
 
   attr_accessor :color_scale
