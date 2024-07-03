@@ -3,47 +3,95 @@
 class ColorThemes::ShowView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
+  include Phlex::Rails::Helpers::ButtonTo
+  include Phlex::Rails::Helpers::ContentFor
 
-  def initialize(color_theme:, curated_color_scales: [], selected: false)
+  def initialize(color_theme:, fallback_color_scale: nil, curated_color_scales: [], selected: false, saved: false)
     @color_theme = color_theme
     @color_scale = color_theme.color_scale
+    @fallback_color_scale = fallback_color_scale
     @curated_color_scales = curated_color_scales
     @selected = selected
+    @saved = saved
   end
 
   def view_template
-    render Pages::Header.new(title: "Settings: Color Theme")
+    content_for :head do
+      render("application/theme/color")
+    end
+    render Pages::Header.new(title: "Theme")
     div(class: "section-content container py-gap") do
-      h3 { "Want to try a different color theme?" }
+      if @saved || @selected
+        h3 do
+          plain "You are now #{@saved ? "using" : "previewing"} the"
+          whitespace
+          span(class: "emphasis") { @color_scale.display_name }
+          whitespace
+          plain "color scheme"
+        end
+      else
+        h3 { "Want to try a different color scheme?" }
+      end
 
-      p { "You can preview and save your desired color theme for this site. We have curated some options for you below." }
+      p { "You can preview and save your desired color scheme for this site. We have curated some options for you below." }
 
-      form_with(model: @color_theme, url: url_for, method: :get) do |f|
-        fieldset(class: "flex items-center") do
-          f.select(
-            :color_scale_id,
-            @curated_color_scales.map { |cs| [cs.display_name, cs.id] },
-            {
-              prompt: "Pick one!",
-              selected: (@selected ? @color_scale.id : nil)
-            },
-            # requestSubmit and Turbo
-            # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
-            onchange: "this.form.requestSubmit()",
-            class: "mr-2 bg-gray-50 border border-gray-300 text-small rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          )
+      div(class: "flex items-center") do
+        span(class: "mr-2 text-small") { "Preview" }
 
-          span(class: "mr-2 text-small") { "OR" }
-          link_to "I feel lucky!", url_for(color_theme: {color_scale_id: @curated_color_scales.sample.id}), class: "button primary mr-2"
-          if @selected
-            span(class: "mr-2 text-small") { unsafe_raw "&bull;" }
-            link_to "Reset to default", url_for, class: "button secondary"
+        form_with(model: @color_theme, url: url_for, method: :get) do |f|
+          fieldset do
+            f.select(
+              :color_scale_id,
+              @curated_color_scales.map { |cs| [cs.display_name, cs.id] },
+              {
+                prompt: "Pick one!",
+                selected: @selected && @color_scale.id
+              },
+              # requestSubmit and Turbo
+              # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
+              onchange: "this.form.requestSubmit()",
+              class: "mr-2"
+            )
           end
+        end
+
+        span(class: "mr-2 text-small") { "OR" }
+
+        link_to "I feel lucky!",
+          color_theme_path(color_theme: {color_scale_id: @curated_color_scales.sample.id}),
+          class: "button secondary mr-2"
+
+        if @selected && @color_scale != @fallback_color_scale
+          span(class: "mr-2 text-small") { "OR" }
+
+          button_to "Reset preview",
+            color_theme_path(color_theme: {color_scale_id: @fallback_color_scale.id}),
+            method: :patch,
+            class: "button tertiary mr-2"
+        end
+      end
+
+      if @selected
+        div(class: "flex items-center") do
+          span(class: "mr-2 text-small") { plain "Save" }
+
+          button_to "Save this color scheme",
+            color_theme_path(color_theme: {color_scale_id: @color_scale.id}),
+            method: :patch,
+            class: "button primary mr-2"
+
+          span(class: "mr-2 text-small") { unsafe_raw "&bull;" }
+
+          button_to "Reset to default",
+            color_theme_path(color_theme: {color_scale_id: ColorScale.cached_default.id}),
+            method: :patch,
+            class: "button tertiary mr-2"
         end
       end
 
       h3 { display_name }
-      div(class: "color-theme color-theme:#{@color_scale.name.parameterize}") do
+
+      div(class: "color-scheme color-scheme__#{@color_scale.name.parameterize}") do
         @color_scale.weights.each do |weight, color|
           div(class: "color-swatch color-swatch__weight:#{weight}", style: "background-color: #{color.hex}") do
             div(class: "color-swatch__weight") { weight }

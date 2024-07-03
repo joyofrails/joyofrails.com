@@ -52,8 +52,8 @@ class ColorScale < ApplicationRecord
 
     return where(id: cached_id).first if cached_id
 
-    where(name: APP_DEFAULT[:name]).first.tap do |cs|
-      Rails.cache.write("default_color_scale_id", cs.id)
+    find_or_create_default.tap do |cs|
+      Rails.cache.write(cache_key, cs.id)
     end
   end
 

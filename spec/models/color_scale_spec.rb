@@ -17,7 +17,8 @@ RSpec.describe ColorScale, type: :model do
     it "should return a hash of all weights" do
       color_scale = FactoryBot.build(:color_scale)
 
-      expect(color_scale.weights).to eq(
+      # ColorConversion::Color objects don’t implement #==, so we convert to hex
+      expect(color_scale.weights.transform_values { |color| color.hex }).to eq(
         "50" => color_scale.weight_50,
         "100" => color_scale.weight_100,
         "200" => color_scale.weight_200,
