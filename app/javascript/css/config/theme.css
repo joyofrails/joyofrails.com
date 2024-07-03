@@ -43,7 +43,7 @@
 
   --joy-text: var(--color-dark);
   --joy-text-subtle: var(--color-stone-700);
-  --joy-text-emphasis: var(--joy-color-700);
+  --joy-text-emphasis: var(--joy-color-500);
   --joy-text-heading: var(--color-slate-900);
   --joy-text-theme: var(--joy-color-800);
 
@@ -55,9 +55,12 @@
   --joy-button-primary: var(--joy-color-600);
   --joy-button-primary-hover: var(--joy-color-700);
   --joy-button-primary-active: var(--joy-color-800);
-  --joy-button-secondary: var(--color-slate-400);
-  --joy-button-secondary-hover: var(--color-slate-500);
-  --joy-button-secondary-active: var(--color-slate-600);
+  --joy-button-secondary: var(--joy-light);
+  --joy-button-secondary-hover: var(--joy-color-50);
+  --joy-button-secondary-active: var(--joy-color-100);
+  --joy-button-tertiary: var(--color-slate-400);
+  --joy-button-tertiary-hover: var(--color-slate-500);
+  --joy-button-tertiary-active: var(--color-slate-600);
   --joy-button-warn: var(--color-red-500);
   --joy-button-warn-hover: var(--color-red-400);
 }

@@ -1,6 +1,7 @@
 .button {
+  border: 1px solid var(--joy-border-subtle);
   border-radius: 0.375rem;
-  padding: 0.625rem 0.75rem;
+  padding: 0.75rem;
   display: inline-flex;
   align-items: center;
   font-size: 0.875rem;
@@ -8,7 +9,7 @@
   line-height: 1.5715;
   font-weight: 600;
   color: var(--joy-light);
-  line-height: inherit;
+  line-height: 1rem;
 
   &:is(a) {
     text-decoration: none;
@@ -23,6 +24,7 @@
     display: none;
   }
   &.primary {
+    border: 1px solid var(--joy-button-primary);
     background-color: var(--joy-button-primary);
 
     &:hover {
@@ -34,11 +36,22 @@
   }
   &.secondary {
     background-color: var(--joy-button-secondary);
+    color: var(--joy-text);
     &:hover {
       background-color: var(--joy-button-secondary-hover);
     }
     &:active {
       background-color: var(--joy-button-secondary-active);
+    }
+  }
+  &.tertiary {
+    border: 1px solid var(--joy-button-tertiary);
+    background-color: var(--joy-button-tertiary);
+    &:hover {
+      background-color: var(--joy-button-tertiary-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-tertiary-active);
     }
   }
   &.warn {

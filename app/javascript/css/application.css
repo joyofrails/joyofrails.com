@@ -22,6 +22,7 @@
 
 @import './components/logo.css';
 @import './components/button.css';
+@import './components/select.css';
 @import './components/code.scss';
 @import './components/page-header.css';
 @import './components/skip-to-content.css';
@@ -32,4 +33,4 @@
 @import './components/newsletter-banner.css';
 @import './components/anchors.scss';
 @import './components/callout.css';
-@import './components/color-theme.scss';
+@import './components/color-scheme.scss';

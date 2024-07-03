@@ -1,6 +1,6 @@
 @import '../config/variables.scss';
 
-.color-theme {
+.color-scheme {
   color: var(--joy-background-clean);
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: $screen-md) {
-  .color-theme {
+  .color-scheme {
     flex-direction: row;
   }
 }
