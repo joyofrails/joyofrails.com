@@ -33,14 +33,4 @@ class Settings::ColorSchemesController < ApplicationController
 
     redirect_to settings_color_scheme_path, status: :see_other
   end
-
-  private
-
-  def preview_color_scheme_id = params.dig(:settings, :color_scheme_id)
-
-  def default_color_scheme = @default_color_scheme ||= ColorScheme.cached_default
-
-  def session_color_scheme = session[:color_scheme_id] && ColorScheme.find(session[:color_scheme_id])
-
-  def preview_color_scheme = preview_color_scheme_id && ColorScheme.find(preview_color_scheme_id)
 end
