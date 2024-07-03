@@ -7,4 +7,4 @@ AdminUser.find_or_create_by!(
   u.password_confirmation = password
 end
 
-ColorScale.find_or_create_default
+ColorScheme.find_or_create_default

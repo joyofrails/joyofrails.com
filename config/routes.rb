@@ -23,13 +23,9 @@ Rails.application.routes.draw do
 
   resources :feed, only: [:index], format: "atom"
 
-  # Render dynamic PWA files from app/views/pwa/*
-  get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
-  get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest, :constraints => {format: "json"}
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", :as => :rails_health_check
+  namespace :settings do
+    resource :color_scheme, only: [:show, :update]
+  end
 
   namespace :users do
     resource :thank_you, only: [:show]
@@ -78,4 +74,12 @@ Rails.application.routes.draw do
       mount Litestream::Engine => "/litestream"
     end
   end
+
+  # Render dynamic PWA files from app/views/pwa/*
+  get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
+  get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest, :constraints => {format: "json"}
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", :as => :rails_health_check
 end

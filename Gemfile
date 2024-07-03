@@ -36,6 +36,7 @@ gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rail
 gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
 gem "commonmarker", require: false
 gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
+gem "color_conversion", group: [:default, :wasm] # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
@@ -87,5 +88,3 @@ end
 group :browser do
   gem "js" # JavaScript bindings for ruby.wasm [https://github.com/ruby/ruby.wasm/blob/main/packages/gems/js]
 end
-
-gem "color_conversion", "~> 0.1.1"

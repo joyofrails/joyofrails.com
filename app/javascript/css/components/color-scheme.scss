@@ -1,0 +1,40 @@
+@import '../config/variables.scss';
+
+.color-scheme {
+  color: var(--joy-background-clean);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+}
+
+@media screen and (min-width: $screen-md) {
+  .color-scheme {
+    flex-direction: row;
+  }
+}
+
+.color-swatch {
+  width: 100%;
+  padding: 1rem;
+  margin-right: 1px;
+  height: 6rem;
+  border-radius: 0.5rem;
+  justify-content: center;
+  flex-direction: column;
+  text-transform: uppercase;
+  border: 1px solid var(--joy-border-subtle);
+  font-size: var(--step--2);
+  text-align: center;
+}
+
+.color-swatch__weight\:50,
+.color-swatch__weight\:100,
+.color-swatch__weight\:200,
+.color-swatch__weight\:300,
+.color-swatch__weight\:400 {
+  color: var(--joy-dark);
+}
+
+.color-swatch__weight {
+  font-weight: 700;
+}

@@ -1,11 +1,7 @@
-<%
-  my_color = 'cerulean-blue'
-  ui_colors_color_increments = [50, *1.upto(9).map { |n| n*100}, 950 ]
-%>
-<style>
-  :root {
-    <% ui_colors_color_increments.each do |n| %>
-    --my-color-<%= n %>: var(--color-<%= my_color %>-<%= n %>);
-    <% end %>
-  }
-</style>
+<% if custom_color_scheme? %>
+  <%= stylesheet_link_tag settings_color_scheme_path(**custom_color_scheme_params, format: :css) %>
+<% else %>
+  <style>
+    <%= render ColorSchemes::Css.new(color_scheme: ColorScheme.cached_default) %>
+  </style>
+<% end %>

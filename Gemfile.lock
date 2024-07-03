@@ -551,7 +551,7 @@ DEPENDENCIES
   brakeman
   bundle-audit
   capybara
-  color_conversion (~> 0.1.1)
+  color_conversion
   commonmarker
   cuprite!
   debug

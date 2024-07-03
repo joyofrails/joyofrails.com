@@ -1,8 +1,8 @@
 require "faker"
 
 FactoryBot.define do
-  factory :color_scale do
-    name { Faker::Color.color_name.titleize }
+  factory :color_scheme do
+    sequence(:name) { |n| "#{Faker::Color.color_name.titleize} #{n}" }
     weight_50 { Faker::Color.hex_color }
     weight_100 { Faker::Color.hex_color }
     weight_200 { Faker::Color.hex_color }

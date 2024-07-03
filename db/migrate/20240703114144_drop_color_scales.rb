@@ -1,0 +1,25 @@
+class DropColorScales < ActiveRecord::Migration[7.1]
+  def up
+    drop_table :color_scales
+  end
+
+  def down
+    create_table :color_scales, force: true, id: false do |t|
+      t.primary_key :id, :string, default: -> { "ULID()" }
+      t.string :name, null: false
+      t.string :weight_50, null: false
+      t.string :weight_100, null: false
+      t.string :weight_200, null: false
+      t.string :weight_300, null: false
+      t.string :weight_400, null: false
+      t.string :weight_500, null: false
+      t.string :weight_600, null: false
+      t.string :weight_700, null: false
+      t.string :weight_800, null: false
+      t.string :weight_900, null: false
+      t.string :weight_950, null: false
+
+      t.timestamps
+    end
+  end
+end

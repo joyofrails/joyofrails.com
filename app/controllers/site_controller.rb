@@ -29,9 +29,13 @@ class SiteController < Sitepress::SiteController
   # @param rendition [Sitepress::Rendition] Rendered representatio of current_resource
   #
   def post_render(rendition)
-    if current_path?(root_path) || stale?(rendition.source, last_modified: current_resource.asset.updated_at.utc, public: true)
+    if skip_http_cache? || stale?(rendition.source, last_modified: current_resource.asset.updated_at.utc, public: true)
       render body: rendition.output, content_type: rendition.mime_type
     end
+  end
+
+  def skip_http_cache?
+    current_path?(root_path) || custom_color_scheme?
   end
 
   def current_path?(path)
