@@ -4,14 +4,12 @@ require "rails_helper"
 
 RSpec.describe "Customize Color Scheme", type: :system do
   let(:curated_colors) do
-    curated_color_names = YAML.load_file(Rails.root.join("config", "curated_colors.yml")).sample(3)
-
-    curated_color_names.map do |name|
-      FactoryBot.create(:color_scheme, name: name)
-    end
+    FactoryBot.create_list(:color_scheme, 3)
   end
 
-  before { curated_colors }
+  before do
+    allow(ColorScheme).to receive(:curated).and_return(curated_colors)
+  end
 
   it "user can selected a curated color scheme" do
     visit settings_color_scheme_path

@@ -3,16 +3,13 @@ require "rails_helper"
 RSpec.describe "Settings Color Schemes", type: :request do
   let(:default_color_scheme) { ColorScheme.find_or_create_default }
   let(:curated_colors) do
-    curated_color_names = YAML.load_file(Rails.root.join("config", "curated_colors.yml")).sample(3)
-
-    curated_color_names.map do |name|
-      FactoryBot.create(:color_scheme, name: name)
-    end
+    FactoryBot.create_list(:color_scheme, 3)
   end
 
   before do
     default_color_scheme
-    curated_colors
+
+    allow(ColorScheme).to receive(:curated).and_return(curated_colors)
   end
 
   describe "GET color_schemes#show" do
