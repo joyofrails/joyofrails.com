@@ -1,28 +1,28 @@
 class Settings::ColorSchemesController < ApplicationController
   def show
-    @color_scale = selected_color_scale || session_color_scale || ColorScale.cached_default
-    @settings = Settings.new(color_scale: @color_scale)
+    @color_scheme = selected_color_scheme || session_color_scheme || ColorScheme.cached_default
+    @settings = Settings.new(color_scheme: @color_scheme)
 
     render ColorSchemes::ShowView.new(
       settings: @settings,
-      fallback_color_scale: session_color_scale || ColorScale.cached_default,
-      curated_color_scales: ColorScale.cached_curated,
-      selected: selected_color_scale_id.present?,
-      saved: session[:color_scale_id].presence == @color_scale.id
+      fallback_color_scheme: session_color_scheme || ColorScheme.cached_default,
+      curated_color_schemes: ColorScheme.cached_curated,
+      selected: selected_color_scheme_id.present?,
+      saved: session[:color_scheme_id].presence == @color_scheme.id
     )
   end
 
   def update
-    update_params = params[:settings] ? params.require(:settings).permit(:color_scale_id) : {}
-    color_scale_id = update_params[:color_scale_id]
-    @color_scale = ColorScale.find(color_scale_id)
+    update_params = params[:settings] ? params.require(:settings).permit(:color_scheme_id) : {}
+    color_scheme_id = update_params[:color_scheme_id]
+    @color_scheme = ColorScheme.find(color_scheme_id)
 
-    redirect_to settings_color_scheme_path unless @color_scale.present?
+    redirect_to settings_color_scheme_path unless @color_scheme.present?
 
-    if @color_scale == ColorScale.cached_default
-      session.delete(:color_scale_id)
+    if @color_scheme == ColorScheme.cached_default
+      session.delete(:color_scheme_id)
     else
-      session[:color_scale_id] = @color_scale.id
+      session[:color_scheme_id] = @color_scheme.id
     end
 
     redirect_to settings_color_scheme_path, status: :see_other
@@ -30,9 +30,9 @@ class Settings::ColorSchemesController < ApplicationController
 
   private
 
-  def selected_color_scale_id = params.dig(:settings, :color_scale_id) || session[:color_scale_id]
+  def selected_color_scheme_id = params.dig(:settings, :color_scheme_id) || session[:color_scheme_id]
 
-  def session_color_scale = session[:color_scale_id] && ColorScale.find(session[:color_scale_id])
+  def session_color_scheme = session[:color_scheme_id] && ColorScheme.find(session[:color_scheme_id])
 
-  def selected_color_scale = selected_color_scale_id && ColorScale.find(selected_color_scale_id)
+  def selected_color_scheme = selected_color_scheme_id && ColorScheme.find(selected_color_scheme_id)
 end

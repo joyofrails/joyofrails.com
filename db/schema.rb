@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_01_121018) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_03_114157) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_121018) do
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
-  create_table "color_scales", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
+  create_table "color_schemes", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "weight_50", null: false
     t.string "weight_100", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_01_121018) do
     t.string "weight_950", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_color_schemes_on_name", unique: true
   end
 
   create_table "email_exchanges", force: :cascade do |t|

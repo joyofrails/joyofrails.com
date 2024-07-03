@@ -7,13 +7,13 @@ RSpec.describe "Customize Color Scheme", type: :system do
     curated_color_names = YAML.load_file(Rails.root.join("config", "curated_colors.yml")).sample(3)
 
     curated_colors = curated_color_names.map do |name|
-      FactoryBot.create(:color_scale, name: name)
+      FactoryBot.create(:color_scheme, name: name)
     end
 
     visit settings_color_scheme_path
 
     chosen_color = curated_colors.second
-    select chosen_color.display_name, from: "settings[color_scale_id]"
+    select chosen_color.display_name, from: "settings[color_scheme_id]"
 
     click_button "Save this color scheme"
 

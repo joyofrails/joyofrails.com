@@ -2,7 +2,7 @@
 
 require "color_conversion"
 
-class ColorScale < ApplicationRecord
+class ColorScheme < ApplicationRecord
   APP_DEFAULT = {
     name: "Custom Cerulean Blue",
     weights: {
@@ -28,7 +28,7 @@ class ColorScale < ApplicationRecord
   end
 
   def self.cached_curated
-    cache_key = "curated_color_scale_ids"
+    cache_key = "curated_color_scheme_ids"
     cached_ids = Rails.cache.read(cache_key)
 
     return where(id: cached_ids) if cached_ids
@@ -47,7 +47,7 @@ class ColorScale < ApplicationRecord
   end
 
   def self.cached_default
-    cache_key = "default_color_scale_id"
+    cache_key = "default_color_scheme_id"
     cached_id = Rails.cache.read(cache_key)
 
     return where(id: cached_id).first if cached_id

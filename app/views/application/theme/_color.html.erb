@@ -1,5 +1,5 @@
 <style>
   :root {
-    <%= render ColorScales::Css.new(color_scale: @color_scale || ColorScale.find_or_create_default) %>
+    <%= render ColorSchemes::Css.new(color_scheme: @color_scheme || ColorScheme.find_or_create_default) %>
   }
 </style>

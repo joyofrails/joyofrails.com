@@ -5,17 +5,17 @@ class ApplicationController < ActionController::Base
   before_action :set_color_theme
 
   def set_color_theme
-    @color_scale = find_color_theme
+    @color_scheme = find_color_theme
   end
 
   def find_color_theme
-    if session[:color_scale_id]
+    if session[:color_scheme_id]
       begin
-        return ColorScale.find(session[:color_scale_id])
+        return ColorScheme.find(session[:color_scheme_id])
       rescue ActiveRecord::RecordNotFound
       end
     end
 
-    ColorScale.cached_default
+    ColorScheme.cached_default
   end
 end

@@ -1,11 +1,11 @@
 class Settings
   include ActiveModel::Model
 
-  attr_accessor :color_scale
+  attr_accessor :color_scheme
 
-  def initialize(color_scale:)
-    @color_scale = color_scale
+  def initialize(color_scheme:)
+    @color_scheme = color_scheme
   end
 
-  def color_scale_id = color_scale.id
+  def color_scheme_id = color_scheme.id
 end

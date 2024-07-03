@@ -1,12 +1,12 @@
-class ColorScales::Css < Phlex::HTML
-  attr_reader :color_scale
+class ColorSchemes::Css < Phlex::HTML
+  attr_reader :color_scheme
 
-  def initialize(color_scale:)
-    @color_scale = color_scale
+  def initialize(color_scheme:)
+    @color_scheme = color_scheme
   end
 
   def color_name
-    color_scale.name.parameterize
+    color_scheme.name.parameterize
   end
 
   def to_hsla_css(color)
@@ -15,10 +15,10 @@ class ColorScales::Css < Phlex::HTML
   end
 
   def view_template
-    color_scale.weights.each do |weight, color|
+    color_scheme.weights.each do |weight, color|
       unsafe_raw "--color-#{color_name}-#{weight}: #{to_hsla_css(color)};\n"
     end
-    color_scale.weights.each do |weight, color|
+    color_scheme.weights.each do |weight, color|
       unsafe_raw "--my-color-#{weight}: var(--color-#{color_name}-#{weight});\n"
     end
   end
