@@ -1,15 +1,21 @@
 class Settings::ColorSchemesController < ApplicationController
   def show
-    @color_scheme = selected_color_scheme || session_color_scheme || ColorScheme.cached_default
-    @settings = Settings.new(color_scheme: @color_scheme)
+    @color_scheme = find_color_scheme
 
-    render ColorSchemes::ShowView.new(
-      settings: @settings,
-      fallback_color_scheme: session_color_scheme || ColorScheme.cached_default,
-      curated_color_schemes: ColorScheme.cached_curated,
-      selected: selected_color_scheme_id.present?,
-      saved: session[:color_scheme_id].presence == @color_scheme.id
-    )
+    respond_to do |format|
+      format.html {
+        render ColorSchemes::ShowView.new(
+          settings: Settings.new(color_scheme: @color_scheme),
+          curated_color_schemes: ColorScheme.cached_curated,
+          preview_color_scheme: preview_color_scheme,
+          session_color_scheme: session_color_scheme,
+          default_color_scheme: default_color_scheme
+        )
+      }
+      format.css {
+        render ColorSchemes::Css.new(color_scheme: @color_scheme), layout: false
+      }
+    end
   end
 
   def update
@@ -30,9 +36,11 @@ class Settings::ColorSchemesController < ApplicationController
 
   private
 
-  def selected_color_scheme_id = params.dig(:settings, :color_scheme_id) || session[:color_scheme_id]
+  def preview_color_scheme_id = params.dig(:settings, :color_scheme_id)
+
+  def default_color_scheme = @default_color_scheme ||= ColorScheme.cached_default
 
   def session_color_scheme = session[:color_scheme_id] && ColorScheme.find(session[:color_scheme_id])
 
-  def selected_color_scheme = selected_color_scheme_id && ColorScheme.find(selected_color_scheme_id)
+  def preview_color_scheme = preview_color_scheme_id && ColorScheme.find(preview_color_scheme_id)
 end

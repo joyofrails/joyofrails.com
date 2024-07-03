@@ -6,13 +6,19 @@ class ColorSchemes::ShowView < ApplicationView
   include Phlex::Rails::Helpers::ButtonTo
   include Phlex::Rails::Helpers::ContentFor
 
-  def initialize(settings:, fallback_color_scheme: nil, curated_color_schemes: [], selected: false, saved: false)
+  def initialize(
+    settings:,
+    curated_color_schemes: [],
+    default_color_scheme: ColorScheme.cached_default,
+    preview_color_scheme: nil,
+    session_color_scheme: nil
+  )
     @settings = settings
     @color_scheme = settings.color_scheme
-    @fallback_color_scheme = fallback_color_scheme
     @curated_color_schemes = curated_color_schemes
-    @selected = selected
-    @saved = saved
+    @preview_color_scheme = preview_color_scheme
+    @session_color_scheme = session_color_scheme
+    @default_color_scheme = default_color_scheme
   end
 
   def view_template
@@ -21,9 +27,9 @@ class ColorSchemes::ShowView < ApplicationView
     end
     render Pages::Header.new(title: "Theme: Color")
     div(class: "section-content container py-gap") do
-      if @saved || @selected
+      if previewing? || preserving?
         h3 do
-          plain "You are now #{@saved ? "using" : "previewing"} the"
+          plain "You are now #{(@color_scheme == @session_color_scheme) ? "using" : "previewing"} the"
           whitespace
           span(class: "emphasis") { @color_scheme.display_name }
           whitespace
@@ -36,24 +42,7 @@ class ColorSchemes::ShowView < ApplicationView
       p { "You can preview and save your desired color scheme for this site. We have curated some options for you below." }
 
       div(class: "flex items-center") do
-        span(class: "mr-2 text-small") { "Preview" }
-
-        form_with(model: @settings, url: url_for, method: :get) do |f|
-          fieldset do
-            f.select(
-              :color_scheme_id,
-              @curated_color_schemes.map { |cs| [cs.display_name, cs.id] },
-              {
-                prompt: "Pick one!",
-                selected: @selected && @color_scheme.id
-              },
-              # requestSubmit and Turbo
-              # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
-              onchange: "this.form.requestSubmit()",
-              class: "mr-2"
-            )
-          end
-        end
+        preview_select
 
         span(class: "mr-2 text-small") { "OR" }
 
@@ -61,42 +50,84 @@ class ColorSchemes::ShowView < ApplicationView
           settings_color_scheme_path(settings: {color_scheme_id: @curated_color_schemes.sample.id}),
           class: "button secondary mr-2"
 
-        if @selected && @color_scheme != @fallback_color_scheme
+        if previewing? && (@color_scheme != (@session_color_scheme || @default_color_scheme))
           span(class: "mr-2 text-small") { "OR" }
 
-          button_to "Reset preview",
-            settings_color_scheme_path(settings: {color_scheme_id: @fallback_color_scheme.id}),
-            method: :patch,
+          link_to "Reset preview",
+            settings_color_scheme_path,
             class: "button tertiary mr-2"
         end
       end
 
-      if @selected
-        div(class: "flex items-center") do
-          span(class: "mr-2 text-small") { plain "Save" }
-
-          button_to "Save this color scheme",
-            settings_color_scheme_path(settings: {color_scheme_id: @color_scheme.id}),
-            method: :patch,
-            class: "button primary mr-2"
-
-          span(class: "mr-2 text-small") { unsafe_raw "&bull;" }
-
-          button_to "Reset to default",
-            settings_color_scheme_path(settings: {color_scheme_id: ColorScheme.cached_default.id}),
-            method: :patch,
-            class: "button tertiary mr-2"
+      if previewing?
+        h3 { @preview_color_scheme.display_name }
+        p { "You are previewing #{@preview_color_scheme.display_name}." }
+        color_swatches(@preview_color_scheme)
+        p do
+          plain "Click"
+          whitespace
+          span(class: "emphasis") { "Save" }
+          whitespace
+          plain "to set #{@preview_color_scheme.display_name} as your new color scheme."
         end
+        save_preview_button
       end
 
-      h3 { display_name }
+      if preserving?
+        h3 { @session_color_scheme.display_name }
+        p { "You have saved #{@session_color_scheme.display_name} as your personal color scheme." }
+        color_swatches(@session_color_scheme)
+      end
 
-      div(class: "color-scheme color-scheme__#{@color_scheme.name.parameterize}") do
-        @color_scheme.weights.each do |weight, color|
-          div(class: "color-swatch color-swatch__weight:#{weight}", style: "background-color: #{color.hex}") do
-            div(class: "color-swatch__weight") { weight }
-            div(class: "color-swatch__color") { color.hex.delete("#").upcase }
-          end
+      h3 { @default_color_scheme.display_name }
+      p { "This is the default color scheme for this site." }
+      color_swatches(@default_color_scheme)
+      if preserving?
+        p { "You can delete #{@session_color_scheme.display_name} as your color scheme choice and go back to the default color scheme by clicking the Delete button below." }
+        unsave_button
+      end
+    end
+  end
+
+  def preview_select
+    form_with(model: @settings, url: url_for, method: :get) do |f|
+      fieldset do
+        f.select(
+          :color_scheme_id,
+          @curated_color_schemes.sort_by { |cs| cs.name }.map { |cs| [cs.display_name, cs.id] },
+          {
+            prompt: "Pick one!",
+            selected: previewing? && @color_scheme.id
+          },
+          # requestSubmit and Turbo
+          # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
+          onchange: "this.form.requestSubmit()",
+          class: "mr-2"
+        )
+      end
+    end
+  end
+
+  def save_preview_button
+    button_to "Save #{@preview_color_scheme.display_name}",
+      settings_color_scheme_path(settings: {color_scheme_id: @preview_color_scheme.id}),
+      method: :patch,
+      class: "button primary mr-2"
+  end
+
+  def unsave_button
+    button_to "Delete my color scheme choice",
+      settings_color_scheme_path(settings: {color_scheme_id: ColorScheme.cached_default.id}),
+      method: :patch,
+      class: "button warn mr-2"
+  end
+
+  def color_swatches(color_scheme)
+    div(class: "color-scheme color-scheme__#{color_scheme.name.parameterize}") do
+      color_scheme.weights.each do |weight, color|
+        div(class: "color-swatch color-swatch__weight:#{weight}", style: "background-color: #{color.hex}") do
+          div(class: "color-swatch__weight") { weight }
+          div(class: "color-swatch__color") { color.hex.delete("#").upcase }
         end
       end
     end
@@ -104,13 +135,9 @@ class ColorSchemes::ShowView < ApplicationView
 
   private
 
-  def default_color_scheme? = @color_scheme.id == ColorScheme.cached_default.id
+  def previewing? = @preview_color_scheme.present?
 
-  def display_name
-    if default_color_scheme?
-      "#{@color_scheme.display_name} (default)"
-    else
-      @color_scheme.display_name
-    end
-  end
+  def preserving? = @session_color_scheme.present?
+
+  def default_color_scheme? = @color_scheme.id == @default_color_scheme
 end

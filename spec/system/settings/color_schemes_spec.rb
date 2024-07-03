@@ -15,7 +15,7 @@ RSpec.describe "Customize Color Scheme", type: :system do
     chosen_color = curated_colors.second
     select chosen_color.display_name, from: "settings[color_scheme_id]"
 
-    click_button "Save this color scheme"
+    click_button "Save #{chosen_color.display_name}"
 
     expect(page).to have_content("You are now using the #{chosen_color.display_name} color scheme")
 

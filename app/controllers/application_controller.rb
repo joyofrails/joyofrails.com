@@ -2,20 +2,25 @@ class ApplicationController < ActionController::Base
   include Erroring
   include Authentication
 
-  before_action :set_color_theme
+  def custom_color_scheme_params = preview_color_scheme_id ? {settings: {color_scheme_id: preview_color_scheme_id}} : {}
+  helper_method :custom_color_scheme_params
 
-  def set_color_theme
-    @color_scheme = find_color_theme
+  def custom_color_scheme?
+    preview_color_scheme_id.present? || session_color_scheme_id.present?
+  end
+  helper_method :custom_color_scheme?
+
+  def preview_color_scheme_id = params.dig(:settings, :color_scheme_id)
+
+  def session_color_scheme_id = session[:color_scheme_id]
+
+  def find_color_scheme
+    preview_color_scheme || session_color_scheme || default_color_scheme
   end
 
-  def find_color_theme
-    if session[:color_scheme_id]
-      begin
-        return ColorScheme.find(session[:color_scheme_id])
-      rescue ActiveRecord::RecordNotFound
-      end
-    end
+  def preview_color_scheme = preview_color_scheme_id && ColorScheme.find(preview_color_scheme_id)
 
-    ColorScheme.cached_default
-  end
+  def session_color_scheme = session_color_scheme_id && ColorScheme.find(session_color_scheme_id)
+
+  def default_color_scheme = @default_color_scheme ||= ColorScheme.cached_default
 end

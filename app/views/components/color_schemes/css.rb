@@ -5,6 +5,17 @@ class ColorSchemes::Css < Phlex::HTML
     @color_scheme = color_scheme
   end
 
+  def view_template
+    unsafe_raw <<-CSS
+      :root {
+        #{color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla_css(color)};" }.join("\n\t\t")}
+        #{color_scheme.weights.map { |weight, color| "--my-color-#{weight}: var(--color-#{color_name}-#{weight});" }.join("\n\t\t")}
+      }
+    CSS
+  end
+
+  private
+
   def color_name
     color_scheme.name.parameterize
   end
@@ -12,14 +23,5 @@ class ColorSchemes::Css < Phlex::HTML
   def to_hsla_css(color)
     hsl = color.hsl
     "hsla(#{hsl[:h]}, #{hsl[:s]}%, #{hsl[:l]}%, 1)"
-  end
-
-  def view_template
-    color_scheme.weights.each do |weight, color|
-      unsafe_raw "--color-#{color_name}-#{weight}: #{to_hsla_css(color)};\n"
-    end
-    color_scheme.weights.each do |weight, color|
-      unsafe_raw "--my-color-#{weight}: var(--color-#{color_name}-#{weight});\n"
-    end
   end
 end
