@@ -13,7 +13,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "application/config" %>
-    <%= render "application/theme/color" %>
+    <%= render "application/theme/color" unless Rails.env.wasm? %>
     <%= render "application/theme/code" %>
     <%= render "darkmode/setup" %>
     <%= vite_client_tag %>
