@@ -306,8 +306,8 @@ select {
   border-style: solid;
   border-width: 1px;
   border-radius: 0;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: var(--step--1);
   line-height: 1.5rem;
   --tw-shadow: 0 0 #0000;
 }

@@ -21,7 +21,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
             autocomplete: "off",
             placeholder: "your@joymail.com",
             class:
-              "flex-1 rounded bg-white/5 py-1.5 pl-3 sm:leading-6 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] "
+              "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] "
         end
         div do
           plain f.submit "Subscribe", class: "button primary focus-ring"
