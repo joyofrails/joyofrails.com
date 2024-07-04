@@ -23,25 +23,25 @@ class ColorSchemes::Form < ApplicationView
 
   def view_template
     style do
+      render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
+      render(ColorSchemes::CssVariables.new(color_scheme: @default_color_scheme))
       render(ColorSchemes::Css.new(color_scheme: @color_scheme))
     end
 
-    div(class: "grid grid-row-mid") do
-      if previewing? || preserving?
-        h3 do
-          plain "You are now #{(@color_scheme == @session_color_scheme) ? "using" : "previewing"} the"
+    div(class: "grid grid-content") do
+      if previewing?
+        h2 do
+          plain "You are now peviewing"
           whitespace
           span(class: "emphasis") { @color_scheme.display_name }
-          whitespace
-          plain "color scheme"
         end
       else
-        h3 { "Want to try something different?" }
+        h2 { "Want to preview a new color?" }
       end
 
       markdown do
         <<~MARKDOWN
-          This site uses a monochromatic color scheme. You can preview and save a new color scheme right here. I have curated some options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
+          This site uses a monochromatic color scheme. You can preview and save a new color scheme below. I have curated over a hundred options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
         MARKDOWN
       end
 
@@ -67,7 +67,7 @@ class ColorSchemes::Form < ApplicationView
 
       if previewing?
         markdown do
-          "Here is the color scheme **#{@preview_color_scheme.display_name}**"
+          "Here is the color scheme **#{@preview_color_scheme.display_name}**. You can preview what the site looks with this color scheme while you remain on this page."
         end
 
         color_swatches(@preview_color_scheme)
@@ -89,6 +89,12 @@ class ColorSchemes::Form < ApplicationView
       end
 
       if preserving?
+        h2 {
+          plain "Your saved color scheme:"
+          whitespace
+          span(style: inline_style_header_color(@session_color_scheme)) { @session_color_scheme.display_name }
+        }
+
         markdown do
           <<~MARKDOWN
             You have saved **#{@session_color_scheme.display_name}** as your personal color scheme.
@@ -97,7 +103,14 @@ class ColorSchemes::Form < ApplicationView
 
         color_swatches(@session_color_scheme)
 
-        flex_block do
+        if !previewing?
+          flex_block(class: "justify-between") do
+            span { "You can toggle the dark mode switch to see how the color scheme looks in light vs dark mode:" }
+            render "darkmode/switch", enable_description: true, enable_outline: true
+          end
+        end
+
+        flex_block(class: "justify-between") do
           markdown do
             "You can delete **#{@session_color_scheme.display_name}** as your color scheme choice and go back to the default color scheme."
           end
@@ -105,10 +118,19 @@ class ColorSchemes::Form < ApplicationView
         end
       end
 
+      h2 {
+        plain "Site default:"
+        whitespace
+        span(style: inline_style_header_color(@default_color_scheme)) { @default_color_scheme.display_name }
+      }
       markdown do
         "For reference, **#{@default_color_scheme.display_name}** is the default color scheme for the site."
       end
       color_swatches(@default_color_scheme)
+
+      markdown do
+        "There’s nothiing wrong with leaving the default too. It’s a classic choice."
+      end
     end
   end
 
@@ -142,12 +164,12 @@ class ColorSchemes::Form < ApplicationView
     button_to "Delete my color scheme choice",
       settings_color_scheme_path(settings: {color_scheme_id: ColorScheme.cached_default.id}),
       method: :patch,
-      class: "button warn ",
-      form: {class: "text-right"}
+      class: "button warn",
+      style: "min-width: 25ch;"
   end
 
   def color_swatches(color_scheme)
-    div(class: "color-scheme color-scheme__#{color_scheme.name.parameterize}") do
+    div(class: "color-scheme color-scheme__#{color_scheme.name.parameterize} grid-cols-12") do
       color_scheme.weights.each do |weight, color|
         div(class: "color-swatch color-swatch__weight:#{weight}", style: "background-color: #{color.hex}") do
           div(class: "color-swatch__weight") { weight }
@@ -169,7 +191,11 @@ class ColorSchemes::Form < ApplicationView
     render Markdown::Application.new(block.call)
   end
 
-  def flex_block(&)
-    div(class: "flex items-start flex-col space-col-4 md:items-center md:flex-row md:space-row-4", &)
+  def flex_block(options = {}, &)
+    div(class: "flex items-start flex-col space-col-4 grid-cols-12 md:items-center md:flex-row md:space-row-4 #{options[:class]}", &)
+  end
+
+  def inline_style_header_color(color_scheme)
+    "color: var(--color-#{color_scheme.name.parameterize}-500)"
   end
 end
