@@ -1,5 +1,4 @@
 .button {
-  border: 1px solid var(--joy-border-subtle);
   border-radius: 0.375rem;
   padding: 0.75rem;
   display: inline-flex;
@@ -24,7 +23,6 @@
     display: none;
   }
   &.primary {
-    border: 1px solid var(--joy-button-primary);
     background-color: var(--joy-button-primary);
 
     &:hover {
@@ -83,4 +81,8 @@
     color: currentColor;
     width: 24px;
   }
+}
+
+.dark .button.secondary {
+  color: var(--joy-dark);
 }
