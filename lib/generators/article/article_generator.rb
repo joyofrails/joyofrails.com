@@ -5,6 +5,10 @@ class ArticleGenerator < Rails::Generators::NamedBase
 
   class_option :title, type: :string
 
+  def copy_placeholder_image
+    copy_file "placeholder.jpg", "app/assets/images/articles/#{article_file_name}/placeholder.jpg"
+  end
+
   def make_article
     template "article.html.md", "app/content/pages/articles/#{article_file_name}.html.md"
   end
