@@ -1,15 +1,15 @@
 :root {
-  --joy-color-50: var(--my-color-50, var(--color-watercourse-50));
-  --joy-color-100: var(--my-color-100, var(--color-watercourse-100));
-  --joy-color-200: var(--my-color-200, var(--color-watercourse-200));
-  --joy-color-300: var(--my-color-300, var(--color-watercourse-300));
-  --joy-color-400: var(--my-color-400, var(--color-watercourse-400));
-  --joy-color-500: var(--my-color-500, var(--color-watercourse-500));
-  --joy-color-600: var(--my-color-600, var(--color-watercourse-600));
-  --joy-color-700: var(--my-color-700, var(--color-watercourse-700));
-  --joy-color-800: var(--my-color-800, var(--color-watercourse-800));
-  --joy-color-900: var(--my-color-900, var(--color-watercourse-900));
-  --joy-color-950: var(--my-color-950, var(--color-watercourse-950));
+  --joy-color-50: var(--my-color-50, var(--color-custom-cerulean-blue-50));
+  --joy-color-100: var(--my-color-100, var(--color-custom-cerulean-blue-100));
+  --joy-color-200: var(--my-color-200, var(--color-custom-cerulean-blue-200));
+  --joy-color-300: var(--my-color-300, var(--color-custom-cerulean-blue-300));
+  --joy-color-400: var(--my-color-400, var(--color-custom-cerulean-blue-400));
+  --joy-color-500: var(--my-color-500, var(--color-custom-cerulean-blue-500));
+  --joy-color-600: var(--my-color-600, var(--color-custom-cerulean-blue-600));
+  --joy-color-700: var(--my-color-700, var(--color-custom-cerulean-blue-700));
+  --joy-color-800: var(--my-color-800, var(--color-custom-cerulean-blue-800));
+  --joy-color-900: var(--my-color-900, var(--color-custom-cerulean-blue-900));
+  --joy-color-950: var(--my-color-950, var(--color-custom-cerulean-blue-950));
 
   --joy-light: var(--color-white);
   --joy-lighten: var(--color-lighten);
