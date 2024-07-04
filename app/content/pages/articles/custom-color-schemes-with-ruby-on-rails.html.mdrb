@@ -2,7 +2,7 @@
 title: Custom color schemes with Ruby on Rails
 author: Ross Kaffenberger
 layout: article
-description: You can edit the color scheme for this website right in this blog post. And I‘ll show you how I did it in case you want to add custom color schemes to your Rails application.
+description: You can edit the color scheme for this website right in this blog post. I‘ll show you how I did it so you can add custom color schemes to your Rails application.
 published: '2024-07-10'
 image: articles/custom-color-schemes-with-ruby-on-rails/placeholder.jpg
 draft: true
@@ -11,6 +11,20 @@ tags:
   - Rails
 ---
 
-You can edit the color scheme of this website if you want. Give it a try right now.
+This post will show you how to allow users to customize the color scheme of your Rails application. Before I tell you how to do custom colors in your Rails app, I want show you first.
 
-<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path(custom_color_scheme_params) %>
+Right here in this article, you can edit the color scheme of this site. You can preview different color schemes right here on this page. You can also save your choice browse the site with your new colors.
+
+Give it a try.
+
+<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12" %>
+
+## CSS sprinkles
+
+So how does it work?
+
+First, each
+
+[CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) are the key to making this color scheme customizable.
+
+CSS variables make it easy to change repeated CSS in a lot of places.
