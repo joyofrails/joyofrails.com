@@ -23,8 +23,11 @@ class ColorSchemes::ShowView < ApplicationView
 
   def view_template
     content_for :head do
-      render("application/theme/color")
+      style do
+        render ColorSchemes::Css.new(color_scheme: @color_scheme)
+      end
     end
+
     render Pages::Header.new(title: "Theme: Color")
     div(class: "section-content container py-gap") do
       if previewing? || preserving?
