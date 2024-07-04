@@ -39,17 +39,15 @@ class ColorSchemes::Form < ApplicationView
         h3 { "Want to try something different?" }
       end
 
-      p do
-        plain "This site uses a monochromatic color scheme."
-        whitespace
-        plain "You can preview and save a new color scheme right here."
-        whitespace
-        plain "I have curated some options for you."
-        whitespace
-        plain "Get a random one if you’re feeling lucky."
+      markdown do
+        <<~MARKDOWN
+          This site uses a monochromatic color scheme. You can preview and save a new color scheme right here. I have curated some options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
+        MARKDOWN
       end
 
       div(class: "flex items-center") do
+        span(class: "mr-2 text-small") { "Preview:" }
+
         preview_select
 
         span(class: "mr-2 text-small") { "OR" }
@@ -74,45 +72,30 @@ class ColorSchemes::Form < ApplicationView
           strong { @preview_color_scheme.display_name }
         end
         color_swatches(@preview_color_scheme)
-        p do
-          plain "Click"
-          whitespace
-          span(class: "emphasis") { "Save" }
-          whitespace
-          plain "to browse the site with"
-          whitespace
-          strong { @preview_color_scheme.display_name }
-          whitespace
-          plain "as your new color scheme."
+        markdown do
+          <<~MARKDOWN
+            Click the Save button to browse the site with **#{@preview_color_scheme.display_name}** as your new color scheme.
+          MARKDOWN
         end
+
         save_preview_button
       end
 
       if preserving?
-        p do
-          plain "You have saved"
-          whitespace
-          strong { @session_color_scheme.display_name }
-          whitespace
-          plain "as your personal color scheme."
+        markdown do
+          <<~MARKDOWN
+            You have saved **#{@session_color_scheme.display_name}** as your personal color scheme.
+          MARKDOWN
         end
         color_swatches(@session_color_scheme)
-        p do
-          plain "You can delete"
-          whitespace
-          strong { @session_color_scheme.display_name }
-          whitespace
-          plain "as your color scheme choice and go back to the default color scheme."
+        markdown do
+          "You can delete **#{@session_color_scheme.display_name}** as your color scheme choice and go back to the default color scheme."
         end
         unsave_button
       end
 
-      p do
-        plain "For reference,"
-        whitespace
-        strong { @default_color_scheme.display_name }
-        whitespace
-        plain "is the default color scheme for the site."
+      markdown do
+        "For reference, **#{@default_color_scheme.display_name}** is the default color scheme for the site."
       end
       color_swatches(@default_color_scheme)
     end
@@ -170,4 +153,8 @@ class ColorSchemes::Form < ApplicationView
   def preserving? = @session_color_scheme.present?
 
   def default_color_scheme? = @color_scheme.id == @default_color_scheme
+
+  def markdown(&block)
+    render Markdown::Application.new(block.call)
+  end
 end
