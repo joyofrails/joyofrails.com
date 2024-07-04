@@ -4,6 +4,10 @@ module ColorScheming
   included do
     helper_method :custom_color_scheme_params
     helper_method :custom_color_scheme?
+    helper_method :find_color_scheme
+    helper_method :preview_color_scheme
+    helper_method :session_color_scheme
+    helper_method :default_color_scheme
   end
 
   def custom_color_scheme_params = preview_color_scheme_id ? {settings: {color_scheme_id: preview_color_scheme_id}} : {}
