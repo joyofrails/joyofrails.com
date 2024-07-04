@@ -45,40 +45,47 @@ class ColorSchemes::Form < ApplicationView
         MARKDOWN
       end
 
-      div(class: "flex items-center") do
-        span(class: "mr-2 text-small") { "Preview:" }
+      flex_block do
+        span(class: "text-small") { "Preview:" }
 
         preview_select
 
-        span(class: "mr-2 text-small") { "OR" }
+        span(class: "text-small") { "OR" }
 
         link_to "I feel lucky!",
           url_for(settings: {color_scheme_id: @curated_color_schemes.sample.id}),
-          class: "button secondary mr-2"
+          class: "button secondary "
 
         if previewing? && (@color_scheme != (@session_color_scheme || @default_color_scheme))
-          span(class: "mr-2 text-small") { "OR" }
+          span(class: "text-small") { "OR" }
 
           link_to "Reset preview",
             url_for,
-            class: "button tertiary mr-2"
+            class: "button tertiary"
         end
       end
 
       if previewing?
-        p do
-          plain "Here is the color scheme for"
-          whitespace
-          strong { @preview_color_scheme.display_name }
-        end
-        color_swatches(@preview_color_scheme)
         markdown do
-          <<~MARKDOWN
-            Click the Save button to browse the site with **#{@preview_color_scheme.display_name}** as your new color scheme.
-          MARKDOWN
+          "Here is the color scheme **#{@preview_color_scheme.display_name}**"
         end
 
-        save_preview_button
+        color_swatches(@preview_color_scheme)
+
+        flex_block do
+          span { "You can toggle the dark mode switch to see how the color scheme looks in light vs dark mode:" }
+          render "darkmode/switch", enable_description: true, enable_outline: true
+        end
+
+        flex_block do
+          markdown do
+            <<~MARKDOWN
+              Click the Save button to browse the site with **#{@preview_color_scheme.display_name}** as your new color scheme.
+            MARKDOWN
+          end
+
+          save_preview_button
+        end
       end
 
       if preserving?
@@ -87,11 +94,15 @@ class ColorSchemes::Form < ApplicationView
             You have saved **#{@session_color_scheme.display_name}** as your personal color scheme.
           MARKDOWN
         end
+
         color_swatches(@session_color_scheme)
-        markdown do
-          "You can delete **#{@session_color_scheme.display_name}** as your color scheme choice and go back to the default color scheme."
+
+        flex_block do
+          markdown do
+            "You can delete **#{@session_color_scheme.display_name}** as your color scheme choice and go back to the default color scheme."
+          end
+          unsave_button
         end
-        unsave_button
       end
 
       markdown do
@@ -114,7 +125,7 @@ class ColorSchemes::Form < ApplicationView
           # requestSubmit and Turbo
           # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
           onchange: "this.form.requestSubmit()",
-          class: "mr-2"
+          class: ""
         )
       end
     end
@@ -124,14 +135,14 @@ class ColorSchemes::Form < ApplicationView
     button_to "Save #{@preview_color_scheme.display_name}",
       settings_color_scheme_path(settings: {color_scheme_id: @preview_color_scheme.id}),
       method: :patch,
-      class: "button primary mr-2"
+      class: "button primary "
   end
 
   def unsave_button
     button_to "Delete my color scheme choice",
       settings_color_scheme_path(settings: {color_scheme_id: ColorScheme.cached_default.id}),
       method: :patch,
-      class: "button warn mr-2",
+      class: "button warn ",
       form: {class: "text-right"}
   end
 
@@ -156,5 +167,9 @@ class ColorSchemes::Form < ApplicationView
 
   def markdown(&block)
     render Markdown::Application.new(block.call)
+  end
+
+  def flex_block(&)
+    div(class: "flex items-start flex-col space-col-4 md:items-center md:flex-row md:space-row-4", &)
   end
 end

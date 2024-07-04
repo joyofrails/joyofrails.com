@@ -24,6 +24,16 @@
   .md\:left-\[-72px\] {
     left: -72px;
   }
+  .md\:items-center {
+    align-items: center;
+  }
+  .md\:flex-row {
+    flex-direction: row;
+  }
+  .md\:space-row-4 > * {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (min-width: $screen-lg) {

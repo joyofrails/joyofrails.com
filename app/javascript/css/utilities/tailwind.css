@@ -124,6 +124,18 @@
   margin-left: 4rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
 .ml-4 {
   margin-left: 1rem;
 }
@@ -138,6 +150,10 @@
 
 .mr-3 {
   margin-right: 0.75rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .mt-1 {
@@ -174,6 +190,10 @@
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.me-4 {
+  margin-block-end: 1rem;
 }
 
 .block {
@@ -948,4 +968,9 @@ focus\:ring-0:focus {
 
 .list-outside {
   list-style-position: outside;
+}
+
+.space-col-4 > * {
+  margin-bottom: 1rem;
+  margin-right: 0;
 }
