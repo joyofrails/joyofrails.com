@@ -49,7 +49,8 @@ main > *,
 }
 
 .main-content,
-.article-content {
+.article-content,
+.grid-content {
   grid-gap: var(--grid-gutter);
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
@@ -58,6 +59,7 @@ main > *,
 .main-content,
 .section-content,
 .article-content,
+.grid-content,
 .grid-row-mid {
   grid-auto-flow: row;
   row-gap: var(--space-m);
@@ -71,15 +73,14 @@ main > *,
 }
 
 .main-content > *,
-.article-content > * {
-  grid-column: col-start / span var(--grid-columns);
-}
-
-@media screen and (min-width: $screen-md) {
+.article-content > *,
+.grid-content > * {
+  grid-column: col-start 1 / span var(--grid-columns);
 }
 
 @media screen and (min-width: $screen-lg) {
-  .article-content > * {
+  .article-content > *,
+  .grid-content > * {
     grid-column: col-start 1 / span 8;
   }
 
@@ -101,4 +102,8 @@ main > *,
   // .article-content > .code-wrapper {
   //   grid-column: col-start / span var(--grid-columns);
   // }
+}
+
+.grid-cols-12 {
+  grid-column: col-start 1 / span var(--grid-columns);
 }
