@@ -11,15 +11,24 @@ tags:
   - Rails
 ---
 
-This post will show you how to allow users to customize the color scheme of your Rails application. Before I tell you how to do custom colors in your Rails app, I want show you first.
+In this post, I will describe how to enable users to customize the color scheme of your Rails application. We’re going to accomplish this with [Ruby on Rails](https://edgeguides.rubyonrails.org/), [Hotwire](https://hotwired.dev/), and [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
-Right here in this article, you can edit the color scheme of this site. You can preview different color schemes right here on this page. You can also save your choice browse the site with your new colors.
+But before I tell you how to add customizable colors to your Rails app, I want show you first.
+
+Below, you can edit the color scheme of this site. You can preview different color schemes right here on this page. You can also save your choice browse the site with your new colors.
 
 Give it a try.
 
 <%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12" %>
+<noscript>
+JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
+</noscript>
 
-## CSS sprinkles
+Pretty cool, huh?
+
+Did you notice how the color choice updated automatically? At least, it should have; I’m assuming you have JavaScript enabled.
+
+If you don’t have JavaScript enabled, you would still be able to navigate to the <%= link_to "color scheme settings page", settings_color_scheme_path %> to edit your color scheme. One thing I love about building interactive components with Rails is you can choose to adopt [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)—that is to say: make the site work for "as many users as possible" while providing improvements for fully enabled devices and modern browsers—something I strive for with [Joy of Rails](/).
 
 So how does it work?
 
