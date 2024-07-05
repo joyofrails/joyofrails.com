@@ -93,6 +93,9 @@ main > *,
   }
 
   .article-content > .outside,
+  .grid-content > .outside {
+    grid-column: col-start 9 / span 4;
+  }
   .article-content > img {
     grid-column: col-start 9 / span 4;
     grid-row-start: span 4;

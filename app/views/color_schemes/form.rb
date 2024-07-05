@@ -31,7 +31,7 @@ class ColorSchemes::Form < ApplicationView
     div(class: "grid grid-content") do
       if previewing?
         h2 do
-          plain "You are now peviewing"
+          plain "You are now previewing"
           whitespace
           span(class: "emphasis") { @color_scheme.display_name }
         end
@@ -41,7 +41,7 @@ class ColorSchemes::Form < ApplicationView
 
       markdown do
         <<~MARKDOWN
-          This site uses a monochromatic color scheme. You can preview and save a new color scheme below. I have curated over a hundred options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
+          This site uses a monochromatic color scheme. You can select a new color scheme to preview below. I have curated over a hundred options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
         MARKDOWN
       end
 
@@ -55,35 +55,30 @@ class ColorSchemes::Form < ApplicationView
         link_to "I feel lucky!",
           url_for(settings: {color_scheme_id: @curated_color_schemes.sample.id}),
           class: "button secondary "
-
-        if previewing? && (@color_scheme != (@session_color_scheme || @default_color_scheme))
-          span(class: "text-small") { "OR" }
-
-          link_to "Reset preview",
-            url_for,
-            class: "button tertiary"
-        end
       end
 
       if previewing?
         markdown do
-          "Here is the color scheme **#{@preview_color_scheme.display_name}**. You can preview what the site looks with this color scheme while you remain on this page."
+          "#{preview_remarks.sample} **#{@preview_color_scheme.display_name}**."
         end
 
         color_swatches(@preview_color_scheme)
 
-        flex_block do
-          span { "You can toggle the dark mode switch to see how the color scheme looks in light vs dark mode:" }
-          render "darkmode/switch", enable_description: true, enable_outline: true
+        markdown do
+          "You can preview what the site looks with this color scheme while you remain on this page. Click the **Reset preview** button to go back to #{@session_color_scheme ? "your saved color scheme" : "the default color scheme"}."
         end
 
-        flex_block do
-          markdown do
-            <<~MARKDOWN
-              Click the Save button to browse the site with **#{@preview_color_scheme.display_name}** as your new color scheme.
-            MARKDOWN
-          end
+        div(class: "outside") { reset_button }
 
+        darkmode_section
+
+        markdown do
+          <<~MARKDOWN
+            Click the Save button to keep this choice and browse the site with **#{@preview_color_scheme.display_name}** Saving adds the color scheme as a session cookie that will persist across page views on your current device. You can delete the color scheme choice at any time."
+          MARKDOWN
+        end
+
+        div(class: "outside") do
           save_preview_button
         end
       end
@@ -104,18 +99,13 @@ class ColorSchemes::Form < ApplicationView
         color_swatches(@session_color_scheme)
 
         if !previewing?
-          flex_block(class: "justify-between") do
-            span { "You can toggle the dark mode switch to see how the color scheme looks in light vs dark mode:" }
-            render "darkmode/switch", enable_description: true, enable_outline: true
-          end
+          darkmode_section
         end
 
-        flex_block(class: "justify-between") do
-          markdown do
-            "You can delete **#{@session_color_scheme.display_name}** as your color scheme choice and go back to the default color scheme."
-          end
-          unsave_button
+        p do
+          "You can delete your saved color scheme and go back to the default."
         end
+        div(class: "outside") { unsave_button }
       end
 
       h2 {
@@ -128,8 +118,12 @@ class ColorSchemes::Form < ApplicationView
       end
       color_swatches(@default_color_scheme)
 
+      if !preserving? && !previewing?
+        darkmode_section
+      end
+
       markdown do
-        "There’s nothiing wrong with leaving the default too. It’s a classic choice."
+        "There’s nothing wrong with keeping the defaults—it’s a classic choice."
       end
     end
   end
@@ -157,7 +151,7 @@ class ColorSchemes::Form < ApplicationView
     button_to "Save #{@preview_color_scheme.display_name}",
       settings_color_scheme_path(settings: {color_scheme_id: @preview_color_scheme.id}),
       method: :patch,
-      class: "button primary "
+      class: "button primary"
   end
 
   def unsave_button
@@ -168,6 +162,12 @@ class ColorSchemes::Form < ApplicationView
       style: "min-width: 25ch;"
   end
 
+  def reset_button
+    link_to "Reset preview",
+      url_for,
+      class: "button tertiary"
+  end
+
   def color_swatches(color_scheme)
     div(class: "color-scheme color-scheme__#{color_scheme.name.parameterize} grid-cols-12") do
       color_scheme.weights.each do |weight, color|
@@ -176,6 +176,15 @@ class ColorSchemes::Form < ApplicationView
           div(class: "color-swatch__color") { color.hex.delete("#").upcase }
         end
       end
+    end
+  end
+
+  def darkmode_section
+    markdown do
+      "You can toggle the dark mode switch to see how the color scheme looks in light or dark mode. Choosing **Light Mode** or **Dark Mode** will save in your browser local storage and will persist across page views on your current device. Choose **System Mode** to remove the saved choice and fall back to your system preference."
+    end
+    div(class: "outside") do
+      render "darkmode/switch", enable_description: true, enable_outline: true
     end
   end
 
@@ -198,4 +207,21 @@ class ColorSchemes::Form < ApplicationView
   def inline_style_header_color(color_scheme)
     "color: var(--color-#{color_scheme.name.parameterize}-500)"
   end
+
+  def preview_remarks = [
+    "Nice choice!",
+    "Great pick!",
+    "Looking good!",
+    "I like this one!",
+    "This one’s a keeper!",
+    "Check this one out!",
+    "One of my favorites.",
+    "Ooo, I like this one!",
+    "Now we’re talking!",
+    "You have good taste :)",
+    "What do you think?",
+    "Can it get any better?",
+    "Divine!",
+    "My my, what a surprise:"
+  ]
 end
