@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Atom::EntryContent do
-  let(:article) { ArticlePage.published.first } # introducing_joy_of_rails.mdrb
+  let(:article) { ArticlePage.published.find { |a| a.title == "Introducing Joy of Rails" } } # introducing_joy_of_rails.mdrb
 
   describe "#render" do
     it "renders the article body as html without enhanced markdown" do
