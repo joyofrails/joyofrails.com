@@ -49,7 +49,7 @@ class Markdown::Article < Markdown::Application
     language, json_string = metadata.split(":", 2)
 
     json_attributes = begin
-      JSON.parse(json_string.to_s).symbolize_keys
+      JSON.parse(json_string.to_s, symbolize_names: true)
     rescue
       {}
     end

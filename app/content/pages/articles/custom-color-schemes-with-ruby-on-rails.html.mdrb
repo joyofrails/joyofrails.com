@@ -32,7 +32,7 @@ A key piece of making a customizable color scheme is using [CSS variables](https
 
 You can set a CSS variable with double dashes, `--`:
 
-```css
+```css:{"show_header": false}
 a {
   --my-link-color: #354bc0;
 }
@@ -40,7 +40,7 @@ a {
 
 Setting a variable doesn't do anything yet. To make use of a CSS variable, call `var()` in a relevant property:
 
-```css
+```css:{"show_header": false}
 a {
   color: var(--my-link-color);
 }
@@ -48,7 +48,7 @@ a {
 
 CSS variables are available within the scope they are declared. To make a CSS variable available everywhere in your CSS, declare it in the pseudo-class `:root`:
 
-```css
+```css:{"show_header": false}
 :root {
   --my-link-color: rgb(53, 75, 192);
 }
@@ -56,7 +56,7 @@ CSS variables are available within the scope they are declared. To make a CSS va
 
 Now we can use `--my-link-color` with any selector:
 
-```css
+```css:{"show_header": false}
 a,
 .button {
   color: var(--my-link-color);
@@ -65,7 +65,7 @@ a,
 
 CSS variables can be defined in terms of others.
 
-```
+```css:{"show_header": false}
 :root {
   --theme-link-color: var(--my-link-color);
 }
@@ -73,7 +73,7 @@ CSS variables can be defined in terms of others.
 
 The `var()` expression allows for declaring a fallback. In the example below, `--theme-link-color` will be set to the value of `--my-link-color` if defined, otherwise it will be the given `rgb()` value.
 
-```css
+```css:{"show_header": false}
 :root {
   --theme-link-color: var(--my-link-color, rgb(53, 75, 192));
 }
