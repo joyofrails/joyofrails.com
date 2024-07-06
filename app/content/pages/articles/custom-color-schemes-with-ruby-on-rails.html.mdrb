@@ -4,7 +4,7 @@ author: Ross Kaffenberger
 layout: article
 description: You can edit the color scheme for this website right in this blog post. I‘ll show you how I did it so you can add custom color schemes to your Rails application.
 published: '2024-07-10'
-image: articles/custom-color-schemes-with-ruby-on-rails/placeholder.jpg
+image: articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg
 draft: true
 uuid: d99f045b-f3f7-4408-811e-9701b1a13ce8
 tags:
@@ -36,4 +36,4 @@ First, each
 
 [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) are the key to making this color scheme customizable.
 
-CSS variables make it easy to change repeated CSS in a lot of places.
+![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by my son, Jasper')

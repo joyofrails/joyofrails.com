@@ -33,11 +33,15 @@ module Markdown::AllowsErb
     end
 
     def call(template, content)
-      content = @component_class.new(content).call
+      content = @component_class.new(content).call(view_context:)
       erb.call(template, content)
     end
 
     private
+
+    def view_context
+      ApplicationController.new.view_context
+    end
 
     def erb
       @erb ||= ActionView::Template.registered_template_handler(:erb)
