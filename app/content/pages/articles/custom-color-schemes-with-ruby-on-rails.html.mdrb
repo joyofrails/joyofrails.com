@@ -81,11 +81,33 @@ The `var()` expression allows for declaring a fallback. In the example below, `-
 
 This will work even when `--my-link-color` is defined _after_ `--theme-link-color` or even changed after, such as via a JavaScript interaction like through the color scheme form above.
 
-Together, these features help make CSS variables an ideal choice for setting up customizable themes. Therefore, the first step is to build a theme in which key font and background colors are defined in terms of CSS variables.
+Together, these features help make CSS variables an ideal choice for setting up customizable themes.
 
-You can see a snippet of how [Joy of Rails](/) defines its theme here:
+##
 
-<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "c1b76303078169bcc4ff2396a4165794ad831acd", lines: [1..12, 92]) %>
+## Putting it together with Joy
+
+Want to know how [Joy of Rails](/) defines its theme?
+
+It starts with the color palette. Here are the colors for the site’s theme, defined as CSS variables on `:root`. They are all shades of blue using the same weight pattern as you’ll find in [Tailwind colors](https://tailwindcss.com/docs/customizing-colors).
+
+<%= render CodeBlock::Article.new ColorSchemes::CssVariables.new(color_scheme: ColorScheme.cached_default).call, language: :css, filename: "inline css" %>
+
+These variables aren’t used directly in any CSS, for the most part. They are used to define the general site theme variables, which I call `--joy-color-<weight>`.
+
+<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1..12, 93]) %>
+
+Note that each of the expressions first look for CSS variables of the form `--my-color-<weight>`. More about this later.
+
+Then we build from `--joy-color-` variables to CSS properties.
+
+<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1, 30..33, 93]) %>
+
+<%= render_code_block_app_file("app/javascript/css/components/site-header.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1..4]) %>
+
+Remember the `--my-color` CSS variables? When you select a color scheme to preview or save, the application inserts the predefined weights as inline styles when the page is rendered. Because of the way the theme colors are defined above, `--my-color` weights take preference over the default when they are defined.
+
+<%= render CodeBlock::Article.new ColorSchemes::Css.new(color_scheme: ColorScheme.find_by(name: "Custom Watercourse")).call, language: :css, filename: "inline css" %>
 
 This works for Tailwind too! The approach used here is consistent with the Tailwind docs section on [customizing colors using CSS variables](https://tailwindcss.com/docs/customizing-colors#using-css-variables).
 
