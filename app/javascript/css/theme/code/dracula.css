@@ -443,20 +443,37 @@
   font-style: normal;
 }
 
+/* BELOW ARE OVERRIDE STYLES FOR SPECIFIC LANGUAGES */
+
 /* For Ruby */
 /* Name.Class */
-.highlight .nc {
+.highlight.language-ruby .nc {
   color: #8be9fd;
 }
 
 /* For Ruby */
 /* Name.Constant */
-.highlight .no {
+.highlight.language-ruby .no {
   color: #8be9fd;
 }
 
 /* For Ruby */
 /* Literal.String.Single */
-.highlight .ss {
+.highlight.language-ruby .ss {
   color: #bd93f9;
+}
+
+/* For CSS */
+.highlight.language-css .nd {
+  color: #50fa7b;
+}
+
+/* For CSS */
+.highlight.language-css .n {
+  color: #8be9fd;
+}
+
+/* For CSS */
+.highlight.language-css .py {
+  color: #8be9fd;
 }
