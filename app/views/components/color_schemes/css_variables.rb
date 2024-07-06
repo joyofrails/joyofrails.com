@@ -6,7 +6,7 @@ class ColorSchemes::CssVariables < Phlex::HTML
   end
 
   def view_template
-    unsafe_raw <<-CSS
+    unsafe_raw <<~CSS
       :root {
         #{css_variables}
       }
@@ -14,7 +14,7 @@ class ColorSchemes::CssVariables < Phlex::HTML
   end
 
   def css_variables
-    color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla(color)};" }.join("\n\t\t")
+    color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla(color)};" }.join("\n\s\s")
   end
 
   private
