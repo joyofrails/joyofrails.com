@@ -26,14 +26,77 @@ JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_colo
 
 Pretty cool, huh?
 
+## Theme with CSS Variables
+
+A key piece of making a customizable color scheme is using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). CSS variables make it easy to change repeated CSS in a lot of places. They can also be overridden.
+
+You can set a CSS variable with double dashes, `--`:
+
+```css
+a {
+  --my-link-color: #354bc0;
+}
+```
+
+Setting a variable doesn't do anything yet. To make use of a CSS variable, call `var()` in a relevant property:
+
+```css
+a {
+  color: var(--my-link-color);
+}
+```
+
+CSS variables are available within the scope they are declared. To make a CSS variable available everywhere in your CSS, declare it in the pseudo-class `:root`:
+
+```css
+:root {
+  --my-link-color: rgb(53, 75, 192);
+}
+```
+
+Now we can use `--my-link-color` with any selector:
+
+```css
+a,
+.button {
+  color: var(--my-link-color);
+}
+```
+
+CSS variables can be defined in terms of others.
+
+```
+:root {
+  --theme-link-color: var(--my-link-color);
+}
+```
+
+The `var()` expression allows for declaring a fallback. In the example below, `--theme-link-color` will be set to the value of `--my-link-color` if defined, otherwise it will be the given `rgb()` value.
+
+```css
+:root {
+  --theme-link-color: var(--my-link-color, rgb(53, 75, 192));
+}
+```
+
+This will work even when `--my-link-color` is defined _after_ `--theme-link-color` or even changed after, such as via a JavaScript interaction like through the color scheme form above.
+
+Together, these features help make CSS variables an ideal choice for setting up customizable themes. Therefore, the first step is to build a theme in which key font and background colors are defined in terms of CSS variables.
+
+You can see a snippet of how [Joy of Rails](/) defines its theme here:
+
+<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "c1b76303078169bcc4ff2396a4165794ad831acd", lines: [1..12, 92]) %>
+
+This works for Tailwind too! The approach used here is consistent with the Tailwind docs section on [customizing colors using CSS variables](https://tailwindcss.com/docs/customizing-colors#using-css-variables).
+
+There's a lot more to CSS variables than what I’ve described here. Check out [MDN's introduction to CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to go deeper.
+
+Building your own color scheme(s) in CSS is beyond the scope of this article but I suggest you start by picking some colors. I recommend [uicolors.app](https://uicolors.app) for Tailwind-friendly color palettes. [ColorHunt](https://colorhunt.co/) is a great choice for broad appeal.
+
+## Instant updates
+
 Did you notice how the color choice updated automatically? At least, it should have; I’m assuming you have JavaScript enabled.
 
 If you don’t have JavaScript enabled, you would still be able to navigate to the <%= link_to "color scheme settings page", settings_color_scheme_path %> to edit your color scheme. One thing I love about building interactive components with Rails is you can choose to adopt [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)—that is to say: make the site work for "as many users as possible" while providing improvements for fully enabled devices and modern browsers—something I strive for with [Joy of Rails](/).
-
-So how does it work?
-
-First, each
-
-[CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) are the key to making this color scheme customizable.
 
 ![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by my son, Jasper')
