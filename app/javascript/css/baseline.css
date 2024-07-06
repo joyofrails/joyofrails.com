@@ -301,7 +301,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: var(--joy-background-clean);
+  background-color: var(--joy-background-reset);
   border-color: var(--joy-border-subtle);
   border-style: solid;
   border-width: 1px;
