@@ -101,9 +101,13 @@ Note that each of the expressions first look for CSS variables of the form `--my
 
 Then we build from `--joy-color-` variables to CSS properties.
 
-<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1, 30..33, 93]) %>
+<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1, 30..33, 66]) %>
 
 <%= render_code_block_app_file("app/javascript/css/components/site-header.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1..4]) %>
+
+I can override the `:root` properties within certain scopes, such as when I want to change this up for the Dark Mode theme while mixing-and-matching with other properties, like for general grays and whites.
+
+<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [68, 83..86, 93]) %>
 
 Remember the `--my-color` CSS variables? When you select a color scheme to preview or save, the application inserts the predefined weights as inline styles when the page is rendered. Because of the way the theme colors are defined above, `--my-color` weights take preference over the default when they are defined.
 
