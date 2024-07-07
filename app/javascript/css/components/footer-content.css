@@ -4,8 +4,44 @@ footer {
 
 .footer-content {
   & nav > * {
-    display: flex;
     padding-top: var(--space-2xs-xs);
     padding-bottom: var(--space-2xs-xs);
+  }
+
+  & nav ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  & nav > ul > li:first-child {
+    & a {
+      font-weight: bold;
+    }
+
+    &:has(+ li) {
+      margin-inline-end: var(--space-2xs-xs);
+
+      & a {
+        margin-inline-end: var(--space-2xs-xs);
+      }
+
+      &:after {
+        content: ' / ';
+        color: var(--joy-text-faint);
+      }
+    }
+  }
+
+  & nav > ul > li > ul > li:has(+ li) {
+    margin-inline-end: var(--space-2xs-xs);
+
+    & a {
+      margin-inline-end: var(--space-2xs-xs);
+    }
+
+    &:after {
+      content: ' / ';
+      color: var(--joy-text-faint);
+    }
   }
 }

@@ -46,6 +46,7 @@
   --joy-text-emphasis: var(--joy-color-500);
   --joy-text-heading: var(--color-slate-900);
   --joy-text-theme: var(--joy-color-800);
+  --joy-text-faint: var(--color-stone-400);
 
   --joy-link-primary: var(--joy-link-6);
   --joy-link-visited: var(--joy-link-9);

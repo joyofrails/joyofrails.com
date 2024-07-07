@@ -1,4 +1,4 @@
-<%= tag.footer class: "" do %>
+<footer>
   <div class="footer-content py-xl lg:py-3xl">
     <%= link_to root_path, class: "logo" do %>
       <div><%= inline_svg_tag "joy-logo.svg", class: "fill-current" %></div>
@@ -17,11 +17,29 @@
         <li class="">
           <%= link_to "Settings", settings_color_scheme_path %>
         </li>
+        <!--
+        <li>
+          <ul>
+            <li>
+              <%#= link_to "Colors", settings_color_scheme_path %>
+            </li>
+          </ul>
+        </li>
+        -->
       </ul>
       <ul>
         <li class="">
-          <a class=""
-            href="/about">About</a>
+          <a class="" href="/about">About</a>
+        </li>
+        <li>
+          <ul>
+            <li>
+              <a class="" href="/about/acknowledgements">Acknowledgements</a>
+            </li>
+            <li>
+              <a class="" href="/about/design">Design</a>
+            </li>
+          </ul>
         </li>
       </ul>
       <ul>
@@ -39,4 +57,4 @@
       </small>
     </div>
   </div>
-<% end %>
+</footer>
