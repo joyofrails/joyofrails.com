@@ -22,6 +22,11 @@ class ColorScheme < ApplicationRecord
 
   VALID_WEIGHTS = %w[50 100 200 300 400 500 600 700 800 900 950].freeze
 
+  VALID_WEIGHTS.each do |weight|
+    # seralize :weight_50, ColorConversion::Color
+    serialize :"weight_#{weight}", coder: Color
+  end
+
   def self.curated
     names = YAML.load_file(Rails.root.join("config", "curated_colors.yml"))
     where(name: names)
@@ -65,7 +70,7 @@ class ColorScheme < ApplicationRecord
 
   def weights
     VALID_WEIGHTS.each_with_object({}) do |weight, hash|
-      hash[weight] = ColorConversion::Color.new(send(:"weight_#{weight}"))
+      hash[weight] = send(:"weight_#{weight}")
     end
   end
 
