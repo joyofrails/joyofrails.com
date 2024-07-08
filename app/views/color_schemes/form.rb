@@ -138,8 +138,6 @@ class ColorSchemes::Form < ApplicationView
             prompt: "Pick one!",
             selected: previewing? && @color_scheme.id
           },
-          # requestSubmit and Turbo
-          # https://stackoverflow.com/questions/68624668/how-can-i-submit-a-form-on-input-change-with-turbo-streams
           onchange: "this.form.requestSubmit()",
           class: ""
         )
