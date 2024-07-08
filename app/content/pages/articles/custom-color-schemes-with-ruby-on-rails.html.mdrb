@@ -119,10 +119,46 @@ There's a lot more to CSS variables than what I’ve described here. Check out [
 
 Building your own color scheme(s) in CSS is beyond the scope of this article but I suggest you start by picking some colors. I recommend [uicolors.app](https://uicolors.app) for Tailwind-friendly color palettes. [ColorHunt](https://colorhunt.co/) is a great choice for broad appeal.
 
-## Instant updates
+## ActiveRecord bits
+
+Each color scheme is backed by an ActiveRecord model, `ColorScheme`, which has a name and eleven columns to represent each of the color weights:
+
+<%= render_code_block_app_file "db/migrate/20240703114157_create_color_schemes.rb", language: "ruby" %>
+
+The `ColorScheme` model provides a method for accessing the color weights as `ColorConversion::Color` objects.
+
+<%= render_code_block_app_file "app/models/color_scheme.rb", language: "ruby", lines: [3..5, 23, 66..70] %>
+
+## Turbo Frames
 
 Did you notice how the color choice updated automatically? At least, it should have; I’m assuming you have JavaScript enabled.
 
 If you don’t have JavaScript enabled, you would still be able to navigate to the <%= link_to "color scheme settings page", settings_color_scheme_path %> to edit your color scheme. One thing I love about building interactive components with Rails is you can choose to adopt [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)—that is to say: make the site work for "as many users as possible" while providing improvements for fully enabled devices and modern browsers—something I strive for with [Joy of Rails](/).
+
+When the article renders, a turbo frame tag is inserted that points to the <%= link_to "color scheme settings page", settings_color_scheme_path %>. It looks something like this:
+
+```erb
+<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path %>
+```
+
+This snippet outputs a custom HTML element:
+
+```html
+<turbo-frame id="color-scheme-form" src="/settings/color_scheme"></turbo-frame>
+```
+
+Turbo Rails will recognize the `<turbo-frame>` tag and make an XHR request to the Rails backend for the given `src`, in this case, `'/settings/color_scheme'`.
+
+This corresponds to the `show` action in Joy of Rails’ `ColorSchemesController`:
+
+<%= render_code_block_app_file("app/controllers/settings/color_schemes_controller.rb", language: "ruby", lines: [1..3, 19, 46], revision: "49a7088ddbdb5e09d02a6ba2c9a205a614188f6b") %>
+
+When you visit that page directly in your browser, you get a full page experience at that url.
+
+To make this also work with a turbo frame, we make a few small adjustments.
+
+If the response contains a corresponding turbo-frame that with a matching ID, in this case, "color-scheme-form", then Turbo Rails will insert the HTML into the document at the matching ID.
+
+Subsequent requests triggered by interactions in the turbo frame, such as link clicks and form submits, will also be scoped to the turbo frame as well.
 
 ![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by my son, Jasper')
