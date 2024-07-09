@@ -22,7 +22,7 @@ class Color
   def ==(other)
     return false unless other.is_a?(self.class)
 
-    hex == other.hex && alpha == other.alpha
+    @_color == other.instance_variable_get(:@_color)
   end
 
   def hex
