@@ -124,7 +124,7 @@ GEM
     childprocess (5.0.0)
     code_analyzer (0.5.5)
       sexp_processor
-    color_conversion (0.1.1)
+    color_conversion (0.1.2)
     commonmarker (1.1.2-arm64-darwin)
     commonmarker (1.1.2-x86_64-linux)
     concurrent-ruby (1.2.3)
