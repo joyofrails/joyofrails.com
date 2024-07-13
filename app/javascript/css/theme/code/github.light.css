@@ -153,3 +153,9 @@
   color: #24292f;
   font-weight: bold;
 }
+
+/* OVERRIDES */
+.highlight,
+.highlight .w {
+  background-color: rgb(235, 235, 240);
+}

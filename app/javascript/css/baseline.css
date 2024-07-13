@@ -106,6 +106,12 @@ pre {
   font-size: 1rem;
 }
 
+code:not(pre code) {
+  background-color: var(--joy-background-inline-code);
+  padding: 0.25rem;
+  border-radius: 0.25em;
+}
+
 small {
   font-size: 80%;
 }

@@ -39,6 +39,8 @@
   --joy-background-error: var(--dracula-red-900);
   --joy-background-warn: var(--dracula-orange-800);
 
+  --joy-background-inline-code: ghostwhite;
+
   --joy-border-subtle: var(--joy-color-200);
 
   --joy-text: var(--color-dark);
@@ -78,6 +80,8 @@
   --joy-background-success: var(--dracula-green-400);
   --joy-background-error: var(--dracula-red-500);
   --joy-background-warn: var(--dracula-orange-500);
+
+  --joy-background-inline-code: var(--dracula-black);
 
   --joy-border-subtle: var(--joy-color-900);
 

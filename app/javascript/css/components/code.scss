@@ -47,12 +47,11 @@
 
     & a {
       font-family: var(--sans-serif);
-      font-weight: 600;
+      font-weight: normal;
       gap: 0.25rem;
       align-items: center;
       display: flex;
-      color: var(--joy-link-0);
-      text-decoration: var(--joy-link-1);
+      color: var(--joy-text);
     }
   }
 }
