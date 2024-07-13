@@ -26,6 +26,15 @@ JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_colo
 
 Pretty cool, huh?
 
+## Key ingredients
+
+The key ingredients to making this work the way it does:
+
+- CSS Variables
+- `ActiveRecord` to store curated color schemes
+- Rails `session` to store the user selection
+- Rails `Turbo` for a single-page application experience
+
 ## Theme with CSS Variables
 
 A key piece of making a customizable color scheme is using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). CSS variables make it easy to change repeated CSS in a lot of places. They can also be overridden.
@@ -83,8 +92,6 @@ This will work even when `--my-link-color` is defined _after_ `--theme-link-colo
 
 Together, these features help make CSS variables an ideal choice for setting up customizable themes.
 
-##
-
 ## Putting it together with Joy
 
 Want to know how [Joy of Rails](/) defines its theme?
@@ -137,13 +144,13 @@ If you don’t have JavaScript enabled, you would still be able to navigate to t
 
 When the article renders, a turbo frame tag is inserted that points to the <%= link_to "color scheme settings page", settings_color_scheme_path %>. It looks something like this:
 
-```erb
+```erb:{"show_header":false}
 <%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path %>
 ```
 
 This snippet outputs a custom HTML element:
 
-```html
+```html:{"show_header":false}
 <turbo-frame id="color-scheme-form" src="/settings/color_scheme"></turbo-frame>
 ```
 
@@ -158,6 +165,10 @@ When you visit that page directly in your browser, you get a full page experienc
 To make this also work with a turbo frame, we make a few small adjustments.
 
 If the response contains a corresponding turbo-frame that with a matching ID, in this case, "color-scheme-form", then Turbo Rails will insert the HTML into the document at the matching ID.
+
+```rb
+
+```
 
 Subsequent requests triggered by interactions in the turbo frame, such as link clicks and form submits, will also be scoped to the turbo frame as well.
 
