@@ -96,6 +96,10 @@ strong {
   font-weight: bolder;
 }
 
+em {
+  font-style: italic;
+}
+
 code,
 kbd,
 samp,
