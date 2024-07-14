@@ -180,6 +180,12 @@ class ColorSchemes::Form < ApplicationView
   end
 
   def darkmode_section
+    noscript do
+      markdown do
+        "*Disclaimer: The Light/Dark mode switch is not available without JavaScript enabled.*"
+      end
+    end
+
     markdown do
       "You can toggle the dark mode switch to see how the color scheme looks in light or dark mode. Choosing **Light Mode** or **Dark Mode** will save in your browser local storage and will persist across page views on your current device. Choose **System Mode** to remove the saved choice and fall back to your system preference."
     end
