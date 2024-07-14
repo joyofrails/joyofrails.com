@@ -43,6 +43,7 @@
   --joy-background-inline-code: ghostwhite;
 
   --joy-border-subtle: var(--joy-color-200);
+  --joy-border: var(--joy-color-600);
   --joy-color-quote: var(--joy-color-600);
 
   --joy-text: var(--color-dark);
@@ -87,6 +88,7 @@
   --joy-background-inline-code: var(--dracula-black);
 
   --joy-border-subtle: var(--joy-color-900);
+  --joy-border: var(--joy-color-600);
 
   --joy-text: var(--joy-color-50);
   --joy-text-subtle: var(--color-stone-700);

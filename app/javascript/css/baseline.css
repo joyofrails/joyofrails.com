@@ -312,7 +312,7 @@ select {
   -moz-appearance: none;
   appearance: none;
   background-color: var(--joy-background-reset);
-  border-color: var(--joy-border-subtle);
+  border-color: var(--joy-border);
   border-style: solid;
   border-width: 1px;
   border-radius: 0;
