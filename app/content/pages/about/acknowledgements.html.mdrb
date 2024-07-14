@@ -3,8 +3,10 @@ title: Acknowledgements
 layout: article
 ---
 
-I’d like to first acknowledge the layout, aesthetic, and philosophy of this site borrows heavily from others.
+I’d like to first acknowledge the design, aesthetic, and philosophy of this site borrows heavily from others.
 
 - [joshwcomeau.com](https://www.joshwcomeau.com/)—Josh is a talented educator and trend-setter in creating interactive content online. Though his audience may be mostly frontend developers and those interested in React, his content is highly relevant to Rails developers as well. Many of his articles embed interactive components to help teach the concepts, something I aspire to his site. Like Garrett, he is committed to accessibility. He practices what he preaches, such as when he tells his readers [You don’t need a UI framework](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/). And it goes without saying his successful course [Joy of React](https://www.joyofreact.com/) inspired me to start **Joy of Rails**.
 
 - [garrettdimon.com](https://garrettdimon.com)—I love the simplicity of Garrett‘s site along with his commitment to accessibility. He also has "meta" content to help educate readers; not only is there a meta section of the website, but the HTML source often includes explanatory comments addressed to folks like me peeking under the hood. This is very much in spirit with what I‘d like for **Joy of Rails**. Please check out [Garrett’s site](https://garrettdimon.com/) for great content related to software development and running a SaaS business, among other topics.
+
+- [writesoftwarewell.com](https://www.writesoftwarewell.com/)—It’s hard to miss Akshay’s content when you’re searching for guidance on Rails. His archive serves as a tremendous complement to the Rails guides themselves. He has a unique ability to frame concepts in a friendly and accessible way.
