@@ -624,6 +624,13 @@ svg {
   fill: currentColor;
 }
 
+figcaption {
+  font-size: var(--step--2);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
 .dark {
   p {
     font-weight: 300;
