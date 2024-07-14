@@ -2,8 +2,9 @@
 title: Custom color schemes with Ruby on Rails
 author: Ross Kaffenberger
 layout: article
-description: You can edit the color scheme for this website right in this blog post. I‘ll show you how I did it so you can add custom color schemes to your Rails application.
-published: '2024-07-10'
+description: This post embeds a demo of a custom color scheme previewer while highlighting the benefits of Rails, Hotwire, and CSS variables. You can edit the color scheme of this website right in content of this blog post.
+summary: This post embeds a demo of a custom color scheme previewer while highlighting the benefits of Rails, Hotwire, and CSS variables. You can edit the color scheme of this website right in content of this blog post.
+published: '2024-07-14'
 image: articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg
 draft: true
 uuid: d99f045b-f3f7-4408-811e-9701b1a13ce8
@@ -11,11 +12,7 @@ tags:
   - Rails
 ---
 
-In this post, I will describe how to enable users to customize the color scheme of your Rails application. We’re going to accomplish this with [Ruby on Rails](https://edgeguides.rubyonrails.org/), [Hotwire](https://hotwired.dev/), and [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
-
-But before I tell you how to add customizable colors to your Rails app, I want show you first.
-
-Below, you can edit the color scheme of this site. You can preview different color schemes right here on this page. You can also save your choice browse the site with your new colors.
+This blog post lets you edit the color scheme of this site.
 
 Give it a try.
 
@@ -24,152 +21,133 @@ Give it a try.
 JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
 </noscript>
 
-Pretty cool, huh?
+---
 
-## Key ingredients
+## How it works
 
-The key ingredients to making this work the way it does:
+Pretty cool, huh? Here are the key ingredients:
 
-- CSS Variables
-- `ActiveRecord` to store curated color schemes
-- Rails `session` to store the user selection
-- Rails `Turbo` for a single-page application experience
+- [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties): Also known as CSS custom properties
+- [SQLite](https://www.sqlite.org/): A `color_schemes` table to store curated color schemes
+- [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies): A session cookie to store your saved color scheme selection
+- [Hotwire](https://hotwired.dev/): Server-rendered HTML and a single-page app experience powered by Rails, [Turbo Drive](https://turbo.hotwired.dev/handbook/introduction#turbo-drive%3A-navigate-within-a-persistent-process), and [Turbo Frames](https://turbo.hotwired.dev/handbook/introduction#turbo-frames%3A-decompose-complex-pages)
 
-## Theme with CSS Variables
+I started with the premise of using a monochromatic color scheme based on the 11 color scale Tailwind uses for each of [its default color sets](https://tailwindcss.com/docs/customizing-colors). The curated options are all generated from [uicolors.app](https://uicolors.app/create).
 
-A key piece of making a customizable color scheme is using [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). CSS variables make it easy to change repeated CSS in a lot of places. They can also be overridden.
+Each color scheme is a row in the `color_schemes` table, with a name and CSS hex code values for each of the eleven weights.
 
-You can set a CSS variable with double dashes, `--`:
-
-```css:{"show_header": false}
-a {
-  --my-link-color: #354bc0;
-}
+```ruby:{"filename":"db/migrate/<timestamp>_create_color_schemes.rb"}
+class CreateColorSchemes < ActiveRecord::Migration[7.1]
+  def change
+    create_table :color_schemes do |t|
+      t.string :name, null: false, index: {unique: true}
+      t.string :weight_50, null: false
+      t.string :weight_100, null: false
+      t.string :weight_200, null: false
+      # ... and so on
+    end
+  end
+end
 ```
 
-Setting a variable doesn't do anything yet. To make use of a CSS variable, call `var()` in a relevant property:
+CSS variables make it easy to change repeated CSS in a lot of places. You can set a CSS variable with double dashes, `--`. The CSS variable can be accessed using the `var()` expression. CSS variables can be overridden and can be defined in terms of other variables.
 
-```css:{"show_header": false}
-a {
-  color: var(--my-link-color);
-}
-```
-
-CSS variables are available within the scope they are declared. To make a CSS variable available everywhere in your CSS, declare it in the pseudo-class `:root`:
-
-```css:{"show_header": false}
-:root {
-  --my-link-color: rgb(53, 75, 192);
-}
-```
-
-Now we can use `--my-link-color` with any selector:
-
-```css:{"show_header": false}
-a,
-.button {
-  color: var(--my-link-color);
-}
-```
-
-CSS variables can be defined in terms of others.
+Here’s a simplified a view of how I used CSS variables to define the main background color of the `<body>` element.
 
 ```css:{"show_header": false}
 :root {
-  --theme-link-color: var(--my-link-color);
+  --theme-color-50: var(--my-color-50, var(--default-color-50));
+  --theme-color-100: var(--my-color-100, var(--default-color-100));
+  --theme-color-200: var(--my-color-200, var(--default-color-200));h
+  /* and so on */
+}
+
+body {
+  background-color: var(--theme-color-50);
 }
 ```
 
-The `var()` expression allows for declaring a fallback. In the example below, `--theme-link-color` will be set to the value of `--my-link-color` if defined, otherwise it will be the given `rgb()` value.
+Even though Joy of Rails does not use Tailwind, this approach is consistent with [the Tailwind docs for using CSS variables to customize Tailwind colors](https://tailwindcss.com/docs/customizing-colors#using-css-variables).
 
-```css:{"show_header": false}
-:root {
-  --theme-link-color: var(--my-link-color, rgb(53, 75, 192));
-}
+When you click the "Save" button, the application stores the `id` of the chosen color scheme in your Rails session:
+
+```ruby:{"show_header":false}
+session[:color_scheme_id] = @color_scheme.id
 ```
 
-This will work even when `--my-link-color` is defined _after_ `--theme-link-color` or even changed after, such as via a JavaScript interaction like through the color scheme form above.
+When the page is rendered, the application checks for the presence of the session data to query for the desired color scheme:
 
-Together, these features help make CSS variables an ideal choice for setting up customizable themes.
-
-## Putting it together with Joy
-
-Want to know how [Joy of Rails](/) defines its theme?
-
-It starts with the color palette. Here are the colors for the site’s theme, defined as CSS variables on `:root`. They are all shades of blue using the same weight pattern as you’ll find in [Tailwind colors](https://tailwindcss.com/docs/customizing-colors).
-
-<%= render CodeBlock::Article.new ColorSchemes::CssVariables.new(color_scheme: ColorScheme.cached_default).call, language: :css, filename: "inline css" %>
-
-These variables aren’t used directly in any CSS, for the most part. They are used to define the general site theme variables, which I call `--joy-color-<weight>`.
-
-<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1..12, 93]) %>
-
-Note that each of the expressions first look for CSS variables of the form `--my-color-<weight>`. More about this later.
-
-Then we build from `--joy-color-` variables to CSS properties.
-
-<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1, 30..33, 66]) %>
-
-<%= render_code_block_app_file("app/javascript/css/components/site-header.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [1..4]) %>
-
-I can override the `:root` properties within certain scopes, such as when I want to change this up for the Dark Mode theme while mixing-and-matching with other properties, like for general grays and whites.
-
-<%= render_code_block_app_file("app/javascript/css/config/theme.css", language: "css", revision: "7041644f7b1e0693191f0574a9426f828b052a9f", lines: [68, 83..86, 93]) %>
-
-Remember the `--my-color` CSS variables? When you select a color scheme to preview or save, the application inserts the predefined weights as inline styles when the page is rendered. Because of the way the theme colors are defined above, `--my-color` weights take preference over the default when they are defined.
-
-<%= render CodeBlock::Article.new(example_color_scheme_css, language: :css, filename: "inline css") %>
-
-This works for Tailwind too! The approach used here is consistent with the Tailwind docs section on [customizing colors using CSS variables](https://tailwindcss.com/docs/customizing-colors#using-css-variables).
-
-There's a lot more to CSS variables than what I’ve described here. Check out [MDN's introduction to CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) to go deeper.
-
-Building your own color scheme(s) in CSS is beyond the scope of this article but I suggest you start by picking some colors. I recommend [uicolors.app](https://uicolors.app) for Tailwind-friendly color palettes. [ColorHunt](https://colorhunt.co/) is a great choice for broad appeal.
-
-## ActiveRecord bits
-
-Each color scheme is backed by an ActiveRecord model, `ColorScheme`, which has a name and eleven columns to represent each of the color weights:
-
-<%= render_code_block_app_file "db/migrate/20240703114157_create_color_schemes.rb", language: "ruby" %>
-
-The `ColorScheme` model provides a method for accessing the color weights as `ColorConversion::Color` objects.
-
-<%= render_code_block_app_file "app/models/color_scheme.rb", language: "ruby", lines: [3..5, 23, 66..70] %>
-
-## Turbo Frames
-
-Did you notice how the color choice updated automatically? At least, it should have; I’m assuming you have JavaScript enabled.
-
-If you don’t have JavaScript enabled, you would still be able to navigate to the <%= link_to "color scheme settings page", settings_color_scheme_path %> to edit your color scheme. One thing I love about building interactive components with Rails is you can choose to adopt [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)—that is to say: make the site work for "as many users as possible" while providing improvements for fully enabled devices and modern browsers—something I strive for with [Joy of Rails](/).
-
-When the article renders, a turbo frame tag is inserted that points to the <%= link_to "color scheme settings page", settings_color_scheme_path %>. It looks something like this:
-
-```erb:{"show_header":false}
-<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path %>
+```ruby:{"show_header":false}
+if session[:color_scheme_id]
+  @color_scheme = ColorScheme.find(session[:color_scheme_id])
+end
 ```
 
-This snippet outputs a custom HTML element:
+The color scheme CSS variables can be written directly into a style tag
 
-```html:{"show_header":false}
-<turbo-frame id="color-scheme-form" src="/settings/color_scheme"></turbo-frame>
+```erb:{"filename":"app/view/layouts/application.html.erb"}
+<style>
+  :root {
+    --my-color-50: <%= @color_scheme.weight_50.to_json %>;
+    --my-color-100: <%= @color_scheme.weight_100.to_json %>;
+    --my-color-200: <%= @color_scheme.weight_200.to_json %>;
+    /* and so on */
+  }
+</style>
 ```
 
-Turbo Rails will recognize the `<turbo-frame>` tag and make an XHR request to the Rails backend for the given `src`, in this case, `'/settings/color_scheme'`.
+Most of the time-consuming work required to assemble this post was in researching the color palettes and building the site theme with various background and text colors defined in CSS variables.
 
-This corresponds to the `show` action in Joy of Rails’ `ColorSchemesController`:
+## Progressively enhanced
 
-<%= render_code_block_app_file("app/controllers/settings/color_schemes_controller.rb", language: "ruby", lines: [1..3, 19, 46], revision: "49a7088ddbdb5e09d02a6ba2c9a205a614188f6b") %>
+Did you notice how the color choice updated automatically in place? At least, it should have for visitors that have JavaScript enabled.
 
-When you visit that page directly in your browser, you get a full page experience at that url.
+<noscript>
+  <p>
+    <em>I can see you don’t have JavaScript enabled! That’s okay! The color schemes preview should have at still worked, which might not have been true had I used a JavaScript framework that relies on client-side rendering.</em>
+  </p>
+</noscript>
 
-To make this also work with a turbo frame, we make a few small adjustments.
+One of the things I love about Rails and Hotwire is that it’s possible to adopt **progressive enhancement**.
 
-If the response contains a corresponding turbo-frame that with a matching ID, in this case, "color-scheme-form", then Turbo Rails will insert the HTML into the document at the matching ID.
+> Progressive enhancement is a design philosophy that provides a baseline of essential content and functionality to as many users as possible, while delivering the best possible experience only to users of the most modern browsers that can run all the required code.
+>
+> [Source: MDN Glossary](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)
 
-```rb
+In this case, visitors who don’t have JavaScript enabled would see a link to the the <%= link_to "color schemes settings page", settings_color_scheme_path %>. That page has most of the functionality you see here.
 
+This design is made possible by the fact that the color scheme preview HTML is all rendered on the server with Ruby on Rails. With JavaScript enabled, Turbo JavaScript "upgrades" the default browser form submissions and link clicks to AJAX requests and use the HTML response to replace the parts of the page in place. Without JavaScript, visitors will still get the desired results after a full page navigation and/or redirects.
+
+Progressive enhancement hasn’t necessarily been a hot topic alongside the popular JavaScript frameworks that rely on client-side rendering. It’s nice to see that most of what you see on these pages is static content and shouldn’t require a lot of code running in your browser to view.
+
+## Look at all the things I’m not doing
+
+Notice how I do not mention any of the major JavaScript frameworks in the list of tools I used to build custom color schemes.
+
+In fact, I wrote only a one line of custom JavaScript to make the color scheme preview selection work: on an `onchange` handler:
+
+```html:{"show_header": false}
+<select onchange="this.form.requestSubmit()">
+  <!-- options -->
+</select>
 ```
 
-Subsequent requests triggered by interactions in the turbo frame, such as link clicks and form submits, will also be scoped to the turbo frame as well.
+This isn’t to say I don’t like writing JavaScript or that I don’t think you should use JavaScript. I’m not here to tell you that you shouldn’t use React. Or Vue, Svelte, Solid, or Angular. Personally, I think JavaScript and the popular JavaScript frameworks are great. I recognize why and how they have become so popular.
 
-![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by my son, Jasper')
+I’m also not here to tell you that Rails with Hotwire is objectively better than any of these JavaScript frameworks or similar options.
+
+But—and this is the important point—I didn’t _need_ any client-side rendering or JavaScript component library to make this work. It _is_ possible to build a single-page application experience in Rails. It’s not always necessary to build a single-page application in JavaScript.
+
+For a solo developer with a busy home life and a full-time job, saving time and energy for other important tasks, like writing, with a language and framework I love; this makes all the difference.
+
+---
+
+Would you like to see an in-depth tutorial on how to build the custom color scheme functionality? Did you find a bug or do you have questions about the content? Please [send me an email](mailto:ross@joyofrails.com). You can also connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com).
+
+If I’ve captured your interest and you’d like to learn more, please <%= link_to "subscribe", "#newsletter-signup" %> to hear more from me and get notified of new articles by email.
+
+I hope I was able to demonstrate a tiny peek into what’s possible with Rails. I hope you enjoyed it.
+
+![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by Jasper (my son)')
