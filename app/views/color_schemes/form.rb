@@ -15,7 +15,6 @@ class ColorSchemes::Form < ApplicationView
   )
     @settings = settings
     @color_scheme = settings.color_scheme
-    @curated_color_schemes = curated_color_schemes
     @preview_color_scheme = preview_color_scheme
     @session_color_scheme = session_color_scheme
     @default_color_scheme = default_color_scheme
@@ -53,7 +52,7 @@ class ColorSchemes::Form < ApplicationView
         span(class: "text-small") { "OR" }
 
         link_to "I feel lucky!",
-          url_for(settings: {color_scheme_id: @curated_color_schemes.sample.id}),
+          url_for(settings: {color_scheme_id: random_curated_color_scheme_id}),
           class: "button secondary "
       end
 
@@ -130,17 +129,20 @@ class ColorSchemes::Form < ApplicationView
 
   def preview_select
     form_with(model: @settings, url: url_for, method: :get) do |f|
-      fieldset do
-        f.select(
-          :color_scheme_id,
-          @curated_color_schemes.sort_by { |cs| cs.name }.map { |cs| [cs.display_name, cs.id] },
-          {
-            prompt: "Pick one!",
-            selected: previewing? && @color_scheme.id
-          },
-          onchange: "this.form.requestSubmit()",
-          class: ""
-        )
+      flex_block do
+        fieldset do
+          f.select(
+            :color_scheme_id,
+            cached_curated_color_scheme_options,
+            {
+              prompt: "Pick one!",
+              selected: previewing? && @color_scheme.id
+            },
+            onchange: "this.form.requestSubmit()",
+            class: ""
+          )
+        end
+        noscript { f.submit "Preview", class: "button primary" }
       end
     end
   end
@@ -222,4 +224,15 @@ class ColorSchemes::Form < ApplicationView
     "Divine!",
     "My my, what a surprise:"
   ]
+
+  def cached_curated_color_scheme_options
+    Rails.cache.fetch("curated_color_scheme_options", expires_in: 1.day) do
+      ColorScheme.curated.sort_by { |cs| cs.name }.map { |cs| [cs.display_name, cs.id] }
+    end
+  end
+
+  def random_curated_color_scheme_id
+    _display_name, id = cached_curated_color_scheme_options.sample
+    id
+  end
 end

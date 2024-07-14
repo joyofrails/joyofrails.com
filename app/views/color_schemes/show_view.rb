@@ -12,7 +12,6 @@ class ColorSchemes::ShowView < ApplicationView
   )
     @settings = settings
     @color_scheme = settings.color_scheme
-    @curated_color_schemes = curated_color_schemes
     @preview_color_scheme = preview_color_scheme
     @session_color_scheme = session_color_scheme
     @default_color_scheme = default_color_scheme

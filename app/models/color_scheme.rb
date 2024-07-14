@@ -35,17 +35,6 @@ class ColorScheme < ApplicationRecord
     where(name: names)
   end
 
-  def self.cached_curated
-    cache_key = "curated_color_scheme_ids"
-    cached_ids = Rails.cache.read(cache_key)
-
-    return where(id: cached_ids) if cached_ids
-
-    curated.tap do |collection|
-      Rails.cache.write(cache_key, collection.map(&:id))
-    end
-  end
-
   def self.find_or_create_default
     find_or_create_by(name: APP_DEFAULT[:name]) do |cs|
       APP_DEFAULT[:weights].each do |weight, value|
