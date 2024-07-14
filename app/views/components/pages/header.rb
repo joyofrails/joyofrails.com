@@ -22,7 +22,9 @@ class Pages::Header < ApplicationComponent
         if @published_on
           span(class: "block") do
             # <time datetime="2024-03-13T00:00:00Z" itemprop="datePublished" class="dt-published"> March 13th, 2024 </time>
-            time_tag @published_on, itemprop: "datePublished", class: "dt-published"
+            em do
+              time_tag @published_on, itemprop: "datePublished", class: "dt-published"
+            end
           end
         end
       end

@@ -2,8 +2,8 @@
 title: Custom color schemes with Ruby on Rails
 author: Ross Kaffenberger
 layout: article
-description: This post embeds a demo of a custom color scheme previewer while highlighting the benefits of Rails, Hotwire, and CSS variables. You can edit the color scheme of this website right in content of this blog post.
-summary: This post embeds a demo of a custom color scheme previewer while highlighting the benefits of Rails, Hotwire, and CSS variables. You can edit the color scheme of this website right in content of this blog post.
+description: You can edit the color scheme of this website right in content of this blog post. Play with the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.
+summary: You can edit the color scheme of this website right in content of this blog post. Play with the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.
 published: '2024-07-14'
 image: articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg
 draft: true
@@ -12,7 +12,7 @@ tags:
   - Rails
 ---
 
-This blog post lets you edit the color scheme of this site.
+This blog post lets you edit the color scheme of this site, [Joy of Rails](/).
 
 Give it a try.
 
@@ -144,10 +144,10 @@ For a solo developer with a busy home life and a full-time job, saving time and 
 
 Would you like to see an in-depth tutorial on how to build the custom color scheme functionality? Did you find a bug or do you have questions about the content? Please [send me an email](mailto:ross@joyofrails.com). You can also connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
 
-Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com).
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
-If I’ve captured your interest and you’d like to learn more, please <%= link_to "subscribe", "#newsletter-signup" %> to hear more from me and get notified of new articles by email.
+And if I’ve captured your interest, please <%= link_to "subscribe", "#newsletter-signup" %> to hear more from me and get notified of new articles by email.
 
-I hope I was able to demonstrate a tiny peek into what’s possible with Rails. I hope you enjoyed it.
+That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
 
 ![Rainbow](articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg 'Rainbow, by Jasper (my son)')

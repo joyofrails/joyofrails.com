@@ -40,7 +40,7 @@ class ColorSchemes::Form < ApplicationView
 
       markdown do
         <<~MARKDOWN
-          This site uses a monochromatic color scheme. You can select a new color scheme to preview below. I have curated over a hundred options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
+          The color scheme for this site is monochromatic. You can use the select menu to preview a new color scheme with a different base color. I have curated over a hundred options for you from [uicolors.app](https://uicolors.app). Get a random one if you’re feeling lucky.
         MARKDOWN
       end
 
