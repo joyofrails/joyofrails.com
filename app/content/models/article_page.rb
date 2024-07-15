@@ -8,7 +8,9 @@ class ArticlePage < Sitepress::Model
   delegate :mime_type, :handler, to: :page
 
   def self.published
-    all.filter { |article| article.published.present? }.sort_by { |article| article.published_on }
+    all
+      .filter { |article| article.published.present? }
+      .sort { |a, b| b.published_on <=> a.published_on } # DESC order
   end
 
   def self.draft

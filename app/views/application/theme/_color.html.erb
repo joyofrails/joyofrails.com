@@ -1,5 +1,7 @@
 <% if custom_color_scheme? %>
-  <%= stylesheet_link_tag settings_color_scheme_path(**custom_color_scheme_params, format: :css) %>
+  <style>
+    <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme) %>
+  </style>
 <% else %>
   <style>
     <%= render ColorSchemes::Css.new(color_scheme: ColorScheme.cached_default) %>

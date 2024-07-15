@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # Exit when any command fails
-set -e
+set -ex
 
 # Run Ruby tests
-bin/rspec
+bin/rspec "$@"
 
 # Run JavaScript tests
 bin/vitest --watch=false

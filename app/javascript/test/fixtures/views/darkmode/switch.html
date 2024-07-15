@@ -1,20 +1,9 @@
 <div data-controller="darkmode" class="flex items-center justify-between">
-  <span
-    role="heading"
-    aria-label="Change Color Scheme"
-    aria-roledescription="heading"
-    data-darkmode-target="description"
-    data-action="click->darkmode#cycle"
-    class="hidden mr-3 cursor-pointer">Light Mode</span>
   <button
     data-action="click->darkmode#cycle"
     id="joy-cycle"
     type="button"
-    class="
-      text-gray-500 dark:text-gray-400 hover:bg-joy-bg-hover focus:ring-gray-200
-      dark:focus:ring-gray-700 focus:ring-2 focus:outline-none rounded-lg text-sm
-      p-2.5
-    "
+    class="button ghost focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
     aria-label="Change Color Scheme"
     role="button">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" role="img" aria-labelledby="a23noh8smnaw6vmjcvjhttpgt5q0qbbs alplzuljme7224cfcwt926yoeqa47ocl" class="hidden w-5 h-5" data-darkmode-target="darkIcon"><title id="a23noh8smnaw6vmjcvjhttpgt5q0qbbs">Dark mode</title><desc id="alplzuljme7224cfcwt926yoeqa47ocl">Dark mode for the site is enabled</desc>
@@ -37,5 +26,12 @@
   </g>
 </svg>
 
+    <span
+      role="heading"
+      aria-label="Change Color Scheme"
+      aria-roledescription="heading"
+      data-darkmode-target="description"
+      data-action="click->darkmode#cycle"
+      class="ml-2 cursor-pointer hidden ">Light Mode</span>
   </button>
 </div>

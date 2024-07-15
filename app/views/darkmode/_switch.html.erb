@@ -1,24 +1,21 @@
+<%# locals: (enable_description: false, enable_outline: false) %>
 <div data-controller="darkmode" class="flex items-center justify-between">
-  <span
-    role="heading"
-    aria-label="Change Color Scheme"
-    aria-roledescription="heading"
-    data-darkmode-target="description"
-    data-action="click->darkmode#cycle"
-    class="hidden mr-3 cursor-pointer">Light Mode</span>
   <button
     data-action="click->darkmode#cycle"
     id="joy-cycle"
     type="button"
-    class="
-      text-gray-500 dark:text-gray-400 hover:bg-joy-bg-hover focus:ring-gray-200
-      dark:focus:ring-gray-700 focus:ring-2 focus:outline-none rounded-lg text-sm
-      p-2.5
-    "
+    class="<%= class_names("button ghost focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none", outline: enable_outline) %>"
     aria-label="Change Color Scheme"
     role="button">
     <%= inline_svg_tag "darkmode/moon.svg", data: { "darkmode-target" => "darkIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "Dark mode", desc: "Dark mode for the site is enabled", aria: true %>
     <%= inline_svg_tag "darkmode/sun.svg", data: { "darkmode-target" => "lightIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "Light mode", desc: "Light mode for the site is enabled", aria: true %>
     <%= inline_svg_tag "darkmode/eclipse.svg", data: { "darkmode-target" => "systemIcon" }, class: "hidden w-5 h-5", fill: "currentColor", title: "System mode", desc: "System mode for the site is enabled", aria: true %>
+    <span
+      role="heading"
+      aria-label="Change Color Scheme"
+      aria-roledescription="heading"
+      data-darkmode-target="description"
+      data-action="click->darkmode#cycle"
+      class="<%= class_names "ml-2", "cursor-pointer", { hidden: !enable_description } %> ">Light Mode</span>
   </button>
 </div>

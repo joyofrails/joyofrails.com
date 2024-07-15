@@ -1,15 +1,15 @@
 :root {
-  --joy-color-50: var(--my-color-50, var(--color-watercourse-50));
-  --joy-color-100: var(--my-color-100, var(--color-watercourse-100));
-  --joy-color-200: var(--my-color-200, var(--color-watercourse-200));
-  --joy-color-300: var(--my-color-300, var(--color-watercourse-300));
-  --joy-color-400: var(--my-color-400, var(--color-watercourse-400));
-  --joy-color-500: var(--my-color-500, var(--color-watercourse-500));
-  --joy-color-600: var(--my-color-600, var(--color-watercourse-600));
-  --joy-color-700: var(--my-color-700, var(--color-watercourse-700));
-  --joy-color-800: var(--my-color-800, var(--color-watercourse-800));
-  --joy-color-900: var(--my-color-900, var(--color-watercourse-900));
-  --joy-color-950: var(--my-color-950, var(--color-watercourse-950));
+  --joy-color-50: var(--my-color-50, var(--color-custom-cerulean-blue-50));
+  --joy-color-100: var(--my-color-100, var(--color-custom-cerulean-blue-100));
+  --joy-color-200: var(--my-color-200, var(--color-custom-cerulean-blue-200));
+  --joy-color-300: var(--my-color-300, var(--color-custom-cerulean-blue-300));
+  --joy-color-400: var(--my-color-400, var(--color-custom-cerulean-blue-400));
+  --joy-color-500: var(--my-color-500, var(--color-custom-cerulean-blue-500));
+  --joy-color-600: var(--my-color-600, var(--color-custom-cerulean-blue-600));
+  --joy-color-700: var(--my-color-700, var(--color-custom-cerulean-blue-700));
+  --joy-color-800: var(--my-color-800, var(--color-custom-cerulean-blue-800));
+  --joy-color-900: var(--my-color-900, var(--color-custom-cerulean-blue-900));
+  --joy-color-950: var(--my-color-950, var(--color-custom-cerulean-blue-950));
 
   --joy-light: var(--color-white);
   --joy-lighten: var(--color-lighten);
@@ -27,25 +27,31 @@
   --joy-link-8: var(--joy-color-800);
   --joy-link-9: var(--joy-color-900);
 
-  --joy-background-clean: white;
   --joy-background: var(--joy-color-50);
   --joy-background-header: var(--joy-color-200);
   --joy-background-banner: var(--joy-color-100);
   --joy-background-footer: var(--joy-color-200);
-  --joy-background: var(--joy-color-50);
-  --joy-background-mask: var(--color-darken);
+  --joy-background-blockquote: var(--joy-color-100);
 
-  --joy-border-subtle: var(--joy-color-200);
+  --joy-background-mask: var(--color-darken);
+  --joy-background-reset: white;
 
   --joy-background-success: var(--dracula-green-800);
   --joy-background-error: var(--dracula-red-900);
   --joy-background-warn: var(--dracula-orange-800);
+
+  --joy-background-inline-code: ghostwhite;
+
+  --joy-border-subtle: var(--joy-color-200);
+  --joy-border: var(--joy-color-600);
+  --joy-color-quote: var(--joy-color-600);
 
   --joy-text: var(--color-dark);
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-emphasis: var(--joy-color-500);
   --joy-text-heading: var(--color-slate-900);
   --joy-text-theme: var(--joy-color-800);
+  --joy-text-faint: var(--color-stone-400);
 
   --joy-link-primary: var(--joy-link-6);
   --joy-link-visited: var(--joy-link-9);
@@ -66,18 +72,23 @@
 }
 
 .dark {
-  --joy-background-clean: --color-slate-950;
   --joy-background: var(--color-slate-950);
   --joy-background-header: var(--color-slate-800);
   --joy-background-banner: var(--color-slate-900);
   --joy-background-footer: var(--color-slate-800);
+  --joy-background-blockquote: var(--color-slate-800);
+
   --joy-background-mask: var(--color-lighten);
+  --joy-background-reset: var(--color-slate-950);
 
   --joy-background-success: var(--dracula-green-400);
   --joy-background-error: var(--dracula-red-500);
   --joy-background-warn: var(--dracula-orange-500);
 
+  --joy-background-inline-code: var(--dracula-black);
+
   --joy-border-subtle: var(--joy-color-900);
+  --joy-border: var(--joy-color-600);
 
   --joy-text: var(--joy-color-50);
   --joy-text-subtle: var(--color-stone-700);

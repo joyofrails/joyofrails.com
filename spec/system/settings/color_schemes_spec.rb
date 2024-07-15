@@ -21,7 +21,7 @@ RSpec.describe "Customize Color Scheme", type: :system do
 
     click_button "Save #{chosen_color.display_name}"
 
-    expect(page).to have_content("You are now using the #{chosen_color.display_name} color scheme")
+    expect(page).to have_content("You have saved #{chosen_color.display_name} as your personal color scheme.")
 
     expect(page).to have_css(".color-scheme__#{chosen_color.name.parameterize}")
   end

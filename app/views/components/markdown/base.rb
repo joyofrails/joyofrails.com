@@ -76,6 +76,12 @@ class Markdown::Base < Phlex::HTML
       hr
     in :block_quote
       blockquote { visit_children(node) }
+    in :table
+      table { visit_children(node) }
+    in :table_row
+      tr { visit_children(node) }
+    in :table_cell
+      td { visit_children(node) }
     in :html_block
       html_block(node.to_html(options: @options))
     in :html_inline # This is a raw HTML inline element, so we skip here in safe mode

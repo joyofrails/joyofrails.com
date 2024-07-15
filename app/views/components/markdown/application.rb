@@ -1,4 +1,7 @@
 class Markdown::Application < Markdown::Base
+  include Phlex::Rails::Helpers::ImageTag
+  include ActionView::Helpers::AssetUrlHelper
+
   # Options for CommonMarker
   def default_commonmarker_options
     {
@@ -20,6 +23,13 @@ class Markdown::Application < Markdown::Base
     end
 
     a(href: url, title: title, **attributes, &)
+  end
+
+  def image(src, alt: "", title: "")
+    figure do
+      image_tag(src, alt: alt, title: title)
+      figcaption { title }
+    end
   end
 
   def html_block(html)

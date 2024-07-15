@@ -47,11 +47,11 @@
 
     & a {
       font-family: var(--sans-serif);
-      font-weight: 600;
+      font-weight: normal;
       gap: 0.25rem;
       align-items: center;
       display: flex;
-      text-decoration: var(--joy-link-0);
+      color: var(--joy-text);
     }
   }
 }

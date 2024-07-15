@@ -5,7 +5,7 @@ require "color_conversion"
 class ColorScheme < ApplicationRecord
   APP_DEFAULT = {
     name: "Custom Cerulean Blue",
-    weights: {
+    weights: APP_DEFAULT_WEIGHTS = {
       "50": "#f1f5fd",
       "100": "#dfe8fa",
       "200": "#c7d7f6",
@@ -17,25 +17,22 @@ class ColorScheme < ApplicationRecord
       "800": "#313f9c",
       "900": "#2c397c",
       "950": "#1f244c"
-    }
+    }.freeze
   }.freeze
 
-  VALID_WEIGHTS = %w[50 100 200 300 400 500 600 700 800 900 950].freeze
+  VALID_WEIGHTS = APP_DEFAULT_WEIGHTS.keys.map(&:to_s).freeze
+
+  VALID_WEIGHTS.each do |weight|
+    # seralize :weight_50, coder: Color
+    # seralize :weight_100, coder: Color
+    # seralize :weight_200, coder: Color
+    # etc
+    serialize :"weight_#{weight}", coder: Color
+  end
 
   def self.curated
     names = YAML.load_file(Rails.root.join("config", "curated_colors.yml"))
     where(name: names)
-  end
-
-  def self.cached_curated
-    cache_key = "curated_color_scheme_ids"
-    cached_ids = Rails.cache.read(cache_key)
-
-    return where(id: cached_ids) if cached_ids
-
-    curated.tap do |collection|
-      Rails.cache.write(cache_key, collection.map(&:id))
-    end
   end
 
   def self.find_or_create_default
@@ -64,9 +61,7 @@ class ColorScheme < ApplicationRecord
   end
 
   def weights
-    VALID_WEIGHTS.each_with_object({}) do |weight, hash|
-      hash[weight] = ColorConversion::Color.new(send(:"weight_#{weight}"))
-    end
+    VALID_WEIGHTS.map { |weight| [weight, send(:"weight_#{weight}")] }.to_h
   end
 
   def display_name

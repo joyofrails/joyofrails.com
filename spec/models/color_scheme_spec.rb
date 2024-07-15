@@ -18,7 +18,7 @@ RSpec.describe ColorScheme, type: :model do
       color_scheme = FactoryBot.build(:color_scheme)
 
       # ColorConversion::Color objects don’t implement #==, so we convert to hex
-      expect(color_scheme.weights.transform_values { |color| color.hex }).to eq(
+      expect(color_scheme.weights).to eq(
         "50" => color_scheme.weight_50,
         "100" => color_scheme.weight_100,
         "200" => color_scheme.weight_200,

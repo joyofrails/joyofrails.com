@@ -2,11 +2,12 @@ class CodeBlock::Article < Phlex::HTML
   include InlineSvg::ActionView::Helpers
   include Phlex::DeferredRender
 
-  def initialize(source = "", language: nil, filename: nil, run: false)
+  def initialize(source = "", language: nil, filename: nil, run: false, show_header: true)
     @source = source
     @language = language
     @filename = filename
     @enable_run = run
+    @show_header = show_header
   end
 
   def view_template(&block)
@@ -18,9 +19,11 @@ class CodeBlock::Article < Phlex::HTML
       class: "code-wrapper highlight language-#{language}",
       data: code_example_data.keep_if { enable_run }.merge(data)
     ) do
-      div(class: "code-header") do
-        plain inline_svg_tag("app-dots.svg", class: "app-dots")
-        span(class: "code-title", &title_content)
+      if @show_header
+        div(class: "code-header") do
+          plain inline_svg_tag("app-dots.svg", class: "app-dots")
+          span(class: "code-title", &title_content)
+        end
       end
 
       div(class: "code-body") do

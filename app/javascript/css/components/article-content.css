@@ -19,6 +19,8 @@
     margin-inline-start: auto;
     overflow: visible;
     position: relative;
+    margin-top: var(--space-m);
+    margin-bottom: var(--space-m);
   }
 
   & hr:before {
@@ -59,5 +61,53 @@
     margin: 0;
     z-index: 100;
     max-width: calc(var(--grid-max-width) / 3);
+  }
+
+  & ul {
+    list-style-type: disc;
+    padding-inline-start: var(--space-s);
+
+    & li:has(+ li) {
+      margin-bottom: var(--space-s);
+    }
+  }
+
+  & blockquote {
+    font-size: var(--step-1);
+    font-style: italic;
+    padding: var(--space-m) 30px var(--space-m) 75px;
+    border-left: var(--space-3xs) solid var(--joy-color-quote);
+    line-height: 1.6;
+    position: relative;
+    background: var(--joy-background-blockquote);
+
+    & p:has(+ p) {
+      margin-bottom: var(--space-m);
+    }
+  }
+
+  & blockquote::before {
+    font-family: Arial;
+    content: '\201C';
+    color: var(--joy-color-quote);
+    font-size: 4em;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+  }
+
+  blockquote::after {
+    content: '';
+  }
+
+  & blockquote span {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: var(--space-s);
+  }
+
+  & turbo-frame {
+    margin-block-start: var(--space-m);
   }
 }

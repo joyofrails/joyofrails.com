@@ -96,6 +96,10 @@ strong {
   font-weight: bolder;
 }
 
+em {
+  font-style: italic;
+}
+
 code,
 kbd,
 samp,
@@ -103,7 +107,13 @@ pre {
   font-family: var(--monospace);
   font-feature-settings: normal;
   font-variation-settings: normal;
-  font-size: 1em;
+  font-size: 1rem;
+}
+
+code:not(pre code) {
+  background-color: var(--joy-background-inline-code);
+  padding: 0.25rem;
+  border-radius: 0.25em;
 }
 
 small {
@@ -301,8 +311,8 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: var(--joy-background-clean);
-  border-color: var(--joy-border-subtle);
+  background-color: var(--joy-background-reset);
+  border-color: var(--joy-border);
   border-style: solid;
   border-width: 1px;
   border-radius: 0;
@@ -612,6 +622,13 @@ select {
 
 svg {
   fill: currentColor;
+}
+
+figcaption {
+  font-size: var(--step--2);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
 .dark {

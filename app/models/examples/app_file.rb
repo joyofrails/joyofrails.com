@@ -37,9 +37,9 @@ module Examples
     end
 
     def read
-      Dir.chdir(ENV.fetch("REPOSITORY_ROOT", ".")) do
-        `git show #{@revision}:#{@path}`.strip
-      end
+      return git_read if @revision == "HEAD" # Don’t cache HEAD
+
+      Rails.cache.fetch([:app_file, @revision, @path]) { git_read }
     end
     alias_method :content, :read
 
@@ -72,6 +72,14 @@ module Examples
       end
 
       content.strip.html_safe
+    end
+
+    private
+
+    def git_read
+      Dir.chdir(ENV.fetch("REPOSITORY_ROOT", ".")) do
+        `git show #{@revision}:#{@path}`
+      end
     end
   end
 end

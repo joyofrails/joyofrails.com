@@ -63,6 +63,16 @@
   &.danger {
     background-color: var(--joy-button-warn);
   }
+  &.ghost {
+    color: inherit;
+    font-weight: normal;
+
+    &.outline {
+      border-width: 1px;
+      border-color: var(--joy-border-subtle);
+      border-style: solid;
+    }
+  }
 
   fieldset[disabled] &,
   &[disabled] {
