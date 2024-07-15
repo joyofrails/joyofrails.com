@@ -123,6 +123,8 @@ Progressive enhancement hasn’t necessarily been a hot topic alongside the popu
 
 Notice how I do not mention any of the major JavaScript frameworks in the list of tools I used to build custom color schemes.
 
+I’m not using any hooks to manage local state. I’m not making any explicit calls to `fetch` in my application code.
+
 In fact, I wrote only a one line of custom JavaScript to make the color scheme preview selection work: on an `onchange` handler:
 
 ```html:{"show_header": false}
