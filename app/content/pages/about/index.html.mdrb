@@ -1,12 +1,59 @@
 ---
 title: About Joy of Rails
 layout: article
-description: Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is open sourced on Github.
-updated: 2024-06-23
+summary: Spreading Joy one post at a time
+description: Joy of Rails is a Rails application dedicated to teaching and demonstrating programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community.
+updated: 2024-07-15
 ---
 
-Joy of Rails is a Rails application dedicated to teaching and showing programmers how to use Ruby on Rails and highlighting news, notes, and contributions relevant to the broader Ruby on Rails community. It is [open sourced on Github](https://github.com/joyofrails/joyofrails.com).
+I’ll never forget that first day of school.
 
-## Design
+I was young and inexperienced. As my first-period students filed in from the hallway, the reality of the situation began to settle in.
 
-I’ve written more in-depth about the [design](/about/design) of this site.
+_I have no idea what I’m doing._
+
+_My students are going to see right through me_.
+
+_I’m screwed._
+
+As I closed the door, I surveyed the faces of my students. They were looking back at me eager to find out if I had any worth. Fear tightened its grip around my throat.
+
+I almost passed out.
+
+My first job out of college was teaching Science in inner-city Houston, Texas. It was, and still is, the hardest job I’ve ever had.
+
+On that first day of teaching, I was under-prepared. I less than ten years older than my 8th-grade students. I had completed less than three months of teacher training through the Teach for America program. Most of my students were first and second generation immigrants whose families hailed from Latin America. I didn’t speak any Spanish.
+
+_I_ was supposed to teach _them_.
+
+Somehow, I survived my first period class and the others that followed that day. And then something magical happened.
+
+Once the students had been dismissed, I was cleaning up in the an equipment closet, which I shared with the department chair, Ms Young, who taught next door. She came in and pointed to some boxes on the shelf.
+
+_"The district gave me these boxes and I’m not sure what to make of all that. Why don’t you take ’em?"_
+
+I didn’t know it at the time, but this moment changed my life.
+
+These boxes were full of Legos. Not just any Legos—the (at the time) recently released [Lego Mindstorms](https://en.wikipedia.org/wiki/Lego_Mindstorms) kit. Basically Lego Mindstorms was what you’d get if Legos, Scratch, and Arduino made a baby.
+
+_Damn right_. I took those boxes. I felt like a kid again. I thought I had been given Legos but the real gift was computer programming.
+
+I tore into the tutorials and taught myself just enough to pass on to my students. I started an after school club. We entered Robotic competitions. It was a lot of fun.
+
+Looking back on these memories and my teaching experience, I remember it has being very challenging—emotionally, mentally, physically. But I also remember all the joy. Helping a student learn always brought me joy. How Miguel’s eyes lit up during a demonstration. The way Juana pumped her fist when she balanced a difficult chemistry equation. When our rocket project helped Jerry transform from my worst nightmare and to my biggest supporter.
+
+I often say my first day of teaching was also my first day as a programmer. In the [first article for this site](https://joyofrails.com/articles/introducing-joy-of-rails), I talked about the joy I felt when I experienced Ruby on Rails for the first time. Looking back, it seems likely I might never have encountered Ruby or Rails or even started a career in computers had it not been for my humble beginnings as a teacher and Ms. Young’s Lego Mindstorms kits. I may have left teaching for tech, but the teacher in me never left. Teaching and programming for me are inexorably linked.
+
+So Joy of Rails is born from that.
+
+---
+
+My name is Ross Kaffenberger and I’ve been building web applications with Ruby on Rails since 2008—Rails `1.2.0` and Ruby `1.8.6`. I've worked at startups like [LearnZillion](https://learnzillion.com/), [Devpost](https://devpost.com/), and [Weplay](https://github.com/weplay) and public companies like at [Stitch Fix](https://www.stitchfix.com/) and (now) [Cisco Meraki](https://meraki.cisco.com/).
+
+[I started Joy of Rails](/articles/introducing-joy-of-rails) to teach and demonstrate Ruby on Rails to other programmers like me and you. Joy of Rails highlights concepts, news, notes, and contributions relevant to the broader Ruby on Rails community. The Joy of Rails application is [open sourced on Github](https://github.com/joyofrails/joyofrails.com). Just as a Science lesson isn’t the same without the physical demonstration, Joy of Rails aims to bring programming concepts to life. Like how my [article on custom color schemes](/articles/custom-color-schemes-with-ruby-on-rails) lets you edit the color scheme of this site.
+
+I’d love for you to look around and let me know what you think.
+
+Free free to reach out on any number of channels. [Send me an email](mailto:ross@joyofrails.com). Connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and [Linkedin](https://www.linkedin.com/in/rosskaffenberger). You can [subscribe](#newsletter-signup) to my newsletter to get notified of new content.
+
+And of course, enjoy the ride.
