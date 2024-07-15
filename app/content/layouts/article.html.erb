@@ -1,6 +1,6 @@
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
-  <article>
+  <article itemscope itemtype="http://schema.org/Article">
     <%= render Pages::Header.new(
       title: current_page.data.title!,
       description: current_page.data.description,
