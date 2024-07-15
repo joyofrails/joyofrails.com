@@ -145,7 +145,7 @@ Would you like to see an in-depth tutorial on how to build the custom color sche
 
 Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
-And if I’ve captured your interest, please <%= link_to "subscribe", "#newsletter-signup" %> to hear more from me and get notified of new articles by email.
+And if I’ve captured your interest, please [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
 
 That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
 
