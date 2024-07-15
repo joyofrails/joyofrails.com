@@ -31,7 +31,7 @@ Pretty cool, huh? Here are the key ingredients:
 - [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies): A session cookie to store your saved color scheme selection
 - [Hotwire](https://hotwired.dev/): Server-rendered HTML and a single-page app experience powered by Rails, [Turbo Drive](https://turbo.hotwired.dev/handbook/introduction#turbo-drive%3A-navigate-within-a-persistent-process), and [Turbo Frames](https://turbo.hotwired.dev/handbook/introduction#turbo-frames%3A-decompose-complex-pages)
 
-I started with the premise of using a monochromatic color scheme based on the 11 color scale Tailwind uses for each of [its default color sets](https://tailwindcss.com/docs/customizing-colors). The curated options are all generated from [uicolors.app](https://uicolors.app/create).
+I started with the premise of using a monochromatic color scheme based on the eleven-item color scale [Tailwind](https://tailwindcss.com) uses for each of [its default color sets](https://tailwindcss.com/docs/customizing-colors). The curated options are all generated from [uicolors.app](https://uicolors.app/create).
 
 Each color scheme is a row in the `color_schemes` table, with a name and CSS hex code values for each of the eleven weights.
 
@@ -51,7 +51,7 @@ end
 
 CSS variables make it easy to change repeated CSS in a lot of places. You can set a CSS variable with double dashes, `--`. The CSS variable can be accessed using the `var()` expression. CSS variables can be overridden and can be defined in terms of other variables.
 
-Here’s a simplified a view of how I used CSS variables to define the main background color of the `<body>` element.
+Here’s a simplified a view of how I used CSS variables to define the main background color of the `<body>` element. Using the pseudo-class `:root` means the CSS variable can be accessed from any scope in CSS.
 
 ```css:{"show_header": false}
 :root {
@@ -66,9 +66,11 @@ body {
 }
 ```
 
-Even though Joy of Rails does not use Tailwind, this approach is consistent with [the Tailwind docs for using CSS variables to customize Tailwind colors](https://tailwindcss.com/docs/customizing-colors#using-css-variables).
+This approach is consistent with [the Tailwind docs for using CSS variables to customize Tailwind colors](https://tailwindcss.com/docs/customizing-colors#using-css-variables) for those of you that may be using (or interested in using) Tailwind.
 
-When you click the "Save" button, the application stores the `id` of the chosen color scheme in your Rails session:
+Most of the buttons in the color scheme demo are connected to `<form>` elements with actions that point to the [`ColorSchemesController`](https://github.com/joyofrails/joyofrails.com/blob/a08589e1cbe2accf4a20713829df56533e31755e/app/controllers/settings/color_schemes_controller.rb) in the Joy of Rails application.
+
+When you click the "Save" button, [the application stores the `id` of the chosen color scheme in your Rails session](https://github.com/joyofrails/joyofrails.com/blob/a08589e1cbe2accf4a20713829df56533e31755e/app/controllers/settings/color_schemes_controller.rb#L31):
 
 ```ruby:{"show_header":false}
 session[:color_scheme_id] = @color_scheme.id
@@ -77,12 +79,10 @@ session[:color_scheme_id] = @color_scheme.id
 When the page is rendered, the application checks for the presence of the session data to query for the desired color scheme:
 
 ```ruby:{"show_header":false}
-if session[:color_scheme_id]
-  @color_scheme = ColorScheme.find(session[:color_scheme_id])
-end
+session[:color_scheme_id] && ColorScheme.find(session[:color_scheme_id])
 ```
 
-The color scheme CSS variables can be written directly into a style tag
+The color scheme CSS variables are written directly into a style tag:
 
 ```erb:{"filename":"app/view/layouts/application.html.erb"}
 <style>
