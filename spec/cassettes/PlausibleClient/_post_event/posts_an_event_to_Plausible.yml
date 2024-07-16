@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://plausible.io/api/event
+    body:
+      encoding: UTF-8
+      string: '{"name":"test event","url":"http://joyofrails.com/about","domain":"joyofrails.com"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/85.0.4183.121 Safari/537.36 OPR/71.0.3770.284
+      X-Forwarded-For:
+      - 127.0.0.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Date:
+      - Tue, 16 Jul 2024 02:52:07 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Server:
+      - BunnyCDN-NY1-885
+      Cdn-Pullzone:
+      - '682664'
+      Cdn-Uid:
+      - 153cb5b1-399a-48ef-b5bf-098c03770254
+      Cdn-Requestcountrycode:
+      - US
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Alt-Svc:
+      - h3=":443"; ma=2592000
+      Cache-Control:
+      - must-revalidate, max-age=0, private
+      Application:
+      - 10.0.1.2
+      Permissions-Policy:
+      - interest-cohort=()
+      X-Request-Id:
+      - F-KRz2JNnmpi764XwfOL
+      Cdn-Proxyver:
+      - '1.04'
+      Cdn-Requestpullsuccess:
+      - 'True'
+      Cdn-Requestpullcode:
+      - '202'
+      Cdn-Cachedat:
+      - 07/16/2024 02:52:07
+      Cdn-Edgestorageid:
+      - '885'
+      Cdn-Requestid:
+      - 3202272275a768cd4992e3fe73008997
+    body:
+      encoding: UTF-8
+      string: ok
+  recorded_at: Tue, 16 Jul 2024 02:52:07 GMT
+recorded_with: VCR 6.2.0
