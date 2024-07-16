@@ -30,6 +30,7 @@ require "phlex-rails"
 require "inline_svg"
 require "invisible_captcha"
 require "color_conversion"
+require "meta-tags"
 
 module Joy
   class Application < Rails::Application
