@@ -37,6 +37,7 @@ gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to 
 gem "commonmarker", require: false
 gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
 gem "color_conversion", group: [:default, :wasm] # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
+gem "meta-tags", group: [:default, :wasm] # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
