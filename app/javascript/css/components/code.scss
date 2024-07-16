@@ -40,18 +40,21 @@
 
   & .code-title {
     font-weight: 600;
-    /* color: rgb(209 213 219 / var(--tw-text-opacity)); */
     display: block;
     text-align: center;
     line-height: 1;
 
     & a {
       font-family: var(--sans-serif);
-      font-weight: normal;
       gap: 0.25rem;
       align-items: center;
       display: flex;
-      color: var(--joy-text);
+      font-weight: bold;
+      color: var(--joy-light);
+      text-decoration: none;
+      & svg {
+        fill: var(--joy-light);
+      }
     }
   }
 }

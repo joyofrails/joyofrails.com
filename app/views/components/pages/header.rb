@@ -14,11 +14,8 @@ class Pages::Header < ApplicationComponent
   def view_template
     header(class: "page-header") do
       div(class: "container header-content") do
-        if @title_block
-          h1(&@title_block)
-        else
-          h1 { @title }
-        end
+        title = @title_block ? capture(&@title_block) : @title
+        h1 { title }
         p(class: "description") { @description } if @description
         if @published_on || @updated_on
           span(class: "block") do
