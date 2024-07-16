@@ -1,10 +1,11 @@
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
-  <article>
+  <article itemscope itemtype="http://schema.org/Article">
     <%= render Pages::Header.new(
       title: current_page.data.title!,
       description: current_page.data.description,
-      published_on: current_page.data.published&.to_date
+      published_on: current_page.data.published&.to_date,
+      updated_on: current_page.data.updated&.to_date
     ) %>
     <%- if current_page.data.toc -%>
       <aside>
@@ -19,7 +20,7 @@
         </nav>
       </aside>
     <%- end -%>
-    <div class="article-content container">
+    <div class="article-content container" itemprop="articleBody">
       <%= yield %>
     </div>
   </article>
