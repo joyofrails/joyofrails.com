@@ -9,7 +9,8 @@
 #   --data '{"name":"pageview","url":"http://dummy.site","domain":"dummy.site"}'
 
 class PlausibleClient < ApplicationClient
-  BASE_URI = "https://plausible.io/api"
+  base_uri "https://plausible.io/api"
+
   DOMAIN = "joyofrails.com"
 
   def post_event(name:, url:, referrer: nil, props: nil, headers: {})

@@ -47,6 +47,10 @@ class ApplicationClient
     response.const_set(:PARSER, Response::PARSER.dup)
   end
 
+  def self.base_uri(uri)
+    const_set(:BASE_URI, uri)
+  end
+
   # Initializes an API client
   #
   # To provide authentication credentials, you can supply either `auth` or `token`.
