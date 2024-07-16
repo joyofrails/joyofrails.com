@@ -106,5 +106,15 @@ RSpec.describe "Settings Color Schemes", type: :request do
         expect(response.body).to match(default_color_scheme.name.parameterize)
       end
     end
+
+    it "sends a plausible event" do
+      plausible_request = stub_request(:post, "https://plausible.io/api/event")
+
+      patch settings_color_scheme_path(settings: {color_scheme_id: color_scheme.id})
+
+      perform_enqueued_jobs
+
+      expect(plausible_request).to have_been_requested
+    end
   end
 end

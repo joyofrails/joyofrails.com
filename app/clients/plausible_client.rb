@@ -10,15 +10,18 @@
 
 class PlausibleClient < ApplicationClient
   BASE_URI = "https://plausible.io/api"
+  DOMAIN = "joyofrails.com"
 
-  def post_event(name:, url:, domain: "joyofrails.com", headers: {})
+  def post_event(name:, url:, referrer: nil, props: nil, headers: {})
     post(
       "/event",
       body: {
         name:,
         url:,
-        domain:
-      },
+        referrer:,
+        props:,
+        domain: DOMAIN
+      }.reject { |_, v| v.nil? },
       headers: headers.reverse_merge("Content-Type" => "application/json")
     )
   end
