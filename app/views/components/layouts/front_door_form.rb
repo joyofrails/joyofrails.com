@@ -29,11 +29,11 @@ class Layouts::FrontDoorForm < Phlex::HTML
     end
   end
 
-  def form_with(**opts, &block)
+  def form_with(**, &)
     super(
       class: "grid grid-row-tight",
-      **opts,
-      &block
+      **,
+      &
     )
   end
 
