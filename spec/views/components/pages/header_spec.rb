@@ -1,13 +1,17 @@
 require "rails_helper"
 
 RSpec.describe Pages::Header, type: :view do
-  def render(**kwargs)
-    described_class.new(**kwargs).call(view_context: view)
+  def render(**kwargs, &block)
+    described_class.new(**kwargs, &block).call(view_context: view)
   end
 
   describe "#call" do
-    it "renders the header" do
+    it "renders the title" do
       expect(render(title: "Hello")).to have_css(".page-header h1", text: "Hello")
+    end
+
+    it "renders the title block" do
+      expect(render { |h| h.title { "Hello" } }).to have_css(".page-header h1", text: "Hello")
     end
 
     it "renders the description" do
