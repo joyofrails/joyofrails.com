@@ -77,6 +77,7 @@ group :development, :test do
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
   gem "rspec-rails" # RSpec for Rails [https://github.com/rspec/rspec-rails]
   gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
+  gem "vcr", require: false # Record your test suite's HTTP interactions and replay them during future test runs [https://github.com/vcr/vcr]
   gem "w3c_validators", require: false # W3C HTML and CSS validators [https://github.com/w3c-validators/w3c_validators]
 end
 
