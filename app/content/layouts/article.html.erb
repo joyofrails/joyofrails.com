@@ -1,7 +1,22 @@
-<%= set_meta_tags(
+<% set_meta_tags(
   title: current_page.data.title!,
   description: current_page.data.description,
-  keywords: "Rails, Hotwire"
+  keywords: %w[rails hotwire],
+  index: true,
+  icon: "/favicon.ico",
+  og: {
+    title: :title,
+    description: :description,
+    type: "article",
+    url: current_page.url,
+    site_name: "Joy of Rails",
+    locale: "en_US",
+    image: current_page.data.meta_image && asset_url(current_page.data.meta_image)
+  },
+  twitter: {
+    card: current_page.data.meta_image ? "summary_large_image" : "summary",
+    site: "@joyofrails",
+  }
 ) %>
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
