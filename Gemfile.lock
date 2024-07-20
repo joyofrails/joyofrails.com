@@ -392,7 +392,7 @@ GEM
     reline (0.5.8)
       io-console (~> 0.5)
     require_all (3.0.0)
-    rexml (3.3.1)
+    rexml (3.3.2)
       strscan
     rouge (4.2.1)
     rspec-core (3.13.0)
