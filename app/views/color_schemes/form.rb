@@ -73,7 +73,7 @@ class ColorSchemes::Form < ApplicationView
 
         markdown do
           <<~MARKDOWN
-            Click the Save button to keep this choice and browse the site with **#{@preview_color_scheme.display_name}** Saving adds the color scheme as a session cookie that will persist across page views on your current device. You can delete the color scheme choice at any time."
+            Click the Save button to keep this choice and browse the site with **#{@preview_color_scheme.display_name}** Saving adds the color scheme as a session cookie that will persist across page views on your current device. You can delete the color scheme choice at any time.
           MARKDOWN
         end
 
