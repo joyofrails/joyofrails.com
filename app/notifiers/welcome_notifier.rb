@@ -6,6 +6,16 @@ class WelcomeNotifier < NotificationEvent
   def deliver_notification(notification)
     user = notification.recipient
 
+    if !deliver_to?(user)
+      Rails.logger.info "#[#{self.class}] Skipping delivery for: #{user.class.name}##{user.id}"
+      Honeybadger.event("empty_notification", notifier: self.class.name, recipient: "#{user.class.name}##{user.id}")
+      return false
+    end
+
     Emails::UserMailer.welcome(user).deliver_later
+  end
+
+  def deliver_to?(recipient)
+    Notification.joins(:notification_event).where(recipient: recipient, notification_event: {type: self.class.name}).count < 2
   end
 end

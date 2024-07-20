@@ -29,16 +29,22 @@ class NotificationEvent < ApplicationRecord
     notifier.const_set :Notification, Class.new(Notification)
   end
 
+  def deliver_to?(recipient)
+    true
+  end
+
   # CommentNotifier.deliver(User.all)
   # CommentNotifier.deliver(User.all, priority: 10)
   # CommentNotifier.deliver(User.all, queue: :low_priority)
   # CommentNotifier.deliver(User.all, wait: 5.minutes)
   # CommentNotifier.deliver(User.all, wait_until: 1.hour.from_now)
-  def deliver(recipients = nil, enqueue_job: true, **options)
+  def deliver(given_recipients = nil, enqueue_job: true, **options)
     validate!
 
+    recipients = Array.wrap(given_recipients)
+
     transaction do
-      recipients_attributes = Array.wrap(recipients).map do |recipient|
+      recipients_attributes = recipients.map do |recipient|
         recipient_attributes_for(recipient)
       end
 
