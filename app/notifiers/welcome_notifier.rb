@@ -5,6 +5,7 @@ class WelcomeNotifier < NotificationEvent
 
   def deliver_notification(notification)
     user = notification.recipient
+    unsubscribe_token = user&.newsletter_subscription&.generate_token_for(:unsubscribe) || :no_token
 
     if !deliver_to?(user)
       Rails.logger.info "#[#{self.class}] Skipping delivery for: #{user.class.name}##{user.id}"
@@ -12,7 +13,7 @@ class WelcomeNotifier < NotificationEvent
       return false
     end
 
-    Emails::UserMailer.welcome(user).deliver_later
+    Emails::UserMailer.welcome(user, unsubscribe_token).deliver_later
   end
 
   def deliver_to?(recipient)

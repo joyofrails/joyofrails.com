@@ -65,29 +65,42 @@ class Users::NewsletterSubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    if params[:token]
-      subscription = NewsletterSubscription.find_by_token_for(:unsubscribe, params[:token]) or raise ActiveRecord::RecordNotFound
-      subscription.destroy
-    elsif current_user
-      # Even though we model the subscription as a has_one, we should destroy
-      # all because has_one is not enforced as a constraint
-      NewsletterSubscription.where(subscriber: current_user).destroy_all
-    else
-      not_found!
-    end
+    subscriber = find_subscriber
+
+    # Even though we model the subscription as a has_one, we should destroy
+    # all because has_one is not enforced as a constraint
+    NewsletterSubscription.where(subscriber: subscriber).destroy_all
+
+    notice = "You have been unsubscribed from the Joy of Rails newsletter"
 
     if request.post? && params["List-Unsubscribe"] == "One-Click"
       # must not redirect according to RFC 8058
       # could render show action instead
-      render plain: "You have been unsubscribed", status: :ok
+      render plain: notice, status: :ok
     else
       respond_to do |format|
-        format.html { redirect_to root_path, notice: "You have been unsubscribed" }
+        format.html { redirect_to root_path, notice: notice }
         format.turbo_stream {
           redirect_path = current_user ? users_newsletter_subscriptions_path : new_users_newsletter_subscription_path
           redirect_to redirect_path
         }
       end
     end
+  end
+
+  private
+
+  def find_subscriber
+    subscriber = if params[:token]
+      subscription = NewsletterSubscription.find_by_token_for!(:unsubscribe, params[:token])
+      subscription&.subscriber
+    else
+      current_user
+    end
+
+    subscriber or raise ActiveRecord::RecordNotFound
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    Honeybadger.event("invalid_token", {path: request.path, controller: self.class.name, action: action_name})
+    raise ActiveRecord::RecordNotFound
   end
 end

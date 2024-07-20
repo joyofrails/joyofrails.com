@@ -233,7 +233,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       user.reload
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("You have been unsubscribed")
+      expect(flash[:notice]).to eq("You have been unsubscribed from the Joy of Rails newsletter")
 
       expect(user.newsletter_subscription).to be_nil
     end
@@ -249,7 +249,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       user.reload
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("You have been unsubscribed")
+      expect(flash[:notice]).to eq("You have been unsubscribed from the Joy of Rails newsletter")
 
       expect(user.newsletter_subscription).to be_nil
     end
@@ -265,7 +265,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       user.reload
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("You have been unsubscribed")
+      expect(flash[:notice]).to eq("You have been unsubscribed from the Joy of Rails newsletter")
 
       expect(user.newsletter_subscription).to be_nil
     end
@@ -291,7 +291,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       expect(user.newsletter_subscription).to be_present
 
       expect {
-        post unsubscribe_users_newsletter_subscription_path(user.newsletter_subscription.id)
+        post unsubscribe_users_newsletter_subscription_path("bad-token")
       }.not_to change(NewsletterSubscription, :count)
 
       user.reload
@@ -313,7 +313,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
       user.reload
 
       expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("You have been unsubscribed")
+      expect(flash[:notice]).to eq("You have been unsubscribed from the Joy of Rails newsletter")
 
       expect(user.newsletter_subscription).to be_nil
     end

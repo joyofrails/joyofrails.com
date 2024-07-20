@@ -26,4 +26,26 @@ RSpec.describe "Confirmations", type: :system do
     expect(page).to have_content("Thank you for confirming your email address")
     expect(User.last).to be_confirmed
   end
+
+  it "sends welcome email which allow user to unsubscribe" do
+    user = FactoryBot.create(:user, :subscriber)
+    user.generate_token_for(:confirmation)
+
+    visit edit_users_confirmation_path(user.generate_token_for(:confirmation))
+
+    click_button "Confirm email"
+
+    expect(user.reload.newsletter_subscription).to be_present
+
+    perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+    mail = find_mail_to(user.email)
+
+    expect(mail.subject).to eq "Welcome to Joy of Rails!"
+
+    visit email_link(mail, "unsubscribe")
+
+    expect(page).to have_content("You have been unsubscribed from the Joy of Rails newsletter")
+    expect(user.reload.newsletter_subscription).to be_nil
+  end
 end

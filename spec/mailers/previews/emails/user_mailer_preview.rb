@@ -10,6 +10,6 @@ class Emails::UserMailerPreview < ActionMailer::Preview
   end
 
   def welcome
-    Emails::UserMailer.welcome(FactoryBot.build(:user))
+    Emails::UserMailer.welcome(FactoryBot.build(:user), "unsubscribe_token")
   end
 end

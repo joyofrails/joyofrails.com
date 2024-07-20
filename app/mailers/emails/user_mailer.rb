@@ -20,8 +20,9 @@ class Emails::UserMailer < ApplicationMailer
     mail to: @user.email, subject: "Reset your password"
   end
 
-  def welcome(user)
+  def welcome(user, unsubscribe_token = :no_token)
     @user = user
+    @unsubscribe_token = unsubscribe_token
 
     mail to: @user.email, subject: "Welcome to Joy of Rails!"
   end

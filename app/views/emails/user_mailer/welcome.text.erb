@@ -6,7 +6,9 @@ Now that you’ve joined, you can expect occasional email updates from me. I’m
 
 If you’re into RSS, you may want to subscribe to the Joy of Rails feed: <%= feed_index_url %>.
 
-You can also unsubscribe at any time: <%= unsubscribe_users_newsletter_subscriptions_url %>. That’s ok too!
+<% unless @unsubscribe_token == :no_token %>
+You can also unsubscribe at any time: <%= unsubscribe_users_newsletter_subscription_url(@unsubscribe_token) %>. That’s ok too!
+<% end %>
 
 If you have any questions, feedback, or just want to say hi, please don’t hesitate to reach out. I’d love to hear from you.
 

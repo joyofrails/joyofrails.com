@@ -12,7 +12,7 @@ RSpec.describe WelcomeNotifier do
       WelcomeNotifier.deliver_to(user)
       perform_enqueued_jobs
 
-      expect(Emails::UserMailer).to have_received(:welcome).with(user).once
+      expect(Emails::UserMailer).to have_received(:welcome).with(user, :no_token).once
     end
   end
 end
