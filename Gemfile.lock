@@ -477,7 +477,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite-ulid (0.2.1-arm64-darwin)
     sqlite-ulid (0.2.1-x86_64-linux)
-    sqlite3 (2.0.2)
+    sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
     standard (1.39.2)
       language_server-protocol (~> 3.17.0.2)
@@ -594,7 +594,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   sqlite-ulid
-  sqlite3
+  sqlite3 (< 2)
   standard
   stimulus-rails
   turbo-rails
