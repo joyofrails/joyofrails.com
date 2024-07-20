@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe "Confirmations", type: :request do
   include ActiveSupport::Testing::TimeHelpers
 
-  before do
-    Flipper[:user_registration].enable
-  end
-
   describe "POST create" do
     it "succeeds for unconfirmed user" do
       user = FactoryBot.create(:user, :unconfirmed)
@@ -103,7 +99,18 @@ RSpec.describe "Confirmations", type: :request do
 
       put users_confirmation_path(user.generate_token_for(:confirmation))
 
-      expect(response).to redirect_to(users_dashboard_path)
+      expect(response).to redirect_to(users_thank_you_path)
+      expect(flash[:notice]).to eq("Thank you for confirming your email address")
+    end
+
+    it "works when user sessions are disabled" do
+      Flipper[:user_registration].enable
+
+      user = FactoryBot.create(:user, :unconfirmed)
+
+      put users_confirmation_path(user.generate_token_for(:confirmation))
+
+      expect(response).to redirect_to(users_thank_you_path)
       expect(flash[:notice]).to eq("Thank you for confirming your email address")
     end
 
