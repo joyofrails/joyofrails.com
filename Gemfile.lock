@@ -257,7 +257,6 @@ GEM
       logfmt (>= 0.0.10)
       sqlite3
     logfmt (0.0.10)
-    logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -428,16 +427,9 @@ GEM
     ruby-progressbar (1.13.0)
     ruby_wasm (2.6.2-arm64-darwin)
     ruby_wasm (2.6.2-x86_64-linux)
-    rubyzip (2.3.2)
     sanitize (6.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    selenium-webdriver (4.23.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
     sexp_processor (4.17.2)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -533,7 +525,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.8.1)
-    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -586,7 +577,6 @@ DEPENDENCIES
   rouge
   rspec-rails
   ruby_wasm (~> 2.5)
-  selenium-webdriver
   simplecov
   simplecov-cobertura
   simplecov-tailwindcss
