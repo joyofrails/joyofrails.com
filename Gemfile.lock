@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/rubycdp/cuprite
-  revision: 373b894d723bf9fb1afe31781963fe655a177218
-  specs:
-    cuprite (0.15.1)
-      capybara (~> 3.0)
-      ferrum (~> 0.15.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -133,6 +125,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    cuprite (0.15.1)
+      capybara (~> 3.0)
+      ferrum (~> 0.15.0)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -561,7 +556,7 @@ DEPENDENCIES
   capybara
   color_conversion
   commonmarker
-  cuprite!
+  cuprite
   debug
   device_detector
   dotenv
