@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_114157) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_20_123745) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_114157) do
     t.datetime "seen_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "processed_at"
     t.index ["notification_event_id"], name: "index_notifications_on_notification_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
