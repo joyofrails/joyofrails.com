@@ -16,6 +16,6 @@ class WelcomeNotifier < NotificationEvent
   end
 
   def deliver_to?(recipient)
-    Notification.joins(:notification_event).where(recipient: recipient, notification_event: {type: self.class.name}).count < 2
+    Notification.processed.joins(:notification_event).where(recipient: recipient, notification_event: {type: self.class.name}).count < 1
   end
 end

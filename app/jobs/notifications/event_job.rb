@@ -4,7 +4,10 @@ class Notifications::EventJob < ApplicationJob
   def perform(event)
     # Enqueue individual deliveries
     event.notifications.each do |notification|
-      event.deliver_notification(notification)
+      notification.transaction do
+        event.deliver_notification(notification)
+        notification.touch(:processed_at)
+      end
     end
   end
 end

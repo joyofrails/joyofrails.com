@@ -5,4 +5,6 @@ class Notification < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
 
   delegate :params, :record, to: :event
+
+  scope :processed, -> { where.not(processed_at: nil) }
 end
