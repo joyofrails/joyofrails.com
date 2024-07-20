@@ -30,4 +30,19 @@ RSpec.describe Emails::UserMailer, type: :mailer do
       expect(mail.body.encoded).to match("reset your password")
     end
   end
+
+  describe "welcome" do
+    let(:user) { instance_double(User, email: "to@example.com") }
+    let(:mail) { Emails::UserMailer.welcome(user) }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("Welcome to Joy of Rails!")
+      expect(mail.to).to eq(["to@example.com"])
+      expect(mail.from).to eq(["hello@joyofrails.com"])
+    end
+
+    it "renders the body" do
+      expect(mail.body.encoded).to match("Thank you for signing up")
+    end
+  end
 end

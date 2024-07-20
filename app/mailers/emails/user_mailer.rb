@@ -19,4 +19,10 @@ class Emails::UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Reset your password"
   end
+
+  def welcome(user)
+    @user = user
+
+    mail to: @user.email, subject: "Welcome to Joy of Rails!"
+  end
 end
