@@ -6,7 +6,7 @@ ruby file: ".ruby-version"
 gem "rails", "~> 7.1", group: [:default, :wasm] # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
-gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
+gem "sqlite3", "< 2", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
 gem "activerecord-enhancedsqlite3-adapter" # Enhanced SQLite3 adapter for Active Record [https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter]
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
 
@@ -58,12 +58,14 @@ end
 
 group :test do
   gem "capybara" # Acceptance test framework for web applications [https://github.com/teamcapybara/capybara]
-  gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
-  gem "cuprite", git: "https://github.com/rubycdp/cuprite"
+  gem "cuprite" # Headless Chrome driver for Capybara [https://github.com/rubycdp/cuprite]
   gem "simplecov", require: false # Code coverage for Ruby [https://github.com/simplecov-ruby/simplecov]
   gem "simplecov-tailwindcss", require: false # Alternative HTML formatter for SimpleCov [https://github.com/chiefpansancolt/simplecov-tailwindcss]
   gem "simplecov-cobertura", require: false # Produces Cobertura formatted XML from SimpleCov. [https://github.com/dashingrocket/simplecov-cobertura]
   gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
+
+  # Uncomment the following line and bundle to use Selenium with Firefox
+  # gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
 end
 
 group :development, :test do
