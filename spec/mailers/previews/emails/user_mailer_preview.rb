@@ -8,4 +8,8 @@ class Emails::UserMailerPreview < ActionMailer::Preview
   def password_reset
     Emails::UserMailer.password_reset(FactoryBot.build(:user), "password_reset_token")
   end
+
+  def welcome
+    Emails::UserMailer.welcome(FactoryBot.build(:user), "unsubscribe_token")
+  end
 end

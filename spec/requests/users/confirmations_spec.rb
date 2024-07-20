@@ -107,6 +107,19 @@ RSpec.describe "Confirmations", type: :request do
       expect(flash[:notice]).to eq("Thank you for confirming your email address")
     end
 
+    it "sends welcome email to user" do
+      user = FactoryBot.create(:user, :unconfirmed)
+
+      put users_confirmation_path(user.generate_token_for(:confirmation))
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+
+      mail = find_mail_to(user.email)
+      expect(mail.subject).to eq("Welcome to Joy of Rails!")
+    end
+
     it "disallows a user to confirm their email address with invalid token" do
       token = "invalid_token"
 

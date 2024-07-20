@@ -53,6 +53,8 @@ class Users::ConfirmationsController < ApplicationController
     if @user.confirm!
       warden.set_user(@user, scope: :user)
 
+      WelcomeNotifier.deliver_to(@user)
+
       redirect_to users_dashboard_path, notice: "Thank you for confirming your email address"
     else
       redirect_to new_users_confirmation_path, alert: "Something went wrong"

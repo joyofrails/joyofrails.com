@@ -49,7 +49,7 @@ RSpec.describe "Sessions", type: :request do
       expect(user.reload.last_sign_in_at).to be_present
     end
 
-    it "signs in unconfirmed user with valid magic session token" do
+    it "signs in and confirms unconfirmed user with valid magic session token" do
       user = FactoryBot.create(:user, :unconfirmed)
       token = user.generate_token_for(:magic_session)
       expect(user.last_sign_in_at).to be_nil
@@ -65,6 +65,13 @@ RSpec.describe "Sessions", type: :request do
 
       expect(user.last_sign_in_at).to be_present
       expect(user).to be_confirmed
+
+      perform_enqueued_jobs_and_subsequently_enqueued_jobs
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+
+      mail = find_mail_to(user.email)
+      expect(mail.subject).to eq("Welcome to Joy of Rails!")
     end
 
     it "disallows when user not found with given email" do

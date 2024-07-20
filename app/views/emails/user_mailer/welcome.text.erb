@@ -1,0 +1,15 @@
+Thank you for signing up for the Joy of Rails newsletter! I am humbled to have you here :)
+
+As you might have guessed, things are just getting underway at Joy of Rails. You’re one of the first to join and I’m grateful for that. I’m excited to see where this journey takes us. And please tell your friends and colleagues about Joy of Rails. The more the merrier!
+
+Now that you’ve joined, you can expect occasional email updates from me. I’m going to do my best to send you interesting and engaging Ruby on Rails content that’s worth your attention and time. Maybe every, now and then, something to put a smile on your face.
+
+If you’re into RSS, you may want to subscribe to the Joy of Rails feed: <%= feed_index_url %>.
+
+<% unless @unsubscribe_token == :no_token %>
+You can also unsubscribe at any time: <%= unsubscribe_users_newsletter_subscription_url(@unsubscribe_token) %>. That’s ok too!
+<% end %>
+
+If you have any questions, feedback, or just want to say hi, please don’t hesitate to reach out. I’d love to hear from you.
+
+- Ross

@@ -22,6 +22,7 @@ module WardenExtensions
         case auth.winning_strategy&.key
         when :magic_session
           user.confirm!
+          WelcomeNotifier.deliver_to(user)
         when :password
           # no op
         else # nil, as with test helpers
