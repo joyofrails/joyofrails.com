@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_one :newsletter_subscription, as: :subscriber, dependent: :destroy
 
+  scope :recently_confirmed, -> { where("confirmed_at > ?", 2.weeks.ago) }
+
   accepts_nested_attributes_for :email_exchanges, limit: 1
 
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
