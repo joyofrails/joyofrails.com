@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::ConfirmationsController < ApplicationController
-  before_action :feature_enabled!
   before_action :redirect_if_authenticated, only: [:create, :new]
 
   def new
@@ -51,19 +50,15 @@ class Users::ConfirmationsController < ApplicationController
     end
 
     if @user.confirm!
-      warden.set_user(@user, scope: :user)
+      if Flipper.enabled?(:user_registration, @user)
+        warden.set_user(@user, scope: :user)
+      end
 
       WelcomeNotifier.deliver_to(@user)
 
-      redirect_to users_dashboard_path, notice: "Thank you for confirming your email address"
+      redirect_to users_thank_you_path, notice: "Thank you for confirming your email address"
     else
       redirect_to new_users_confirmation_path, alert: "Something went wrong"
     end
-  end
-
-  private
-
-  def feature_enabled!
-    redirect_to root_path, notice: "Coming soon!" unless Flipper.enabled?(:user_registration, current_admin_user)
   end
 end

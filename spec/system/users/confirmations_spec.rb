@@ -21,8 +21,6 @@ RSpec.describe "Confirmations", type: :system do
 
     visit email_link(mail, "Confirm your email address")
 
-    click_button "Confirm email"
-
     expect(page).to have_content("Thank you for confirming your email address")
     expect(User.last).to be_confirmed
   end

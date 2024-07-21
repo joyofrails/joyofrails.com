@@ -71,8 +71,6 @@ RSpec.describe "Registrations", type: :system do
 
     visit email_link(mail, "Confirm your email address")
 
-    click_button "Confirm email"
-
     user = User.last
     expect(user).to be_confirmed
     expect(user.email).to eq("newemail@example.com")

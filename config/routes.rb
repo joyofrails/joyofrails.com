@@ -31,7 +31,11 @@ Rails.application.routes.draw do
     resource :thank_you, only: [:show]
     resource :header_navigation, only: [:show]
     resource :registration, only: [:new, :create, :edit, :update, :destroy]
-    resources :confirmations, only: [:new, :create, :edit, :update], param: :token
+    resources :confirmations, only: [:new, :create, :edit, :update], param: :token do
+      member do
+        match "confirm" => "confirmations#update", :via => [:get]
+      end
+    end
     resources :passwords, only: [:new, :create, :edit, :update], param: :token
 
     resources :newsletter_subscriptions, only: [:new, :create, :index, :show] do
