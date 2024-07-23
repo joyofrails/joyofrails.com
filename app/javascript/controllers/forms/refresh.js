@@ -4,20 +4,13 @@ import debug from '../../utils/debug';
 const console = debug('app:javascript:controllers:forms:refresh');
 
 export default class extends Controller {
+  static targets = ['refreshButton'];
+
   connect() {
-    console.log('connect');
+    this.refreshButtonTarget.hidden = true;
   }
 
   refresh() {
-    this.element.querySelectorAll('[required]').forEach((element) => {
-      element.required = false;
-    });
-    const submitButton = document.createElement('input');
-    submitButton.type = 'submit';
-    submitButton.name = 'commit';
-    submitButton.value = 'Refresh';
-    submitButton.style.display = 'none';
-    this.element.closest('form').appendChild(submitButton);
-    submitButton.click();
+    this.refreshButtonTarget.click();
   }
 }

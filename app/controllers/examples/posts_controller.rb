@@ -1,20 +1,11 @@
 class Examples::PostsController < ApplicationController
   def index
-    post = Examples::Post.new(postable: build_postable)
+    post = Examples::Post.new(post_params_new)
 
     render Examples::Posts::IndexView.new(post: post)
   end
 
   def create
-    if params[:commit] == "Refresh"
-      post_params = params.require(:examples_post).permit(:title)
-      post = Examples::Post.new(post_params) do |p|
-        p.postable = build_postable
-      end
-      Rails.logger.info("Post: #{post.inspect}")
-      return render Examples::Posts::IndexView.new(post: post), status: :unprocessable_entity
-    end
-
     post = Examples::Post.new(post_create_params)
 
     if post.save
@@ -26,19 +17,11 @@ class Examples::PostsController < ApplicationController
 
   private
 
-  def post_create_params
-    postable_attributes = (params.dig(:examples_post, :postable_type) == "Examples::Posts::Markdown") ? [:body] : [:url]
-    params.require(:examples_post).permit(:title, :postable_type, postable_attributes: postable_attributes)
-  end
+  def post_create_params = params.require(:examples_post, {}).permit(:title)
 
-  def build_postable
-    case params[:type]
-    when "link"
-      Examples::Posts::Link.new
-    when "image"
-      Examples::Posts::Image.new
-    else
-      Examples::Posts::Markdown.new
-    end
+  def post_params = params.fetch(:examples_post, {})
+
+  def post_params_new
+    post_params.permit(:title, :postable_type, link_attributes: [:url], image_attributes: [:url], markdown_attributes: [:body])
   end
 end
