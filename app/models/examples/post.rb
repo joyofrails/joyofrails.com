@@ -4,4 +4,6 @@ class Examples::Post < ApplicationRecord
     Examples::Posts::Link
     Examples::Posts::Image
   ]
+
+  accepts_nested_attributes_for :postable
 end
