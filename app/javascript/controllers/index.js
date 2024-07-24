@@ -15,7 +15,7 @@ import PwaWebPushDemo from './pwa/web-push-demo';
 import AnalyticsCustomEvent from './analytics/custom-event';
 import TableOfContents from './table-of-contents';
 
-import FormRefresh from './forms/refresh';
+import FrameForm from './forms/frame';
 
 application.register('analytics', AnalyticsCustomEvent);
 application.register('code-example', CodeExample);
@@ -27,4 +27,4 @@ application.register('pwa-web-push-subscription', PwaWebPushSubscription);
 application.register('pwa-web-push-demo', PwaWebPushDemo);
 application.register('table-of-contents', TableOfContents);
 
-application.register('form-refresh', FormRefresh);
+application.register('frame-form', FrameForm);

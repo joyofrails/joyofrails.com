@@ -1,27 +1,29 @@
 class Examples::PostsController < ApplicationController
   def index
-    post = Examples::Post.new(post_params_new)
+    render Examples::Posts::IndexView.new(posts: Examples::Post.limit(25).order(created_at: :desc))
+  end
 
-    render Examples::Posts::IndexView.new(post: post)
+  def new
+    post = Examples::Post.new(post_params_permitted)
+
+    render Examples::Posts::NewView.new(post: post)
   end
 
   def create
-    post = Examples::Post.new(post_create_params)
+    post = Examples::Post.new(post_params_permitted)
 
     if post.save
-      redirect_to :index
+      redirect_to examples_posts_path
     else
-      render Examples::Posts::IndexView.new(post: post), status: :unprocessable_entity
+      render Examples::Posts::NewView.new(post: post), status: :unprocessable_entity
     end
   end
 
   private
 
-  def post_create_params = params.require(:examples_post, {}).permit(:title)
-
   def post_params = params.fetch(:examples_post, {})
 
-  def post_params_new
+  def post_params_permitted
     post_params.permit(:title, :postable_type, link_attributes: [:url], image_attributes: [:url], markdown_attributes: [:body])
   end
 end

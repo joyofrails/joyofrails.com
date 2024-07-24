@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 class Examples::Posts::IndexView < ApplicationView
+  include Phlex::Rails::Helpers::ClassNames
+  include Phlex::Rails::Helpers::ContentFor
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::TurboFrameTag
-  include Phlex::Rails::Helpers::ClassNames
+  include Phlex::Rails::Helpers::TurboRefreshesWith
 
-  def initialize(post:)
-    @post = post
-    @image = post.image || Examples::Posts::Image.new
-    @link = post.link || Examples::Posts::Link.new
-    @markdown = post.markdown || Examples::Posts::Markdown.new
-    @post.postable ||= @markdown
+  def initialize(posts:)
+    @posts = posts
   end
 
   def view_template
@@ -21,63 +19,34 @@ class Examples::Posts::IndexView < ApplicationView
     )
 
     div(class: "section-content container py-gap") do
-      turbo_frame_tag :examples_post_form do
-        form_with model: @post, url: examples_posts_path, method: :post, data: {controller: "form-refresh"} do |form|
-          div(class: "tabs") do
-            form.label :postable_type, "Text", value: @markdown.class.name, class: "tab"
-            form.radio_button :postable_type, @markdown.class.name, checked: markdown?, data: {action: "form-refresh#refresh"}
-            form.label :postable_type, "Link", value: @link.class.name, class: "tab"
-            form.radio_button :postable_type, @link.class.name, checked: link?, data: {action: "form-refresh#refresh"}
-            form.label :postable_type, "Image", value: @image.class.name, class: "tab"
-            form.radio_button :postable_type, @image.class.name, checked: image?, data: {action: "form-refresh#refresh"}
-          end
+      link_to "New Post", new_examples_post_path, class: "button primary", data: {turbo_frame: "examples_post_form"}
 
-          fieldset do
-            form.label :title
-            form.text_field :title, placeholder: "My Post 🎸", required: false
-          end
+      turbo_frame_tag :examples_post_form
 
-          form.fields_for :markdown, @markdown do |postable_form|
-            fieldset(class: class_names(hidden: !markdown?)) do
-              postable_form.label :body, "Text (Markdown)"
-              postable_form.text_area :body, placeholder: "# This is a post about guitars 🎸", required: false
+      turbo_frame_tag :examples_posts, refresh: "morph" do
+        if @posts.empty?
+          div do
+            p { "Nothing has been posted yet!" }
+          end
+        end
+        @posts.each do |post|
+          div do
+            h2 { post.title }
+            case post.postable
+            when Examples::Posts::Link
+              a(href: post.postable.url, rel: "noopener noreferrer", target: "_blank") { post.postable.url }
+            when Examples::Posts::Image
+              img(src: post.postable.url, alt: post.title)
+            when Examples::Posts::Markdown
+              markdown(post.postable.body)
             end
-          end
-          form.fields_for :link, @link do |postable_form|
-            fieldset(class: class_names(hidden: !link?)) do
-              postable_form.label :url, "Link URL"
-              postable_form.text_field :url, placeholder: "https://example.com", required: false
-            end
-          end
-          form.fields_for :image, @image do |postable_form|
-            fieldset(class: class_names(hidden: !image?)) do
-              postable_form.label :url, "Image URL"
-              postable_form.text_field :url, placeholder: "https://example.com/image.jpg", required: false
-            end
-          end
-
-          fieldset do
-            form.submit "Refresh",
-              class: "button primary",
-              formaction: examples_posts_path,
-              formmethod: "get",
-              formnovalidate: true,
-              data: {form_refresh_target: "refreshButton"}
-          end
-
-          fieldset do
-            form.submit "Save", class: "button primary"
           end
         end
       end
     end
   end
 
-  private
-
-  def markdown? = @post.postable == @markdown
-
-  def link? = @post.postable == @link
-
-  def image? = @post.postable == @image
+  def markdown(content)
+    render Markdown::Base.new(content)
+  end
 end
