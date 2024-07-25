@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_20_123745) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_210414) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -53,6 +53,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_20_123745) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "email"], name: "index_email_exchanges_on_user_id_and_email", unique: true, where: "status = 0"
     t.index ["user_id"], name: "index_email_exchanges_on_user_id"
+  end
+
+  create_table "examples_posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "postable_type", null: false
+    t.integer "postable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["postable_type", "postable_id"], name: "index_examples_posts_on_postable"
+  end
+
+  create_table "examples_posts_images", force: :cascade do |t|
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "examples_posts_links", force: :cascade do |t|
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "examples_posts_markdowns", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "flipper_features", force: :cascade do |t|

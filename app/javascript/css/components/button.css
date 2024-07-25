@@ -9,6 +9,10 @@
   font-family: var(--sans-serif);
   color: var(--joy-light);
 
+  &[hidden] {
+    display: none;
+  }
+
   &:is(a) {
     text-decoration: none;
   }

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :examples do
     resource :counters, only: [:show, :update, :destroy]
     resource :hello, only: [:show]
+    resources :posts, only: [:index, :create, :new]
   end
   resources :examples, only: [:index, :show]
 
