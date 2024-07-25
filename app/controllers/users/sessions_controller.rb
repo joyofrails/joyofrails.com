@@ -45,6 +45,9 @@ class Users::SessionsController < ApplicationController
   private
 
   def feature_enabled!
-    redirect_to root_path, notice: "Coming soon!" unless Flipper[:user_registration].enabled?
+    unless Flipper.enabled?(:user_registration, current_admin_user)
+      redirect_to root_path,
+        notice: "Coming soon!"
+    end
   end
 end
