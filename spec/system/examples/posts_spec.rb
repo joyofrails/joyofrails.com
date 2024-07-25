@@ -1,12 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "Examples: Posts", type: :system do
+  before do
+    user = login_user
+    Flipper.enable(:example_posts, user)
+  end
+
   it "renders the form inputs dynamically and retains previously entered values" do
     visit examples_posts_path
 
     click_link "New Post"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_content("Title")
       expect(page).to have_content("Text (Markdown)")
 
@@ -18,7 +23,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Link"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_content("Title")
       expect(page).to have_content("Link URL")
 
@@ -29,7 +34,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Image"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_content("Title")
       expect(page).to have_content("Image URL")
 
@@ -40,7 +45,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Text"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_content("Title")
       expect(page).to have_content("Markdown")
 
@@ -52,14 +57,14 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Link"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_field("Title", with: "My Post 🎸")
       expect(page).to have_field("Link URL", with: "https://example.com/link")
     end
 
     choose "Image"
 
-    within "form" do
+    within "main form" do
       expect(page).to have_field("Title", with: "My Post 🎸")
       expect(page).to have_field("Image URL", with: "https://example.com/image.jpg")
     end
@@ -70,7 +75,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     click_link "New Post"
 
-    within "form" do
+    within "main form" do
       fill_in "Title", with: "My Post 🎸"
       fill_in "Text (Markdown)", with: "# This is a post about guitars 🎸"
 
@@ -88,7 +93,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Link"
 
-    within "form" do
+    within "main form" do
       fill_in "Title", with: "My Link 🎸"
       fill_in "Link URL", with: "https://example.com/link"
 
@@ -106,7 +111,7 @@ RSpec.describe "Examples: Posts", type: :system do
 
     choose "Image"
 
-    within "form" do
+    within "main form" do
       fill_in "Title", with: "My Image 🎸"
       fill_in "Image URL", with: "https://example.com/image.jpg"
 

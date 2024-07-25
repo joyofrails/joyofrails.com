@@ -1,4 +1,6 @@
 class Examples::PostsController < ApplicationController
+  before_action :feature_enabled!
+
   def index
     render Examples::Posts::IndexView.new(posts: Examples::Post.limit(25).order(created_at: :desc))
   end
@@ -25,5 +27,12 @@ class Examples::PostsController < ApplicationController
 
   def post_params_permitted
     post_params.permit(:title, :postable_type, link_attributes: [:url], image_attributes: [:url], markdown_attributes: [:body])
+  end
+
+  def feature_enabled!
+    return if user_signed_in? &&
+      Flipper.enabled?(:example_posts, current_user)
+
+    raise ActionController::RoutingError.new("Not Found")
   end
 end
