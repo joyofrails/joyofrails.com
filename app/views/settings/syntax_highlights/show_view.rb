@@ -10,7 +10,7 @@ class Settings::SyntaxHighlights::ShowView < ApplicationView
     render Pages::Header.new(title: "Settings: Syntax Highlight")
 
     section(class: %(secton-content container py-gap)) do
-      turbo_frame_tag "syntax-highlight-form" do
+      turbo_frame_tag "syntax-highlight-form", data: {turbo_action: "advance"} do
         render Settings::SyntaxHighlights::Form.new(
           current_highlight: @current_highlight,
           available_highlights: @available_highlights
