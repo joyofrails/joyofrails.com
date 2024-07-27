@@ -18,7 +18,7 @@ class CodeBlock::AppFile < Phlex::HTML
         }
       end
 
-      code_block.source_code do
+      code_block.body do
         source
       end
     end

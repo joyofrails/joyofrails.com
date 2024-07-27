@@ -37,9 +37,35 @@ class Settings::SyntaxHighlights::Form < ApplicationView
 
       h2 { %(Preview) }
       h3 { %(Ruby) }
-      render CodeBlock::AppFile.new("app/controllers/application_controller.rb", language: "ruby")
+
+      render CodeBlock::Article.new(language: "ruby") do |code|
+        code.body do
+          <<~RUBY.html_safe
+            class Family < Group
+              include Enumerable
+
+              def initialize(*members)
+                @members = members
+              end
+
+              def each(&)
+                @members.each(&)
+              end
+            end
+          RUBY
+        end
+      end
       h3 { %(CSS) }
-      render CodeBlock::AppFile.new("app/javascript/css/components/page-header.css", language: "css")
+      render CodeBlock::Article.new(language: "css") do |code|
+        code.body do
+          <<~CSS
+            body {
+              font-size: 12pt;
+              background: #fff url(temp.png) top left no-repeat;
+            }
+          CSS
+        end
+      end
       h3 { %(HTML with ERB) }
       render CodeBlock::AppFile.new("app/views/layouts/application.html.erb", language: "erb")
     end

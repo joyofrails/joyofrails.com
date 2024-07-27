@@ -10,11 +10,7 @@ class CodeBlock::Article < Phlex::HTML
     @show_header = show_header
   end
 
-  def view_template(&block)
-    # Capture the block content as the source if no source was provided
-    # The capture call appears to add a leading space, so we strip it.
-    @source ||= capture(&block)&.strip if block.present?
-
+  def view_template
     div(
       class: "code-wrapper highlight language-#{language}",
       data: code_example_data.keep_if { enable_run }.merge(data)
@@ -54,7 +50,7 @@ class CodeBlock::Article < Phlex::HTML
   end
 
   # Overwite the source code with a block
-  def source_code(&)
+  def body(&)
     @source = capture(&)
   end
 
