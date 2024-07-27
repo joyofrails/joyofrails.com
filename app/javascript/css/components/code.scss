@@ -2,6 +2,7 @@
 
 .code-wrapper {
   border-radius: var(--space-3xs-2xs);
+  border: 1px solid var(--joy-border-quiet);
 }
 
 @media screen and (min-width: $screen-md) {
@@ -50,10 +51,9 @@
       align-items: center;
       display: flex;
       font-weight: bold;
-      color: var(--joy-light);
       text-decoration: none;
       & svg {
-        fill: var(--joy-light);
+        // fill: var(--joy-light);
       }
     }
   }
