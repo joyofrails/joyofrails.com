@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   namespace :settings do
     resource :color_scheme, only: [:show, :update]
+    resource :syntax_highlight, only: [:show, :update]
   end
 
   namespace :users do
