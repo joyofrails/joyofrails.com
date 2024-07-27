@@ -11,11 +11,9 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   end
 
   def view_template
-    div(class: "grid grid-content") do
-      # if @current_highlight != Settings::SyntaxHighlight.default
-      stylesheet_link_tag @current_highlight.asset_path
-      # end
+    stylesheet_link_tag @current_highlight.asset_path, data: {syntax_highlight: @current_highlight.name}
 
+    div(class: "grid grid-content", data: {controller: "syntax-highlight-preview", syntax_highlight_preview_name_value: @current_highlight.name}) do
       p {
         plain %(Current syntax highlight style:)
         strong { @current_highlight.name }
