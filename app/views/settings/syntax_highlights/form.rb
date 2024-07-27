@@ -66,6 +66,8 @@ class Settings::SyntaxHighlights::Form < ApplicationView
           CSS
         end
       end
+      h3 { %(JavaScript) }
+      render CodeBlock::AppFile.new("app/javascript/controllers/syntax-highlight/preview.js", language: "js")
       h3 { %(HTML with ERB) }
       render CodeBlock::AppFile.new("app/views/layouts/application.html.erb", language: "erb")
     end
