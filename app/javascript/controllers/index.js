@@ -16,6 +16,7 @@ import AnalyticsCustomEvent from './analytics/custom-event';
 import TableOfContents from './table-of-contents';
 
 import FrameForm from './forms/frame';
+import SyntaxHighlightPreview from './syntax-highlight/preview';
 
 application.register('analytics', AnalyticsCustomEvent);
 application.register('code-example', CodeExample);
@@ -28,3 +29,4 @@ application.register('pwa-web-push-demo', PwaWebPushDemo);
 application.register('table-of-contents', TableOfContents);
 
 application.register('frame-form', FrameForm);
+application.register('syntax-highlight-preview', SyntaxHighlightPreview);
