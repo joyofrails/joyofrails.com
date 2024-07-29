@@ -21,6 +21,7 @@
 @import './utilities/custom.css' layer(utilities);
 
 @import './components/logo.css';
+@import './components/clipboard-copy.css';
 @import './components/button.css';
 @import './components/select.css';
 @import './components/code.scss';

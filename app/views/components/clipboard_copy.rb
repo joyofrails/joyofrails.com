@@ -17,7 +17,7 @@ class ClipboardCopy < Phlex::HTML
         aria_label: "Copy to clipboard",
         type: "button",
         class:
-          "text-gray-500 dark:text-gray-400 group rounded-md text-sm md:p-2 relative",
+          "button--clipboard-copy text-gray-500 dark:text-gray-400 group rounded-md text-sm md:p-2 relative",
         data_action: "clipboard-copy#copy",
         data_clipboard_copy_target: "source",
         data_value: text
