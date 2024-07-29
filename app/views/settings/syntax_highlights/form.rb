@@ -5,8 +5,9 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   include Phlex::Rails::Helpers::ContentFor
   include Phlex::Rails::Helpers::StylesheetLinkTag
 
-  def initialize(current_highlight:, available_highlights:)
-    @current_highlight = current_highlight
+  def initialize(settings:, available_highlights:)
+    @settings = settings
+    @current_highlight = settings.syntax_highlight
     @available_highlights = available_highlights
   end
 
@@ -17,22 +18,23 @@ class Settings::SyntaxHighlights::Form < ApplicationView
       p do
         plain %(Current syntax highlight style:)
         whitespace
-        strong { @current_highlight.name }
+        strong { @current_highlight.display_name }
       end
       form_with(
-        model: @current_highlight,
+        model: @settings,
         url: settings_syntax_highlight_path,
         method: :get
       ) do |form|
         fieldset do
-          form.label :name, "Choose a syntax highlight style:"
-          form.select :name,
-            syntax_highlight_options_for_select,
-            {
-              selected: @current_highlight.name
-            },
-            name: "settings[syntax_highlight]",
-            onchange: "this.form.requestSubmit()"
+          flex_block do
+            form.label :syntax_highlight_name, "Choose a syntax highlight style to preview:"
+            form.select :syntax_highlight_name,
+              syntax_highlight_options_for_select,
+              {
+                selected: @current_highlight.name
+              },
+              onchange: "this.form.requestSubmit()"
+          end
         end
       end
 
@@ -75,6 +77,10 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   end
 
   private
+
+  def flex_block(options = {}, &)
+    div(class: "flex items-start flex-col space-col-4 grid-cols-12 md:items-center md:flex-row md:space-row-4 #{options[:class]}", &)
+  end
 
   def syntax_highlight_options_for_select
     @available_highlights

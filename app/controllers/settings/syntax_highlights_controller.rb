@@ -1,7 +1,7 @@
 class Settings::SyntaxHighlightsController < ApplicationController
   def show
     render Settings::SyntaxHighlights::ShowView.new(
-      current_highlight: find_syntax_highlight,
+      settings: Settings.new(syntax_highlight: find_syntax_highlight),
       available_highlights: Settings::SyntaxHighlight.curated
     )
   end

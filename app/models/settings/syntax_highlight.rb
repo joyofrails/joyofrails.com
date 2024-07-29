@@ -31,6 +31,10 @@ class Settings::SyntaxHighlight
     @mode = mode
   end
 
+  def display_name
+    name.titleize
+  end
+
   def ==(other)
     return false if other.nil? || !other.is_a?(self.class)
 

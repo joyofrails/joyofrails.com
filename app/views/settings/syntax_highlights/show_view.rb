@@ -1,8 +1,8 @@
 class Settings::SyntaxHighlights::ShowView < ApplicationView
   include Phlex::Rails::Helpers::TurboFrameTag
 
-  def initialize(current_highlight:, available_highlights:)
-    @current_highlight = current_highlight
+  def initialize(settings:, available_highlights:)
+    @settings = settings
     @available_highlights = available_highlights
   end
 
@@ -12,7 +12,7 @@ class Settings::SyntaxHighlights::ShowView < ApplicationView
     section(class: %(secton-content container py-gap)) do
       turbo_frame_tag "syntax-highlight-form", data: {turbo_action: "advance"} do
         render Settings::SyntaxHighlights::Form.new(
-          current_highlight: @current_highlight,
+          settings: @settings,
           available_highlights: @available_highlights
         )
       end
