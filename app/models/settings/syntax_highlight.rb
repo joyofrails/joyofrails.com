@@ -7,38 +7,34 @@ class Settings::SyntaxHighlight
     end
 
     def find(name)
-      if available_names.include?(name)
-        new(name: name)
+      attrs = curated_data.find { |attrs| attrs[:name] == name }
+      if attrs.present?
+        new(**attrs)
       else
         raise ActiveRecord::RecordNotFound, "Couldn't find SyntaxHighlight with name '#{name}'"
       end
     end
 
     def curated
-      available_names.map { |name| find(name) }
+      curated_data.map { |attrs| new(**attrs) }
     end
 
-    def available_names
-      @available_names ||= Dir.glob(css_glob_pattern).map { |file| File.basename(file, ".css") }
-    end
-
-    private
-
-    def css_glob_pattern
-      Rails.root.join("app", "assets", "stylesheets", "pygments", "*.css")
+    def curated_data
+      @curated_data ||= YAML.load_file(Rails.root.join("config", "syntax_highlights.yml"))
     end
   end
 
-  attr_accessor :name
+  attr_accessor :name, :mode
 
-  def initialize(name:)
+  def initialize(name:, mode:, **)
     @name = name
+    @mode = mode
   end
 
   def ==(other)
     return false if other.nil? || !other.is_a?(self.class)
 
-    name == other.name
+    name == other.name && mode == other.mode
   end
 
   def path

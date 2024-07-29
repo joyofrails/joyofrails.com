@@ -14,16 +14,17 @@ class Settings::SyntaxHighlights::Form < ApplicationView
     stylesheet_link_tag @current_highlight.asset_path, data: {syntax_highlight: @current_highlight.name}
 
     div(class: "grid grid-content", data: {controller: "syntax-highlight-preview", syntax_highlight_preview_name_value: @current_highlight.name}) do
-      p {
+      p do
         plain %(Current syntax highlight style:)
+        whitespace
         strong { @current_highlight.name }
-      }
+      end
       form_with(
         model: @current_highlight,
         url: settings_syntax_highlight_path,
         method: :get
       ) do |form|
-        fieldset {
+        fieldset do
           form.label :name, "Choose a syntax highlight style:"
           form.select :name,
             syntax_highlight_options_for_select,
@@ -32,7 +33,7 @@ class Settings::SyntaxHighlights::Form < ApplicationView
             },
             name: "settings[syntax_highlight]",
             onchange: "this.form.requestSubmit()"
-        }
+        end
       end
 
       h2 { %(Preview) }
@@ -76,6 +77,8 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   private
 
   def syntax_highlight_options_for_select
-    @available_highlights.map { |highlight| [highlight.name, highlight.name] }
+    @available_highlights
+      .group_by { |sh| sh.mode }
+      .map { |mode, syntaxes| [mode.titleize, syntaxes.map { |sh| [sh.name.titleize, sh.name] }] }
   end
 end
