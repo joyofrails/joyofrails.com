@@ -1,0 +1,479 @@
+/* Dracula Theme v1.2.5
+ *
+ * https://github.com/zenorocha/dracula-theme
+ *
+ * Copyright 2016, All rights reserved
+ *
+ * Code licensed under the MIT license
+ * http://zenorocha.mit-license.org
+ *
+ * @author Rob G <wowmotty@gmail.com>
+ * @author Chris Bracco <chris@cbracco.me>
+ * @author Zeno Rocha <hi@zenorocha.com>
+ */
+
+.highlight .hll {
+  background-color: #f1fa8c;
+}
+
+.highlight {
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+/* Comment */
+.highlight .c {
+  color: #6272a4;
+}
+
+/* Error */
+.highlight .err {
+  color: #f8f8f2;
+}
+
+/* Generic */
+.highlight .g {
+  color: #f8f8f2;
+}
+
+/* Keyword */
+.highlight .k {
+  color: #ff79c6;
+}
+
+/* Literal */
+.highlight .l {
+  color: #f8f8f2;
+}
+
+/* Name */
+.highlight .n {
+  color: #f8f8f2;
+}
+
+/* Operator */
+.highlight .o {
+  color: #ff79c6;
+}
+
+/* Other */
+.highlight .x {
+  color: #f8f8f2;
+}
+
+/* Punctuation */
+.highlight .p {
+  color: #f8f8f2;
+}
+
+/* Comment.Hashbang */
+.highlight .ch {
+  color: #6272a4;
+}
+
+/* Comment.Multiline */
+.highlight .cm {
+  color: #6272a4;
+}
+
+/* Comment.Preproc */
+.highlight .cp {
+  color: #ff79c6;
+}
+
+/* Comment.PreprocFile */
+.highlight .cpf {
+  color: #6272a4;
+}
+
+/* Comment.Single */
+.highlight .c1 {
+  color: #6272a4;
+}
+
+/* Comment.Special */
+.highlight .cs {
+  color: #6272a4;
+}
+
+/* Generic.Deleted */
+.highlight .gd {
+  color: #e8393c;
+  font-weight: bold;
+}
+
+/* Generic.Emph */
+.highlight .ge {
+  color: #f8f8f2;
+  text-decoration: underline;
+}
+
+/* Generic.Error */
+.highlight .gr {
+  color: #f8f8f2;
+}
+
+/* Generic.Heading */
+.highlight .gh {
+  color: #f8f8f2;
+  font-weight: bold;
+}
+
+/* Generic.Inserted */
+.highlight .gi {
+  color: #05f66e;
+  font-weight: bold;
+}
+
+/* Generic.Output */
+.highlight .go {
+  color: #44475a;
+}
+
+/* Generic.Prompt */
+.highlight .gp {
+  color: #f8f8f2;
+}
+
+/* Generic.Strong */
+.highlight .gs {
+  color: #f8f8f2;
+}
+
+/* Generic.Subheading */
+.highlight .gu {
+  color: #f8f8f2;
+  font-weight: bold;
+}
+
+/* Generic.Traceback */
+.highlight .gt {
+  color: #f8f8f2;
+}
+
+/* Keyword.Constant */
+.highlight .kc {
+  color: #ff79c6;
+}
+
+/* Keyword.Declaration */
+.highlight .kd {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Keyword.Namespace */
+.highlight .kn {
+  color: #ff79c6;
+}
+
+/* Keyword.Pseudo */
+.highlight .kp {
+  color: #ff79c6;
+}
+
+/* Keyword.Reserved */
+.highlight .kr {
+  color: #ff79c6;
+}
+
+/* Keyword.Type */
+.highlight .kt {
+  color: #8be9fd;
+}
+
+/* Literal.Date */
+.highlight .ld {
+  color: #f8f8f2;
+}
+
+/* Literal.Number */
+.highlight .m {
+  color: #bd93f9;
+}
+
+/* Literal.String */
+.highlight .s {
+  color: #f1fa8c;
+}
+
+/* Name.Attribute */
+.highlight .na {
+  color: #50fa7b;
+}
+
+/* Name.Builtin */
+.highlight .nb {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Name.Class */
+.highlight .nc {
+  color: #50fa7b;
+}
+
+/* Name.Constant */
+.highlight .no {
+  color: #f8f8f2;
+}
+
+/* Name.Decorator */
+.highlight .nd {
+  color: #f8f8f2;
+}
+
+/* Name.Entity */
+.highlight .ni {
+  color: #f8f8f2;
+}
+
+/* Name.Exception */
+.highlight .ne {
+  color: #f8f8f2;
+}
+
+/* Name.Function */
+.highlight .nf {
+  color: #50fa7b;
+}
+
+/* Name.Label */
+.highlight .nl {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Name.Namespace */
+.highlight .nn {
+  color: #f8f8f2;
+}
+
+/* Name.Other */
+.highlight .nx {
+  color: #f8f8f2;
+}
+
+/* Name.Property */
+.highlight .py {
+  color: #f8f8f2;
+}
+
+/* Name.Tag */
+.highlight .nt {
+  color: #ff79c6;
+}
+
+/* Name.Variable */
+.highlight .nv {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Operator.Word */
+.highlight .ow {
+  color: #ff79c6;
+}
+
+.highlight .w {
+  color: #f8f8f2;
+}
+
+/* Literal.Number.Bin */
+.highlight .mb {
+  color: #bd93f9;
+}
+
+/* Literal.Number.Float */
+.highlight .mf {
+  color: #bd93f9;
+}
+
+/* Literal.Number.Hex */
+.highlight .mh {
+  color: #bd93f9;
+}
+
+/* Literal.Number.Integer */
+.highlight .mi {
+  color: #bd93f9;
+}
+
+/* Literal.Number.Oct */
+.highlight .mo {
+  color: #bd93f9;
+}
+
+/* Literal.String.Affix */
+.highlight .sa {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Backtick */
+.highlight .sb {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Char */
+.highlight .sc {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Delimiter */
+.highlight .dl {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Doc */
+.highlight .sd {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Double */
+.highlight .s2 {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Escape */
+.highlight .se {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Heredoc */
+.highlight .sh {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Interpol */
+.highlight .si {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Other */
+.highlight .sx {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Regex */
+.highlight .sr {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Single */
+.highlight .s1 {
+  color: #f1fa8c;
+}
+
+/* Literal.String.Symbol */
+.highlight .ss {
+  color: #f1fa8c;
+}
+
+/* Name.Builtin.Pseudo */
+.highlight .bp {
+  color: #f8f8f2;
+  font-style: italic;
+}
+
+/* Name.Function.Magic */
+.highlight .fm {
+  color: #50fa7b;
+}
+
+/* Name.Variable.Class */
+.highlight .vc {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Name.Variable.Global */
+.highlight .vg {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Name.Variable.Instance */
+.highlight .vi {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Name.Variable.Magic */
+.highlight .vm {
+  color: #8be9fd;
+  font-style: italic;
+}
+
+/* Literal.Number.Integer.Long */
+.highlight .il {
+  color: #bd93f9;
+}
+
+/** Overrides ** /
+
+/* Name.Class */
+.highlight .nc {
+  color: #8be9fd;
+}
+
+/* Name.Constant */
+.highlight .no {
+  color: #8be9fd;
+}
+
+/* Literal.String.Single */
+.highlight .ss {
+  color: #bd93f9;
+}
+
+/*** Overrides ****************/
+
+/* Name.Label */
+.highlight .nl {
+  font-style: normal;
+}
+
+/* Name.Variable */
+.highlight .nv {
+  font-style: normal;
+}
+
+/* Name.Builtin */
+.highlight .nb {
+  font-style: normal;
+}
+
+/* BELOW ARE OVERRIDE STYLES FOR SPECIFIC LANGUAGES */
+
+/* For Ruby */
+/* Name.Class */
+.highlight.language-ruby .nc {
+  color: #8be9fd;
+}
+
+/* For Ruby */
+/* Name.Constant */
+.highlight.language-ruby .no {
+  color: #8be9fd;
+}
+
+/* For Ruby */
+/* Literal.String.Single */
+.highlight.language-ruby .ss {
+  color: #bd93f9;
+}
+
+/* For CSS */
+.highlight.language-css .nd {
+  color: #50fa7b;
+}
+
+/* For CSS */
+.highlight.language-css .n {
+  color: #8be9fd;
+}
+
+/* For CSS */
+.highlight.language-css .py {
+  color: #8be9fd;
+}
