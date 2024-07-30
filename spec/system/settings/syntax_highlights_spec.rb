@@ -8,13 +8,13 @@ RSpec.describe "Customize Syntax Highlighting", type: :system do
 
     click_link "Syntax Highlighting"
 
-    expect(page).to have_content("Choose a syntax highlight style to preview")
-    expect(page).to have_content("Current syntax highlight style: Dracula")
+    expect(page).to have_content("You are currently previewing Dracula as your syntax highlighting theme")
+    expect(page).to have_content("Choose another syntax highlighting theme to preview")
 
     select "Fruity", from: "settings[syntax_highlight_name]"
 
-    expect(page).to have_content("Current syntax highlight style: Fruity")
-    expect(page).not_to have_content("Current syntax highlight style: Dracula")
+    expect(page).to have_content("You are currently previewing Fruity as your syntax highlighting theme")
+    expect(page).not_to have_content("currently previewing Dracula")
 
     expect(page).to have_css("link[data-syntax-highlight*=fruity]", visible: false)
   end

@@ -6,7 +6,7 @@ module SyntaxHighlighting
   end
 
   def find_syntax_highlight
-    @syntax_highlight ||= preview_syntax_highlight || default_syntax_highlight
+    @syntax_highlight ||= preview_syntax_highlight || session_syntax_highlight || default_syntax_highlight
   end
 
   def preview_syntax_highlight_name = params.fetch(:settings, {}).permit(:syntax_highlight_name)[:syntax_highlight_name]

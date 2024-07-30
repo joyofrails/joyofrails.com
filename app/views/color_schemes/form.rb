@@ -202,8 +202,8 @@ class ColorSchemes::Form < ApplicationView
 
   def default_color_scheme? = @color_scheme.id == @default_color_scheme
 
-  def markdown(&block)
-    render Markdown::Application.new(block.call)
+  def markdown
+    render Markdown::Application.new(yield)
   end
 
   def flex_block(options = {}, &)

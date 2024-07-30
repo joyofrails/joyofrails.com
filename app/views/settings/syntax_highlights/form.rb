@@ -5,21 +5,40 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   include Phlex::Rails::Helpers::ContentFor
   include Phlex::Rails::Helpers::StylesheetLinkTag
 
-  def initialize(settings:, available_highlights:)
+  def initialize(
+    settings:,
+    available_highlights: [],
+    default_syntax_highlight: Settings::SyntaxHighlight.default,
+    preview_syntax_highlight: nil,
+    session_syntax_highlight: nil
+  )
     @settings = settings
     @current_highlight = settings.syntax_highlight
     @available_highlights = available_highlights
+    @preview_syntax_highlight = preview_syntax_highlight
+    @session_syntax_highlight = session_syntax_highlight
   end
 
   def view_template
     stylesheet_link_tag @current_highlight.asset_path, data: {syntax_highlight: @current_highlight.name}
 
-    div(class: "grid grid-content", data: {controller: "syntax-highlight-preview", syntax_highlight_preview_name_value: @current_highlight.name}) do
-      p do
-        plain %(Current syntax highlight style:)
-        whitespace
-        strong { @current_highlight.display_name }
+    div(
+      class: "grid grid-content",
+      data: {
+        controller: "syntax-highlight-preview",
+        syntax_highlight_preview_name_value: @current_highlight.name
+      }
+    ) do
+      markdown do
+        "You are currently previewing **#{@current_highlight.display_name}** as your syntax highlighting theme."
       end
+
+      if preserving?
+        markdown do
+          "You have saved **#{@session_highlight_light.display_name}** for syntax highlighting across the site."
+        end
+      end
+
       form_with(
         model: @settings,
         url: settings_syntax_highlight_path,
@@ -27,7 +46,7 @@ class Settings::SyntaxHighlights::Form < ApplicationView
       ) do |form|
         fieldset do
           flex_block do
-            form.label :syntax_highlight_name, "Choose a syntax highlight style to preview:"
+            form.label :syntax_highlight_name, "Choose another syntax highlighting theme to preview:"
             form.select :syntax_highlight_name,
               syntax_highlight_options_for_select,
               {
@@ -35,6 +54,27 @@ class Settings::SyntaxHighlights::Form < ApplicationView
               },
               onchange: "this.form.requestSubmit()"
           end
+        end
+      end
+
+      if previewing?
+        markdown do
+          "You can preview what the site looks with this syntax highlighting theme while you remain on this page. Click the **Reset preview** button to go back to #{@session_syntax_highlight ? "your saved color scheme" : "the default color scheme"}."
+        end
+
+        div(class: "outside") { reset_button }
+
+        darkmode_section
+
+        markdown do
+          "Click the Save button to preserve **#{@current_highlight.display_name}** as your new syntax highlighting theme."
+        end
+
+        div(class: "outside") do
+          button_to("Save #{@current_highlight.display_name}",
+            settings_color_scheme_path(settings: {syntax_highlight_name: @current_highlight.name}),
+            method: :patch,
+            class: "button primary")
         end
       end
 
@@ -76,7 +116,34 @@ class Settings::SyntaxHighlights::Form < ApplicationView
     end
   end
 
+  def darkmode_section
+    noscript do
+      markdown do
+        "*Disclaimer: The Light/Dark mode switch is not available without JavaScript enabled.*"
+      end
+    end
+
+    markdown do
+      "You can toggle the dark mode switch to see how the syntax highlighting looks in light or dark mode. Choosing **Light Mode** or **Dark Mode** will save in your browser local storage and will persist across page views on your current device. Choose **System Mode** to remove the saved choice and fall back to your system preference."
+    end
+    div(class: "outside") do
+      render "darkmode/switch", enable_description: true, enable_outline: true
+    end
+  end
+
   private
+
+  def previewing? = @preview_syntax_highlight.present?
+
+  def preserving? = @session_syntax_highlight.present?
+
+  def markdown
+    render Markdown::Application.new(yield)
+  end
+
+  def m
+    Markdown::Application.new(yield).call.html_safe
+  end
 
   def flex_block(options = {}, &)
     div(class: "flex items-start flex-col space-col-4 grid-cols-12 md:items-center md:flex-row md:space-row-4 #{options[:class]}", &)
@@ -86,5 +153,11 @@ class Settings::SyntaxHighlights::Form < ApplicationView
     @available_highlights
       .group_by { |sh| sh.mode }
       .map { |mode, syntaxes| [mode.titleize, syntaxes.map { |sh| [sh.name.titleize, sh.name] }] }
+  end
+
+  def reset_button
+    link_to "Reset preview",
+      url_for,
+      class: "button tertiary"
   end
 end

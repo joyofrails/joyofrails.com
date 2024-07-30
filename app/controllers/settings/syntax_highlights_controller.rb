@@ -1,8 +1,13 @@
 class Settings::SyntaxHighlightsController < ApplicationController
   def show
+    @syntax_highlight = find_syntax_highlight
+
     render Settings::SyntaxHighlights::ShowView.new(
-      settings: Settings.new(syntax_highlight: find_syntax_highlight),
-      available_highlights: Settings::SyntaxHighlight.curated
+      settings: Settings.new(syntax_highlight: @syntax_highlight),
+      available_highlights: Settings::SyntaxHighlight.curated,
+      preview_syntax_highlight: preview_syntax_highlight,
+      session_syntax_highlight: session_syntax_highlight,
+      default_syntax_highlight: default_syntax_highlight
     )
   end
 
