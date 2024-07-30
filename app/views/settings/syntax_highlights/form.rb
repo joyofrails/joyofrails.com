@@ -17,6 +17,7 @@ class Settings::SyntaxHighlights::Form < ApplicationView
     @available_highlights = available_highlights
     @preview_syntax_highlight = preview_syntax_highlight
     @session_syntax_highlight = session_syntax_highlight
+    @default_syntax_highlight = default_syntax_highlight
   end
 
   def view_template
@@ -29,37 +30,28 @@ class Settings::SyntaxHighlights::Form < ApplicationView
         syntax_highlight_preview_name_value: @current_highlight.name
       }
     ) do
+      h2 { "Want to preview a new syntax highlighting theme?" }
+
       markdown do
-        "You are currently previewing **#{@current_highlight.display_name}** as your syntax highlighting theme."
-      end
-
-      if preserving?
-        markdown do
-          "You have saved **#{@session_highlight_light.display_name}** for syntax highlighting across the site."
-        end
-      end
-
-      form_with(
-        model: @settings,
-        url: settings_syntax_highlight_path,
-        method: :get
-      ) do |form|
-        fieldset do
-          flex_block do
-            form.label :syntax_highlight_name, "Choose another syntax highlighting theme to preview:"
-            form.select :syntax_highlight_name,
-              syntax_highlight_options_for_select,
-              {
-                selected: @current_highlight.name
-              },
-              onchange: "this.form.requestSubmit()"
-          end
-        end
+        "This site uses [Pygments-style CSS](https://pygments.org/) for syntax highlighting. You can use the select menu to preview a new syntax highlighting theme. I have curated over 90 options for you from sources around the web."
       end
 
       if previewing?
         markdown do
-          "You can preview what the site looks with this syntax highlighting theme while you remain on this page. Click the **Reset preview** button to go back to #{@session_syntax_highlight ? "your saved color scheme" : "the default color scheme"}."
+          "You are currently previewing **#{@current_highlight.display_name}** as your syntax highlighting theme."
+        end
+      end
+
+      if preserving?
+        markdown do
+          "You have saved **#{@session_syntax_highlight.display_name}** for syntax highlighting across the site."
+        end
+      end
+      preview_select
+
+      if previewing?
+        markdown do
+          "You can preview what the site looks with this syntax highlighting theme while you remain on this page. Click the **Reset preview** button to go back to #{@session_syntax_highlight ? "your saved color scheme, **#{@session_syntax_highlight.display_name}**" : "the default color scheme, **#{@default_syntax_highlight.display_name}**"}."
         end
 
         div(class: "outside") { reset_button }
@@ -72,13 +64,14 @@ class Settings::SyntaxHighlights::Form < ApplicationView
 
         div(class: "outside") do
           button_to("Save #{@current_highlight.display_name}",
-            settings_color_scheme_path(settings: {syntax_highlight_name: @current_highlight.name}),
+            settings_syntax_highlight_path(settings: {syntax_highlight_name: @current_highlight.name}),
             method: :patch,
             class: "button primary")
         end
       end
 
       h2 { %(Preview) }
+
       h3 { %(Ruby) }
 
       render CodeBlock::Article.new(language: "ruby") do |code|
@@ -143,6 +136,26 @@ class Settings::SyntaxHighlights::Form < ApplicationView
 
   def m
     Markdown::Application.new(yield).call.html_safe
+  end
+
+  def preview_select
+    form_with(
+      model: @settings,
+      url: settings_syntax_highlight_path,
+      method: :get
+    ) do |form|
+      fieldset do
+        flex_block do
+          form.label :syntax_highlight_name, "Choose another syntax highlighting theme to preview:"
+          form.select :syntax_highlight_name,
+            syntax_highlight_options_for_select,
+            {
+              selected: @current_highlight.name
+            },
+            onchange: "this.form.requestSubmit()"
+        end
+      end
+    end
   end
 
   def flex_block(options = {}, &)

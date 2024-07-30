@@ -12,16 +12,7 @@ class Settings::SyntaxHighlightsController < ApplicationController
   end
 
   def update
-    # highlight = params[:syntax_highlight]
-    # if available_highlight_styles.include?(highlight)
-    #   current_user.update(syntax_highlight: highlight)
-    #   flash[:notice] = "Syntax highlight updated to #{highlight}"
-    # else
-    #   flash[:alert] = "Invalid syntax highlight choice"
-    # end
-    # redirect_to action: :show
-
-    syntax_highlight = params.fetch(:settings, {}).permit(:syntax_highlight)
+    syntax_highlight = params.fetch(:settings, {}).permit(:syntax_highlight_name)[:syntax_highlight_name]
     @syntax_highlight = Settings::SyntaxHighlight.find(syntax_highlight)
 
     redirect_to settings_syntax_highlight_path unless @syntax_highlight.present?
