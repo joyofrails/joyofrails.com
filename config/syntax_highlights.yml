@@ -215,10 +215,6 @@
   :title: Github Light
   :background_color: "#f5f8fa"
   :mode: light
-- :name: github
-  :title: Github
-  :background_color: "#f6f8fa"
-  :mode: light
 - :name: gruvbox-dark
   :title: Gruvbox Dark
   :background_color: "#282828"
@@ -326,14 +322,6 @@
 - :name: tomorrow-night-blue
   :title: Tomorrow Night Blue
   :background_color: "#002451"
-  :mode: dark
-- :name: tomorrow-night-bright
-  :title: Tomorrow Night Bright
-  :background_color: "#000000"
-  :mode: dark
-- :name: tomorrow-night-eighties
-  :title: Tomorrow Night Eighties
-  :background_color: "#2d2d2d"
   :mode: dark
 - :name: tomorrow-night
   :title: Tomorrow Night
