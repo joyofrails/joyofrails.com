@@ -1,0 +1,73 @@
+  <link rel="stylesheet" title="256 Jungle" href="css-github/pygments-256-jungle.css">
+  <link rel="stylesheet" title="3024 Night" href="css-github/pygments-3024-night.css">
+  <link rel="stylesheet" title="Anotherdark" href="css-github/pygments-anotherdark.css">
+  <link rel="stylesheet" title="Asmanian-blood" href="css-github/pygments-asmanian-blood.css">
+  <link rel="stylesheet" title="Base16-3024-dark" href="css-github/pygments-base16-3024-dark.css">
+  <link rel="stylesheet" title="Base16-applepips" href="css-github/pygments-base16-applepips-dark.css">
+  <link rel="stylesheet" title="Base16-chalk-dark" href="css-github/pygments-base16-chalk-dark.css">
+  <link rel="stylesheet" title="Base16-default-dark" href="css-github/pygments-base16-default-dark.css">
+  <link rel="stylesheet" title="Base16-eighties-dark" href="css-github/pygments-base16-eighties-dark.css">
+  <link rel="stylesheet" title="Base16-greenscreen-dark" href="css-github/pygments-base16-greenscreen-dark.css">
+  <link rel="stylesheet" title="Base16-harper-dark" href="css-github/pygments-base16-harper-dark.css">
+  <link rel="stylesheet" title="Base16-kimbie-dark" href="css-github/pygments-base16-kimbie-dark.css">
+  <link rel="stylesheet" title="Base16-mocha-dark" href="css-github/pygments-base16-mocha-dark.css">
+  <link rel="stylesheet" title="Base16-monokai-dark" href="css-github/pygments-base16-monokai-dark.css">
+  <link rel="stylesheet" title="Base16-ocean-dark" href="css-github/pygments-base16-ocean-dark.css">
+  <link rel="stylesheet" title="Base16-paraiso-dark" href="css-github/pygments-base16-paraiso-dark.css">
+  <link rel="stylesheet" title="Base16-railscasts-dark" href="css-github/pygments-base16-railscasts-dark.css">
+  <link rel="stylesheet" title="Base16-solarized-dark" href="css-github/pygments-base16-solarized-dark.css">
+  <link rel="stylesheet" title="Base16-tomorrow-dark" href="css-github/pygments-base16-tomorrow-dark.css">
+  <link rel="stylesheet" title="Birds of Paradise" href="css-github/pygments-birds-of-paradise.css">
+  <link rel="stylesheet" title="Blacksea" href="css-github/pygments-blacksea.css">
+  <link rel="stylesheet" title="Brookstream" href="css-github/pygments-brookstream.css">
+  <link rel="stylesheet" title="BusyBee" href="css-github/pygments-busybee.css">
+  <link rel="stylesheet" title="Candycode" href="css-github/pygments-candycode.css">
+  <link rel="stylesheet" title="Dark" href="css-github/pygments-dark.css">
+  <link rel="stylesheet" title="Dark2" href="css-github/pygments-dark2.css">
+  <link rel="stylesheet" title="DarkZ" href="css-github/pygments-dark-z.css">
+  <link rel="stylesheet" title="Darkblue2" href="css-github/pygments-darkblue2.css">
+  <link rel="stylesheet" title="Darkbone" href="css-github/pygments-darkbone.css">
+  <link rel="stylesheet" title="Darkburn" href="css-github/pygments-darkburn.css">
+  <link rel="stylesheet" title="Darkdevel" href="css-github/pygments-darkdevel.css">
+  <link rel="stylesheet" title="Darkerdesert" href="css-github/pygments-darkerdesert.css">
+  <link rel="stylesheet" title="Darkocean" href="css-github/pygments-darkocean.css">
+  <link rel="stylesheet" title="Darkrobot" href="css-github/pygments-darkrobot.css">
+  <link rel="stylesheet" title="Darkspectrum" href="css-github/pygments-darkspectrum.css">
+  <link rel="stylesheet" title="Desert" href="css-github/pygments-desert.css">
+  <link rel="stylesheet" title="Deveiate" href="css-github/pygments-deveiate.css">
+  <link rel="stylesheet" title="Digerati" href="css-github/pygments-digerati.css">
+  <link rel="stylesheet" title="Dim" href="css-github/pygments-dim.css">
+  <link rel="stylesheet" title="Dim2" href="css-github/pygments-dim2.css">
+  <link rel="stylesheet" title="Dracula" href="css-github/pygments-dracula.css">
+  <link rel="stylesheet" title="Freya" href="css-github/pygments-freya.css">
+  <link rel="stylesheet" title="Fruity" href="css-github/pygments-fruity.css">
+  <link rel="stylesheet" title="GitHub Dark" href="css-github/pygments-github-dark.css">
+  <link rel="stylesheet" title="Herald" href="css-github/pygments-herald.css">
+  <link rel="stylesheet" title="Idle Fingers" href="css-github/pygments-idle-fingers.css">
+  <link rel="stylesheet" title="Inkpot" href="css-github/pygments-inkpot.css">
+  <link rel="stylesheet" title="Jellybeans" href="css-github/pygments-jellybeans.css">
+  <link rel="stylesheet" title="Monokai" href="css-github/pygments-monokai.css">
+  <link rel="stylesheet" title="Mustang" href="css-github/pygments-mustang.css">
+  <link rel="stylesheet" title="Native" href="css-github/pygments-native.css">
+  <link rel="stylesheet" title="Neverland" href="css-github/pygments-neverland.css">
+  <link rel="stylesheet" title="No quarter" href="css-github/pygments-no-quarter.css">
+  <link rel="stylesheet" title="Pastels on Dark" href="css-github/pygments-pastels-on-dark.css">
+  <link rel="stylesheet" title="Peaksea" href="css-github/pygments-peaksea.css">
+  <link rel="stylesheet" title="Railscasts" href="css-github/pygments-railscasts.css">
+  <link rel="stylesheet" title="Rdark" href="css-github/pygments-rdark.css">
+  <link rel="stylesheet" title="Refactor" href="css-github/pygments-refactor.css">
+  <link rel="stylesheet" title="Sahara" href="css-github/pygments-sahara.css">
+  <link rel="stylesheet" title="Slate" href="css-github/pygments-slate.css">
+  <link rel="stylesheet" title="Solarized Dark" href="css-github/pygments-solarized-dark.css">
+  <link rel="stylesheet" title="Synic" href="css-github/pygments-synic.css">
+  <link rel="stylesheet" title="Tomorrow Night Blue" href="css-github/pygments-tomorrow-night-blue.css">
+  <link rel="stylesheet" title="Tomorrow Night Bright" href="css-github/pygments-tomorrow-night-bright.css">
+  <link rel="stylesheet" title="Tomorrow Night Eighties" href="css-github/pygments-tomorrow-night-eighties.css">
+  <link rel="stylesheet" title="Tomorrow Night" href="css-github/pygments-tomorrow-night.css">
+  <link rel="stylesheet" title="Twilight" href="css-github/pygments-twilight.css">
+  <link rel="stylesheet" title="Up" href="css-github/pygments-up.css">
+  <link rel="stylesheet" title="Vim" href="css-github/pygments-vim.css">
+  <link rel="stylesheet" title="Vitamins" href="css-github/pygments-vitamins.css">
+  <link rel="stylesheet" title="Wombat" href="css-github/pygments-wombat.css">
+  <link rel="stylesheet" title="Zenburn" href="css-github/pygments-zenburn.css">
+  <link rel="stylesheet" title="Zenesque" href="css-github/pygments-zenesque.css">

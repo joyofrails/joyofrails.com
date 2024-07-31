@@ -125,6 +125,8 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    css_parser (1.17.1)
+      addressable
     cuprite (0.15.1)
       capybara (~> 3.0)
       ferrum (~> 0.15.0)
@@ -224,6 +226,9 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.1.0)
     honeybadger (5.15.0)
+    http-2 (1.0.0)
+    httpx (1.3.0)
+      http-2 (>= 1.0.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
@@ -547,6 +552,7 @@ DEPENDENCIES
   capybara
   color_conversion
   commonmarker
+  css_parser
   cuprite
   debug
   device_detector
@@ -559,6 +565,7 @@ DEPENDENCIES
   flipper-ui
   fog-aws
   honeybadger
+  httpx
   inline_svg
   invisible_captcha
   js

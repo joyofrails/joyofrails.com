@@ -220,6 +220,10 @@
   display: none;
 }
 
+.contents {
+  display: contents;
+}
+
 .h-16 {
   height: 4rem;
 }

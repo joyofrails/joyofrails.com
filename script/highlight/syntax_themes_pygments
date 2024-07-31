@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "httpx"
+require "nokogiri"
+require "debug"
+
+# Download the Pygments themes from the StylishThemes repository
+
+api_client = HTTPX.with(
+  origin: "https://stylishthemes.github.io",
+  base_path: "/Syntax-Themes/pygments"
+)
+
+doc = Nokogiri::HTML(api_client.get("/").to_s)
+
+api_client.get(*doc.css("link[rel=stylesheet]").map { |link| "/" + link["href"] }).each do |response|
+  File.write(File.expand_path("../syntax-themes-pygments/#{File.basename(response.uri.path)}", __FILE__), response.to_s)
+end

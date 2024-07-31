@@ -42,6 +42,7 @@ gem "meta-tags", group: [:default, :wasm] # Search Engine Optimization (SEO) for
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
 # Clients
+gem "httpx" # An HTTP client library for Ruby [https://gitlab.com/os85/httpx]
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
@@ -69,6 +70,7 @@ group :test do
 end
 
 group :development, :test do
+  gem "css_parser", require: false # A pure Ruby CSS parser based on the CSS Syntax Level 3 specification [https://github.com/rgrove/crass]
   gem "brakeman", require: false # A static analysis security vulnerability scanner for Ruby on Rails applications [https://github.com/presidentbeef/brakeman]
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
