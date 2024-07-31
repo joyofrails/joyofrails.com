@@ -118,3 +118,33 @@ svg {
 .clipboard-copy-container {
   font-family: var(--sans-serif);
 }
+
+.code-examples--list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+  justify-content: start;
+
+  h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  & > * {
+    max-width: 100%;
+    margin-bottom: var(--grid-gutter);
+  }
+
+  & .code-wrapper {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+  }
+}
+
+@media screen and (min-width: $screen-md) {
+  .code-examples--list {
+    & > * {
+      width: 45%;
+    }
+  }
+}
