@@ -20,7 +20,7 @@ class ColorSchemes::ShowView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Theme: Color")
 
-    div(class: "section-content container py-gap") do
+    section(class: "section-content container py-gap") do
       turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance"} do
         render ColorSchemes::Form.new(
           settings: @settings,
