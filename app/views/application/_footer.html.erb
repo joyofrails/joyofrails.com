@@ -4,51 +4,47 @@
       <div><%= inline_svg_tag "joy-logo.svg", class: "fill-current" %></div>
       <div>Sharing and experiencing the Joy of Rails</div>
     <% end %>
-    <nav
-      class="">
+    <nav>
       <ul>
-        <li class="">
-          <a
-            class=""
-            href="/articles">Articles</a>
+        <li>
+          <a href="/articles">Articles</a>
         </li>
       </ul>
       <ul>
-        <li class="">
+        <li>
           <%= link_to "Settings", settings_color_scheme_path %>
         </li>
-        <li class="">
-          <%= link_to "Syntax Highlighting", settings_syntax_highlight_path %>
-        </li>
-        <!--
         <li>
           <ul>
             <li>
-              <%#= link_to "Colors", settings_color_scheme_path %>
-            </li>
-          </ul>
-        </li>
-        -->
-      </ul>
-      <ul>
-        <li class="">
-          <a class="" href="/about">About</a>
-        </li>
-        <li>
-          <ul>
-            <li>
-              <a class="" href="/about/acknowledgements">Acknowledgements</a>
+              <%= link_to "Color Schemes", settings_color_scheme_path %>
             </li>
             <li>
-              <a class="" href="/about/design">Design</a>
+              <%= link_to "Syntax Highlighting", settings_syntax_highlight_path %>
             </li>
           </ul>
         </li>
       </ul>
-      <ul>
-        <li class=""><a
-            class=""
-            href="mailto:hello@joyofrails.com">hello@joyofrails.com</a></li>
+        <ul>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <ul>
+              <li>
+                <a class="" href="/about/acknowledgements">Acknowledgements</a>
+              </li>
+              <li>
+                <a class="" href="/about/design">Design</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="mailto:hello@joyofrails.com">hello@joyofrails.com</a>
+          </li>
+        </ul>
       </ul>
     </nav>
     <div>

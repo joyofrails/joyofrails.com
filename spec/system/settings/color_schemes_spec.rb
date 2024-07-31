@@ -14,7 +14,7 @@ RSpec.describe "Customize Color Scheme", type: :system do
   it "user can selected a curated color scheme" do
     visit root_path
 
-    click_link "Settings"
+    click_link "Color Schemes"
 
     chosen_color = curated_colors.sample
     select chosen_color.display_name, from: "settings[color_scheme_id]"
