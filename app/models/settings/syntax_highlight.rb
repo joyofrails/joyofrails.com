@@ -1,27 +1,25 @@
 class Settings::SyntaxHighlight
   include ActiveModel::Model
 
-  class << self
-    def default
-      find("dracula")
-    end
+  def self.default
+    find("dracula")
+  end
 
-    def find(name)
-      attrs = curated_data.find { |attrs| attrs[:name] == name }
-      if attrs.present?
-        new(**attrs)
-      else
-        raise ActiveRecord::RecordNotFound, "Couldn't find SyntaxHighlight with name '#{name}'"
-      end
+  def self.find(name)
+    attrs = curated_data.find { |attrs| attrs[:name] == name }
+    if attrs.present?
+      new(**attrs)
+    else
+      raise ActiveRecord::RecordNotFound, "Couldn't find SyntaxHighlight with name '#{name}'"
     end
+  end
 
-    def curated
-      curated_data.map { |attrs| new(**attrs) }
-    end
+  def self.curated
+    curated_data.map { |attrs| new(**attrs) }
+  end
 
-    def curated_data
-      @curated_data ||= YAML.load_file(Rails.root.join("config", "syntax_highlights.yml"))
-    end
+  def self.curated_data
+    @curated_data ||= YAML.load_file(Rails.root.join("config", "syntax_highlights.yml"))
   end
 
   attr_accessor :name, :mode
