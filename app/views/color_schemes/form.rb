@@ -63,10 +63,6 @@ class ColorSchemes::Form < ApplicationView
 
         color_swatches(@preview_color_scheme)
 
-        markdown do
-          "You can preview what the site looks with this color scheme while you remain on this page. Click the **Reset preview** button to go back to #{@session_color_scheme ? "your saved color scheme" : "the default color scheme"}."
-        end
-
         darkmode_section
 
         markdown do
@@ -79,6 +75,9 @@ class ColorSchemes::Form < ApplicationView
           save_preview_button
         end
 
+        markdown do
+          "Click the **Reset preview** button to go back to #{@session_color_scheme ? "your saved color scheme" : "the default color scheme"}."
+        end
         div(class: "outside") { reset_button }
       end
 
