@@ -7,6 +7,8 @@ description: Here is the description that will show up in the the meta day
 published: "<%= Date.today + 7 %>"
 draft: true
 uuid: <%= SecureRandom.uuid %>
+image: articles/<%= article_file_name %>/placeholder.jpg
+meta_image: articles/<%= article_file_name %>/placeholder.jpg
 tags:
   - Rails
 ---

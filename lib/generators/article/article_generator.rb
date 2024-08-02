@@ -10,7 +10,7 @@ class ArticleGenerator < Rails::Generators::NamedBase
   end
 
   def make_article
-    template "article.html.md", "app/content/pages/articles/#{article_file_name}.html.md"
+    template "article.html.mdrb", "app/content/pages/articles/#{article_file_name}.html.mdrb"
   end
 
   private
