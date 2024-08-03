@@ -22,6 +22,12 @@ class ColorSchemes::ShowView < ApplicationView
 
     section(class: "section-content container py-gap") do
       turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance"} do
+        style do
+          render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
+          render(ColorSchemes::CssVariables.new(color_scheme: @default_color_scheme))
+          render(ColorSchemes::Css.new(color_scheme: @color_scheme))
+        end
+
         render ColorSchemes::Form.new(
           settings: @settings,
           curated_color_schemes: @curated_color_schemes,

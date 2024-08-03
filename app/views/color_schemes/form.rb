@@ -21,12 +21,6 @@ class ColorSchemes::Form < ApplicationView
   end
 
   def view_template
-    style do
-      render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
-      render(ColorSchemes::CssVariables.new(color_scheme: @default_color_scheme))
-      render(ColorSchemes::Css.new(color_scheme: @color_scheme))
-    end
-
     div(class: "grid grid-content") do
       if previewing?
         h2 do
@@ -47,7 +41,7 @@ class ColorSchemes::Form < ApplicationView
       flex_block do
         span(class: "text-small") { "Preview:" }
 
-        preview_select
+        render ColorSchemes::Select.new(settings: @settings, preview_color_scheme: @preview_color_scheme, color_scheme_options: cached_curated_color_scheme_options)
 
         span(class: "text-small") { "OR" }
 
@@ -61,7 +55,7 @@ class ColorSchemes::Form < ApplicationView
           "#{preview_remarks.sample} **#{@preview_color_scheme.display_name}**."
         end
 
-        color_swatches(@preview_color_scheme)
+        render ColorSchemes::Swatches.new(color_scheme: @preview_color_scheme)
 
         darkmode_section
 
@@ -94,7 +88,7 @@ class ColorSchemes::Form < ApplicationView
           MARKDOWN
         end
 
-        color_swatches(@session_color_scheme)
+        render ColorSchemes::Swatches.new(color_scheme: @session_color_scheme)
 
         if !previewing?
           darkmode_section
@@ -114,7 +108,8 @@ class ColorSchemes::Form < ApplicationView
       markdown do
         "For reference, **#{@default_color_scheme.display_name}** is the default color scheme for the site."
       end
-      color_swatches(@default_color_scheme)
+
+      render ColorSchemes::Swatches.new(color_scheme: @default_color_scheme)
 
       if !preserving? && !previewing?
         darkmode_section
@@ -122,24 +117,6 @@ class ColorSchemes::Form < ApplicationView
 
       markdown do
         "There’s nothing wrong with keeping the defaults—it’s a classic choice."
-      end
-    end
-  end
-
-  def preview_select
-    form_with(model: @settings, url: url_for, method: :get) do |f|
-      fieldset do
-        f.select(
-          :color_scheme_id,
-          cached_curated_color_scheme_options,
-          {
-            prompt: "Pick one!",
-            selected: previewing? && @color_scheme.id
-          },
-          onchange: "this.form.requestSubmit()",
-          class: ""
-        )
-        noscript { f.submit "Preview", class: "button primary" }
       end
     end
   end
@@ -163,17 +140,6 @@ class ColorSchemes::Form < ApplicationView
     link_to "Reset preview",
       url_for,
       class: "button tertiary"
-  end
-
-  def color_swatches(color_scheme)
-    div(class: "color-scheme color-scheme__#{color_scheme.name.parameterize} grid-cols-12") do
-      color_scheme.weights.each do |weight, color|
-        div(class: "color-swatch color-swatch__weight:#{weight}", style: "background-color: #{color.hex}") do
-          div(class: "color-swatch__weight") { weight }
-          div(class: "color-swatch__color") { color.hex.delete("#").upcase }
-        end
-      end
-    end
   end
 
   def darkmode_section
@@ -229,9 +195,7 @@ class ColorSchemes::Form < ApplicationView
   ]
 
   def cached_curated_color_scheme_options
-    Rails.cache.fetch("curated_color_scheme_options", expires_in: 1.day) do
-      ColorScheme.curated.sort_by { |cs| cs.name }.map { |cs| [cs.display_name, cs.id] }
-    end
+    @cached_curated_color_scheme_options ||= ColorScheme.cached_curated_color_scheme_options
   end
 
   def random_curated_color_scheme_id
