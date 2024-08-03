@@ -19,6 +19,17 @@ class Settings::ColorSchemesController < ApplicationController
     end
   end
 
+  def preview
+    @color_scheme = find_color_scheme
+
+    render ColorSchemes::PreviewView.new(
+      settings: Settings.new(color_scheme: @color_scheme),
+      preview_color_scheme: preview_color_scheme,
+      session_color_scheme: session_color_scheme,
+      default_color_scheme: default_color_scheme
+    )
+  end
+
   def update
     update_params = params[:settings] ? params.require(:settings).permit(:color_scheme_id) : {}
     color_scheme_id = update_params[:color_scheme_id]
