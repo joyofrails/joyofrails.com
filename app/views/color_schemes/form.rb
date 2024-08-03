@@ -128,19 +128,17 @@ class ColorSchemes::Form < ApplicationView
 
   def preview_select
     form_with(model: @settings, url: url_for, method: :get) do |f|
-      flex_block do
-        fieldset do
-          f.select(
-            :color_scheme_id,
-            cached_curated_color_scheme_options,
-            {
-              prompt: "Pick one!",
-              selected: previewing? && @color_scheme.id
-            },
-            onchange: "this.form.requestSubmit()",
-            class: ""
-          )
-        end
+      fieldset do
+        f.select(
+          :color_scheme_id,
+          cached_curated_color_scheme_options,
+          {
+            prompt: "Pick one!",
+            selected: previewing? && @color_scheme.id
+          },
+          onchange: "this.form.requestSubmit()",
+          class: ""
+        )
         noscript { f.submit "Preview", class: "button primary" }
       end
     end

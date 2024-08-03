@@ -75,7 +75,7 @@
   & blockquote {
     font-size: var(--step-1);
     font-style: italic;
-    padding: var(--space-m) 30px var(--space-m) 75px;
+    padding: var(--space-m) var(--space-m) var(--space-m) var(--space-xl);
     border-left: var(--space-3xs) solid var(--joy-color-quote);
     line-height: 1.6;
     position: relative;
@@ -90,7 +90,7 @@
     font-family: Arial;
     content: '\201C';
     color: var(--joy-color-quote);
-    font-size: 4em;
+    font-size: var(--step-5);
     position: absolute;
     left: 10px;
     top: -10px;
