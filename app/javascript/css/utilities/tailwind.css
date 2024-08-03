@@ -978,3 +978,7 @@ focus\:ring-0:focus {
   margin-bottom: 1rem;
   margin-right: 0;
 }
+
+.grid-flow-dense {
+  grid-auto-flow: dense;
+}

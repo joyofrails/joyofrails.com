@@ -83,15 +83,6 @@ main > *,
   .grid-content > * {
     grid-column: col-start 1 / span 8;
   }
-
-  .lg\:grid-cols-1\/2 {
-    grid-template-columns: 1fr 2fr;
-  }
-
-  .lg\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .article-content > .outside,
   .grid-content > .outside {
     grid-column: col-start 9 / span 4;
