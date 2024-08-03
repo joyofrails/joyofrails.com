@@ -106,8 +106,4 @@
     font-weight: bold;
     margin-top: var(--space-s);
   }
-
-  & turbo-frame {
-    margin-block-start: var(--space-m);
-  }
 }

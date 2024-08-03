@@ -21,7 +21,7 @@ In this post, we‘ll talk about some techniques and considerations to accomplis
 
 In my [previous article](/articles/color-schemes-with-ruby-on-rails), I used Hotwire to swap out a `<style>` tag with the color scheme CSS. As a recap, here‘s the demo so you can see how it works:
 
-<%= turbo_frame_tag "color-scheme-preview", src: preview_settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12" %>
+<%= turbo_frame_tag "color-scheme-preview", src: preview_settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12 m-bs-m" %>
 <noscript>
 JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
 </noscript>
