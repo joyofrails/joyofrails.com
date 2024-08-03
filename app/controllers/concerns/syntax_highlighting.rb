@@ -2,13 +2,16 @@ module SyntaxHighlighting
   extend ActiveSupport::Concern
 
   included do
-    helper_method :find_syntax_highlight
     helper_method :custom_syntax_highlight?
+    helper_method :custom_syntax_highlight_params
+    helper_method :find_syntax_highlight
   end
 
   def find_syntax_highlight
     @syntax_highlight ||= preview_syntax_highlight || session_syntax_highlight || default_syntax_highlight
   end
+
+  def custom_syntax_highlight_params = preview_syntax_highlight_name ? {settings: {syntax_highlight_name: preview_syntax_highlight_name}} : {}
 
   def custom_syntax_highlight? = preview_syntax_highlight_name.present? || session_syntax_highlight_name.present?
 
