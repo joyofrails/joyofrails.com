@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html class="motion-safe:scroll-smooth">
   <head>
-    <%= display_meta_tags site: "Joy of Rails" %>
+    <!--
+      Joy of Rails uses the meta-tags gem for generatoring SEO-friendly meta tags
+      https://github.com/kpumuk/meta-tags
+
+      Favicon links based on the Evil Martians article: "How to Favicon in 2024: Six files that fit most needs"
+      https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
+    -->
+    <%= seo_meta_tags %>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Joy of Rails uses 'Russo One' from Google Fonts for its logo -->
     <%= render "application/google_fonts" %>
+
+    <!--
+      Joy of Rails is a Progressive Web App. The manifest.json makes it possible
+      to add 'Joy of Rails' to your home screen with supporting browsers/devices.
+    -->
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/favicon.ico" sizes="32x32">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
-    <link rel="manifest" href="/manifest.webmanifest">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "application/analytics" %>
@@ -17,8 +29,12 @@
     <%= render "application/theme/color" unless Rails.env.wasm? %>
     <%= render "application/theme/code" %>
     <%= render "darkmode/setup" %>
-    <%= vite_client_tag %>
 
+    <!--
+    Joy of Rails used Vite Ruby to manage assets. Vite Ruby’s tagline is "Bringing joy to your frontend experience."
+    which means it is a perfect fit for this project :)
+    -->
+    <%= vite_client_tag %>
     <%= vite_stylesheet_tag "application.css", media: "all", "data-turbo-track": "reload" %>
     <%= vite_javascript_tag "application.js", media: "all", "data-turbo-track": "reload" %>
 
