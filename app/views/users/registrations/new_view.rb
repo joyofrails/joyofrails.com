@@ -1,5 +1,5 @@
 class Users::Registrations::NewView < ApplicationView
-  include Concerns::HasInvisibleCaptcha
+  include PhlexConcerns::HasInvisibleCaptcha
 
   def initialize(user:)
     @user = user

@@ -1,4 +1,4 @@
-class CodeBlock::AppFile < Phlex::HTML
+class CodeBlock::AppFile < ApplicationComponent
   include InlineSvg::ActionView::Helpers
 
   # @param filename [String] the file path or an Examples::AppFile.
@@ -12,7 +12,7 @@ class CodeBlock::AppFile < Phlex::HTML
   def view_template
     render ::CodeBlock::Article.new(**attributes) do |code_block|
       code_block.title do
-        a(href: app_file.repo_url, target: "_blank", class: "nc flex items-center gap-1") {
+        link(app_file.repo_url, "Source code on Github", class: "nc flex items-center gap-1") {
           plain app_file.app_path.to_s
           plain inline_svg_tag("external-link.svg", class: "icon icon-sm", height: 12, width: 12)
         }

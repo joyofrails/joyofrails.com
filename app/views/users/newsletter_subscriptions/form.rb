@@ -4,7 +4,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
   include Phlex::Rails::Helpers::Object
   include Phlex::Rails::Helpers::Routes
 
-  include Concerns::HasInvisibleCaptcha
+  include PhlexConcerns::HasInvisibleCaptcha
 
   def initialize(newsletter_subscription:)
     @newsletter_subscription = newsletter_subscription

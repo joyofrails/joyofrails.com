@@ -3,6 +3,8 @@
 class ApplicationComponent < Phlex::HTML
   include Phlex::Rails::Helpers::Routes
 
+  include PhlexConcerns::Links
+
   if Rails.env.development?
     def before_template
       comment { "Before #{self.class.name}" }
