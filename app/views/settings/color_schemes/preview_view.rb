@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ColorSchemes::PreviewView < ApplicationView
+class Settings::ColorSchemes::PreviewView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::ButtonTo
@@ -21,7 +21,7 @@ class ColorSchemes::PreviewView < ApplicationView
   end
 
   def view_template
-    render Pages::Header.new(title: "Theme: Color Preview")
+    render Pages::Header.new(title: "Settings: Color Scheme Preview")
 
     section(class: "section-content container py-gap") do
       turbo_frame_tag "color-scheme-preview", data: {turbo_action: "advance"} do
@@ -49,7 +49,7 @@ class ColorSchemes::PreviewView < ApplicationView
           flex_block do
             span(class: "text-small") { "Preview:" }
 
-            render ColorSchemes::Select.new(settings: @settings, preview_color_scheme: @preview_color_scheme, color_scheme_options: cached_curated_color_scheme_options)
+            render Settings::ColorSchemes::Select.new(settings: @settings, preview_color_scheme: @preview_color_scheme, color_scheme_options: cached_curated_color_scheme_options)
 
             span(class: "text-small") { "OR" }
 

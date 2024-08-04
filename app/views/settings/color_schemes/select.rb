@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ColorSchemes::Select < ApplicationComponent
+class Settings::ColorSchemes::Select < ApplicationComponent
   include Phlex::Rails::Helpers::FormWith
 
   def initialize(settings:, preview_color_scheme:, color_scheme_options: [])

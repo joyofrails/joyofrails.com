@@ -6,7 +6,7 @@ class Settings::ColorSchemesController < ApplicationController
 
     respond_to do |format|
       format.html {
-        render ColorSchemes::ShowView.new(
+        render Settings::ColorSchemes::ShowView.new(
           settings: Settings.new(color_scheme: @color_scheme),
           preview_color_scheme: preview_color_scheme,
           session_color_scheme: session_color_scheme,
@@ -22,7 +22,7 @@ class Settings::ColorSchemesController < ApplicationController
   def preview
     @color_scheme = find_color_scheme
 
-    render ColorSchemes::PreviewView.new(
+    render Settings::ColorSchemes::PreviewView.new(
       settings: Settings.new(color_scheme: @color_scheme),
       preview_color_scheme: preview_color_scheme,
       session_color_scheme: session_color_scheme,

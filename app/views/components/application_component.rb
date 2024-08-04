@@ -11,4 +11,8 @@ class ApplicationComponent < Phlex::HTML
       super
     end
   end
+
+  def markdown
+    render Markdown::Application.new(yield)
+  end
 end

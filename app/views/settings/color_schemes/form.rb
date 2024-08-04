@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ColorSchemes::Form < ApplicationView
+class Settings::ColorSchemes::Form < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::ButtonTo
@@ -41,7 +41,7 @@ class ColorSchemes::Form < ApplicationView
       flex_block do
         span(class: "text-small") { "Preview:" }
 
-        render ColorSchemes::Select.new(settings: @settings, preview_color_scheme: @preview_color_scheme, color_scheme_options: cached_curated_color_scheme_options)
+        render Settings::ColorSchemes::Select.new(settings: @settings, preview_color_scheme: @preview_color_scheme, color_scheme_options: cached_curated_color_scheme_options)
 
         span(class: "text-small") { "OR" }
 
@@ -164,10 +164,6 @@ class ColorSchemes::Form < ApplicationView
   def preserving? = @session_color_scheme.present?
 
   def default_color_scheme? = @color_scheme.id == @default_color_scheme
-
-  def markdown
-    render Markdown::Application.new(yield)
-  end
 
   def flex_block(options = {}, &)
     div(class: "flex items-start flex-col space-col-4 grid-cols-12 md:items-center md:flex-row md:space-row-4 #{options[:class]}", &)
