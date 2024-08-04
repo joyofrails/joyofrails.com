@@ -26,8 +26,7 @@ class ColorSchemes::PreviewView < ApplicationView
     section(class: "section-content container py-gap") do
       turbo_frame_tag "color-scheme-preview", data: {turbo_action: "advance"} do
         style do
-          render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
-          render(ColorSchemes::Css.new(color_scheme: @color_scheme))
+          render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))
         end
 
         div(class: "grid grid-content") do

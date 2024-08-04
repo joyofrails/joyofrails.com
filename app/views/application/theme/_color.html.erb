@@ -4,6 +4,6 @@
 -->
 <% if custom_color_scheme? %>
   <style>
-    <%= render ColorSchemes::CssVariables.new(color_scheme: find_color_scheme, my_color: true) %>
+    <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme, my_theme_enabled: true) %>
   </style>
 <% end %>
