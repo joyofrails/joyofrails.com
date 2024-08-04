@@ -27,7 +27,6 @@ class ColorSchemes::PreviewView < ApplicationView
       turbo_frame_tag "color-scheme-preview", data: {turbo_action: "advance"} do
         style do
           render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
-          render(ColorSchemes::CssVariables.new(color_scheme: @default_color_scheme))
           render(ColorSchemes::Css.new(color_scheme: @color_scheme))
         end
 
@@ -66,7 +65,7 @@ class ColorSchemes::PreviewView < ApplicationView
             end
           else
             markdown do
-              "The site default: **#{@color_scheme.display_name}**."
+              "The site default is **#{@color_scheme.display_name}**."
             end
           end
 

@@ -24,7 +24,6 @@ class ColorSchemes::ShowView < ApplicationView
       turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance"} do
         style do
           render(ColorSchemes::CssVariables.new(color_scheme: @session_color_scheme)) if @session_color_scheme
-          render(ColorSchemes::CssVariables.new(color_scheme: @default_color_scheme))
           render(ColorSchemes::Css.new(color_scheme: @color_scheme))
         end
 
