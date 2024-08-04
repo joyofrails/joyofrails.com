@@ -96,7 +96,7 @@
     top: -10px;
   }
 
-  blockquote::after {
+  & blockquote::after {
     content: '';
   }
 
@@ -105,5 +105,11 @@
     font-style: normal;
     font-weight: bold;
     margin-top: var(--space-s);
+  }
+
+  & iframe {
+    width: 100%;
+    min-height: 20ch;
+    border: 1px solid var(--joy-color-border);
   }
 }
