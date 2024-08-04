@@ -4,10 +4,6 @@
 -->
 <% if custom_color_scheme? %>
   <style>
-    <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme) %>
-  </style>
-<% else %>
-  <style>
-    <%= render ColorSchemes::Css.new(color_scheme: ColorScheme.cached_default) %>
+    <%= render ColorSchemes::CssVariables.new(color_scheme: find_color_scheme, my_color: true) %>
   </style>
 <% end %>
