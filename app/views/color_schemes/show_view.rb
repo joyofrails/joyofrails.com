@@ -2,39 +2,44 @@
 
 class ColorSchemes::ShowView < ApplicationView
   include Phlex::Rails::Helpers::TurboFrameTag
+  include Phlex::Rails::Helpers::DOMID
+  include Phlex::Rails::Helpers::LinkTo
 
-  def initialize(
-    settings:,
-    curated_color_schemes: [],
-    default_color_scheme: ColorScheme.cached_default,
-    preview_color_scheme: nil,
-    session_color_scheme: nil
-  )
-    @settings = settings
-    @color_scheme = settings.color_scheme
-    @preview_color_scheme = preview_color_scheme
-    @session_color_scheme = session_color_scheme
-    @default_color_scheme = default_color_scheme
+  def initialize(color_scheme:)
+    @color_scheme = color_scheme
   end
 
   def view_template
-    render Pages::Header.new(title: "Theme: Color")
+    render Pages::Header.new(title: "Color Scheme: #{@color_scheme.display_name}")
 
     section(class: "section-content container py-gap") do
-      turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance"} do
-        style do
-          render(ColorSchemes::Css.new(color_scheme: @session_color_scheme)) if @session_color_scheme
-          render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))
+      style do
+        render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))
+      end
+
+      div(class: "grid grid-content") do
+        markdown do
+          <<~MARKDOWN
+            You are viewing the **#{@color_scheme.display_name}** color scheme.
+          MARKDOWN
         end
 
-        render ColorSchemes::Form.new(
-          settings: @settings,
-          curated_color_schemes: @curated_color_schemes,
-          default_color_scheme: @default_color_scheme,
-          preview_color_scheme: @preview_color_scheme,
-          session_color_scheme: @session_color_scheme
-        )
+        h2 do
+          span(style: inline_style_header_color(@color_scheme)) do
+            @color_scheme.display_name
+          end
+        end
+
+        render ColorSchemes::Swatches.new(color_scheme: @color_scheme)
+
+        link_to "Back to index", color_schemes_path
       end
     end
+  end
+
+  private
+
+  def inline_style_header_color(color_scheme)
+    "color: var(--color-#{color_scheme.name.parameterize}-500)"
   end
 end
