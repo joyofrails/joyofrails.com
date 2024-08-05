@@ -109,68 +109,70 @@ irb> Mime::SET.collect(&:to_s)
 
 In Rails `mime_types.rb`, we can see the registered MIME types with each of their recognized extensions.
 
-Here‘s the original `mime_types.rb`, added to Rails on Dec 2, 2006 ([source](https://github.com/rails/rails/blob/5410f2cb74737bd6d96c226230c2b9c2bfe1d80b/actionpack/lib/action_controller/mime_types.rb 'Source code on Github')).
-
-```ruby:{"show_header": false}
-Mime::Type.register "*/*", :all
-Mime::Type.register "text/plain", :text
-Mime::Type.register "text/html", :html, %w( application/xhtml+xml ), %w( xhtml )
-Mime::Type.register "text/javascript", :js, %w( application/javascript application/x-javascript )
-Mime::Type.register "text/calendar", :ics
-Mime::Type.register "text/csv", :csv
-Mime::Type.register "application/xml", :xml, %w( text/xml application/x-xml )
-Mime::Type.register "application/rss+xml", :rss
-Mime::Type.register "application/atom+xml", :atom
-Mime::Type.register "application/x-yaml", :yaml, %w( text/yaml )
-```
-
-Support for CSS added a short time later on Feb 17, 2007 ([commit](https://github.com/rails/rails/commit/392c7f7314d196c54912a65981d79002d032f896 'Commit on Github').
-
-```diff:{"show_header": false}
-+ Mime::Type.register "text/css", :css
-```
-
 That `:css` in the MIME type registry is one way to instruct Rails controller behavior with `respond_to`.
 
-Using `respond_to` in a controller allows you to define responses and logic based on the requested format. As a contrived example, imagine a `Product#index` action that returns 25 products for an HTML request, e.g. `/products`, and loads 250 products for an RSS request, e.g. `/products.rss`.
+Using `respond_to` in a controller allows you to define responses and logic based on the requested format. Here‘s how I take advantage of this behavior in `ColorSchemesController#show`:
 
-```ruby
-class ProductsController < ApplicationController
-  def index
-    respond_to do |format|
-      format.html { @products = Product.limit(25) }
-      format.rss { @products = Product.limit(250) }
-    end
-  end
-end
-```
+<%= render CodeBlock::AppFile.new("app/controllers/color_schemes_controller.rb", lines: [1, 8..17], language: "ruby", revision: "bd53833b03c7f957546e5a9031643d3beb179beb") %>
 
-To demonstrate the difference, I've inserted two requests to the `ColorScheme
+This controller action will respond differently for HTML and CSS requests. To demonstrate the difference, I've inserted two iframes for `ColorSchemesController#show` below:
+
+#### Iframe for HTML request
+
+Below you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/html`.
+
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
+
+Here’s the code for the `iframe`:
 
 ```erb:{"show_header": false}
 <%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
 ```
 
-<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
+#### Iframe for CSS request
+
+And here you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/css`.
+
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+
+Here’s the code for the `iframe`:
 
 ```erb:{"show_header": false}
 <%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
 ```
 
-<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+Behold: dynamic css from a controller action!
 
-<%= turbo_frame_tag "syntax-highlight-form", src: settings_syntax_highlight_path(custom_syntax_highlight_params), class: "grid-cols-12 lg:grid-cols-12 m-bs-m" %>
-<noscript>
-JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
-</noscript>
+And we can use this endpoint in a stylesheet `<link>` tag just like any other static CSS URL:
 
-Generate Dynamic CSS from a Controller?
+```html
+<%= stylesheet_link_tag color_scheme_path(@color_scheme, format: :css) %>
+```
 
-Generating CSS dynamically from a controller offers several advantages:
+A downside of moving our dynamic CSS to a separate controller action is that it requires an additional HTTP request. This might not be a big deal. But, for that same reason, we might also be able to take advantage of Rails conditional GET features to instruct HTTP proxies to cache the request if it hasn’t been modified:
+
+<%= render CodeBlock::AppFile.new("app/controllers/color_schemes_controller.rb", lines: [1, 8..19], language: "ruby", revision: "c6f970e6c95787ab66c75f9d230734710084c9d2") %>
+
+Note the use of the `stale?` method here. This method will calculate a value for `Etag` or `Last-Modified` response headers and set the status to `304 Not Modified` if request headers match and the server doesn’t need to render anything.
+
+> Conditional GETs are a feature of the HTTP specification that provide a way for web servers to tell browsers that the response to a GET request hasn't changed since the last request and can be safely pulled from the browser cache.
+>
+> [Source: Rails guides](https://guides.rubyonrails.org/caching_with_rails.html#conditional-get-support)
+
+Using conditional GETs can help speed up the performance of such requests and lighten the workload on your Rails server.
+
+## Recap
+
+Rendering CSS inline
+
+- Extra request isn‘t needed
+- More difficult to take advantage of long-lived caching
+
+Rendering CSS in a controller
+
+- Extra request isn‘t needed
+- More difficult to take advantage of long-lived caching
 
 Flexibility: Allows for real-time style changes based on user preferences or application state.
 Customization: Enables user-specific or context-specific styling.
 Performance: Can reduce the overall CSS payload by serving only necessary styles.
-DRY principle: Avoids repetition in static stylesheets.
-
-Step-by-Step Guide: Implementing Dynamic CSS Generation
