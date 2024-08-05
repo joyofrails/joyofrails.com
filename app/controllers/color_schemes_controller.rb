@@ -8,9 +8,11 @@ class ColorSchemesController < ApplicationController
   def show
     @color_scheme = ColorScheme.find(params[:id])
 
-    respond_to do |format|
-      format.html { render ColorSchemes::ShowView.new(color_scheme: @color_scheme) }
-      format.css { render ColorSchemes::Css.new(color_scheme: @color_scheme), layout: false }
+    if stale?(@color_scheme, public: true)
+      respond_to do |format|
+        format.html { render ColorSchemes::ShowView.new(color_scheme: @color_scheme) }
+        format.css { render ColorSchemes::Css.new(color_scheme: @color_scheme), layout: false }
+      end
     end
   end
 end
