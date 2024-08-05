@@ -7,6 +7,8 @@ class Settings::SyntaxHighlights::Form < ApplicationView
   include Phlex::Rails::Helpers::TurboFrameTag
   include Phlex::Rails::Helpers::TurboStream
 
+  include PhlexConcerns::FlexBlock
+
   def initialize(
     settings:,
     available_highlights: [],
@@ -171,10 +173,6 @@ class Settings::SyntaxHighlights::Form < ApplicationView
       end
       div(class: "outside") { unsave_button }
     end
-  end
-
-  def flex_block(options = {}, &)
-    div(class: "flex items-start flex-col space-col-4 grid-cols-12 md:items-center md:flex-row md:space-row-4 #{options[:class]}", &)
   end
 
   def flex_list(options = {}, &)

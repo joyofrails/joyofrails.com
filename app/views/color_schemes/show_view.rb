@@ -18,11 +18,7 @@ class ColorSchemes::ShowView < ApplicationView
       end
 
       div(class: "grid grid-content") do
-        markdown do
-          <<~MARKDOWN
-            You are viewing the **#{@color_scheme.display_name}** color scheme.
-          MARKDOWN
-        end
+        markdown { "You are viewing the **#{@color_scheme.display_name}** color scheme." }
 
         h2 do
           span(style: inline_style_header_color(@color_scheme)) do
