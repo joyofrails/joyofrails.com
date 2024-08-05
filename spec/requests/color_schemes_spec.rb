@@ -31,5 +31,18 @@ RSpec.describe "Color Schemes" do
 
       expect(response).to have_http_status(:ok)
     end
+
+    it "renders color scheme as css" do
+      color_scheme = FactoryBot.create(:color_scheme)
+
+      get color_scheme_path(color_scheme, format: :css)
+
+      expect(response).to have_http_status(:ok)
+
+      validator = W3CValidators::CSSValidator.new
+      validator_results = validator.validate_text(response.body) # W3CValidators::Results
+
+      expect(validator_results.is_valid?).to be(true), "Expected CSS to be valid, but got: #{validator_results.errors.map(&:to_s).join(", ")}"
+    end
   end
 end

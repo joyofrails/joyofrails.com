@@ -1,7 +1,5 @@
 require "rails_helper"
 
-require "w3c_validators"
-
 RSpec.describe "Feed", type: :request do
   let(:curated_colors) do
     FactoryBot.create_list(:color_scheme, 3)
