@@ -109,7 +109,17 @@
 
   & iframe {
     width: 100%;
-    min-height: 20ch;
-    border: 1px solid var(--joy-color-border);
+    min-height: 18ch;
+    border: 1px solid var(--joy-border-subtle);
+    border-radius: 0.5rem;
+    padding-top: var(--space-s);
+    padding-inline-end: var(--space-s);
+    padding-bottom: var(--space-s);
+    padding-inline-start: var(--space-s);
+  }
+
+  & a svg.icon {
+    width: 1rem;
+    height: 1rem;
   }
 }
