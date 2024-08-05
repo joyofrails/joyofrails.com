@@ -38,7 +38,7 @@ RSpec.describe "Settings Color Schemes", type: :request do
 
       aggregate_failures do
         expect(response).to have_http_status(:ok)
-        expect(response.body).to match(default_color_scheme.name.parameterize)
+        expect(response.body).to match("--color-#{default_color_scheme.name.parameterize}")
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe "Settings Color Schemes", type: :request do
 
       aggregate_failures do
         expect(response).to have_http_status(:ok)
-        expect(response.body).to match(color_scheme.name.parameterize)
+        expect(response.body).to match("--color-#{color_scheme.name.parameterize}")
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe "Settings Color Schemes", type: :request do
 
       aggregate_failures do
         expect(response).to have_http_status(:ok)
-        expect(response.body).to match(color_scheme.name.parameterize)
+        expect(response.body).to match("--color-#{color_scheme.name.parameterize}")
       end
     end
   end
@@ -72,8 +72,8 @@ RSpec.describe "Settings Color Schemes", type: :request do
       get settings_color_scheme_path(format: :css)
 
       aggregate_failures do
-        expect(response.body).not_to match(color_scheme.name.parameterize)
-        expect(response.body).to match(default_color_scheme.name.parameterize)
+        expect(response.body).not_to match("--color-#{color_scheme.name.parameterize}")
+        expect(response.body).to match("--color-#{default_color_scheme.name.parameterize}")
       end
 
       patch settings_color_scheme_path(settings: {color_scheme_id: color_scheme.id})
@@ -83,8 +83,8 @@ RSpec.describe "Settings Color Schemes", type: :request do
       get settings_color_scheme_path(format: :css)
 
       aggregate_failures do
-        expect(response.body).to match(color_scheme.name.parameterize)
-        expect(response.body).not_to match(default_color_scheme.name.parameterize)
+        expect(response.body).to match("--color-#{color_scheme.name.parameterize}")
+        expect(response.body).not_to match("--color-#{default_color_scheme.name.parameterize}")
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe "Settings Color Schemes", type: :request do
 
       get settings_color_scheme_path(format: :css)
 
-      expect(response.body).to match(color_scheme.name.parameterize)
+      expect(response.body).to match("--color-#{color_scheme.name.parameterize}")
 
       default_color_scheme = ColorScheme.find_or_create_default
 
@@ -102,8 +102,8 @@ RSpec.describe "Settings Color Schemes", type: :request do
       get settings_color_scheme_path(format: :css)
 
       aggregate_failures do
-        expect(response.body).not_to match(color_scheme.name.parameterize)
-        expect(response.body).to match(default_color_scheme.name.parameterize)
+        expect(response.body).not_to match("--color-#{color_scheme.name.parameterize}")
+        expect(response.body).to match("--color-#{default_color_scheme.name.parameterize}")
       end
     end
 
