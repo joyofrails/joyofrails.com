@@ -62,8 +62,14 @@ class Settings::ColorSchemes::PreviewView < ApplicationView
             end
             div(class: "outside") { reset_button }
           else
-            markdown do
-              "The site default is **#{@color_scheme.display_name}**."
+            if preserving?
+              markdown do
+                "You have saved **#{@color_scheme.display_name}** as your personal color scheme."
+              end
+            else
+              markdown do
+                "The site default color scheme is **#{@color_scheme.display_name}**."
+              end
             end
 
             render ColorSchemes::Swatches.new(color_scheme: @settings.color_scheme)
