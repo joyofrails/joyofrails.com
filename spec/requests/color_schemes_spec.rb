@@ -11,8 +11,12 @@ RSpec.describe "Color Schemes" do
     end
 
     context "color schemes exist" do
+      let(:color_schemes) do
+        FactoryBot.build_list(:color_scheme, 3)
+      end
+
       before do
-        FactoryBot.create_list(:color_scheme, 3)
+        allow(ColorScheme).to receive(:curated).and_return(color_schemes)
       end
 
       it "renders color schemes with expected content" do
