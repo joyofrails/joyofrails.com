@@ -27,7 +27,7 @@
     <%= render "application/analytics" %>
     <%= render "application/config" %>
     <%= render "application/theme/color" unless Rails.env.wasm? %>
-    <%= render "application/theme/code" %>
+    <%= render "application/theme/code" unless Rails.env.wasm? %>
     <%= render "darkmode/setup" %>
 
     <!--
