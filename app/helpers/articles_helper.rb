@@ -1,8 +1,4 @@
 module ArticlesHelper
-  def link_to_blank(text, url, **attrs, &)
-    link_to(text, url, **attrs.merge(target: "_blank", rel: "noopener noreferrer"), &)
-  end
-
   def render_code_block_app_file(filename, **)
     case @format
     when :atom
