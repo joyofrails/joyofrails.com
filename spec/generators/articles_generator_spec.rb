@@ -27,7 +27,6 @@ RSpec.describe ArticleGenerator, type: :generator do
           summary: Here is the summary
           description: Here is the description that will show up in the the meta day
           published: "#{Date.today + 7}"
-          draft: true
           uuid: #{uuid}
           image: articles/my-new-article/placeholder.jpg
           meta_image: articles/my-new-article/placeholder.jpg
