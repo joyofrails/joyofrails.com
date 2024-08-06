@@ -1,5 +1,5 @@
 ---
-title: Custom color schemes with Ruby on Rails
+title: Custom Color Schemes with Ruby on Rails
 author: Ross Kaffenberger
 layout: article
 description: You can edit the color scheme of this website right in content of this blog post. Play with the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.
@@ -16,7 +16,7 @@ This blog post uses Rails and Hotwire to let you edit the color scheme of this s
 
 Give it a try.
 
-<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12" %>
+<%= turbo_frame_tag "color-scheme-form", src: settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12 m-bs-m" %>
 <noscript>
 JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
 </noscript>

@@ -18,16 +18,6 @@ class Markdown::Article < Markdown::Application
     render ::CodeBlock::Article.new(source, language: language, **json_attributes, **attributes)
   end
 
-  def link(url, title, **attrs, &)
-    attributes = attrs.dup
-    unless url.blank? || url.start_with?("/", "#")
-      attributes[:target] ||= "_blank"
-      attributes[:rel] ||= "noopener noreferrer"
-    end
-
-    a(href: url, title: title, **attributes, &)
-  end
-
   private
 
   # Parse the metadata string from a code block.

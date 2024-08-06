@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "site: http caching" do
+RSpec.describe "Site: http caching" do
   let(:file_path) { Rails.root.join("app", "content", "pages", "articles", "introducing-joy-of-rails.html.mdrb") }
   let(:file) { File.open(file_path) }
 

@@ -1,4 +1,17 @@
 :root {
+  /* Hardcode the default color scheme */
+  --color-custom-cerulean-blue-50: hsla(220, 75%, 97%, 1);
+  --color-custom-cerulean-blue-100: hsla(220, 73%, 93%, 1);
+  --color-custom-cerulean-blue-200: hsla(220, 72%, 87%, 1);
+  --color-custom-cerulean-blue-300: hsla(218, 71%, 78%, 1);
+  --color-custom-cerulean-blue-400: hsla(219, 70%, 68%, 1);
+  --color-custom-cerulean-blue-500: hsla(223, 68%, 60%, 1);
+  --color-custom-cerulean-blue-600: hsla(227, 62%, 53%, 1);
+  --color-custom-cerulean-blue-700: hsla(231, 57%, 48%, 1);
+  --color-custom-cerulean-blue-800: hsla(232, 52%, 40%, 1);
+  --color-custom-cerulean-blue-900: hsla(230, 48%, 33%, 1);
+  --color-custom-cerulean-blue-950: hsla(233, 42%, 21%, 1);
+
   --joy-color-50: var(--my-color-50, var(--color-custom-cerulean-blue-50));
   --joy-color-100: var(--my-color-100, var(--color-custom-cerulean-blue-100));
   --joy-color-200: var(--my-color-200, var(--color-custom-cerulean-blue-200));

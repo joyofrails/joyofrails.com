@@ -18,7 +18,7 @@ RSpec.describe ArticleGenerator, type: :generator do
     aggregate_failures do
       expect("app/assets/images/articles/my-new-article/placeholder.jpg").to be_file
 
-      expect("app/content/pages/articles/my-new-article.html.md").to be_file do |content|
+      expect("app/content/pages/articles/my-new-article.html.mdrb").to be_file do |content|
         expect(content).to eq(<<~FILE)
           ---
           title: My New Article
@@ -27,8 +27,9 @@ RSpec.describe ArticleGenerator, type: :generator do
           summary: Here is the summary
           description: Here is the description that will show up in the the meta day
           published: "#{Date.today + 7}"
-          draft: true
           uuid: #{uuid}
+          image: articles/my-new-article/placeholder.jpg
+          meta_image: articles/my-new-article/placeholder.jpg
           tags:
             - Rails
           ---

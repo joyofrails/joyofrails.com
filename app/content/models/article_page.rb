@@ -8,21 +8,26 @@ class ArticlePage < Sitepress::Model
   delegate :mime_type, :handler, to: :page
 
   def self.published
-    all
-      .filter { |article| article.published.present? }
+    all.filter(&:published?)
       .sort { |a, b| b.published_on <=> a.published_on } # DESC order
   end
 
   def self.draft
-    all.filter { |article| article.published.blank? }
+    all.filter(&:draft?)
   end
+
+  def published?
+    published_on.presence && published_on <= Date.today
+  end
+
+  def draft? = !published?
 
   def persisted?
     false
   end
 
   def published_on
-    published.to_date
+    published&.to_date
   end
   alias_method :published_at, :published_on
   alias_method :created_at, :published_on

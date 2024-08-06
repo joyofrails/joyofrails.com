@@ -1,0 +1,193 @@
+---
+title: How to Render CSS Dynamically in Rails
+author: Ross Kaffenberger
+layout: article
+summary: Rails is not just for HTML over the wire. This post demonstrates how and why you might use Rails for delivering CSS on the fly too.
+description: Rails is not just for HTML over the wire. This post demonstrates how and why you might use Rails for delivering CSS on the fly too.
+published: '2024-08-12'
+uuid: 3be769c4-6a2a-4cfb-8008-94046b952aa6
+image: articles/how-to-render-css-dynamically-in-rails/placeholder.jpg
+meta_image: articles/how-to-render-css-dynamically-in-rails/placeholder.jpg
+tags:
+  - Rails
+---
+
+<% @color_scheme_blue_chill = ColorScheme.find_by(name: 'Custom Blue Chill') || ColorScheme.last %>
+
+Let‘s talk about how to render CSS dynamically with Ruby on Rails.
+
+Most of the time, you might think of CSS as a static asset. But sometimes you want _dynamic_ CSS. Maybe end-user preferences, results of an A/B test, or some organizational data in the system should determine what styles to present.
+
+In this post, we‘ll talk about some techniques and considerations to accomplish this in Rails. In my [previous article](/articles/color-schemes-with-ruby-on-rails), I used Hotwire to let you, the reader, preview and safe different color schemes for this site. As a recap, here‘s a slim demo so you can see how it works:
+
+<%= turbo_frame_tag "color-scheme-preview", src: preview_settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12 m-bs-m" %>
+<noscript>
+JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
+</noscript>
+
+## ERB isn‘t just for HTML
+
+The color scheme preview relies on Ruby embedded in HTML templates on the server to render CSS into a `<style>` tag.
+
+While most of your CSS likely should be rendered in a bundled CSS file (or files), like `application.css`, it may make sense for small bits of custom CSS to be rendered inline in HTML. Your static CSS files will be served from your web server or likely a Content Delivery Network (CDN) depending on your application setup, which skips your Rails application logic.
+
+That‘s true for most of the CSS in Joy of Rails too. But, to make the the color scheme preview, I‘ve mixed in some dynamic CSS into the Hotwire interaction. When you make a color scheme selection, a request is issued to update the color scheme preview. The endpoint returns an HTML response with a [Turbo Frame](https://turbo.hotwired.dev/handbook/frames) containing a `<style>` tag. Hotwire swaps out the portion containing the Turbo Frame including the new styles. As an example, here‘s part of the HTML response when you select **Blue Chill**:
+
+```html
+<html>
+  <head></head>
+  <body>
+    <!-- ... -->
+    <section class="...">
+      <turbo-frame id="color-scheme-preview">
+        <style>
+          :root {
+            --color-custom-blue-chill-50: hsla(180, 53%, 97%, 1);
+            --color-custom-blue-chill-100: hsla(178, 64%, 89%, 1);
+            --color-custom-blue-chill-200: hsla(179, 64%, 78%, 1);
+            --color-custom-blue-chill-300: hsla(182, 58%, 64%, 1);
+            --color-custom-blue-chill-400: hsla(183, 49%, 50%, 1);
+            --color-custom-blue-chill-500: hsla(184, 61%, 37%, 1);
+            --color-custom-blue-chill-600: hsla(185, 64%, 32%, 1);
+            --color-custom-blue-chill-700: hsla(186, 59%, 26%, 1);
+            --color-custom-blue-chill-800: hsla(187, 53%, 22%, 1);
+            --color-custom-blue-chill-900: hsla(187, 46%, 19%, 1);
+            --color-custom-blue-chill-950: hsla(189, 65%, 10%, 1);
+          }
+
+          :root {
+            --my-color-50: var(--color-custom-blue-chill-50);
+            --my-color-100: var(--color-custom-blue-chill-100);
+            --my-color-200: var(--color-custom-blue-chill-200);
+            --my-color-300: var(--color-custom-blue-chill-300);
+            --my-color-400: var(--color-custom-blue-chill-400);
+            --my-color-500: var(--color-custom-blue-chill-500);
+            --my-color-600: var(--color-custom-blue-chill-600);
+            --my-color-700: var(--color-custom-blue-chill-700);
+            --my-color-800: var(--color-custom-blue-chill-800);
+            --my-color-900: var(--color-custom-blue-chill-900);
+            --my-color-950: var(--color-custom-blue-chill-950);
+          }
+        </style>
+        <!-- ... -->
+      </turbo-frame>
+    </section>
+  </body>
+</html>
+```
+
+As you can see, the color scheme for Joy of Rails is built on [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties). Using CSS variables for dynamic CSS isn‘t required but sure makes the job of updating page styles easier. We can set values of CSS variables to new values by rendering new CSS or by JavaScript manipulation; this makes CSS variables an ideal choice for dynamic CSS techniques like those described in this article.
+
+The partial that renders CSS in the HTML response looks something like this:
+
+<%= render CodeBlock::AppFile.new("app/views/application/theme/\_color.html.erb", language: "erb", revision: "9852f2ccf65401848c19a6eabd1eb74fca49c789") %>
+
+The controller helper method `custom_color_scheme?` looks for the presence of a color scheme id in `params` or the `session` and `find_color_scheme` makes a database query to find a `ColorScheme` record if needed.
+
+`ColorSchemes::Css` is a simple [Phlex](https://www.phlex.fun/) component. Here‘s what it looks like:
+
+<%= render CodeBlock::AppFile.new("app/views/components/color_schemes/css.rb", language: "ruby") %>
+
+Phlex is a Ruby gem for building object-oriented HTML components. It‘s an alternative to ERB templates. Phlex suits my preferences in this case, but it isn‘t a requirement for dynamic CSS. You could easily write this in an ERB template instead. It might look something like this:
+
+```erb
+<%
+color_name = @color_scheme.name.parameterize
+# #to_hsla defined as a helper method
+%>
+<style>
+  :root {
+  <%= @color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla(color)};" }.join("\n\s\s") %>
+
+  <% if @my_theme %>
+    <%= @color_scheme.weights.map { |weight, color| "--my-color-#{weight}: var(--color-#{color_name}-#{weight});" }.join("\n\s\s") %>
+  <% end %>
+}
+</style>
+```
+
+The key point here is that we can use logic in Rails templates or components for rendering key bits of dynamic CSS at the time of the request, just as you can for HTML. When combined with Hotwire, this enables server-driven interactive styles like my color scheme preview.
+
+## Controller actions aren’t just for HTML either
+
+Rails controllers can do more than just HTML. In fact, Rails controller actions support over thirty [MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types) by default (as of Rails 7.1).
+
+```ruby
+$ bin/rails s
+
+irb> Mime::SET.collect(&:to_s)
+=>
+["text/html", "text/plain", "text/javascript", "text/css", "text/calendar", "text/csv", "text/vcard", "text/vtt", "image/png", "image/jpeg", "image/gif", "image/bmp", "image/tiff", "image/svg+xml", "image/webp", "video/mpeg", "audio/mpeg", "audio/ogg", "audio/aac", "video/webm", "video/mp4", "font/otf", "font/ttf", "font/woff", "font/woff2", "application/xml", "application/rss+xml", "application/atom+xml", "application/x-yaml", "multipart/form-data", "application/x-www-form-urlencoded", "application/json", "application/pdf", "application/zip", "application/gzip", "text/vnd.turbo-stream.html"]
+```
+
+In Rails `mime_types.rb`, we can see the registered MIME types with each of their recognized extensions.
+
+That `:css` in the MIME type registry is one way to instruct Rails controller behavior with `respond_to`.
+
+Using `respond_to` in a controller allows you to define responses and logic based on the requested format. Here‘s how I take advantage of this behavior in `ColorSchemesController#show`:
+
+<%= render CodeBlock::AppFile.new("app/controllers/color_schemes_controller.rb", lines: [1, 8..17], language: "ruby", revision: "bd53833b03c7f957546e5a9031643d3beb179beb") %>
+
+This controller action will respond differently for HTML and CSS requests. To demonstrate the difference, I've inserted two iframes for `ColorSchemesController#show` below:
+
+#### Iframe for HTML request
+
+Below you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/html`.
+
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
+
+Here’s the code for the `iframe`:
+
+```erb:{"show_header": false}
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
+```
+
+#### Iframe for CSS request
+
+And here you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/css`.
+
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+
+Here’s the code for the `iframe`:
+
+```erb:{"show_header": false}
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+```
+
+Behold: dynamic css from a controller action!
+
+We can use this endpoint in a stylesheet `<link>` tag just like any other static CSS URL:
+
+```html
+<%= stylesheet_link_tag color_scheme_path(@color_scheme, format: :css) %>
+```
+
+A downside of moving our dynamic CSS to a separate controller action is that it requires an additional HTTP request. This could be an issue for a highly interactive user experience. But on the other hand, using a separate request allows you to take advantage of Rails [conditional GET features](https://guides.rubyonrails.org/v3.2/caching_with_rails.html#conditional-get-support)
+
+> Conditional GETs are a feature of the HTTP specification that provide a way for web servers to tell browsers that the response to a GET request hasn't changed since the last request and can be safely pulled from the browser cache.
+>
+> [Source: Rails guides](https://guides.rubyonrails.org/caching_with_rails.html#conditional-get-support)
+
+Below, I‘ve modified the `ColorSchemesController#show` to use the `stale?` method to enable conditional GET:
+
+<%= render CodeBlock::AppFile.new("app/controllers/color_schemes_controller.rb", lines: [1, 8..19], language: "ruby", revision: "c6f970e6c95787ab66c75f9d230734710084c9d2") %>
+
+This method will calculate a value for `Etag` or `Last-Modified` response headers and set the status to `304 Not Modified` if request headers match and the server doesn’t need to render anything.
+
+In short, dynamic CSS combined with a conditional GET allows you to leverage put Ruby logic behind your stylesheet link tags in a performant manner.
+
+## Recap
+
+Rails provides us with all sorts of [sharp knives](https://rubyonrails.org/doctrine#provide-sharp-knives) especially it comes to dynamic rendering in various formats, like CSS.
+
+We can allow for real-time style changes based on user preferences or application state to enable user- or context-specific styling—like [custom color schemes](/settings/color_schemes) for your application.
+
+We can render CSS in `<style>` tags using embedded Ruby. This approach works well for small bits of CSS and may save bandwidth and latency without having to make additional HTTP requests
+
+Rendering CSS in a controller isn‘t as crazy as it sounds. This approach offers flexibility and is primed for HTTP caching through conditional GET support in Rails.
+
+---
+
+Did you find this article helpful? How are you doing dynamic CSS? Let me know on [Twitter](https://x.com/rossta), [Mastodon](https://ruby.social/@rossta), or [send me an email](mailto:ross@joyofrails.com). You can check out the [source code for Joy of Rails on Github](https://github.com/joyofrails/joyofrails.com). And... you can [subscribe](#newsletter-signup) to my newsletter to get notified of new content.
+
+Until next time, have fun!

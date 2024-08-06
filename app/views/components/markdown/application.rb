@@ -1,6 +1,7 @@
 class Markdown::Application < Markdown::Base
   include Phlex::Rails::Helpers::ImageTag
   include ActionView::Helpers::AssetUrlHelper
+  include PhlexConcerns::Links
 
   # Options for CommonMarker
   def default_commonmarker_options
@@ -13,16 +14,6 @@ class Markdown::Application < Markdown::Base
 
   def code_block(source, language = "", **attributes)
     render CodeBlock::Basic.new(source, language: language, **attributes)
-  end
-
-  def link(url, title, **attrs, &)
-    attributes = attrs.dup
-    unless url.blank? || url.start_with?("/", "#")
-      attributes[:target] ||= "_blank"
-      attributes[:rel] ||= "noopener noreferrer"
-    end
-
-    a(href: url, title: title, **attributes, &)
   end
 
   def image(src, alt: "", title: "")

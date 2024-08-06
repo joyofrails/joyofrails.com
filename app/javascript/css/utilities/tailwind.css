@@ -897,14 +897,6 @@
   cursor: pointer;
 }
 
-.fill-current {
-  fill: currentColor;
-}
-
-.fill-green-600 {
-  fill: #16a34a;
-}
-
 .w-\[16px\] {
   width: 16px;
 }
@@ -977,4 +969,8 @@ focus\:ring-0:focus {
 .space-col-4 > * {
   margin-bottom: 1rem;
   margin-right: 0;
+}
+
+.grid-flow-dense {
+  grid-auto-flow: dense;
 }

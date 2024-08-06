@@ -1,4 +1,4 @@
-module Concerns::HasInvisibleCaptcha
+module PhlexConcerns::HasInvisibleCaptcha
   extend ActiveSupport::Concern
 
   included do

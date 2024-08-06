@@ -24,14 +24,14 @@ class Pages::Summary < ApplicationComponent
   end
 
   def view_template
-    div(class: "page-summary grid lg:grid-cols-2") do
+    div(class: "page-summary grid lg:grid-cols-2 lg:grid-flow-col") do
       case @side
       when "left"
-        content(class: "grid grid-row-tight lg:text-right")
-        image(class: "grid grid-row-tight lg:text-left")
+        content(class: "grid grid-row-tight lg:text-right lg:grid-column-start-1")
+        image(class: "grid grid-row-tight lg:text-left lg:grid-column-start-2")
       else
-        image(class: "grid grid-row-tight lg:text-right")
-        content(class: "grid grid-row-tight lg:text-left")
+        content(class: "grid grid-row-tight lg:text-left lg:grid-column-start-2")
+        image(class: "grid grid-row-tight lg:text-right lg:grid-column-start-1")
       end
     end
   end

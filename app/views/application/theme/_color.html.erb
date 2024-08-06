@@ -1,9 +1,9 @@
+<!--
+  You can customize your color scheme for Joy of Rails!
+  Visit <%= settings_color_scheme_path %> to preview colors and save your preference.
+-->
 <% if custom_color_scheme? %>
   <style>
-    <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme) %>
-  </style>
-<% else %>
-  <style>
-    <%= render ColorSchemes::Css.new(color_scheme: ColorScheme.cached_default) %>
+    <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme, my_theme_enabled: true) %>
   </style>
 <% end %>

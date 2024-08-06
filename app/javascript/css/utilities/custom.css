@@ -45,3 +45,7 @@
 .text-small {
   font-size: var(--step--1);
 }
+
+.m-bs-m {
+  margin-block-start: var(--space-m);
+}

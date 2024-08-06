@@ -35,7 +35,7 @@ class SiteController < Sitepress::SiteController
   end
 
   def skip_http_cache?
-    current_path?(root_path) || custom_color_scheme?
+    current_path?(root_path) || custom_color_scheme? || custom_syntax_highlight?
   end
 
   def current_path?(path)

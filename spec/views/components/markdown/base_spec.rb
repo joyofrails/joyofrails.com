@@ -103,6 +103,15 @@ RSpec.describe Markdown::Base do
     expect(output).to be == "<p>One Two</p><p>Three</p>"
   end
 
+  xit "supports blockquote [!NOTE]" do
+    output = md <<~MD
+      > [!NOTE]
+      > Hello!
+    MD
+
+    expect(output).to match %r{<blockquote><svg .*><p>Hello!</p></blockquote>}
+  end
+
   def md(content)
     Markdown::Base.new(content).call
   end

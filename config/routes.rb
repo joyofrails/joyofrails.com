@@ -24,8 +24,14 @@ Rails.application.routes.draw do
 
   resources :feed, only: [:index], format: "atom"
 
+  resources :color_schemes, only: [:index, :show]
+
   namespace :settings do
-    resource :color_scheme, only: [:show, :update]
+    resource :color_scheme, only: [:show, :update] do
+      member do
+        get :preview
+      end
+    end
     resource :syntax_highlight, only: [:show, :update]
   end
 

@@ -54,6 +54,12 @@ class ColorScheme < ApplicationRecord
     end
   end
 
+  def self.cached_curated_color_scheme_options
+    Rails.cache.fetch("curated_color_scheme_options", expires_in: 1.day) do
+      ColorScheme.curated.sort_by { |cs| cs.name }.map { |cs| [cs.display_name, cs.id] }
+    end
+  end
+
   def set_weight(weight, value)
     raise ArgumentError, "Invalid weight: #{weight}" unless VALID_WEIGHTS.include?(weight.to_s)
 
