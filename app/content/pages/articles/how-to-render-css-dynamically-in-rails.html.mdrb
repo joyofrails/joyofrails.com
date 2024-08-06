@@ -84,13 +84,29 @@ The partial that renders CSS in the HTML response looks something like this:
 
 The controller helper method `custom_color_scheme?` looks for the presence of a color scheme id in `params` or the `session` and `find_color_scheme` makes a database query to find a `ColorScheme` record if needed.
 
-`ColorSchemes::Css` is a simple [Phlex](https://www.phlex.fun/) component but it could easily be rendered in an ERB partial. Here‘s what it looks like:
+`ColorSchemes::Css` is a simple [Phlex](https://www.phlex.fun/) component. Here‘s what it looks like:
 
 <%= render CodeBlock::AppFile.new("app/views/components/color_schemes/css.rb", language: "ruby") %>
 
-Phlex is a Ruby gem for building object-oriented HTML components. It‘s an alternative to ERB templates. Phlex isn‘t a requirement for dynamic CSS but suits my preferences in this case.
+Phlex is a Ruby gem for building object-oriented HTML components. It‘s an alternative to ERB templates. Phlex suits my preferences in this case, but it isn‘t a requirement for dynamic CSS. You could easily write this in an ERB template instead. It might look something like this:
 
-The key point here is that we can use logic in Rails templates or components for rendering key bits of dynamic CSS at the time of the request, just as you can for HTML.
+```erb
+<%
+color_name = @color_scheme.name.parameterize
+# #to_hsla defined as a helper method
+%>
+<style>
+  :root {
+  <%= @color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla(color)};" }.join("\n\s\s") %>
+
+  <% if @my_theme %>
+    <%= @color_scheme.weights.map { |weight, color| "--my-color-#{weight}: var(--color-#{color_name}-#{weight});" }.join("\n\s\s") %>
+  <% end %>
+}
+</style>
+```
+
+The key point here is that we can use logic in Rails templates or components for rendering key bits of dynamic CSS at the time of the request, just as you can for HTML. When combined with Hotwire, this enables server-driven interactive styles like my color scheme preview.
 
 ## Controller actions aren’t just for HTML either
 
