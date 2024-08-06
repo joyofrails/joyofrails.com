@@ -23,7 +23,6 @@ gem "vite_rails", group: [:default, :wasm] # Leverage Vite to power the frontend
 gem "bcrypt", "~> 3.1.7", group: [:default, :wasm] # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "flipper", group: [:default, :wasm] # Feature flipping for Ruby [https://www.flippercloud.io/]
 gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flippercloud.io/docs/adapters/active-record]
-gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
 gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
@@ -48,6 +47,9 @@ gem "litestream" # Standalone streaming replication for SQLite [https://litestre
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
 
+# Admin
+gem "administrate" # A Rails engine that helps you put together a super-flexible admin dashboard [https://github.com/thoughtbot/administrate]
+gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
 group :development do
