@@ -256,6 +256,7 @@ jobs:
           path: public
       - run: ls -lahR public
       - run: echo ${{ secrets.RAILS_MASTER_WASM_KEY }} > config/credentials/wasm.key
+      - run: mkdir -p .wasm
       - name: Build rails wasm for web
         run: TARGET=${{ matrix.target }} bin/wasm/build
       - name: Pack rails wasm for web

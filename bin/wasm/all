@@ -3,6 +3,7 @@
 set -ex
 
 bin/rails assets:clobber assets:precompile
+mkdir -p .wasm
 TARGET=node bin/wasm/build
 TARGET=web  bin/wasm/build
 TARGET=node bin/wasm/pack
