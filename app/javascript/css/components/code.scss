@@ -48,13 +48,35 @@
     & a {
       font-family: var(--sans-serif);
       gap: 0.25rem;
-      align-items: center;
+      align-items: baseline;
       display: flex;
       font-weight: bold;
       text-decoration: none;
       & svg {
         // fill: var(--joy-light);
       }
+    }
+
+    & a svg.icon {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+
+  svg {
+    fill: currentColor;
+    color: currentColor;
+
+    &.app-dots {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    &.copy-text {
+      /* width: 24px; */
+    }
+    &.check-mark {
+      /* width: 24px; */
     }
   }
 }
@@ -97,23 +119,6 @@
 .code-action-status {
   font-size: 0.875rem;
   line-height: 1.5715;
-}
-
-svg {
-  fill: currentColor;
-  color: currentColor;
-
-  &.app-dots {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  &.copy-text {
-    /* width: 24px; */
-  }
-  &.check-mark {
-    /* width: 24px; */
-  }
 }
 
 .clipboard-copy-container {

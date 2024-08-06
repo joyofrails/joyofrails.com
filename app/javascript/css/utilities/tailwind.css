@@ -897,14 +897,6 @@
   cursor: pointer;
 }
 
-.fill-current {
-  fill: currentColor;
-}
-
-.fill-green-600 {
-  fill: #16a34a;
-}
-
 .w-\[16px\] {
   width: 16px;
 }

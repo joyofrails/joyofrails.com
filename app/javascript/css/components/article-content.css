@@ -117,9 +117,4 @@
     padding-bottom: var(--space-s);
     padding-inline-start: var(--space-s);
   }
-
-  & a svg.icon {
-    width: 1rem;
-    height: 1rem;
-  }
 }
