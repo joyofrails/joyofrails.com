@@ -48,7 +48,6 @@ gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
 
 # Admin
-gem "administrate" # A Rails engine that helps you put together a super-flexible admin dashboard [https://github.com/thoughtbot/administrate]
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
