@@ -224,6 +224,18 @@
   display: contents;
 }
 
+.table {
+  display: table;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
 .h-16 {
   height: 4rem;
 }
