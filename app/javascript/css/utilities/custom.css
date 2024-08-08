@@ -49,3 +49,19 @@
 .m-bs-m {
   margin-block-start: var(--space-m);
 }
+
+.joy-border {
+  border: 1px solid var(--joy-border);
+}
+
+.joy-border-subtle {
+  border: 1px solid var(--joy-border-subtle);
+}
+
+.joy-border-quiet {
+  border: 1px solid var(--joy-border-quiet);
+}
+
+.joy-text-subtle {
+  color: var(--joy-text-subtle);
+}
