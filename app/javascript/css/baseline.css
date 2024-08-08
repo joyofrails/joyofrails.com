@@ -247,6 +247,7 @@ dialog {
 
 textarea {
   resize: vertical;
+  min-height: 18ch;
 }
 
 input::-moz-placeholder,
@@ -581,23 +582,6 @@ pre {
   margin: 0;
   padding: 0;
   overflow-x: auto;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
-  font-size: 100%;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-  margin: 0;
-  padding: 0;
 }
 
 button,
