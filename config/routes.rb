@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, constraints: Routes::AdminAccessConstraint.new do
-    root to: "home#index", as: :admin_root
+    root to: "home#index"
 
     resources :newsletters
 
