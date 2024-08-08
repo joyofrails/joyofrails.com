@@ -17,7 +17,6 @@
 
 body > *,
 main > *,
-.grid,
 .header-content,
 .section-content,
 .footer-content,
@@ -30,6 +29,10 @@ main > * {
   row-gap: var(--grid-gutter);
 }
 
+.grid-gap {
+  grid-gap: var(--grid-gutter);
+}
+
 body > *,
 main > *,
 .header-content {
@@ -38,10 +41,6 @@ main > *,
 
 .footer-content {
   grid-template-columns: 2fr;
-}
-
-.grid {
-  grid-gap: var(--grid-gutter);
 }
 
 .grid-cols-2 {
