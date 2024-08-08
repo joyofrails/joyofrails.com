@@ -1,0 +1,11 @@
+<%= render Pages::Header.new(title: "Admin: #{@newsletter.title}") %>
+<div class="section-content container py-gap">
+  <%= render @newsletter %>
+
+  <div>
+    <%= link_to "Edit this newsletter", edit_admin_newsletter_path(@newsletter) %> |
+    <%= link_to "Back to newsletters", admin_newsletters_path %>
+
+    <%= button_to "Destroy this newsletter", [:admin, @newsletter], method: :delete %>
+  </div>
+</div>

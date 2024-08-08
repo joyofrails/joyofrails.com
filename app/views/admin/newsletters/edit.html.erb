@@ -1,0 +1,9 @@
+<%= render Pages::Header.new(title: "Newsletter: Edit") %>
+<div class="section-content container py-gap">
+  <%= render "form", newsletter: @newsletter %>
+
+  <div>
+    <%= link_to "Show this newsletter", [:admin, @newsletter] %> |
+    <%= link_to "Back to newsletters", admin_newsletters_path %>
+  </div>
+</div>

@@ -77,8 +77,10 @@ Rails.application.routes.draw do
     get "dashboard" => "users/dashboard#index", :as => :users_dashboard
   end
 
-  scope :admin, constraints: Routes::AdminAccessConstraint.new do
-    root to: "admin/home#index", as: :admin_root
+  namespace :admin, constraints: Routes::AdminAccessConstraint.new do
+    root to: "home#index", as: :admin_root
+
+    resources :newsletters
 
     unless Rails.env.wasm?
       mount Flipper::UI.app(Flipper) => "/flipper"

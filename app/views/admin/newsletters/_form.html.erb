@@ -1,0 +1,36 @@
+<%= form_with(model: [:admin, newsletter], class: "grid grid-gap") do |form| %>
+  <% if newsletter.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(newsletter.errors.count, "error") %> prohibited this newsletter from being saved:</h2>
+
+      <ul>
+        <% newsletter.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <%= form.label :title, class: "block" %>
+    <%= form.text_field :title, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] " %>
+  </fieldset>
+
+  <fieldset>
+    <%= form.label :content, class: "block" %>
+    <%= form.text_area :content, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]" %>
+  </fieldset>
+
+  <fieldset>
+    <%= form.submit class: "button primary" %>
+    <%= form.submit "Preview", class: "button secondary",
+      formaction: new_admin_newsletter_path,
+      formmethod: "get",
+      formnovalidate: true,
+      data: { turbo_frame: dom_id(newsletter, :markdown) } %>
+  </fieldset>
+
+  <%= turbo_frame_tag dom_id(newsletter, :markdown) do %>
+    <%= render newsletter %>
+  <% end %>
+<% end %>

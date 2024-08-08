@@ -1,0 +1,31 @@
+<%= render Pages::Header.new(title: "Admin: Newsletters") %>
+<div class="section-content container py-gap">
+  <div class="flex">
+    <%= link_to "New newsletter", new_admin_newsletter_path, class: "button primary" %>
+  </div>
+  <div id="newsletters" class="table">
+    <div class="table-row">
+      <div class="table-cell p-2">Title</div>
+      <div class="table-cell p-2">Sent</div>
+      <div class="table-cell p-2"></div>
+    </div>
+    <% @newsletters.each do |newsletter| %>
+      <div class="table-row">
+        <%= link_to newsletter.title, admin_newsletter_path(newsletter), class: "table-cell p-2" %>
+        <div class="table-cell p-2">
+          <% if newsletter.sent_at %>
+            <%= newsletter.sent_at.strftime("%B %d, %Y") %>
+          <% else %>
+            <span class="joy-text-subtle">Not sent</span>
+          <% end %>
+        </div>
+        <%= link_to "Edit", edit_admin_newsletter_path(newsletter), class: "table-cell p-2" %>
+      </div>
+    <% end %>
+    <div class="table-row">
+      <div class="table-cell p-2">This is an Examplle</div>
+      <div class="table-cell p-2">--</div>
+      <div class="table-cell p-2">--</div>
+    </div>
+  </div>
+</div>
