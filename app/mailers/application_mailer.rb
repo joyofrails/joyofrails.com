@@ -3,13 +3,18 @@
 class ApplicationMailer < ActionMailer::Base
   prepend_view_path "app/views/emails"
 
-  SUPPORT_EMAIL = "hello@joyofrails.com"
+  FROM_ADDRESS = Rails.configuration.settings.emails.transactional_from_address
+  FROM_NAME = Rails.configuration.settings.emails.transactional_from_name
 
-  default from: email_address_with_name(SUPPORT_EMAIL, "Joy of Rails")
+  default from: email_address_with_name(FROM_ADDRESS, FROM_NAME)
   layout "emails/mailer"
 
+  def self.test_recipient_email
+    Rails.configuration.settings.emails.test_recipient
+  end
+
   def support_email
-    email_address_with_name(SUPPORT_EMAIL, "Joy of Rails")
+    email_address_with_name(FROM_ADDRESS, FROM_NAME)
   end
 
   helper_method :support_email

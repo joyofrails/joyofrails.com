@@ -8,7 +8,7 @@ RSpec.describe Emails::MagicSessionMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Your sign-in link")
       expect(mail.to).to eq(["to@example.com"])
-      expect(mail.from).to eq(["hello@joyofrails.com"])
+      expect(mail.from).to eq(["hello@example.com"])
     end
 
     it "renders the body" do
@@ -23,7 +23,7 @@ RSpec.describe Emails::MagicSessionMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("No account found")
       expect(mail.to).to eq(["to@example.com"])
-      expect(mail.from).to eq(["hello@joyofrails.com"])
+      expect(mail.from).to eq(["hello@example.com"])
     end
 
     it "renders the body" do
