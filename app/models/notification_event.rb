@@ -14,6 +14,7 @@ class NotificationEvent < ApplicationRecord
   end
 
   has_many :notifications, dependent: :delete_all
+  has_many :recipients, through: :notifications, source: :recipient, source_type: "User"
 
   accepts_nested_attributes_for :notifications
 
@@ -69,7 +70,11 @@ class NotificationEvent < ApplicationRecord
     }
   end
 
+  def deliver_notifications_in_bulk
+    # no op
+  end
+
   def deliver_notification(notification)
-    raise NotImplementedError, "Subclasses must implement #deliver_notification"
+    # no op
   end
 end

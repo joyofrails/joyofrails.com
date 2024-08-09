@@ -1,5 +1,5 @@
 class Admin::NewslettersController < ApplicationController
-  before_action :set_newsletter, only: %i[show edit update destroy]
+  before_action :set_newsletter, only: %i[show edit update destroy deliver]
 
   # GET /admin/newsletters
   def index
@@ -45,6 +45,21 @@ class Admin::NewslettersController < ApplicationController
     redirect_to admin_newsletter_url, notice: "Newsletter was successfully destroyed.", status: :see_other
   end
 
+  # PATCH /admin/newsletters/1/deliver
+  def deliver
+    @newsletter = Newsletter.find(params[:id])
+    recipients = deliver_live? ? User.subscribers : User.where(email: ApplicationMailer.test_recipients)
+    label = deliver_live? ? "LIVE" : "TEST"
+
+    if recipients.empty?
+      return redirect_to [:admin, @newsletter], alert: "No recipients found."
+    end
+
+    NewsletterNotifier.deliver_to(recipients, newsletter: @newsletter)
+
+    redirect_to [:admin, @newsletter], notice: "[#{label}] Newsletter was successfully delivered."
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -56,4 +71,6 @@ class Admin::NewslettersController < ApplicationController
   def newsletter_params
     params.fetch(:newsletter, {}).permit(:title, :content)
   end
+
+  def deliver_live? = params[:live] == "true"
 end

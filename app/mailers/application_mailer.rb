@@ -9,8 +9,8 @@ class ApplicationMailer < ActionMailer::Base
   default from: email_address_with_name(FROM_ADDRESS, FROM_NAME)
   layout "emails/mailer"
 
-  def self.test_recipient_email
-    Rails.configuration.settings.emails.test_recipient
+  def self.test_recipients
+    [Rails.configuration.settings.emails.test_recipient].compact
   end
 
   def support_email

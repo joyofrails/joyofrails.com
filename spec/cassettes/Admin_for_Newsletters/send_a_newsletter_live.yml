@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.postmarkapp.com/email/batch
+    body:
+      encoding: UTF-8
+      string: '[{"From":"Ross from Joy of Rails \u003chello@example.com\u003e","To":"hello5@example.com","Subject":"Amet
+        vitae cumque sit.","Headers":[{"Name":"Message-ID","Value":"\u003c66b564912223e_ff4b1f04270e6@cato.mail\u003e"},{"Name":"Mime-Version","Value":"1.0"},{"Name":"Content-Transfer-Encoding","Value":"7bit"}],"MessageStream":"broadcast","HtmlBody":"\u003c!DOCTYPE
+        html\u003e\n\u003chtml\u003e\n  \u003chead\u003e\n    \u003cmeta http-equiv=\"Content-Type\"
+        content=\"text/html; charset=utf-8\"\u003e\n    \u003cstyle\u003e\n      /*
+        Email styles need to be inline */\n    \u003c/style\u003e\n  \u003c/head\u003e\n\n  \u003cbody\u003e\n    \u003ch2\u003eIure\u003c/h2\u003e\u003cp\u003eEt
+        occaecati cupiditate. Quaerat dolores adipisci. Excepturi eos maxime. Eaque
+        enim molestiae. Voluptatum hic aut. Ut \u003cs\u003eipsam\u003c/s\u003e sint.\u003c/p\u003e\n\n  \u003c/body\u003e\n\u003c/html\u003e\n","TextBody":"##
+        Iure\nEt occaecati cupiditate. Quaerat dolores adipisci. Excepturi eos maxime.\nEaque
+        enim molestiae. Voluptatum hic aut. Ut ~ipsam~ sint.\n\n"},{"From":"Ross from
+        Joy of Rails \u003chello@example.com\u003e","To":"hello7@example.com","Subject":"Amet
+        vitae cumque sit.","Headers":[{"Name":"Message-ID","Value":"\u003c66b564912687f_ff4b1f04271bf@cato.mail\u003e"},{"Name":"Mime-Version","Value":"1.0"},{"Name":"Content-Transfer-Encoding","Value":"7bit"}],"MessageStream":"broadcast","HtmlBody":"\u003c!DOCTYPE
+        html\u003e\n\u003chtml\u003e\n  \u003chead\u003e\n    \u003cmeta http-equiv=\"Content-Type\"
+        content=\"text/html; charset=utf-8\"\u003e\n    \u003cstyle\u003e\n      /*
+        Email styles need to be inline */\n    \u003c/style\u003e\n  \u003c/head\u003e\n\n  \u003cbody\u003e\n    \u003ch2\u003eIure\u003c/h2\u003e\u003cp\u003eEt
+        occaecati cupiditate. Quaerat dolores adipisci. Excepturi eos maxime. Eaque
+        enim molestiae. Voluptatum hic aut. Ut \u003cs\u003eipsam\u003c/s\u003e sint.\u003c/p\u003e\n\n  \u003c/body\u003e\n\u003c/html\u003e\n","TextBody":"##
+        Iure\nEt occaecati cupiditate. Quaerat dolores adipisci. Excepturi eos maxime.\nEaque
+        enim molestiae. Voluptatum hic aut. Ut ~ipsam~ sint.\n\n"}]'
+    headers:
+      User-Agent:
+      - Postmark Ruby Gem v1.25.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Postmark-Server-Token:
+      - POSTMARK_API_TEST
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 09 Aug 2024 00:36:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Remaining-Second:
+      - '4999'
+      X-Ratelimit-Limit-Second:
+      - '5000'
+      Ratelimit-Limit:
+      - '5000'
+      Ratelimit-Remaining:
+      - '4999'
+      Ratelimit-Reset:
+      - '1'
+      Vary:
+      - Accept-Encoding
+      - Origin
+      Strict-Transport-Security:
+      - max-age=16000000;
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"ErrorCode":0,"Message":"Test job accepted","MessageID":"7858f09f-a240-458d-9b3d-9a7df494c0e1","SubmittedAt":"2024-08-09T00:36:33.2742336Z","To":"hello5@example.com"},{"ErrorCode":0,"Message":"Test
+        job accepted","MessageID":"cb0d8663-327f-4d34-a3d6-dad07dae80cc","SubmittedAt":"2024-08-09T00:36:33.2742389Z","To":"hello7@example.com"}]'
+  recorded_at: Fri, 09 Aug 2024 00:36:33 GMT
+recorded_with: VCR 6.2.0

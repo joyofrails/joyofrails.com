@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.postmarkapp.com/email/batch
+    body:
+      encoding: UTF-8
+      string: '[{"From":"Ross from Joy of Rails \u003chello@example.com\u003e","To":"hello@example.com","Subject":"Amet
+        vitae cumque sit.","Headers":[{"Name":"Message-ID","Value":"\u003c66b55cb7470f2_60c41f0489678@cato.mail\u003e"},{"Name":"Mime-Version","Value":"1.0"},{"Name":"Content-Transfer-Encoding","Value":"7bit"}],"MessageStream":"broadcast","HtmlBody":"\u003c!DOCTYPE
+        html\u003e\n\u003chtml\u003e\n  \u003chead\u003e\n    \u003cmeta http-equiv=\"Content-Type\"
+        content=\"text/html; charset=utf-8\"\u003e\n    \u003cstyle\u003e\n      /*
+        Email styles need to be inline */\n    \u003c/style\u003e\n  \u003c/head\u003e\n\n  \u003cbody\u003e\n    \n  \u003c/body\u003e\n\u003c/html\u003e\n"}]'
+    headers:
+      User-Agent:
+      - Postmark Ruby Gem v1.25.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Postmark-Server-Token:
+      - POSTMARK_API_TEST
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 09 Aug 2024 00:03:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Remaining-Second:
+      - '4999'
+      X-Ratelimit-Limit-Second:
+      - '5000'
+      Ratelimit-Limit:
+      - '5000'
+      Ratelimit-Remaining:
+      - '4999'
+      Ratelimit-Reset:
+      - '1'
+      Vary:
+      - Accept-Encoding
+      - Origin
+      Strict-Transport-Security:
+      - max-age=16000000;
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"ErrorCode":0,"Message":"Test job accepted","MessageID":"f1d17f04-5aa1-4220-9734-a58f2a40778a","SubmittedAt":"2024-08-09T00:03:03.4155484Z","To":"hello@example.com"}]'
+  recorded_at: Fri, 09 Aug 2024 00:03:03 GMT
+recorded_with: VCR 6.2.0

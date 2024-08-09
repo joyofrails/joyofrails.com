@@ -80,7 +80,11 @@ Rails.application.routes.draw do
   namespace :admin, constraints: Routes::AdminAccessConstraint.new do
     root to: "home#index"
 
-    resources :newsletters
+    resources :newsletters do
+      member do
+        post :deliver
+      end
+    end
 
     unless Rails.env.wasm?
       mount Flipper::UI.app(Flipper) => "/flipper"
