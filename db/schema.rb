@@ -112,6 +112,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_232759) do
     t.datetime "sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sent_at"], name: "index_newsletters_on_sent_at"
   end
 
   create_table "notification_events", force: :cascade do |t|

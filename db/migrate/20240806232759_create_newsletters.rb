@@ -4,7 +4,7 @@ class CreateNewsletters < ActiveRecord::Migration[7.1]
       t.primary_key :id, :string, default: -> { "ULID()" }
       t.string :title, null: false
       t.text :content, null: false
-      t.datetime :sent_at
+      t.datetime :sent_at, index: true
 
       t.timestamps
     end
