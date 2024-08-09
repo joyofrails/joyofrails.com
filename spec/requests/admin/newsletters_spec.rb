@@ -13,44 +13,43 @@ require "rails_helper"
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/admin/newsletters", type: :request do
-  # This should return the minimal set of attributes required to create a valid
-  # Newsletter. As you add validations to Newsletter, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { FactoryBot.attributes_for(:newsletter) }
+  let(:invalid_attributes) { {title: "", content: ""} }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  describe "GET /index" do
+  describe "GET /" do
     it "renders a successful response" do
-      Newsletter.create! valid_attributes
-      get admin_newsletters_url
+      FactoryBot.create(:newsletter)
+
+      get admin_newsletters_path
+
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      newsletter = Newsletter.create! valid_attributes
-      get admin_newsletter_url(newsletter)
+      newsletter = FactoryBot.create(:newsletter)
+
+      get admin_newsletter_path(newsletter)
+
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_admin_newsletter_url
+      get new_admin_newsletter_path
+
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      newsletter = Newsletter.create! valid_attributes
-      get edit_admin_newsletter_url(newsletter)
+      newsletter = FactoryBot.create(:newsletter)
+
+      get edit_admin_newsletter_path(newsletter)
+
       expect(response).to be_successful
     end
   end
@@ -59,25 +58,25 @@ RSpec.describe "/admin/newsletters", type: :request do
     context "with valid parameters" do
       it "creates a new Newsletter" do
         expect {
-          post admin_newsletters_url, params: {admin_newsletter: valid_attributes}
+          post admin_newsletters_path, params: {newsletter: valid_attributes}
         }.to change(Newsletter, :count).by(1)
       end
 
       it "redirects to the created admin_newsletter" do
-        post admin_newsletters_url, params: {admin_newsletter: valid_attributes}
-        expect(response).to redirect_to(admin_newsletter_url(Newsletter.last))
+        post admin_newsletters_path, params: {newsletter: valid_attributes}
+        expect(response).to redirect_to(admin_newsletter_path(Newsletter.last))
       end
     end
 
     context "with invalid parameters" do
       it "does not create a new Newsletter" do
         expect {
-          post admin_newsletters_url, params: {admin_newsletter: invalid_attributes}
+          post admin_newsletters_path, params: {newsletter: invalid_attributes}
         }.to change(Newsletter, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post admin_newsletters_url, params: {admin_newsletter: invalid_attributes}
+        post admin_newsletters_path, params: {newsletter: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -85,29 +84,27 @@ RSpec.describe "/admin/newsletters", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) { {title: "A New Title"} }
 
       it "updates the requested admin_newsletter" do
-        newsletter = Newsletter.create! valid_attributes
-        patch admin_newsletter_url(newsletter), params: {admin_newsletter: new_attributes}
+        newsletter = FactoryBot.create(:newsletter)
+        patch admin_newsletter_path(newsletter), params: {newsletter: new_attributes}
         newsletter.reload
-        skip("Add assertions for updated state")
+        expect(newsletter.title).to eq("A New Title")
       end
 
       it "redirects to the admin_newsletter" do
-        newsletter = Newsletter.create! valid_attributes
-        patch admin_newsletter_url(newsletter), params: {admin_newsletter: new_attributes}
+        newsletter = FactoryBot.create(:newsletter)
+        patch admin_newsletter_path(newsletter), params: {newsletter: new_attributes}
         newsletter.reload
-        expect(response).to redirect_to(admin_newsletter_url(newsletter))
+        expect(response).to redirect_to(admin_newsletter_path(newsletter))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        newsletter = Newsletter.create! valid_attributes
-        patch admin_newsletter_url(newsletter), params: {admin_newsletter: invalid_attributes}
+        newsletter = FactoryBot.create(:newsletter)
+        patch admin_newsletter_path(newsletter), params: {newsletter: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -115,16 +112,16 @@ RSpec.describe "/admin/newsletters", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested admin_newsletter" do
-      newsletter = Newsletter.create! valid_attributes
+      newsletter = FactoryBot.create(:newsletter)
       expect {
-        delete admin_newsletter_url(newsletter)
+        delete admin_newsletter_path(newsletter)
       }.to change(Newsletter, :count).by(-1)
     end
 
     it "redirects to the admin_newsletters list" do
-      newsletter = Newsletter.create! valid_attributes
-      delete admin_newsletter_url(newsletter)
-      expect(response).to redirect_to(admin_newsletters_url)
+      newsletter = FactoryBot.create(:newsletter)
+      delete admin_newsletter_path(newsletter)
+      expect(response).to redirect_to(admin_newsletters_path)
     end
   end
 end

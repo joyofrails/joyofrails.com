@@ -42,13 +42,13 @@ class Admin::NewslettersController < ApplicationController
   # DELETE /admin/newsletters/1
   def destroy
     @newsletter.destroy!
-    redirect_to admin_newsletter_url, notice: "Newsletter was successfully destroyed.", status: :see_other
+    redirect_to admin_newsletters_path, notice: "Newsletter was successfully destroyed.", status: :see_other
   end
 
   # PATCH /admin/newsletters/1/deliver
   def deliver
     @newsletter = Newsletter.find(params[:id])
-    recipients = deliver_live? ? User.subscribers : User.where(email: ApplicationMailer.test_recipients)
+    recipients = deliver_live? ? User.subscribers : User.test_recipients
     label = deliver_live? ? "LIVE" : "TEST"
 
     if recipients.empty?
