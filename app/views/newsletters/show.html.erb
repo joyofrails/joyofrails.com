@@ -1,0 +1,4 @@
+<%= render Pages::Header.new(title: @newsletter.title, published_on: @newsletter.sent_at&.to_date) %>
+<div class="section-content container py-gap">
+  <%= render @newsletter %>
+</div>
