@@ -1,1 +1,5 @@
 <%= render Markdown::Base.new(@newsletter.content.html_safe) %>
+
+<hr>
+
+<%= link_to "Unsubscribe", @unsubscribe_url %> | <%= Rails.application.credentials.company.mailing_address %>
