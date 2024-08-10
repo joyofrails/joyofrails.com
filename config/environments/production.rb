@@ -77,7 +77,7 @@ Rails.application.configure do
 
   # Configure Postmark
   config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = {api_token: Rails.application.credentials.postmark&.api_token || "POSTMARK_API_TEST"}
+  config.action_mailer.postmark_settings = {api_token: config.settings.postmark_api_token}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

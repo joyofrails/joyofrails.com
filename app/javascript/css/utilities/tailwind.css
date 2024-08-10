@@ -224,6 +224,18 @@
   display: contents;
 }
 
+.table {
+  display: table;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -973,4 +985,12 @@ focus\:ring-0:focus {
 
 .grid-flow-dense {
   grid-auto-flow: dense;
+}
+
+.only\:inherit {
+  display: hidden;
+
+  &:only-child {
+    display: inherit;
+  }
 }

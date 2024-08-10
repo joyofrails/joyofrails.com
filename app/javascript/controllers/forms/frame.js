@@ -3,6 +3,8 @@ import debug from '../../utils/debug';
 
 const console = debug('app:javascript:controllers:forms:frame');
 
+// This controller is used to handle form submissions that should redirect out
+// of a Turbo Frame.
 export default class extends Controller {
   static targets = ['refreshButton'];
   static values = {

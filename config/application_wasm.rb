@@ -64,5 +64,10 @@ module Joy
     end
 
     config.solid_cable = ActiveSupport::OrderedOptions.new
+
+    # Set up custom settings
+    config.settings = ActiveSupport::OrderedOptions.new
+
+    config.settings.postmark_api_token = "POSTMARK_API_TEST"
   end
 end

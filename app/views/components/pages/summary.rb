@@ -24,7 +24,7 @@ class Pages::Summary < ApplicationComponent
   end
 
   def view_template
-    div(class: "page-summary grid lg:grid-cols-2 lg:grid-flow-col") do
+    div(class: "page-summary grid grid-gap lg:grid-cols-2 lg:grid-flow-col") do
       case @side
       when "left"
         content(class: "grid grid-row-tight lg:text-right lg:grid-column-start-1")

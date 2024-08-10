@@ -10,17 +10,14 @@ Rails.application.routes.draw do
   sitepress_root controller: :site
   sitepress_pages controller: :site
 
+  resources :newsletters, only: [:index, :show]
+
   namespace :examples do
     resource :counters, only: [:show, :update, :destroy]
     resource :hello, only: [:show]
     resources :posts, only: [:index, :create, :new]
   end
   resources :examples, only: [:index, :show]
-
-  namespace :pwa do
-    resource :installation_instructions, only: [:show]
-    resources :web_pushes, only: [:create]
-  end
 
   resources :feed, only: [:index], format: "atom"
 
@@ -33,6 +30,11 @@ Rails.application.routes.draw do
       end
     end
     resource :syntax_highlight, only: [:show, :update]
+  end
+
+  namespace :pwa do
+    resource :installation_instructions, only: [:show]
+    resources :web_pushes, only: [:create]
   end
 
   namespace :users do
@@ -77,8 +79,14 @@ Rails.application.routes.draw do
     get "dashboard" => "users/dashboard#index", :as => :users_dashboard
   end
 
-  scope :admin, constraints: Routes::AdminAccessConstraint.new do
-    root to: "admin/home#index", as: :admin_root
+  namespace :admin, constraints: Routes::AdminAccessConstraint.new do
+    root to: "home#index"
+
+    resources :newsletters do
+      member do
+        patch :deliver
+      end
+    end
 
     unless Rails.env.wasm?
       mount Flipper::UI.app(Flipper) => "/flipper"

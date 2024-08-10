@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_210414) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_232759) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -104,6 +104,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_210414) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subscriber_type", "subscriber_id"], name: "index_newsletter_subscriptions_on_subscriber", unique: true
+  end
+
+  create_table "newsletters", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sent_at"], name: "index_newsletters_on_sent_at"
   end
 
   create_table "notification_events", force: :cascade do |t|

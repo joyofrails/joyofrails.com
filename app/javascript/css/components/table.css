@@ -1,0 +1,20 @@
+.table {
+  & .table-row:nth-child(odd) {
+    background-color: var(--color-slate-200);
+  }
+  & .table-row:first-child {
+    background-color: var(--joy-color-200);
+  }
+}
+
+.dark {
+  .table {
+    & .table-row:nth-child(odd) {
+      background-color: var(--color-slate-800);
+    }
+
+    & .table-row:first-child {
+      background-color: var(--joy-color-950);
+    }
+  }
+}

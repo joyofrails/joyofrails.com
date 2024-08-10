@@ -8,7 +8,10 @@ class User < ApplicationRecord
 
   has_one :newsletter_subscription, as: :subscriber, dependent: :destroy
 
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :recently_confirmed, -> { where("confirmed_at > ?", 2.weeks.ago) }
+  scope :subscribers, -> { confirmed.joins(:newsletter_subscription) }
+  scope :test_recipients, -> { where(email: ApplicationMailer.test_recipients) }
 
   accepts_nested_attributes_for :email_exchanges, limit: 1
 

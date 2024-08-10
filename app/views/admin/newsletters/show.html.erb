@@ -1,0 +1,16 @@
+<%= render Pages::Header.new(title: "Admin: #{@newsletter.title}") %>
+<div class="section-content container py-gap">
+  <div class="flex gap-x-2">
+    <%= button_to "Send Test", deliver_admin_newsletter_path(@newsletter), method: :patch, class: "button secondary" %>
+    <%= button_to "Send Live", deliver_admin_newsletter_path(@newsletter, live: true), method: :patch, class: "button primary" %>
+  </div>
+
+  <%= render @newsletter %>
+
+  <div class="flex col-gap-m">
+    <%= link_to "Back to newsletters", admin_newsletters_path %>
+    <%= link_to "Public Show", @newsletter %>
+    <%= link_to "Edit this newsletter", edit_admin_newsletter_path(@newsletter) %>
+    <%= button_to "Destroy this newsletter", [:admin, @newsletter], method: :delete %>
+  </div>
+</div>
