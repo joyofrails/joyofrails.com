@@ -120,15 +120,33 @@ irb> Mime::SET.collect(&:to_s)
 ["text/html", "text/plain", "text/javascript", "text/css", "text/calendar", "text/csv", "text/vcard", "text/vtt", "image/png", "image/jpeg", "image/gif", "image/bmp", "image/tiff", "image/svg+xml", "image/webp", "video/mpeg", "audio/mpeg", "audio/ogg", "audio/aac", "video/webm", "video/mp4", "font/otf", "font/ttf", "font/woff", "font/woff2", "application/xml", "application/rss+xml", "application/atom+xml", "application/x-yaml", "multipart/form-data", "application/x-www-form-urlencoded", "application/json", "application/pdf", "application/zip", "application/gzip", "text/vnd.turbo-stream.html"]
 ```
 
-In Rails `mime_types.rb`, we can see the registered MIME types with each of their recognized extensions.
+In Rails `mime_types.rb`, we can see the registered MIME types with each of their recognized extensions. Here‘s the original `mime_types.rb`, added to Rails on Dec 2, 2006 ([source](https://github.com/rails/rails/blob/5410f2cb74737bd6d96c226230c2b9c2bfe1d80b/actionpack/lib/action_controller/mime_types.rb 'Source code on Github')).
 
-That `:css` in the MIME type registry is one way to instruct Rails controller behavior with `respond_to`.
+```ruby:{"show_header": false}
+Mime::Type.register "*/*", :all
+Mime::Type.register "text/plain", :text
+Mime::Type.register "text/html", :html, %w( application/xhtml+xml ), %w( xhtml )
+Mime::Type.register "text/javascript", :js, %w( application/javascript application/x-javascript )
+Mime::Type.register "text/calendar", :ics
+Mime::Type.register "text/csv", :csv
+Mime::Type.register "application/xml", :xml, %w( text/xml application/x-xml )
+Mime::Type.register "application/rss+xml", :rss
+Mime::Type.register "application/atom+xml", :atom
+```
+
+Support for CSS was added a short time later on Feb 17, 2007 ([commit](https://github.com/rails/rails/commit/392c7f7314d196c54912a65981d79002d032f896 'Commit on Github')).
+
+```diff:{"show_header": false}
++ Mime::Type.register "text/css", :css
+```
+
+We can take advantage of these registered MIME types to instruct Rails controller behavior with `respond_to`.
 
 Using `respond_to` in a controller allows you to define responses and logic based on the requested format. Here‘s how I take advantage of this behavior in `ColorSchemesController#show`:
 
 <%= render CodeBlock::AppFile.new("app/controllers/color_schemes_controller.rb", lines: [1, 8..17], language: "ruby", revision: "bd53833b03c7f957546e5a9031643d3beb179beb") %>
 
-This controller action will respond differently for HTML and CSS requests. To demonstrate the difference, I've inserted two iframes for `ColorSchemesController#show` below:
+This controller action will respond differently for HTML and CSS requests. Note the `format.html` and `format.css` blocks describe alternate results. To demonstrate the difference, I've inserted two iframes for `ColorSchemesController#show` below:
 
 #### Iframe for HTML request
 
