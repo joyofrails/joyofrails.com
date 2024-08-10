@@ -19,13 +19,11 @@
             <span class="joy-text-subtle">Not sent</span>
           <% end %>
         </div>
-        <%= link_to "Edit", edit_admin_newsletter_path(newsletter), class: "table-cell p-2" %>
+        <div class="table-cell p-2">
+          <%= link_to "Public Show", newsletter %> |
+          <%= link_to "Edit", edit_admin_newsletter_path(newsletter) %>
+        </div>
       </div>
     <% end %>
-    <div class="table-row">
-      <div class="table-cell p-2">This is an Examplle</div>
-      <div class="table-cell p-2">--</div>
-      <div class="table-cell p-2">--</div>
-    </div>
   </div>
 </div>

@@ -77,6 +77,14 @@ main > *,
   grid-column: col-start 1 / span var(--grid-columns);
 }
 
+.row-gap-m {
+  row-gap: var(--space-m);
+}
+
+.col-gap-m {
+  column-gap: var(--space-m);
+}
+
 @media screen and (min-width: $screen-lg) {
   .article-content > *,
   .grid-content > * {
