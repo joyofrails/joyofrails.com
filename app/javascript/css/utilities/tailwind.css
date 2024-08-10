@@ -986,3 +986,11 @@ focus\:ring-0:focus {
 .grid-flow-dense {
   grid-auto-flow: dense;
 }
+
+.only\:inherit {
+  display: hidden;
+
+  &:only-child {
+    display: inherit;
+  }
+}
