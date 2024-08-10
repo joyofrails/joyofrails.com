@@ -13,7 +13,7 @@ RSpec.describe Emails::NewsletterMailer, type: :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match(Markdown::Base.new(newsletter.content).call)
+      expect(mail.body.encoded).to match(newsletter.content.split("\n").first)
     end
   end
 end

@@ -4,7 +4,7 @@ FactoryBot.define do
     content { Faker::Markdown.sandwich(sentences: 3) }
 
     trait :sent do
-      sent_at { 1.day.ago }
+      sent_at { |n| n.days.ago }
     end
   end
 end

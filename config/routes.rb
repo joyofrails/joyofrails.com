@@ -84,7 +84,7 @@ Rails.application.routes.draw do
 
     resources :newsletters do
       member do
-        post :deliver
+        patch :deliver
       end
     end
 

@@ -1,6 +1,4 @@
 class Admin::NewslettersController < ApplicationController
-  before_action :set_newsletter, only: %i[show edit update destroy deliver]
-
   # GET /admin/newsletters
   def index
     @newsletters = Newsletter.all
@@ -8,6 +6,7 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/1
   def show
+    @newsletter = Newsletter.find(params[:id])
   end
 
   # GET /admin/newsletters/new
@@ -17,6 +16,7 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/1/edit
   def edit
+    @newsletter = Newsletter.find(params[:id])
   end
 
   # POST /admin/newsletters
@@ -32,6 +32,8 @@ class Admin::NewslettersController < ApplicationController
 
   # PATCH/PUT /admin/newsletters/1
   def update
+    @newsletter = Newsletter.find(params[:id])
+
     if @newsletter.update(newsletter_params)
       redirect_to [:admin, @newsletter], notice: "Newsletter was successfully updated.", status: :see_other
     else
@@ -41,31 +43,30 @@ class Admin::NewslettersController < ApplicationController
 
   # DELETE /admin/newsletters/1
   def destroy
+    @newsletter = Newsletter.find(params[:id])
+
     @newsletter.destroy!
+
     redirect_to admin_newsletters_path, notice: "Newsletter was successfully destroyed.", status: :see_other
   end
 
   # PATCH /admin/newsletters/1/deliver
   def deliver
     @newsletter = Newsletter.find(params[:id])
+
     recipients = deliver_live? ? User.subscribers : User.test_recipients
     label = deliver_live? ? "LIVE" : "TEST"
 
     if recipients.empty?
-      return redirect_to [:admin, @newsletter], alert: "No recipients found."
+      return redirect_to [:admin, @newsletter], alert: "No recipients fond."
     end
 
-    NewsletterNotifier.deliver_to(recipients, newsletter: @newsletter)
+    NewsletterNotifier.deliver_to(recipients, newsletter: @newsletter, live: deliver_live?)
 
     redirect_to [:admin, @newsletter], notice: "[#{label}] Newsletter was successfully delivered."
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_newsletter
-    @newsletter = Newsletter.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def newsletter_params
