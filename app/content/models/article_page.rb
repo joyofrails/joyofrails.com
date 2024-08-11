@@ -7,8 +7,9 @@ class ArticlePage < Sitepress::Model
 
   delegate :mime_type, :handler, to: :page
 
-  def self.published
-    all.filter(&:published?)
+  def self.published(params = {})
+    all
+      .filter { |article| article.published?(preview: params[:preview]) }
       .sort { |a, b| b.published_on <=> a.published_on } # DESC order
   end
 
@@ -16,8 +17,10 @@ class ArticlePage < Sitepress::Model
     all.filter(&:draft?)
   end
 
-  def published?
-    published_on.presence && published_on <= Date.today
+  # Consider an article published if it has a published date prior to today.
+  # If preview is true, consider the article published regardless of the date.
+  def published?(preview: false)
+    published_on.presence && (preview || published_on <= Date.today)
   end
 
   def draft? = !published?
