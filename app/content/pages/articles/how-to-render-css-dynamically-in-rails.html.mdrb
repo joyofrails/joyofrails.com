@@ -180,7 +180,7 @@ We can use this endpoint in a stylesheet `<link>` tag just like any other static
 <%= stylesheet_link_tag color_scheme_path(@color_scheme, format: :css) %>
 ```
 
-A downside of moving our dynamic CSS to a separate controller action is that it requires an additional HTTP request. This could be an issue for a highly interactive user experience. But on the other hand, using a separate request allows you to take advantage of Rails [conditional GET features](https://guides.rubyonrails.org/v3.2/caching_with_rails.html#conditional-get-support)
+One downside of moving our dynamic CSS to a separate controller action is that it requires an additional HTTP request. This could be an issue for a highly interactive user experience. But on the other hand, using a separate request allows you to take advantage of Rails [conditional GET features](https://guides.rubyonrails.org/v3.2/caching_with_rails.html#conditional-get-support)
 
 > Conditional GETs are a feature of the HTTP specification that provide a way for web servers to tell browsers that the response to a GET request hasn't changed since the last request and can be safely pulled from the browser cache.
 >
@@ -193,6 +193,15 @@ Below, I‘ve modified the `ColorSchemesController#show` to use the `stale?` met
 This method will calculate a value for `Etag` or `Last-Modified` response headers and set the status to `304 Not Modified` if request headers match and the server doesn’t need to render anything.
 
 In short, dynamic CSS combined with a conditional GET allows you to leverage put Ruby logic behind your stylesheet link tags in a performant manner.
+
+## Which approach is right for you?
+
+There‘s no one right answer here but consider the tradeoffs. Both work well with Hotwire; just like any other element, our style tags and stylesheet link tags can be nested inside a Turbo Frame or can be manipulated with a Turbo Stream if we need some interactivity. With a `<style>` tag, no extra requests to your Rails endpoints are needed to render the page. Separating dynamic css into a controller action can help address bandwidth as response body length as your dynamic styles grow more numerous.
+
+My thought process is usually:
+
+- start with dynamic css straight into HTML within a `<style>`
+- move to a controller action when more flexibility is needed or when HTTP caching features are desired
 
 ## Recap
 
