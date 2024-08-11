@@ -12,10 +12,8 @@ module ApplicationCable
     private
 
     def find_verified_admin_user
-      env["warden"].user(scope: :admin_user) || reject_unauthorized_connection
+      env["warden"]&.user(scope: :admin_user) || reject_unauthorized_connection
     end
-
-    private
 
     def report_error(e)
       Rails.logger.error(e)

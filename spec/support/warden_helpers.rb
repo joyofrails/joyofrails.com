@@ -13,6 +13,7 @@ module WardenHelpers
 end
 
 RSpec.configure do |config|
+  config.include WardenHelpers, type: :channel
   config.include WardenHelpers, type: :request
   config.include WardenHelpers, type: :system
 
