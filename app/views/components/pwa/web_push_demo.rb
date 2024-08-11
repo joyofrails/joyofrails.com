@@ -21,7 +21,7 @@ class Pwa::WebPushDemo < Phlex::HTML
       render Pwa::WebPushSubscription.new(web_push_key: web_push_key)
 
       p(class: "mt-6 mb-4") do
-        "Try sending a web push notificaiton using the form below."
+        "Try sending a web push notification using the form below."
       end
 
       form_for :web_push,
