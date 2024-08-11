@@ -7,9 +7,4 @@ module ArticlesHelper
       render CodeBlock::AppFile.new(filename, **)
     end
   end
-
-  def example_color_scheme_css
-    color_scheme = ColorScheme.find_by(name: "Custom Watercourse") || ColorScheme.cached_default
-    ColorSchemes::Css.new(color_scheme: color_scheme).call
-  end
 end
