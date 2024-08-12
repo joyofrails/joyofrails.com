@@ -18,7 +18,7 @@ Let‘s talk about how to render CSS dynamically with Ruby on Rails.
 
 Most of the time, you might think of CSS as a static asset. But sometimes you want _dynamic_ CSS. Maybe end-user preferences, results of an A/B test, or some organizational data in the system should determine what styles to present.
 
-In this post, we‘ll talk about some techniques and considerations to accomplish this in Rails. In my [previous article](/articles/color-schemes-with-ruby-on-rails), I used Hotwire to let you, the reader, preview and safe different color schemes for this site. As a recap, here‘s a slim demo so you can see how it works:
+In this post, we‘ll talk about some techniques and considerations to accomplish this in Rails. In my [previous article](/articles/color-schemes-with-ruby-on-rails), I used Hotwire to let you, the reader, preview and save different color schemes for this site. As a recap, here‘s a slim demo so you can see how it works:
 
 <%= turbo_frame_tag "color-scheme-preview", src: preview_settings_color_scheme_path(custom_color_scheme_params), class: "grid-cols-12 lg:grid-cols-12 m-bs-m" %>
 <noscript>
