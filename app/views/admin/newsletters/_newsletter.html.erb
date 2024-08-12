@@ -1,3 +1,3 @@
-<div id="<%= dom_id newsletter %>" class="joy-border p-4">
+<div id="<%= dom_id(newsletter, :markdown) %>" class="article-content joy-border-subtle p-4 mx--4">
   <%= basic_markdown (newsletter&.content || "").html_safe %>
 </div>
