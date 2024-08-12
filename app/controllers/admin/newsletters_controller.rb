@@ -17,6 +17,7 @@ class Admin::NewslettersController < ApplicationController
   # GET /admin/newsletters/1/edit
   def edit
     @newsletter = Newsletter.find(params[:id])
+    @newsletter.assign_attributes(newsletter_params)
   end
 
   # POST /admin/newsletters

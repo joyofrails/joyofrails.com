@@ -24,7 +24,7 @@
   <fieldset>
     <%= form.submit class: "button primary" %>
     <%= form.submit "Preview", class: "button secondary",
-      formaction: new_admin_newsletter_path,
+      formaction: (newsletter.persisted? ? edit_admin_newsletter_path(newsletter) : new_admin_newsletter_path),
       formmethod: "get",
       formnovalidate: true,
       data: { turbo_frame: dom_id(newsletter, :markdown) } %>
