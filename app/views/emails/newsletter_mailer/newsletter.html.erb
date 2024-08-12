@@ -1,5 +1,9 @@
 <%= render Markdown::Base.new(@newsletter.content.html_safe) %>
 
+--Ross
+
+P.S. You can also <%= link_to "visit Joy of Rails to view this email", newsletter_url(@newsletter) %>.
+
 <hr>
 
 <%= link_to "Unsubscribe", @unsubscribe_url %> | <%= Rails.application.credentials.company.mailing_address %>

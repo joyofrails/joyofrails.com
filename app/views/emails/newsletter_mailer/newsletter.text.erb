@@ -1,5 +1,9 @@
 <%= @newsletter.content %>
 
+-- Ross
+
+P.S. [You can also visit Joy of Rails to view this email](<%= newsletter_url(@newsletter) %>).
+
 * * *
 
 [Unsubscribe](<%= @unsubscribe_url %>) | <%= Rails.application.credentials.company.mailing_address %>
