@@ -3,9 +3,6 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    before_action :current_admin_user
-    before_action :current_user
-
     helper_method :current_admin_user
     helper_method :current_user
     helper_method :user_signed_in?

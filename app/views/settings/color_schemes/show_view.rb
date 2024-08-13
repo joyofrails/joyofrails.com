@@ -27,7 +27,7 @@ class Settings::ColorSchemes::ShowView < ApplicationView
     render Pages::Header.new(title: "Settings: Color Scheme")
 
     section(class: "section-content container py-gap") do
-      turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance"} do
+      turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance", controller: "analytics", analytics_event_value: "Color Scheme Update"} do
         style do
           render(ColorSchemes::Css.new(color_scheme: @session_color_scheme)) if @session_color_scheme
           render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))
@@ -122,7 +122,8 @@ class Settings::ColorSchemes::ShowView < ApplicationView
     button_to "Save #{@preview_color_scheme.display_name}",
       settings_color_scheme_path(settings: {color_scheme_id: @preview_color_scheme.id}),
       method: :patch,
-      class: "button primary"
+      class: "button primary",
+      data: send_analytics
   end
 
   def unsave_button
@@ -130,7 +131,8 @@ class Settings::ColorSchemes::ShowView < ApplicationView
       settings_color_scheme_path(settings: {color_scheme_id: ColorScheme.cached_default.id}),
       method: :patch,
       class: "button warn",
-      style: "min-width: 25ch;"
+      style: "min-width: 25ch;",
+      data: {confirm: "Are you sure you want to delete your saved color scheme?", **send_analytics}
   end
 
   def reset_button
@@ -164,5 +166,9 @@ class Settings::ColorSchemes::ShowView < ApplicationView
 
   def inline_style_header_color(color_scheme)
     "color: var(--color-#{color_scheme.name.parameterize}-500)"
+  end
+
+  def send_analytics
+    {action: "analytics#send"}
   end
 end
