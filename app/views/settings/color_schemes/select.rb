@@ -25,7 +25,8 @@ class Settings::ColorSchemes::Select < ApplicationComponent
               selected: previewing? && @settings.color_scheme.id
             },
             onchange: "this.form.requestSubmit()",
-            class: ""
+            class: "",
+            data: send_analytics
           )
           noscript { f.submit "Preview", class: "button primary" }
         end
@@ -35,7 +36,8 @@ class Settings::ColorSchemes::Select < ApplicationComponent
 
       link_to "I feel lucky!",
         url_for(settings: {color_scheme_id: random_curated_color_scheme_id}),
-        class: "button secondary "
+        class: "button secondary",
+        data: send_analytics
     end
   end
 
@@ -50,5 +52,9 @@ class Settings::ColorSchemes::Select < ApplicationComponent
   def random_curated_color_scheme_id
     _display_name, id = cached_curated_color_scheme_options.sample
     id
+  end
+
+  def send_analytics
+    {action: "analytics#send"}
   end
 end
