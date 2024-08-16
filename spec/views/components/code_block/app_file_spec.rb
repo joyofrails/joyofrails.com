@@ -5,12 +5,17 @@ RSpec.describe CodeBlock::AppFile, type: :view do
     Capybara.string(render(*, **))
   end
 
+  before do
+    allow(view).to receive(:headers).and_return({"Content-Type" => "text/html"})
+  end
+
   it "renders contents of file" do
     page = render_page(CodeBlock::AppFile.new("config/database.yml"))
     expect(page).to have_content(<<~YAML)
       default: &default
         adapter: sqlite3
     YAML
+    expect(page).to have_content("config/database.yml")
   end
 
   it "renders contents of file by line number" do
@@ -41,5 +46,17 @@ RSpec.describe CodeBlock::AppFile, type: :view do
 
     expect(page).to have_content("database: storage/production/data.sqlite3")
     expect(page).not_to have_content("database: storage/development/data.sqlite3")
+  end
+
+  it "renders basic code block when content type is atom" do
+    allow(view).to receive(:headers).and_return({"Content-Type" => "application/atom+xml"})
+
+    page = render_page(CodeBlock::AppFile.new("config/database.yml"))
+    expect(page).to have_content(<<~YAML)
+      default: &default
+        adapter: sqlite3
+    YAML
+
+    expect(page).not_to have_content("config/database.yml")
   end
 end

@@ -9,7 +9,7 @@ atom_feed do |feed|
       url: request.base_url + article.request_path
     ) do |entry|
       entry.title(article.title)
-      entry.content(Atom::EntryContent.new(article).render, type: "html")
+      entry.content(Atom::EntryContent.new(article, request: request).render, type: "html")
 
       entry.author do |author|
         author.name(article.author)

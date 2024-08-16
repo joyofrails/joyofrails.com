@@ -10,6 +10,11 @@ class CodeBlock::AppFile < ApplicationComponent
   end
 
   def view_template
+    # When an AppFile code block renders within an Atom feed, we want to render the basic code block
+    if content_type?("application/atom+xml")
+      return render ::CodeBlock::Basic.new(source, **attributes)
+    end
+
     render ::CodeBlock::Article.new(**attributes) do |code_block|
       code_block.title do
         link(app_file.repo_url, "Source code on Github", class: "nc") {
@@ -30,5 +35,9 @@ class CodeBlock::AppFile < ApplicationComponent
 
   def source
     app_file.source(lines: lines)
+  end
+
+  def content_type?(type)
+    helpers.headers["Content-Type"].to_s =~ %r{#{Regexp.escape(type)}}
   end
 end
