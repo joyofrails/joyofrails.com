@@ -50,7 +50,7 @@ class Atom::EntryContent
       inline: article.body,
       type: :"mdrb-atom",
       layout: false,
-      content_type: article.mime_type.to_s,
+      content_type: "application/atom+xml",
       assigns: {
         format: :atom
       }
