@@ -10,6 +10,7 @@
     "chroma-js": "^2.4.2",
     "debug": "^4.3.4",
     "dracula-ui": "^1.0.6",
+    "html-to-image": "^1.11.11",
     "postcss-import": "^16.1.0",
     "system-font-css": "^2.0.2"
   },
