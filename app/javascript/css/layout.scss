@@ -99,10 +99,10 @@ main > *,
     grid-row-start: span 4;
   }
 
-  // For making code blocks span the full width of the article
-  // .article-content > .code-wrapper {
-  //   grid-column: col-start / span var(--grid-columns);
-  // }
+  // For making blocks span the full width of the article
+  .article-content > .stretch {
+    grid-column: col-start / span var(--grid-columns);
+  }
 }
 
 .grid-cols-12 {
