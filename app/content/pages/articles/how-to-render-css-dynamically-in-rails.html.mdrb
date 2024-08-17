@@ -25,6 +25,8 @@ In this post, we‘ll talk about some techniques and considerations to accomplis
 JavaScript not enabled? Go to the <%= link_to "color scheme demo", settings_color_scheme_path(custom_color_scheme_params) %>. Then come back when you’re done.
 </noscript>
 
+(You can visit [the settings page](/settings/color_scheme) to save your preferred color scheme to your session.)
+
 ## ERB isn‘t just for HTML
 
 The color scheme preview relies on Ruby embedded in HTML templates on the server to render CSS into a `<style>` tag.
