@@ -16,7 +16,7 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/development/data.sqlite3
+    database: storage/development/data-<%= (`git branch --show-current`.chomp || 'default').parameterize %>.sqlite3
     pragmas:
       mmap_size: <%= 128 * 1024 * 1024 %> # 128MB
   cache:
