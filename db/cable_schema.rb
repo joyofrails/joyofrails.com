@@ -18,4 +18,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_132951) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
+
 end
