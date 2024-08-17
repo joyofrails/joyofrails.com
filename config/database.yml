@@ -14,7 +14,7 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/development/data.sqlite3
+    database: storage/development/data-<%= (`git branch --show-current`.chomp || 'default').parameterize %>.sqlite3
   cache:
     <<: *default
     database: storage/development/cache.sqlite3
