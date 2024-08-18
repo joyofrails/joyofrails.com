@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Markdown with Erb" do
+RSpec.describe "Markdown with Erb", type: :view do
   describe ".call" do
     subject do
       Class.new(Markdown::Base) do

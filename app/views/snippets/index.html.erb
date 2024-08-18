@@ -1,8 +1,9 @@
-<p style="color: green"><%= notice %></p>
+<%= render Pages::Header.new(title: "Snippets") %>
+<div id="snippets" class="section-content container py-gap">
+  <div class="flex">
+    <%= link_to "New snippet", new_snippet_path, class: "button primary" %>
+  </div>
 
-<h1>Snippets</h1>
-
-<div id="snippets">
   <% @snippets.each do |snippet| %>
     <%= render snippet %>
     <p>
@@ -10,5 +11,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New snippet", new_snippet_path %>

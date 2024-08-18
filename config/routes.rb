@@ -3,13 +3,14 @@ require_relative "../app/lib/routes/users_access_constraint"
 
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :snippets
   # Redirects www to root domain
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"}
 
   # Defines the root path route ("/")
   sitepress_root controller: :site
   sitepress_pages controller: :site
+
+  resources :snippets
 
   resources :newsletters, only: [:index, :show]
 

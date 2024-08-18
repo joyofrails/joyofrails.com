@@ -1,11 +1,9 @@
 require "rails_helper"
 
-RSpec.describe Markdown::Article do
+RSpec.describe Markdown::Article, type: :view do
   describe ".call" do
-    let(:template) { instance_double(ActionView::Template, type: "") }
-
     def render(content, &block)
-      described_class.new(content).call(&block)
+      described_class.new(content).call(view_context: view, &block)
     end
 
     it "processes text" do
