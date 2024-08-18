@@ -15,6 +15,7 @@ User.find_or_create_by(
 end
 
 ColorScheme.find_or_create_default
+ColorSchemes::Seed.new.seed_ui
 
 START_COUNT_NEWSLETTERS = 5
 fill_count = START_COUNT_NEWSLETTERS - Newsletter.count
