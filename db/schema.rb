@@ -138,8 +138,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_16_235642) do
   end
 
   create_table "snippets", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
-    t.string "title"
     t.text "source", null: false
+    t.string "filename"
+    t.string "language"
     t.text "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
