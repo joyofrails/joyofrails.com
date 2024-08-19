@@ -13,7 +13,7 @@ class Markdown::Application < Markdown::Base
   end
 
   def code_block(source, language = "", **attributes)
-    render CodeBlock::Basic.new(source, language: language, **attributes)
+    render CodeBlock::Code.new(source, language: language, **attributes)
   end
 
   def image(src, alt: "", title: "")
@@ -29,15 +29,5 @@ class Markdown::Application < Markdown::Base
 
   def html_inline(html)
     unsafe_raw(html)
-  end
-
-  private
-
-  class Handler
-    class << self
-      def call(template, content)
-        Markdown::Application.new(content).call
-      end
-    end
   end
 end

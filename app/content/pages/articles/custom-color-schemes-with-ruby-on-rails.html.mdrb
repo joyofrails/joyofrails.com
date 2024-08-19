@@ -54,7 +54,7 @@ CSS variables make it easy to change repeated CSS in a lot of places. You can se
 
 Here’s a simplified a view of how I used CSS variables to define the main background color of the `<body>` element. Using the pseudo-class `:root` means the CSS variable can be accessed from any scope in CSS.
 
-```css:{"show_header": false}
+```css:{"header": false}
 :root {
   --theme-color-50: var(--my-color-50, var(--default-color-50));
   --theme-color-100: var(--my-color-100, var(--default-color-100));
@@ -73,13 +73,13 @@ Most of the buttons in the color scheme demo are connected to `<form>` elements 
 
 When you click the "Save" button, [the application stores the `id` of the chosen color scheme in your Rails session](https://github.com/joyofrails/joyofrails.com/blob/a08589e1cbe2accf4a20713829df56533e31755e/app/controllers/settings/color_schemes_controller.rb#L31):
 
-```ruby:{"show_header":false}
+```ruby:{"header":false}
 session[:color_scheme_id] = @color_scheme.id
 ```
 
 When the page is rendered, the application checks for the presence of the session data to query for the desired color scheme:
 
-```ruby:{"show_header":false}
+```ruby:{"header":false}
 session[:color_scheme_id] && ColorScheme.find(session[:color_scheme_id])
 ```
 
@@ -128,7 +128,7 @@ I’m not using any hooks to manage local state. I’m not making any explicit c
 
 In fact, I wrote only a one line of custom JavaScript to make the color scheme preview selection work: on an `onchange` handler:
 
-```html:{"show_header": false}
+```html:{"header": false}
 <select onchange="this.form.requestSubmit()">
   <!-- options -->
 </select>
