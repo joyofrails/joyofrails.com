@@ -18,6 +18,7 @@ import TableOfContents from './table-of-contents';
 import FrameForm from './forms/frame';
 import SyntaxHighlightPreview from './syntax-highlight/preview';
 import SnippetPreview from './snippets/preview';
+import SnippetEditor from './snippets/editor';
 
 application.register('analytics', AnalyticsCustomEvent);
 application.register('code-example', CodeExample);
@@ -31,4 +32,5 @@ application.register('table-of-contents', TableOfContents);
 
 application.register('frame-form', FrameForm);
 application.register('snippet-preview', SnippetPreview);
+application.register('snippet-editor', SnippetEditor);
 application.register('syntax-highlight-preview', SyntaxHighlightPreview);
