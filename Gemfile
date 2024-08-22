@@ -26,6 +26,7 @@ gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flip
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
 gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
+gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
 
 # Rendering
 # gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

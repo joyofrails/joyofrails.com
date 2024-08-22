@@ -435,6 +435,8 @@ GEM
     sanitize (6.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
+    scout_apm (5.3.8)
+      parser
     sexp_processor (4.17.2)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -584,6 +586,7 @@ DEPENDENCIES
   rouge
   rspec-rails
   ruby_wasm (~> 2.5)
+  scout_apm
   simplecov
   simplecov-cobertura
   simplecov-tailwindcss
