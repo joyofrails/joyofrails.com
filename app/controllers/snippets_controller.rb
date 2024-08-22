@@ -1,4 +1,6 @@
 class SnippetsController < ApplicationController
+  before_action :feature_enabled!
+
   # GET /snippets
   def index
     @snippets = Snippet.all
@@ -53,5 +55,12 @@ class SnippetsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def snippet_params
     params.fetch(:snippet, {}).permit(:filename, :source, :url, :language)
+  end
+
+  def feature_enabled!
+    return if user_signed_in? &&
+      Flipper.enabled?(:snippets, current_user)
+
+    raise ActionController::RoutingError.new("Not Found")
   end
 end

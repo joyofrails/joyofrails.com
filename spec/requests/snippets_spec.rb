@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe "/snippets", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
+      Flipper.enable(:snippets, login_as_user)
+
       FactoryBot.create(:snippet)
       get snippets_url
       expect(response).to be_successful
@@ -11,6 +13,8 @@ RSpec.describe "/snippets", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
+      Flipper.enable(:snippets, login_as_user)
+
       snippet = FactoryBot.create(:snippet)
       get snippet_url(snippet)
       expect(response).to be_successful
@@ -19,6 +23,7 @@ RSpec.describe "/snippets", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
+      Flipper.enable(:snippets, login_as_user)
       get new_snippet_url
       expect(response).to be_successful
     end
@@ -26,6 +31,7 @@ RSpec.describe "/snippets", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
+      Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
       get edit_snippet_url(snippet)
       expect(response).to be_successful
@@ -34,6 +40,10 @@ RSpec.describe "/snippets", type: :request do
 
   describe "POST /create" do
     context "with valid parameters" do
+      before do
+        Flipper.enable(:snippets, login_as_user)
+      end
+
       it "creates a new Snippet" do
         expect {
           post snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
@@ -47,6 +57,10 @@ RSpec.describe "/snippets", type: :request do
     end
 
     context "with invalid parameters" do
+      before do
+        Flipper.enable(:snippets, login_as_user)
+      end
+
       it "does not create a new Snippet" do
         expect {
           post snippets_url, params: {snippet: {}}
@@ -62,9 +76,9 @@ RSpec.describe "/snippets", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      before do
+        Flipper.enable(:snippets, login_as_user)
+      end
 
       it "updates the requested snippet" do
         snippet = FactoryBot.create(:snippet)
@@ -82,6 +96,10 @@ RSpec.describe "/snippets", type: :request do
     end
 
     context "with invalid parameters" do
+      before do
+        Flipper.enable(:snippets, login_as_user)
+      end
+
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         snippet = FactoryBot.create(:snippet)
         patch snippet_url(snippet), params: {snippet: {language: "does_not_exist"}}
@@ -92,6 +110,7 @@ RSpec.describe "/snippets", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested snippet" do
+      Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
       expect {
         delete snippet_url(snippet)
@@ -99,6 +118,7 @@ RSpec.describe "/snippets", type: :request do
     end
 
     it "redirects to the snippets list" do
+      Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
       delete snippet_url(snippet)
       expect(response).to redirect_to(snippets_url)
