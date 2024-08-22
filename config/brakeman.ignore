@@ -3,20 +3,20 @@
     {
       "warning_type": "Command Injection",
       "warning_code": 14,
-      "fingerprint": "2b810f11e65f8681ae0111adffe00fbda55ea1728a4208f26bc0947109335b20",
+      "fingerprint": "ee467aaea70b8a7b361ef6e8ee6c5082b3ff265dc67d798ea3f24c1687ff4584",
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/models/examples/app_file.rb",
-      "line": 81,
+      "line": 91,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`git show #{@revision}:#{@path}`",
+      "code": "`(cd #{ENV.fetch(\"REPOSITORY_ROOT\", \".\")} && git show #{@revision}:#{@path}) 2>/dev/null`",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Examples::AppFile",
         "method": "git_read"
       },
-      "user_input": "@revision",
+      "user_input": "ENV.fetch(\"REPOSITORY_ROOT\", \".\")",
       "confidence": "Medium",
       "cwe_id": [
         77
@@ -24,6 +24,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-07-14 21:34:23 -0400",
+  "updated": "2024-08-22 08:48:23 -0400",
   "brakeman_version": "6.1.2"
 }
