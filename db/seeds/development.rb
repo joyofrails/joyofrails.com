@@ -19,3 +19,8 @@ ColorScheme.find_or_create_default
 START_COUNT_NEWSLETTERS = 5
 fill_count = START_COUNT_NEWSLETTERS - Newsletter.count
 FactoryBot.create_list(:newsletter, fill_count) if fill_count > 0
+
+# Enable all flags by default
+Flipper.enable(:user_registration)
+Flipper.enable(:snippets)
+Flipper.enable(:example_posts)
