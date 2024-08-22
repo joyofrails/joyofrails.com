@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Markdown::Base do
+RSpec.describe Markdown::Base, type: :view do
   it "supports multiple headings" do
     output = md <<~MD
       # 1

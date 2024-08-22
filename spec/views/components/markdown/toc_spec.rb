@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Markdown::Toc do
+RSpec.describe Markdown::Toc, type: :view do
   it "renders nothing for a markdown document without headers" do
     output = render(Markdown::Toc.new(<<~MD))
       Hello

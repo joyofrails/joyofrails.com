@@ -1,9 +1,11 @@
-class CodeBlock::Basic < Phlex::HTML
+class CodeBlock::Code < ApplicationComponent
   class << self
     def code_formatter
       @code_formatter ||= Rouge::Formatters::HTML.new
     end
   end
+
+  attr_reader :source, :language, :data
 
   def initialize(source = nil, language: nil, data: {})
     @source = source
@@ -22,8 +24,6 @@ class CodeBlock::Basic < Phlex::HTML
   protected
 
   private
-
-  attr_reader :source, :language, :data
 
   def code_formatter
     self.class.code_formatter

@@ -1,0 +1,8 @@
+<%= render Pages::Header.new(title: "New Snippet") %>
+<div class="section-content container py-gap">
+  <%= render "form", snippet: @snippet %>
+
+  <div>
+    <%= link_to "Back to snippets", snippets_path %>
+  </div>
+</div>

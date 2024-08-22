@@ -1,11 +1,13 @@
 require "rails_helper"
 
-RSpec.describe Markdown::Article do
+RSpec.describe Markdown::Article, type: :view do
   describe ".call" do
-    let(:template) { instance_double(ActionView::Template, type: "") }
+    before do
+      allow(view).to receive(:headers).and_return({"Content-Type" => "text/html"})
+    end
 
     def render(content, &block)
-      described_class.new(content).call(&block)
+      described_class.new(content).call(view_context: view, &block)
     end
 
     it "processes text" do
@@ -27,6 +29,7 @@ RSpec.describe Markdown::Article do
       code = page.find("pre code")
 
       expect(code).to have_content("1 + 1")
+      expect(page).to have_content("Copied")
     end
 
     it "renders arbitrary html" do
@@ -37,6 +40,22 @@ RSpec.describe Markdown::Article do
         <div>Hello</div>
       HTML
       expect(render(md)).to eq(html)
+    end
+
+    it "renders basic code block when content type is atom" do
+      allow(view).to receive(:headers).and_return({"Content-Type" => "application/atom+xml"})
+
+      md = <<~MD
+        ```
+        1 + 1
+        ```
+      MD
+
+      page = Capybara.string(render(md))
+      code = page.find("pre code")
+
+      expect(code).to have_content("1 + 1")
+      expect(page).not_to have_content("Copied!")
     end
   end
 end

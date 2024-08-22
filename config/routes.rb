@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   sitepress_root controller: :site
   sitepress_pages controller: :site
 
+  resources :snippets
+
   resources :newsletters, only: [:index, :show]
 
   namespace :examples do

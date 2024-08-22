@@ -39,7 +39,7 @@ module Examples
     end
 
     def read
-      return git_read if @revision == "HEAD" # Don’t cache HEAD
+      return disk_read if @revision == "HEAD" # Don’t cache HEAD
 
       Rails.cache.fetch([:app_file, @revision, @path]) { git_read }
     end
@@ -78,10 +78,17 @@ module Examples
 
     private
 
+    def disk_read
+      git_read.presence || file_read
+    end
+
+    def file_read
+      File.read(@path)
+    end
+
     def git_read
-      Dir.chdir(ENV.fetch("REPOSITORY_ROOT", ".")) do
-        `git show #{@revision}:#{@path}`
-      end
+      git_dir = ENV.fetch("REPOSITORY_ROOT", ".")
+      `(cd #{git_dir} && git show #{@revision}:#{@path}) 2>/dev/null`
     end
   end
 end

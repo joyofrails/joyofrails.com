@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Atom::EntryContent knows how to render a Sitepress::Model as an Atom feed entry.
 # It uses a different Markdown component to avoid rendering "fancy" elements in the atom feed.
 # It post-processes the rendered HTML to

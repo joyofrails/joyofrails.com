@@ -1,0 +1,56 @@
+<%= form_with(
+  model: snippet,
+  data: { controller: "snippet-preview", action: "input->snippet-preview#preview" },
+  class: "grid-content"
+) do |form| %>
+  <% if snippet.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(snippet.errors.count, "error") %> prohibited this snippet from being saved:</h2>
+
+      <ul>
+        <% snippet.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="flex items-start flex-col space-col-4 md:items-center md:flex-row md:space-row-4">
+    <fieldset class="flex-grow">
+      <%= form.label :filename, class: "block" %>
+      <%= form.text_field :filename, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] " %>
+    </fieldset>
+
+    <fieldset>
+      <%= form.label :language, class: "block" %>
+      <%= form.select :language, [["Auto", "auto"]] + Rouge::Lexer.all.map { |lexer| [lexer.title, lexer.tag] }, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]" %>
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <%= form.label :source, class: "block" %>
+    <code>
+    <%= form.text_area :source,
+      # data: { action: "input->snippet-preview#handleChange" },
+      class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]" %>
+    </code>
+  </fieldset>
+
+  <fieldset>
+    <%= form.submit class: "button primary" %>
+    <%= form.submit "Preview", class: "button secondary hidden",
+      formaction: (snippet.persisted? ? edit_snippet_path(snippet) : new_snippet_path),
+      formmethod: "get",
+      formnovalidate: true,
+      data: {
+        snippet_preview_target: "previewButton",
+        turbo_frame: dom_id(snippet, :code_block)
+      } %>
+  </fieldset>
+<% end %>
+
+<div class="grid-content">
+  <%= turbo_frame_tag dom_id(snippet, :code_block) do %>
+    <%= render snippet %>
+  <% end %>
+</div>

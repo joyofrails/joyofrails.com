@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Markdown::Atom do
+RSpec.describe Markdown::Atom, type: :view do
   describe ".call" do
     let(:template) { instance_double(ActionView::Template, type: "") }
 

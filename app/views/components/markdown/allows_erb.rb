@@ -42,8 +42,15 @@ module Markdown::AllowsErb
 
     private
 
+    # This is a bit of a hack to get the view context. We need to create a request to make a response for the view
     def view_context
-      ApplicationController.new.view_context
+      request = ActionDispatch::Request.new({})
+      request.routes = ApplicationController._routes
+
+      instance = ApplicationController.new
+      instance.set_request! request
+      instance.set_response! ApplicationController.make_response!(request)
+      instance.view_context
     end
 
     def erb
