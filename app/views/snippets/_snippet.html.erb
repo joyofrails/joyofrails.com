@@ -1,7 +1,3 @@
 <div id="<%= dom_id(snippet, :code_block) %>">
-  <%= render CodeBlock::Article.new(
-    snippet.source || "",
-    language: snippet.language,
-    filename: snippet.filename,
-  ) %>
+  <%= render CodeBlock::Snippet.new(snippet) %>
 </div>

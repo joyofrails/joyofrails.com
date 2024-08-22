@@ -2,7 +2,7 @@ class CodeBlock::Article < ApplicationComponent
   include Phlex::DeferredRender
   prepend CodeBlock::AtomAware
 
-  attr_reader :source, :language, :filename, :enable_run
+  attr_reader :source, :language, :filename
 
   def initialize(source = "", language: nil, filename: nil, header: true, **)
     @source = source
@@ -31,10 +31,6 @@ class CodeBlock::Article < ApplicationComponent
   def body(&)
     @source = capture(&)
   end
-
-  def data = {language: language, lines:}
-
-  def lines = source.scan("\n").count + 1
 
   def title_content
     @title || ->(*) { filename || language }
