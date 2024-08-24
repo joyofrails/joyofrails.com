@@ -1,5 +1,6 @@
 class CodeBlock::Snippet < ApplicationComponent
   include Phlex::DeferredRender
+  include Phlex::Rails::Helpers::DOMID
   prepend CodeBlock::AtomAware
 
   attr_reader :snippet
@@ -9,11 +10,17 @@ class CodeBlock::Snippet < ApplicationComponent
   end
 
   def view_template
-    render CodeBlock::Container.new(language: language) do
+    render CodeBlock::Container.new(language: language, class: "snippet", id: dom_id(snippet, :code_block)) do
       render CodeBlock::Header.new { title_content }
 
-      render CodeBlock::Body.new do
+      render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
         render CodeBlock::Code.new(source, language: language)
+        div(class: "code-editor autogrow-wrapper") do
+          textarea(
+            name: "snippet[source]",
+            data: {snippet_editor_target: "textarea", action: "input->snippet-editor#autogrow"}
+          ) { source }
+        end
       end
     end
   end

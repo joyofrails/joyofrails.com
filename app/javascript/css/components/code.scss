@@ -1,6 +1,8 @@
 @import '../config/variables.scss';
 
 .code-wrapper {
+  --code-line-height: 1.7777778;
+
   border-radius: var(--space-3xs-2xs);
   border: 1px solid var(--joy-border-quiet);
 }
@@ -22,25 +24,29 @@
   position: relative;
 
   & pre {
-    line-height: 1.7777778;
-    margin-top: 0;
-    margin-bottom: 0;
     border-radius: 0.5rem;
-    background-color: inherit;
-  }
-
-  & pre,
-  & textarea {
     padding-top: var(--space-m);
     padding-inline-end: var(--space-m);
     padding-bottom: var(--space-m);
     padding-inline-start: var(--space-m);
   }
 
-  textarea {
-    width: 100%;
+  & pre,
+  & textarea {
+    background-color: inherit;
+    line-height: var(--code-line-height);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/ */
+
+  & textarea {
     font-family: var(--monospace);
     border: none;
+    color: white;
+    resize: none;
+    padding: 0;
   }
 }
 
@@ -169,11 +175,64 @@
 }
 
 .snippet {
-  .code-body {
-    & code {
-      word-wrap: break-word;
-      white-space: pre-wrap;
-      word-break: normal;
-    }
+  width: fit-content;
+  max-width: var(--grid-max-width);
+
+  & .code-body {
+    flex-direction: column;
   }
+
+  & .code-editor {
+    padding-top: var(--space-m);
+    padding-inline-end: var(--space-m);
+    padding-bottom: var(--space-m);
+    padding-inline-start: var(--space-m);
+  }
+}
+
+.grid-stack {
+  display: grid;
+
+  & > * {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+}
+
+/*
+  .autogrow-wrapper taken from
+  https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+*/
+.autogrow-wrapper {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
+}
+
+.autogrow-wrapper::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) ' ';
+
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+
+  line-height: var(--code-line-height);
+  font-family: var(--monospace);
+  font-size: var(--step--1);
+}
+
+.autogrow-wrapper > textarea {
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+}
+
+.autogrow-wrapper > textarea,
+.autogrow-wrapper::after {
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: var(--grid-max-width);
 }

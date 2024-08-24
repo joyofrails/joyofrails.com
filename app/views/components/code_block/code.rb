@@ -7,7 +7,7 @@ class CodeBlock::Code < ApplicationComponent
 
   attr_reader :source, :language, :data
 
-  def initialize(source = nil, language: nil, data: {})
+  def initialize(source = "", language: nil, data: {})
     @source = source
     @language = language
     @data = data

@@ -1,6 +1,5 @@
 <%= form_with(
   model: snippet,
-  data: { controller: "snippet-preview", action: "input->snippet-preview#preview" },
   class: "grid-content"
 ) do |form| %>
   <% if snippet.errors.any? %>
@@ -36,6 +35,10 @@
     </code>
   </fieldset>
 
+  <%= turbo_frame_tag dom_id(snippet, :code_block), class: "grid-cols-12" do %>
+    <%= render snippet %>
+  <% end %>
+
   <fieldset>
     <%= form.submit class: "button primary" %>
     <%= form.submit "Preview", class: "button secondary hidden",
@@ -50,7 +53,4 @@
 <% end %>
 
 <div class="grid-content">
-  <%= turbo_frame_tag dom_id(snippet, :code_block) do %>
-    <%= render snippet %>
-  <% end %>
 </div>
