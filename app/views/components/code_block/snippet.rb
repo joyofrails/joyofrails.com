@@ -10,16 +10,22 @@ class CodeBlock::Snippet < ApplicationComponent
   end
 
   def view_template
-    render CodeBlock::Container.new(language: language, class: "snippet", id: dom_id(snippet, :code_block)) do
-      render CodeBlock::Header.new { title_content }
+    render CodeBlock::Container.new(language: language, class: "snippet") do
+      render CodeBlock::Header.new do
+        label(class: "sr-only", for: "snippet[filename]") { "Filename" }
+        input(type: "text", name: "snippet[filename]", value: filename)
+      end
 
       render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
-        render CodeBlock::Code.new(source, language: language)
-        div(class: "code-editor autogrow-wrapper") do
-          textarea(
-            name: "snippet[source]",
-            data: {snippet_editor_target: "textarea", action: "input->snippet-editor#autogrow"}
-          ) { source }
+        div(class: "grid-stack") do
+          render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
+          label(class: "sr-only", for: "snippet[source]") { "Source" }
+          div(class: "code-editor autogrow-wrapper") do
+            textarea(
+              name: "snippet[source]",
+              data: {snippet_editor_target: "textarea"}
+            ) { source }
+          end
         end
       end
     end

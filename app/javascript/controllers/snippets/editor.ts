@@ -24,58 +24,47 @@ export default class extends Controller {
 
   connect() {
     console.log('Stimulus controller connected');
-    // this.textareaTarget.addEventListener('input', this.autoGrow.bind(this));
-    // this.textareaTarget.addEventListener(
-    //   'blur',
-    //   this.handleTextareaBlur.bind(this),
-    // );
 
-    this.element.addEventListener('click', this.toggleEditMode.bind(this));
+    this.disableEditMode();
+
     this.textareaTarget.style.overflow = 'hidden';
     const delay: number = this.resizeDebounceDelayValue;
 
-    // this.onResize = delay > 0 ? debounce(this.autogrow, delay) : this.autogrow;
+    this.onResize = delay > 0 ? debounce(this.autogrow, delay) : this.autogrow;
 
     this.autogrow();
 
-    // this.textareaTarget.addEventListener('input', this.autogrow);
-    // window.addEventListener('resize', this.onResize);
+    this.element.addEventListener('click', this.enableEditMode);
+    this.textareaTarget.addEventListener('blur', this.preview);
+    this.textareaTarget.addEventListener('input', this.autogrow);
+    window.addEventListener('resize', this.onResize);
   }
 
   disconnect() {
-    // this.textareaTarget.removeEventListener('input', this.autoGrow.bind(this));
-    // this.textareaTarget.removeEventListener(
-    //   'blur',
-    //   this.handleTextareaBlur.bind(this),
-    // );
+    window.removeEventListener('resize', this.onResize);
   }
 
-  // sync() {
-  //   this.sourceTarget.innerHTML = this.textareaTarget.value;
-  //   this.textareaTarget.style.width = `${this.sourceTarget.offsetWidth}px`;
-  // }
-
-  toggleEditMode(event: Event) {
+  enableEditMode = () => {
+    this.textareaTarget.disabled = false;
     this.textareaTarget.style.visibility = 'visible';
-  }
+    this.sourceTarget.style.visibility = 'hidden';
+  };
+
+  disableEditMode = () => {
+    this.textareaTarget.style.visibility = 'hidden';
+    this.sourceTarget.style.visibility = 'visible';
+  };
 
   autogrow = () => {
-    // Force re-print before calculating the value.
-    // this.textareaTarget.style.height = 'auto';
-    // this.textareaTarget.style.width = 'auto';
-
     if (this.textareaTarget.parentNode instanceof HTMLElement) {
       this.textareaTarget.parentNode.dataset.replicatedValue =
         this.textareaTarget.value;
     }
-
-    // this.sourceTarget.innerHTML = this.textareaTarget.value + ' ';
-    // this.textareaTarget.style.width = `${this.sourceTarget.scrollWidth}px`;
-
-    // this.textareaTarget.style.height = `${this.textareaTarget.scrollHeight}px`;
   };
 
-  preview() {
-    this.previewButtonTarget.click();
-  }
+  preview = () => {
+    this.dispatch('changed', {
+      detail: { content: this.textareaTarget.value },
+    });
+  };
 }

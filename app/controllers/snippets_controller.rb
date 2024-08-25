@@ -13,7 +13,12 @@ class SnippetsController < ApplicationController
 
   # GET /snippets/new
   def new
-    @snippet = Snippet.new(snippet_params)
+    default_params = {
+      filename: "app/models/user.rb",
+      source: "class User < ApplicationRecord\n\s\shas_many :posts\nend",
+      language: "ruby"
+    }
+    @snippet = Snippet.new(snippet_params.presence || default_params)
   end
 
   # GET /snippets/1/edit

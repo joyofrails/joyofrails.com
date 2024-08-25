@@ -5,6 +5,15 @@
 
   border-radius: var(--space-3xs-2xs);
   border: 1px solid var(--joy-border-quiet);
+
+  & input,
+  & textarea {
+    border: none;
+    color: white;
+    resize: none;
+    padding: 0;
+    background-color: inherit;
+  }
 }
 
 @media screen and (min-width: $screen-md) {
@@ -33,29 +42,25 @@
 
   & pre,
   & textarea {
-    background-color: inherit;
     line-height: var(--code-line-height);
     margin-top: 0;
     margin-bottom: 0;
   }
 
-  /* https://chriscoyier.net/2023/09/29/css-solves-auto-expanding-textareas-probably-eventually/ */
-
   & textarea {
     font-family: var(--monospace);
-    border: none;
-    color: white;
-    resize: none;
-    padding: 0;
   }
 }
 
 .code-header {
+  --code-header-font-size: 0.875rem;
+  --code-header-line-height: 1.5715;
+
   line-height: 1;
   display: none;
   padding: 1.5rem 1.5rem 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5715;
+  font-size: var(--code-header-font-size);
+  line-height: var(--code-header-line-height);
   /* color: rgb(156 163 175 / var(--tw-text-opacity)); */
 
   & .code-title {
@@ -63,6 +68,12 @@
     display: block;
     text-align: center;
     line-height: 1;
+
+    & input {
+      font-size: var(--code-header-font-size);
+      line-height: var(--code-header-line-height);
+      text-align: right;
+    }
 
     & a {
       font-family: var(--sans-serif);
@@ -220,6 +231,8 @@
 }
 
 .autogrow-wrapper > textarea {
+  min-height: auto;
+
   /* You could leave this, but after a user resizes, then it ruins the auto sizing */
   resize: none;
 

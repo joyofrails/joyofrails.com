@@ -9,11 +9,7 @@ export default class extends Controller {
   // based on https://donatstudios.com/TypeScriptTimeoutTrouble
   private idleTimeout?: ReturnType<typeof setTimeout>;
 
-  static targets = ['source', 'previewButton'];
-
-  declare readonly hasSourceTarget: boolean;
-  declare readonly sourceTarget: HTMLInputElement;
-  declare readonly sourceTargets: HTMLInputElement[];
+  static targets = ['previewButton'];
 
   declare readonly hasPreviewButtonTarget: boolean;
   declare readonly previewButtonTarget: HTMLInputElement;

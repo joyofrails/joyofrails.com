@@ -1,6 +1,7 @@
 <%= form_with(
   model: snippet,
-  class: "grid-content"
+  class: "grid-content",
+  data: { controller: "snippet-preview", action: "snippet-editor:changed->snippet-preview#preview" }
 ) do |form| %>
   <% if snippet.errors.any? %>
     <div style="color: red">
@@ -15,27 +16,16 @@
   <% end %>
 
   <div class="flex items-start flex-col space-col-4 md:items-center md:flex-row md:space-row-4">
-    <fieldset class="flex-grow">
-      <%= form.label :filename, class: "block" %>
-      <%= form.text_field :filename, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] " %>
-    </fieldset>
-
     <fieldset>
-      <%= form.label :language, class: "block" %>
-      <%= form.select :language, [["Auto", "auto"]] + Rouge::Lexer.all.map { |lexer| [lexer.title, lexer.tag] }, class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]" %>
+      <%= form.label :language, class: "sr-only" %>
+      <%= form.select :language, [["Auto", "auto"]] + Rouge::Lexer.all.map { |lexer| [lexer.title, lexer.tag] },
+          {},
+          class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]",
+          data: { action: "change->snippet-preview#preview" } %>
     </fieldset>
   </div>
 
-  <fieldset>
-    <%= form.label :source, class: "block" %>
-    <code>
-    <%= form.text_area :source,
-      # data: { action: "input->snippet-preview#handleChange" },
-      class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch]" %>
-    </code>
-  </fieldset>
-
-  <%= turbo_frame_tag dom_id(snippet, :code_block), class: "grid-cols-12" do %>
+  <%= turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do %>
     <%= render snippet %>
   <% end %>
 

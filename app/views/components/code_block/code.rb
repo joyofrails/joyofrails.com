@@ -14,8 +14,8 @@ class CodeBlock::Code < ApplicationComponent
   end
 
   def view_template(&block)
-    pre do
-      code data: data do
+    pre data: data do
+      code do
         unsafe_raw self.class.code_formatter.format(lexer.lex(source))
       end
     end
