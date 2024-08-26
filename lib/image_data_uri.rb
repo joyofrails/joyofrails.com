@@ -10,12 +10,16 @@ class ImageDataUri
 
   def to_file(path)
     path_with_extension = ensure_file_extension(path)
-    File.binwrite(path_with_extension, to_file_data)
+    File.binwrite(path_with_extension, file_data)
     path_with_extension
   end
 
-  def to_file_data
-    Base64.decode64(@data)
+  def file_data
+    @file_data ||= Base64.decode64(@data)
+  end
+
+  def extension
+    Rack::Mime::MIME_TYPES.invert[content_type]
   end
 
   private

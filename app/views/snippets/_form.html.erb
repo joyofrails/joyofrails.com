@@ -26,7 +26,7 @@
   </div>
 
   <%= turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do %>
-    <%= render CodeBlock::Snippet.new(snippet, editing: true) %>
+    <%= render CodeBlock::Snippet.new(snippet, editing: true, data: { snippet_preview_target: "snippet" }) %>
   <% end %>
 
   <fieldset>
@@ -39,6 +39,8 @@
         snippet_preview_target: "previewButton",
         turbo_frame: dom_id(snippet, :code_block)
       } %>
+
+    <%= form.button "Share", class: "button secondary", data: { action: "snippet-preview#share" } %>
   </fieldset>
 <% end %>
 

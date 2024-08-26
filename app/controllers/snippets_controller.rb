@@ -42,6 +42,7 @@ class SnippetsController < ApplicationController
   def update
     @snippet = Snippet.find(params[:id])
     if @snippet.update(snippet_params)
+      @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
       redirect_to @snippet, notice: "Snippet was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
@@ -59,7 +60,7 @@ class SnippetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def snippet_params
-    params.fetch(:snippet, {}).permit(:filename, :source, :url, :language)
+    params.fetch(:snippet, {}).permit(:filename, :source, :language)
   end
 
   def feature_enabled!

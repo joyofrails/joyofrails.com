@@ -2,6 +2,8 @@
 <div class="section-content container py-gap">
   <%= render CodeBlock::Snippet.new(@snippet) %>
 
+  <%= image_tag @snippet.screenshot if @snippet.screenshot.attached? %>
+
   <div>
     <%= link_to "Edit this snippet", edit_snippet_path(@snippet) %> |
     <%= link_to "Back to snippets", snippets_path %>

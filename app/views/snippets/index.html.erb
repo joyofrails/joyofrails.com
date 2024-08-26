@@ -6,7 +6,11 @@
 
   <% @snippets.each do |snippet| %>
     <%= link_to snippet, class: "block" do %>
-      <%= render CodeBlock::Snippet.new(snippet) %>
+      <% if snippet.screenshot.attached? %>
+        <%= image_tag snippet.screenshot %>
+      <% else %>
+        <%= render CodeBlock::Snippet.new(snippet) %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

@@ -57,9 +57,10 @@ RSpec.describe ImageDataUri do
 
   describe "#to_file_data" do
     it "returns decoded file data" do
-      image_uri = ImageDataURI.new(png_data_uri)
-      expect(image_uri.to_file_data).to be_a(String)
-      expect(image_uri.to_file_data.bytesize).to be > 0
+      image_uri = ImageDataUri.new(png_data_uri)
+
+      expect(image_uri.file_data).to be_a(String)
+      expect(image_uri.file_data.bytesize).to be > 0
     end
   end
 end

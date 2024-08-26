@@ -35,6 +35,7 @@ export default class extends Controller {
     this.autogrow();
 
     this.element.addEventListener('click', this.enableEditMode);
+
     this.textareaTarget.addEventListener('blur', this.preview);
     this.textareaTarget.addEventListener('input', this.autogrow);
     window.addEventListener('resize', this.onResize);

@@ -3,15 +3,16 @@ class CodeBlock::Snippet < ApplicationComponent
   include Phlex::Rails::Helpers::DOMID
   prepend CodeBlock::AtomAware
 
-  attr_reader :snippet
+  attr_reader :snippet, :data
 
-  def initialize(snippet, editing: false, **)
+  def initialize(snippet, editing: false, data: {}, **)
     @snippet = snippet
     @editing = editing
+    @data = data
   end
 
   def view_template
-    div(class: "snippet-background") do
+    div(class: "snippet-background", data:) do
       render CodeBlock::Container.new(language: language, class: "snippet") do
         render CodeBlock::Header.new do
           if editing?
@@ -22,7 +23,7 @@ class CodeBlock::Snippet < ApplicationComponent
           end
         end
 
-        render CodeBlock::Body.new(data: controller_data) do
+        render CodeBlock::Body.new(data: editor_data) do
           div(class: "grid-stack") do
             render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
             if editing?
@@ -57,7 +58,7 @@ class CodeBlock::Snippet < ApplicationComponent
 
   delegate :language, :filename, to: :snippet
 
-  def controller_data
+  def editor_data
     editing? ? {controller: "snippet-editor"} : {}
   end
 end
