@@ -1,6 +1,6 @@
 <%= render Pages::Header.new(title: "Snippet #{@snippet.filename}".strip) %>
 <div class="section-content container py-gap">
-  <%= render @snippet %>
+  <%= render CodeBlock::Snippet.new(@snippet) %>
 
   <div>
     <%= link_to "Edit this snippet", edit_snippet_path(@snippet) %> |

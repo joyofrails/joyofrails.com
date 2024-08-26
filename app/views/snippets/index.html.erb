@@ -5,9 +5,8 @@
   </div>
 
   <% @snippets.each do |snippet| %>
-    <%= render snippet %>
-    <p>
-      <%= link_to "Show this snippet", snippet %>
-    </p>
+    <%= link_to snippet, class: "block" do %>
+      <%= render CodeBlock::Snippet.new(snippet) %>
+    <% end %>
   <% end %>
 </div>

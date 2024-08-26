@@ -66,13 +66,15 @@
   & .code-title {
     font-weight: 600;
     display: block;
-    text-align: center;
+    text-align: right;
     line-height: 1;
+    flex-grow: 2;
 
     & input {
       font-size: var(--code-header-font-size);
       line-height: var(--code-header-line-height);
       text-align: right;
+      width: 100%;
     }
 
     & a {
@@ -207,45 +209,4 @@
   & > * {
     grid-area: 1 / 1 / 2 / 2;
   }
-}
-
-/*
-  .autogrow-wrapper taken from
-  https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
-*/
-.autogrow-wrapper {
-  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
-  display: grid;
-}
-
-.autogrow-wrapper::after {
-  /* Note the weird space! Needed to preventy jumpy behavior */
-  content: attr(data-replicated-value) ' ';
-
-  /* Hidden from view, clicks, and screen readers */
-  visibility: hidden;
-
-  line-height: var(--code-line-height);
-  font-family: var(--monospace);
-  font-size: var(--step--1);
-}
-
-.autogrow-wrapper > textarea {
-  min-height: auto;
-
-  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
-  resize: none;
-
-  /* Firefox shows scrollbar on growth, you can hide like this. */
-  overflow: hidden;
-}
-
-.autogrow-wrapper > textarea,
-.autogrow-wrapper::after {
-  /* Place on top of each other */
-  grid-area: 1 / 1 / 2 / 2;
-
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  max-width: var(--grid-max-width);
 }

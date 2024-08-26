@@ -26,7 +26,7 @@
   </div>
 
   <%= turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do %>
-    <%= render snippet %>
+    <%= render CodeBlock::Snippet.new(snippet, editing: true) %>
   <% end %>
 
   <fieldset>

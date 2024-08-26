@@ -5,26 +5,35 @@ class CodeBlock::Snippet < ApplicationComponent
 
   attr_reader :snippet
 
-  def initialize(snippet, **)
+  def initialize(snippet, editing: false, **)
     @snippet = snippet
+    @editing = editing
   end
 
   def view_template
-    render CodeBlock::Container.new(language: language, class: "snippet") do
-      render CodeBlock::Header.new do
-        label(class: "sr-only", for: "snippet[filename]") { "Filename" }
-        input(type: "text", name: "snippet[filename]", value: filename)
-      end
+    div(class: "snippet-background") do
+      render CodeBlock::Container.new(language: language, class: "snippet") do
+        render CodeBlock::Header.new do
+          if editing?
+            label(class: "sr-only", for: "snippet[filename]") { "Filename" }
+            input(type: "text", name: "snippet[filename]", value: filename)
+          else
+            filename
+          end
+        end
 
-      render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
-        div(class: "grid-stack") do
-          render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
-          label(class: "sr-only", for: "snippet[source]") { "Source" }
-          div(class: "code-editor autogrow-wrapper") do
-            textarea(
-              name: "snippet[source]",
-              data: {snippet_editor_target: "textarea"}
-            ) { source }
+        render CodeBlock::Body.new(data: controller_data) do
+          div(class: "grid-stack") do
+            render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
+            if editing?
+              label(class: "sr-only", for: "snippet[source]") { "Source" }
+              div(class: "code-editor autogrow-wrapper") do
+                textarea(
+                  name: "snippet[source]",
+                  data: {snippet_editor_target: "textarea"}
+                ) { source }
+              end
+            end
           end
         end
       end
@@ -44,5 +53,11 @@ class CodeBlock::Snippet < ApplicationComponent
     snippet.source || ""
   end
 
+  def editing? = !!@editing
+
   delegate :language, :filename, to: :snippet
+
+  def controller_data
+    editing? ? {controller: "snippet-editor"} : {}
+  end
 end
