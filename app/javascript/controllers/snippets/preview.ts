@@ -14,11 +14,9 @@ export default class extends Controller<HTMLFormElement> {
 
   declare readonly hasPreviewButtonTarget: boolean;
   declare readonly previewButtonTarget: HTMLInputElement;
-  declare readonly previewButtonTargets: HTMLInputElement[];
 
   declare readonly hasSnippetTarget: boolean;
   declare readonly snippetTarget: HTMLInputElement;
-  declare readonly snippetTargets: HTMLInputElement[];
 
   connect(): void {
     console.log('Connect!');
@@ -46,20 +44,6 @@ export default class extends Controller<HTMLFormElement> {
   clickPreviewButton = (): void => {
     console.log('Click preview button!');
     this.previewButtonTarget.click();
-  };
-
-  share = async (event: CustomEvent) => {
-    console.log('Share!');
-    event.preventDefault();
-
-    const data = await htmlToImage.toPng(this.snippetTarget);
-
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'snippet[screenshot]';
-    input.value = data;
-
-    this.element.requestSubmit();
   };
 
   prepareScreenshot = async (event) => {

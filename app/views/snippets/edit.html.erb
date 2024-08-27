@@ -1,6 +1,6 @@
 <%= render Pages::Header.new(title: "Edit snippet") %>
 <div class="section-content container py-gap">
-  <%= render "form", snippet: @snippet %>
+  <%= render Snippets::Form.new(snippet: @snippet) %>
 
   <br>
 

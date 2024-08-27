@@ -7,35 +7,17 @@ class CodeBlock::Snippet < ApplicationComponent
 
   def initialize(snippet, editing: false, data: {}, **)
     @snippet = snippet
-    @editing = editing
-    @data = data
   end
 
   def view_template
-    div(class: "snippet-background", data:) do
+    div(class: "snippet-background") do
       render CodeBlock::Container.new(language: language, class: "snippet") do
         render CodeBlock::Header.new do
-          if editing?
-            label(class: "sr-only", for: "snippet[filename]") { "Filename" }
-            input(type: "text", name: "snippet[filename]", value: filename)
-          else
-            filename
-          end
+          filename
         end
 
-        render CodeBlock::Body.new(data: editor_data) do
-          div(class: "grid-stack") do
-            render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
-            if editing?
-              label(class: "sr-only", for: "snippet[source]") { "Source" }
-              div(class: "code-editor autogrow-wrapper") do
-                textarea(
-                  name: "snippet[source]",
-                  data: {snippet_editor_target: "textarea"}
-                ) { source }
-              end
-            end
-          end
+        render CodeBlock::Body.new do
+          render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
         end
       end
     end
@@ -54,11 +36,5 @@ class CodeBlock::Snippet < ApplicationComponent
     snippet.source || ""
   end
 
-  def editing? = !!@editing
-
   delegate :language, :filename, to: :snippet
-
-  def editor_data
-    editing? ? {controller: "snippet-editor"} : {}
-  end
 end

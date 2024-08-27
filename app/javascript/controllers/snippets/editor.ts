@@ -6,9 +6,8 @@ import debug from '../../utils/debug';
 const console = debug('app:javascript:controllers:snippets:editor');
 
 export default class extends Controller {
-  static targets = ['previewButton', 'source', 'textarea'];
+  static targets = ['source', 'textarea'];
 
-  declare previewButtonTarget: HTMLButtonElement;
   declare sourceTarget: HTMLElement;
   declare textareaTarget: HTMLTextAreaElement;
 
