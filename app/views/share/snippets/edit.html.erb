@@ -1,0 +1,11 @@
+<%= render Pages::Header.new(title: "Edit snippet") %>
+<div class="section-content container py-gap">
+  <%= render Share::Snippets::Form.new(snippet: @snippet) %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this snippet", share_snippet_path(@snippet) %> |
+    <%= link_to "Back to snippets", share_snippets_path %>
+  </div>
+</div>

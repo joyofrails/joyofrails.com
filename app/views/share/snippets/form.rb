@@ -1,4 +1,4 @@
-class Snippets::Form < ApplicationComponent
+class Share::Snippets::Form < ApplicationComponent
   include Phlex::Rails::Helpers::DOMID
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::TurboFrameTag
@@ -12,7 +12,7 @@ class Snippets::Form < ApplicationComponent
 
   def view_template
     form_with(
-      model: snippet,
+      model: [:share, snippet],
       class: "grid-content",
       data: {
         controller: "snippet-preview snippet-screenshot",
@@ -117,9 +117,9 @@ class Snippets::Form < ApplicationComponent
 
   def form_path
     if snippet.persisted?
-      edit_snippet_path(snippet)
+      edit_share_snippet_path(snippet)
     else
-      new_snippet_path
+      new_share_snippet_path
     end
   end
 end

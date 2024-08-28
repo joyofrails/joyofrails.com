@@ -8,7 +8,7 @@ RSpec.describe "Snippets", type: :system do
   it "can creat and edit a snippet" do
     login_as_user
 
-    visit snippets_path
+    visit share_snippets_path
 
     click_link "New snippet"
 

@@ -5,9 +5,9 @@
   <%= image_tag @snippet.screenshot if @snippet.screenshot.attached? %>
 
   <div>
-    <%= link_to "Edit this snippet", edit_snippet_path(@snippet) %> |
-    <%= link_to "Back to snippets", snippets_path %>
+    <%= link_to "Edit this snippet", edit_share_snippet_path(@snippet) %> |
+    <%= link_to "Back to snippets", share_snippets_path %>
 
-    <%= button_to "Destroy this snippet", @snippet, method: :delete %>
+    <%= button_to "Destroy this snippet", share_snippet_path(@snippet), method: :delete %>
   </div>
 </div>

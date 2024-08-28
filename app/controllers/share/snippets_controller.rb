@@ -1,4 +1,4 @@
-class SnippetsController < ApplicationController
+class Share::SnippetsController < ApplicationController
   before_action :feature_enabled!
 
   # GET /snippets
@@ -32,7 +32,7 @@ class SnippetsController < ApplicationController
     @snippet = Snippet.new(snippet_params)
 
     if @snippet.save
-      redirect_to @snippet, notice: "Snippet was successfully created."
+      redirect_to share_snippet_url(@snippet), notice: "Snippet was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class SnippetsController < ApplicationController
     @snippet = Snippet.find(params[:id])
     if @snippet.update(snippet_params)
       @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
-      redirect_to @snippet, notice: "Snippet was successfully updated.", status: :see_other
+      redirect_to share_snippet_url(@snippet), notice: "Snippet was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -53,7 +53,7 @@ class SnippetsController < ApplicationController
   def destroy
     @snippet = Snippet.find(params[:id])
     @snippet.destroy!
-    redirect_to snippets_url, notice: "Snippet was successfully destroyed.", status: :see_other
+    redirect_to share_snippets_url, notice: "Snippet was successfully destroyed.", status: :see_other
   end
 
   private

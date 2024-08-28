@@ -6,7 +6,7 @@ RSpec.describe "/snippets", type: :request do
       Flipper.enable(:snippets, login_as_user)
 
       FactoryBot.create(:snippet)
-      get snippets_url
+      get share_snippets_url
       expect(response).to be_successful
     end
   end
@@ -16,7 +16,7 @@ RSpec.describe "/snippets", type: :request do
       Flipper.enable(:snippets, login_as_user)
 
       snippet = FactoryBot.create(:snippet)
-      get snippet_url(snippet)
+      get share_snippet_url(snippet)
       expect(response).to be_successful
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe "/snippets", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       Flipper.enable(:snippets, login_as_user)
-      get new_snippet_url
+      get new_share_snippet_url
       expect(response).to be_successful
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe "/snippets", type: :request do
     it "renders a successful response" do
       Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
-      get edit_snippet_url(snippet)
+      get edit_share_snippet_url(snippet)
       expect(response).to be_successful
     end
   end
@@ -46,13 +46,13 @@ RSpec.describe "/snippets", type: :request do
 
       it "creates a new Snippet" do
         expect {
-          post snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
+          post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
         }.to change(Snippet, :count).by(1)
       end
 
       it "redirects to the created snippet" do
-        post snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
-        expect(response).to redirect_to(snippet_url(Snippet.last))
+        post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
+        expect(response).to redirect_to(share_snippet_url(Snippet.last))
       end
     end
 
@@ -63,12 +63,12 @@ RSpec.describe "/snippets", type: :request do
 
       it "does not create a new Snippet" do
         expect {
-          post snippets_url, params: {snippet: {}}
+          post share_snippets_url, params: {snippet: {}}
         }.to change(Snippet, :count).by(0)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post snippets_url, params: {snippet: {}}
+        post share_snippets_url, params: {snippet: {}}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -82,16 +82,16 @@ RSpec.describe "/snippets", type: :request do
 
       it "updates the requested snippet" do
         snippet = FactoryBot.create(:snippet)
-        patch snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
+        patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
         snippet.reload
         expect(snippet.source).to eq("puts \"Goodbye!\"")
       end
 
       it "redirects to the snippet" do
         snippet = FactoryBot.create(:snippet)
-        patch snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
+        patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
         snippet.reload
-        expect(response).to redirect_to(snippet_url(snippet))
+        expect(response).to redirect_to(share_snippet_url(snippet))
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe "/snippets", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         snippet = FactoryBot.create(:snippet)
-        patch snippet_url(snippet), params: {snippet: {language: "does_not_exist"}}
+        patch share_snippet_url(snippet), params: {snippet: {language: "does_not_exist"}}
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -113,15 +113,15 @@ RSpec.describe "/snippets", type: :request do
       Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
       expect {
-        delete snippet_url(snippet)
+        delete share_snippet_url(snippet)
       }.to change(Snippet, :count).by(-1)
     end
 
     it "redirects to the snippets list" do
       Flipper.enable(:snippets, login_as_user)
       snippet = FactoryBot.create(:snippet)
-      delete snippet_url(snippet)
-      expect(response).to redirect_to(snippets_url)
+      delete share_snippet_url(snippet)
+      expect(response).to redirect_to(share_snippets_url)
     end
   end
 end
