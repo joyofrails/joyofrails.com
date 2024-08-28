@@ -17,7 +17,7 @@ class CodeBlock::Snippet < ApplicationComponent
         end
 
         render CodeBlock::Body.new do
-          render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
+          render CodeBlock::Code.new(source, language: language)
         end
       end
     end

@@ -5,10 +5,6 @@ import debug from '../../utils/debug';
 const console = debug('app:javascript:controllers:snippets:preview');
 
 export default class extends Controller<HTMLFormElement> {
-  // Make timeout type play nice with TypeScript
-  // based on https://donatstudios.com/TypeScriptTimeoutTrouble
-  private idleTimeout?: ReturnType<typeof setTimeout>;
-
   static targets = ['previewButton'];
 
   declare readonly hasPreviewButtonTarget: boolean;
@@ -17,29 +13,33 @@ export default class extends Controller<HTMLFormElement> {
   connect(): void {
     console.log('Connect!');
 
-    this.element.addEventListener('turbo:submit-start', (event) => {
-      if (
-        (event as CustomEvent).detail.formSubmission.submitter !==
-        this.previewButtonTarget
-      ) {
-        return;
-      }
+    this.element.addEventListener('turbo:submit-start', this.disable);
 
-      if (event.target instanceof HTMLFormElement) {
-        for (const field of event.target.elements) {
-          (field as HTMLInputElement).disabled = true;
-        }
-      }
-    });
-
-    this.element.addEventListener('turbo:submit-end', (event) => {
-      if (event.target instanceof HTMLFormElement) {
-        for (const field of event.target.elements) {
-          (field as HTMLInputElement).disabled = false;
-        }
-      }
-    });
+    this.element.addEventListener('turbo:submit-end', this.enable);
   }
+
+  disable = (event): void => {
+    if (
+      (event as CustomEvent).detail.formSubmission.submitter !==
+      this.previewButtonTarget
+    ) {
+      return;
+    }
+
+    if (event.target instanceof HTMLFormElement) {
+      for (const field of event.target.elements) {
+        (field as HTMLInputElement).disabled = true;
+      }
+    }
+  };
+
+  enable = (event): void => {
+    if (event.target instanceof HTMLFormElement) {
+      for (const field of event.target.elements) {
+        (field as HTMLInputElement).disabled = false;
+      }
+    }
+  };
 
   preview = (): void => {
     console.log('Start preview!');
