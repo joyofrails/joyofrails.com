@@ -575,6 +575,10 @@ a:active > * {
   color: var(--joy-link-active);
 }
 
+a:has(> div) {
+  text-decoration: none;
+}
+
 pre {
   font-family: var(--monospace);
   font-size: var(--step--1);

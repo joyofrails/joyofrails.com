@@ -186,27 +186,3 @@
     }
   }
 }
-
-.snippet {
-  width: fit-content;
-  max-width: var(--grid-max-width);
-
-  & .code-body {
-    flex-direction: column;
-  }
-
-  & .code-editor {
-    padding-top: var(--space-xs);
-    padding-inline-end: var(--space-m);
-    padding-bottom: var(--space-m);
-    padding-inline-start: var(--space-m);
-  }
-}
-
-.grid-stack {
-  display: grid;
-
-  & > * {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-}

@@ -48,7 +48,7 @@
     inline-size: 0.3125rem;
   }
 
-  & :first-child {
+  & > :first-child {
     margin-block-start: 0;
   }
 

@@ -1,5 +1,14 @@
 .snippet {
   filter: drop-shadow(0 0 0.75rem var(--joy-color-50));
+  width: fit-content;
+  max-width: var(--grid-max-width);
+
+  & .code-editor {
+    padding-top: var(--space-xs);
+    padding-inline-end: var(--space-m);
+    padding-bottom: var(--space-m);
+    padding-inline-start: var(--space-m);
+  }
 }
 
 .snippet-background {
