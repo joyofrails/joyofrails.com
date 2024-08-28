@@ -22,7 +22,7 @@ export default class extends Controller {
   };
 
   connect() {
-    console.log('Stimulus controller connected');
+    console.log('Connect!');
 
     this.disableEditMode();
 
@@ -35,19 +35,24 @@ export default class extends Controller {
 
     this.element.addEventListener('click', this.enableEditMode);
 
-    this.textareaTarget.addEventListener('blur', this.preview);
+    this.textareaTarget.addEventListener('blur', this.finishedEditing);
     this.textareaTarget.addEventListener('input', this.autogrow);
     window.addEventListener('resize', this.onResize);
+    window.addEventListener('click', this.checkIfFinishedEditing);
   }
 
   disconnect() {
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('click', this.checkIfFinishedEditing);
   }
 
   enableEditMode = () => {
     this.textareaTarget.disabled = false;
     this.textareaTarget.style.visibility = 'visible';
     this.sourceTarget.style.visibility = 'hidden';
+    this.textareaTarget.focus();
+
+    this.startedEditing();
   };
 
   disableEditMode = () => {
@@ -62,9 +67,31 @@ export default class extends Controller {
     }
   };
 
-  preview = () => {
-    this.dispatch('changed', {
+  startedEditing = () => {
+    console.log('Started editing!');
+    this.dispatch('edit-start');
+  };
+
+  finishedEditing = () => {
+    console.log('Finished editing!');
+    this.dispatch('edit-finish', {
       detail: { content: this.textareaTarget.value },
     });
+  };
+
+  checkIfFinishedEditing = (event: Event) => {
+    if (document.activeElement !== this.textareaTarget) {
+      return;
+    }
+
+    if (
+      this.textareaTarget === event.target ||
+      this.textareaTarget.contains(event.target as Node) ||
+      this.textareaTarget.parentNode === event.target
+    ) {
+      return;
+    }
+
+    this.finishedEditing();
   };
 }

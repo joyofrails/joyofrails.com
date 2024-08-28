@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import * as htmlToImage from 'html-to-image';
 
 import debug from '../../utils/debug';
 
@@ -10,55 +9,45 @@ export default class extends Controller<HTMLFormElement> {
   // based on https://donatstudios.com/TypeScriptTimeoutTrouble
   private idleTimeout?: ReturnType<typeof setTimeout>;
 
-  static targets = ['previewButton', 'snippet'];
+  static targets = ['previewButton'];
 
   declare readonly hasPreviewButtonTarget: boolean;
   declare readonly previewButtonTarget: HTMLInputElement;
 
-  declare readonly hasSnippetTarget: boolean;
-  declare readonly snippetTarget: HTMLInputElement;
-
   connect(): void {
     console.log('Connect!');
 
-    this.element.addEventListener(
-      'turbo:before-fetch-request',
-      this.prepareScreenshot,
-    );
-  }
+    this.element.addEventListener('turbo:submit-start', (event) => {
+      if (
+        (event as CustomEvent).detail.formSubmission.submitter !==
+        this.previewButtonTarget
+      ) {
+        return;
+      }
 
-  disconnect(): void {
-    this.clearIdleTimeout();
-  }
+      if (event.target instanceof HTMLFormElement) {
+        for (const field of event.target.elements) {
+          (field as HTMLInputElement).disabled = true;
+        }
+      }
+    });
 
-  clearIdleTimeout(): void {
-    if (this.idleTimeout) clearTimeout(this.idleTimeout);
+    this.element.addEventListener('turbo:submit-end', (event) => {
+      if (event.target instanceof HTMLFormElement) {
+        for (const field of event.target.elements) {
+          (field as HTMLInputElement).disabled = false;
+        }
+      }
+    });
   }
 
   preview = (): void => {
-    console.log('Start preview timer!');
-    this.clearIdleTimeout();
-    this.idleTimeout = setTimeout(this.clickPreviewButton, 500);
+    console.log('Start preview!');
+    this.clickPreviewButton();
   };
 
   clickPreviewButton = (): void => {
     console.log('Click preview button!');
     this.previewButtonTarget.click();
-  };
-
-  prepareScreenshot = async (event) => {
-    event.preventDefault();
-
-    if (event.detail.fetchOptions.body instanceof URLSearchParams) {
-      const data = await this.drawScreenshot();
-
-      event.detail.fetchOptions.body.append('screenshot', data);
-    }
-
-    event.detail.resume();
-  };
-
-  drawScreenshot = async () => {
-    return htmlToImage.toPng(this.snippetTarget);
   };
 }

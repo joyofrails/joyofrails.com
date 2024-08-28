@@ -15,8 +15,8 @@ class Snippets::Form < ApplicationComponent
       model: snippet,
       class: "grid-content",
       data: {
-        controller: "snippet-preview",
-        action: "snippet-editor:changed->snippet-preview#preview"
+        controller: "snippet-preview snippet-screenshot",
+        action: "snippet-editor:edit-finish->snippet-preview#preview"
       }
     ) do |form|
       errors
@@ -24,7 +24,7 @@ class Snippets::Form < ApplicationComponent
       language_select(form, data: {action: "change->snippet-preview#preview"})
 
       turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do
-        div(class: "snippet-background", data: {snippet_preview_target: "snippet"}) do
+        div(class: "snippet-background", data: {snippet_screenshot_target: "snippet"}) do
           render CodeBlock::Container.new(language: language, class: "snippet") do
             render CodeBlock::Header.new do
               label(class: "sr-only", for: "snippet[filename]") { "Filename" }
