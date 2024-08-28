@@ -6,7 +6,7 @@ class Share::Snippets::Form < ApplicationComponent
 
   attr_accessor :snippet
 
-  def initialize(snippet:)
+  def initialize(snippet)
     @snippet = snippet
   end
 
@@ -15,7 +15,7 @@ class Share::Snippets::Form < ApplicationComponent
       model: [:share, snippet],
       class: "grid-content",
       data: {
-        controller: "snippet-preview snippet-screenshot",
+        controller: "snippet-preview",
         action: "snippet-editor:edit-finish->snippet-preview#preview"
       }
     ) do |form|
@@ -24,7 +24,7 @@ class Share::Snippets::Form < ApplicationComponent
       language_select(form, data: {action: "change->snippet-preview#preview"})
 
       turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do
-        div(class: "snippet-background", data: {snippet_screenshot_target: "snippet"}) do
+        div(class: "snippet-background") do
           render CodeBlock::Container.new(language: language, class: "snippet") do
             render CodeBlock::Header.new do
               label(class: "sr-only", for: "snippet[filename]") { "Filename" }
@@ -50,11 +50,7 @@ class Share::Snippets::Form < ApplicationComponent
       fieldset do
         plain form.submit class: "button primary"
         whitespace
-        plain form.button "Share",
-          class: "button secondary",
-          data: {
-            action: "snippet-preview#share"
-          }
+        plain form.submit "Share", class: "button secondary"
         whitespace
         plain form.submit "Preview",
           class: "button secondary hidden",

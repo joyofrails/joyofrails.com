@@ -32,7 +32,7 @@ class Share::SnippetsController < ApplicationController
     @snippet = Snippet.new(snippet_params)
 
     if @snippet.save
-      redirect_to share_snippet_url(@snippet), notice: "Snippet was successfully created."
+      redirect_to share_snippet_redirect_url(@snippet), notice: "Snippet was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -43,7 +43,8 @@ class Share::SnippetsController < ApplicationController
     @snippet = Snippet.find(params[:id])
     if @snippet.update(snippet_params)
       @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
-      redirect_to share_snippet_url(@snippet), notice: "Snippet was successfully updated.", status: :see_other
+
+      redirect_to share_snippet_redirect_url(@snippet), notice: "Snippet was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -57,6 +58,15 @@ class Share::SnippetsController < ApplicationController
   end
 
   private
+
+  def share_snippet_redirect_url(snippet)
+    case params[:commit]
+    when "Share"
+      new_share_snippet_screenshot_url(snippet)
+    else
+      share_snippet_url(snippet)
+    end
+  end
 
   # Only allow a list of trusted parameters through.
   def snippet_params

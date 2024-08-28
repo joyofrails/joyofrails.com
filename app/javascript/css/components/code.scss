@@ -18,7 +18,7 @@
 
 @media screen and (min-width: $screen-md) {
   .article-content {
-    & .code-wrapper {
+    & > .code-wrapper {
       margin-inline-start: calc(var(--space-m) * -1);
       margin-inline-end: calc(var(--space-m) * -1);
     }

@@ -1,11 +1,10 @@
-<%= render Pages::Header.new(title: "Snippet #{@snippet.filename}".strip) %>
+<%= render Pages::Header.new(title: "Snippet") %>
 <div class="section-content container py-gap">
   <%= render CodeBlock::Snippet.new(@snippet) %>
 
-  <%= image_tag @snippet.screenshot if @snippet.screenshot.attached? %>
-
   <div>
     <%= link_to "Edit this snippet", edit_share_snippet_path(@snippet) %> |
+    <%= link_to "Screenshot", share_snippet_screenshot_path(@snippet) %> |
     <%= link_to "Back to snippets", share_snippets_path %>
 
     <%= button_to "Destroy this snippet", share_snippet_path(@snippet), method: :delete %>

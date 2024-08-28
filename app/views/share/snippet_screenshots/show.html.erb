@@ -1,0 +1,5 @@
+<%- if @snippet.screenshot.attached? %>
+<%= image_tag @snippet.screenshot %>
+<%- else %>
+<%= link_to "Add a screenshot", new_share_snippet_screenshot_path(@snippet), class: "button primary" %>
+<%- end %>

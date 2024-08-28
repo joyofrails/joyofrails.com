@@ -11,10 +11,9 @@ Rails.application.routes.draw do
   sitepress_pages controller: :site
 
   namespace :share do
-    resources :snippets
-    # resources :snippets do
-    #   resource :screenshot, only: [:new, :create], as: :screenshot
-    # end
+    resources :snippets do
+      resource :screenshot, only: [:new, :create, :show], controller: "snippet_screenshots"
+    end
   end
 
   resources :newsletters, only: [:index, :show]
