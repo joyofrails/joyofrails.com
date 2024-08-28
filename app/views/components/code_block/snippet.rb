@@ -11,14 +11,8 @@ class CodeBlock::Snippet < ApplicationComponent
 
   def view_template
     div(class: "snippet-background") do
-      render CodeBlock::Container.new(language: language, class: "snippet") do
-        render CodeBlock::Header.new do
-          filename
-        end
-
-        render CodeBlock::Body.new do
-          render CodeBlock::Code.new(source, language: language)
-        end
+      render CodeBlock::Article.new(source, language: language, filename: filename, class: "snippet") do |code_block|
+        code_block.title { filename }
       end
     end
   end
