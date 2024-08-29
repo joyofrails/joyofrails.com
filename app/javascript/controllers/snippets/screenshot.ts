@@ -6,10 +6,10 @@ import debug from '../../utils/debug';
 const console = debug('app:javascript:controllers:snippets:screenshot');
 
 export default class extends Controller<HTMLFormElement> {
-  static targets = ['snippet'];
+  static targets = ['snippet', 'submitButton'];
 
-  declare readonly hasSnippetTarget: boolean;
   declare readonly snippetTarget: HTMLInputElement;
+  declare readonly submitButtonTarget: HTMLInputElement;
 
   connect(): void {
     console.log('Connect!');
@@ -18,6 +18,10 @@ export default class extends Controller<HTMLFormElement> {
       'turbo:before-fetch-request',
       this.prepareScreenshot,
     );
+
+    // submit immediately
+    // this.submitButtonTarget.click();
+    // this.submitButtonTarget.disabled = true;
   }
 
   prepareScreenshot = async (event) => {

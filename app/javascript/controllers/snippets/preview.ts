@@ -13,9 +13,9 @@ export default class extends Controller<HTMLFormElement> {
   connect(): void {
     console.log('Connect!');
 
-    this.element.addEventListener('turbo:submit-start', this.disable);
+    // this.element.addEventListener('turbo:submit-start', this.disable);
 
-    this.element.addEventListener('turbo:submit-end', this.enable);
+    // this.element.addEventListener('turbo:submit-end', this.enable);
   }
 
   disable = (event): void => {

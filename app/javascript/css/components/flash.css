@@ -1,0 +1,35 @@
+.flash__container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: var(--space-s);
+  gap: var(--space-xs);
+  width: fit-content;
+
+  & .flash__message {
+    padding: var(--space-xs) var(--space-s);
+    border-radius: 4px;
+    transition: opacity 750ms ease-out;
+  }
+
+  & .flash__alert {
+    background-color: var(--joy-background-error);
+    border: 1px solid var(--joy-border-error);
+  }
+
+  & .flash__notice {
+    background-color: var(--joy-background-success);
+    border: 1px solid var(--joy-border-success);
+  }
+
+  & .flash__warning {
+    background-color: var(--joy-background-warn);
+    border: 1px solid var(--joy-border-warn);
+  }
+}
