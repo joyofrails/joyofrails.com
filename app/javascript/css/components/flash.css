@@ -1,4 +1,4 @@
-.flash__container {
+.flash {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -8,14 +8,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: var(--space-s);
   gap: var(--space-xs);
   width: fit-content;
+
+  & .flash__message:last-child {
+    margin-bottom: var(--space-s);
+  }
 
   & .flash__message {
     padding: var(--space-xs) var(--space-s);
     border-radius: 4px;
     transition: opacity 750ms ease-out;
+    margin: 0 var(--space-s);
   }
 
   & .flash__alert {
