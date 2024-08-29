@@ -1,4 +1,6 @@
 class Share::SnippetsController < ApplicationController
+  using Refinements::Emojoy
+
   before_action :feature_enabled!
 
   # GET /snippets
@@ -32,7 +34,7 @@ class Share::SnippetsController < ApplicationController
     @snippet = Snippet.new(snippet_params)
 
     if @snippet.save
-      redirect_to share_snippet_redirect_url(@snippet), notice: "Snippet was successfully created."
+      redirect_to share_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
@@ -44,7 +46,7 @@ class Share::SnippetsController < ApplicationController
     if @snippet.update(snippet_params)
       @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
 
-      redirect_to share_snippet_redirect_url(@snippet), notice: "Snippet was successfully updated.", status: :see_other
+      redirect_to share_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

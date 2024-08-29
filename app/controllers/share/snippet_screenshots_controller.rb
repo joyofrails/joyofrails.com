@@ -1,4 +1,6 @@
 class Share::SnippetScreenshotsController < ApplicationController
+  using Refinements::Emojoy
+
   def show
     @snippet = Snippet.find(params[:snippet_id])
 
@@ -12,6 +14,6 @@ class Share::SnippetScreenshotsController < ApplicationController
   def create
     @snippet = Snippet.find(params[:snippet_id])
     @snippet.attach_screenshot_from_base64(params[:screenshot])
-    redirect_to share_snippet_url(@snippet), notice: "Screenshot attached."
+    redirect_to share_snippet_url(@snippet), notice: "Screenshot attached".emojoy
   end
 end
