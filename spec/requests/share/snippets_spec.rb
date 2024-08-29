@@ -50,9 +50,9 @@ RSpec.describe "/snippets", type: :request do
         }.to change(Snippet, :count).by(1)
       end
 
-      it "redirects to the created snippet" do
+      it "redirects back to the edit page" do
         post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
-        expect(response).to redirect_to(share_snippet_url(Snippet.last))
+        expect(response).to redirect_to(edit_share_snippet_url(Snippet.last))
       end
     end
 
@@ -87,11 +87,11 @@ RSpec.describe "/snippets", type: :request do
         expect(snippet.source).to eq("puts \"Goodbye!\"")
       end
 
-      it "redirects to the snippet" do
+      it "redirects back to the edit page" do
         snippet = FactoryBot.create(:snippet)
         patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
         snippet.reload
-        expect(response).to redirect_to(share_snippet_url(snippet))
+        expect(response).to redirect_to(edit_share_snippet_url(snippet))
       end
     end
 

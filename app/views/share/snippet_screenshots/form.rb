@@ -17,7 +17,8 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       method: :post,
       class: "grid-content",
       data: {
-        controller: "snippet-screenshot"
+        controller: "snippet-screenshot",
+        turbo_frame: "_top"
       }
     ) do |form|
       errors
@@ -25,7 +26,7 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       render CodeBlock::Snippet.new(snippet, screenshot: true, data: {snippet_screenshot_target: "snippet"})
 
       fieldset do
-        plain form.button "Share", class: "button primary"
+        plain form.button "Share", class: "button primary", data: {snippet_screenshot_target: "submitButton"}
       end
     end
   end

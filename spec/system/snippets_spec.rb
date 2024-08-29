@@ -12,36 +12,34 @@ RSpec.describe "Snippets", type: :system do
 
     click_link "New snippet"
 
-    fill_in "snippet[filename]", with: "app/models/user.rb"
+    fill_in "snippet[filename]", with: "app/models/blog.rb"
     select "Ruby", from: "Language"
 
-    find("[data-controller=snippet-editor]").click
+    find(".code-editor").click
 
-    fill_in "snippet[source]", with: "class User\nend"
+    fill_in "snippet[source]", with: "class Blog\nend"
 
-    click_button "Create Snippet"
+    click_button "Save"
 
-    expect(page).to have_content("Snippet was successfully created.")
+    expect(page).to have_content("Your snippet has been saved")
 
     snippet = Snippet.last
-    expect(snippet.source).to eq("class User\nend")
+    expect(snippet.source).to eq("class Blog\nend")
     expect(snippet.language).to eq("ruby")
-    expect(snippet.filename).to eq("app/models/user.rb")
+    expect(snippet.filename).to eq("app/models/blog.rb")
 
-    click_link "Edit"
+    fill_in "snippet[filename]", with: "lib/models/blog.rb"
 
-    fill_in "snippet[filename]", with: "app/models/admin_user.rb"
+    find(".code-editor").click
+    fill_in "snippet[source]", with: "class Blog\n  has_many :posts\nend"
 
-    find("[data-controller=snippet-editor]").click
-    fill_in "snippet[source]", with: "class User\n  has_many :posts\nend"
+    click_button "Save"
 
-    click_button "Update Snippet"
+    expect(page).to have_content("Your snippet has been saved")
 
-    expect(page).to have_content("Snippet was successfully updated.")
+    click_link "Back to snippets"
 
-    snippet.reload
-    expect(snippet.source).to eq("class User\n  has_many :posts\nend")
-    expect(snippet.language).to eq("ruby")
-    expect(snippet.filename).to eq("app/models/admin_user.rb")
+    expect(page).to have_content("lib/models/blog.rb")
+    expect(page).to have_content("class Blog\n  has_many :posts\nend")
   end
 end

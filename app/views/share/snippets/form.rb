@@ -3,6 +3,8 @@ class Share::Snippets::Form < ApplicationComponent
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::TurboFrameTag
   include Phlex::Rails::Helpers::Pluralize
+  include Phlex::Rails::Helpers::TurboStream
+  include PhlexConcerns::FlexBlock
 
   attr_accessor :snippet
 
@@ -11,6 +13,7 @@ class Share::Snippets::Form < ApplicationComponent
   end
 
   def view_template
+    turbo_stream.update "flash", partial: "application/flash"
     form_with(
       model: [:share, snippet],
       class: "grid-content",
@@ -21,9 +24,7 @@ class Share::Snippets::Form < ApplicationComponent
     ) do |form|
       errors
 
-      language_select(form, data: {action: "change->snippet-preview#preview"})
-
-      turbo_frame_tag dom_id(snippet, :code_block), class: "snippet-frame grid-cols-12" do
+      div(class: "grid-cols-12") do
         div(class: "snippet-background") do
           render CodeBlock::Container.new(language: language, class: "snippet") do
             render CodeBlock::Header.new do
@@ -31,15 +32,17 @@ class Share::Snippets::Form < ApplicationComponent
               input(type: "text", name: "snippet[filename]", value: filename)
             end
 
-            render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
-              div(class: "grid-stack") do
-                render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
-                label(class: "sr-only", for: "snippet[source]") { "Source" }
-                div(class: "code-editor autogrow-wrapper") do
-                  textarea(
-                    name: "snippet[source]",
-                    data: {snippet_editor_target: "textarea"}
-                  ) { source }
+            turbo_frame_tag dom_id(snippet, :code_block) do
+              render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
+                div(class: "grid-stack") do
+                  render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
+                  label(class: "sr-only", for: "snippet[source]") { "Source" }
+                  div(class: "code-editor autogrow-wrapper") do
+                    textarea(
+                      name: "snippet[source]",
+                      data: {snippet_editor_target: "textarea"}
+                    ) { source }
+                  end
                 end
               end
             end
@@ -48,19 +51,23 @@ class Share::Snippets::Form < ApplicationComponent
       end
 
       fieldset do
-        plain form.submit class: "button primary"
-        whitespace
-        plain form.submit "Share", class: "button secondary"
-        whitespace
-        plain form.submit "Preview",
-          class: "button secondary hidden",
-          formaction: form_path,
-          formmethod: "get",
-          formnovalidate: true,
-          data: {
-            snippet_preview_target: "previewButton",
-            turbo_frame: dom_id(snippet, :code_block)
-          }
+        flex_block do
+          plain form.submit "Share", class: "button primary"
+
+          plain form.submit "Save", class: "button secondary"
+
+          plain form.submit "Preview",
+            class: "button secondary hidden",
+            formaction: form_path,
+            formmethod: "get",
+            formnovalidate: true,
+            data: {
+              snippet_preview_target: "previewButton",
+              turbo_frame: dom_id(snippet, :code_block)
+            }
+
+          language_select(form, data: {action: "change->snippet-preview#preview"})
+        end
       end
     end
   end
@@ -106,7 +113,9 @@ class Share::Snippets::Form < ApplicationComponent
 
   def language_select_options
     [%w[Auto auto]] +
-      Rouge::Lexer.all.map { |lexer|
+      Rouge::Lexer.all
+        .sort_by { |lexer| lexer.title }
+        .map { |lexer|
         [lexer.title, lexer.tag]
       }
   end

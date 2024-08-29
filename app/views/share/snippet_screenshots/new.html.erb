@@ -1,6 +1,8 @@
 <%= render Pages::Header.new(title: "Snippet Screenshot") %>
 <div class="section-content container py-gap">
-  <%= render Share::SnippetScreenshots::Form.new(@snippet) %>
+  <%= turbo_frame_tag :snippet_form do %>
+    <%= render Share::SnippetScreenshots::Form.new(@snippet) %>
+  <% end %>
 
   <br>
 

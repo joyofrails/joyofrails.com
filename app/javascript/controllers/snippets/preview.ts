@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 import debug from '../../utils/debug';
+import { debounce } from '../../utils/debounce';
 
 const console = debug('app:javascript:controllers:snippets:preview');
 
@@ -14,7 +15,6 @@ export default class extends Controller<HTMLFormElement> {
     console.log('Connect!');
 
     // this.element.addEventListener('turbo:submit-start', this.disable);
-
     // this.element.addEventListener('turbo:submit-end', this.enable);
   }
 
@@ -43,7 +43,11 @@ export default class extends Controller<HTMLFormElement> {
 
   preview = (): void => {
     console.log('Start preview!');
-    this.clickPreviewButton();
+
+    // Click the preview button after 0 delay to submit in the next tick
+    setTimeout(() => {
+      this.clickPreviewButton();
+    });
   };
 
   clickPreviewButton = (): void => {

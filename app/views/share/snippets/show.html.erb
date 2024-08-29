@@ -1,6 +1,8 @@
 <%= render Pages::Header.new(title: "Snippet") %>
 <div class="section-content container py-gap">
-  <%= render CodeBlock::Snippet.new(@snippet) %>
+  <%= turbo_frame_tag :snippet_form do %>
+    <%= render CodeBlock::Snippet.new(@snippet) %>
+  <% end %>
 
   <div>
     <%= link_to "Edit this snippet", edit_share_snippet_path(@snippet) %> |

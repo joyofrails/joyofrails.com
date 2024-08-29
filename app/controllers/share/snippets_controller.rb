@@ -56,7 +56,7 @@ class Share::SnippetsController < ApplicationController
   def destroy
     @snippet = Snippet.find(params[:id])
     @snippet.destroy!
-    redirect_to share_snippets_url, notice: "Snippet was successfully destroyed.", status: :see_other
+    redirect_to share_snippets_url, notice: "Your snippet has been deleted permanently".emojoy, status: :see_other
   end
 
   private
@@ -66,7 +66,7 @@ class Share::SnippetsController < ApplicationController
     when "Share"
       new_share_snippet_screenshot_url(snippet)
     else
-      share_snippet_url(snippet)
+      edit_share_snippet_url(snippet)
     end
   end
 
