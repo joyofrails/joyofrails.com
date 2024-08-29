@@ -72,9 +72,9 @@
   --joy-text-faint: var(--color-stone-400);
 
   --joy-link-primary: var(--joy-link-6);
-  --joy-link-visited: var(--joy-link-9);
+  --joy-link-visited: var(--joy-link-8);
   --joy-link-decoration: var(--joy-link-1);
-  --joy-link-active: var(--joy-link-2);
+  --joy-link-active: var(--joy-link-5);
 
   --joy-button-primary: var(--joy-color-600);
   --joy-button-primary-hover: var(--joy-color-700);
