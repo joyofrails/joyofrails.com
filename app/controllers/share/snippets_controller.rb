@@ -12,6 +12,8 @@ class Share::SnippetsController < ApplicationController
   # GET /snippets/1
   def show
     @snippet = Snippet.find(params[:id])
+
+    fresh_when(@snippet, public: true) unless user_signed_in?
   end
 
   # GET /snippets/new
