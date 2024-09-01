@@ -6,7 +6,7 @@ class Share::SnippetsController < ApplicationController
 
   # GET /snippets
   def index
-    @snippets = Snippet.all
+    @snippets = Snippet.all.with_attached_screenshot.includes(:author).order(created_at: :desc)
   end
 
   # GET /snippets/1
