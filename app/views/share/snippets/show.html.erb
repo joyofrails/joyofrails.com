@@ -16,7 +16,7 @@
     <%= render CodeBlock::Snippet.new(@snippet) %>
   <% end %>
 
-  <%= render Share::Snippets::Toolbar.new(@snippet) %>
+  <%= render Share::Snippets::Toolbar.new(@snippet, current_user: current_user) %>
 
   <div>
     <%= link_to "Back to snippets", share_snippets_path %>

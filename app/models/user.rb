@@ -77,4 +77,13 @@ class User < ApplicationRecord
   def errors
     super.tap { |errors| errors.delete(:password, :blank) if subscribing }
   end
+
+  def can_edit?(resource)
+    case resource
+    when Snippet
+      resource.author == self
+    else
+      false
+    end
+  end
 end
