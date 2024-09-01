@@ -47,6 +47,7 @@ gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadg
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
+gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
 
 # Admin
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
