@@ -1,7 +1,7 @@
 <%= render Pages::Header.new(title: "Share Snippet: Tweet") %>
 <div class="section-content container py-gap">
   <%= turbo_frame_tag :snippet_form, data: {turbo_action: "advance"} do %>
-    <%= render Share::SnippetTweets::Tweet.new(@snippet) %>
+    <%= render Share::SnippetTweets::Tweet.new(@snippet, auto: @auto) %>
   <% end %>
 
   <div>

@@ -7,20 +7,27 @@ const console = debug('app:javascript:controllers:snippets:tweet');
 export default class extends Controller {
   static values = {
     url: String,
+    auto: Boolean,
   };
 
   declare urlValue: string;
+  declare autoValue: boolean;
 
   connect() {
     console.log('Connect!');
 
-    this.tweet();
+    if (this.autoValue) {
+      this.tweet();
+    }
   }
 
   tweet() {
     console.log('Tweet!');
 
-    const tweetText = encodeURIComponent(this.urlValue);
+    const url = this.urlValue;
+
+    const tweetText = encodeURIComponent(`Created with @joyofrails ${url}`);
+
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
     window.open(
