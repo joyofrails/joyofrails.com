@@ -29,7 +29,7 @@ gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/pos
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
 
 # Rendering
-# gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "image_processing", group: [:default, :wasm] # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
