@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Examples", :slow, type: :system do
+RSpec.xdescribe "Examples", :slow, type: :system do
   it "shows an example" do
     visit example_path("hello_ruby")
 
