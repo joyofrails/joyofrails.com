@@ -70,3 +70,11 @@
 .joy-text-subtle {
   color: var(--joy-text-subtle);
 }
+
+.grid-stack {
+  display: grid;
+
+  & > * {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+}

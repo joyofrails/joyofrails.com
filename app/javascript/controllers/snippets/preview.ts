@@ -1,40 +1,53 @@
 import { Controller } from '@hotwired/stimulus';
 
 import debug from '../../utils/debug';
+import { debounce } from '../../utils/debounce';
 
 const console = debug('app:javascript:controllers:snippets:preview');
 
-export default class extends Controller {
-  // Make timeout type play nice with TypeScript
-  // based on https://donatstudios.com/TypeScriptTimeoutTrouble
-  private idleTimeout?: ReturnType<typeof setTimeout>;
-
-  static targets = ['source', 'previewButton'];
-
-  declare readonly hasSourceTarget: boolean;
-  declare readonly sourceTarget: HTMLInputElement;
-  declare readonly sourceTargets: HTMLInputElement[];
+export default class extends Controller<HTMLFormElement> {
+  static targets = ['previewButton'];
 
   declare readonly hasPreviewButtonTarget: boolean;
   declare readonly previewButtonTarget: HTMLInputElement;
-  declare readonly previewButtonTargets: HTMLInputElement[];
 
   connect(): void {
     console.log('Connect!');
+
+    // this.element.addEventListener('turbo:submit-start', this.disable);
+    // this.element.addEventListener('turbo:submit-end', this.enable);
   }
 
-  disconnect(): void {
-    this.clearIdleTimeout();
-  }
+  disable = (event): void => {
+    if (
+      (event as CustomEvent).detail.formSubmission.submitter !==
+      this.previewButtonTarget
+    ) {
+      return;
+    }
 
-  clearIdleTimeout(): void {
-    if (this.idleTimeout) clearTimeout(this.idleTimeout);
-  }
+    if (event.target instanceof HTMLFormElement) {
+      for (const field of event.target.elements) {
+        (field as HTMLInputElement).disabled = true;
+      }
+    }
+  };
+
+  enable = (event): void => {
+    if (event.target instanceof HTMLFormElement) {
+      for (const field of event.target.elements) {
+        (field as HTMLInputElement).disabled = false;
+      }
+    }
+  };
 
   preview = (): void => {
-    console.log('Start preview timer!');
-    this.clearIdleTimeout();
-    this.idleTimeout = setTimeout(this.clickPreviewButton, 500);
+    console.log('Start preview!');
+
+    // Click the preview button after 0 delay to submit in the next tick
+    setTimeout(() => {
+      this.clickPreviewButton();
+    });
   };
 
   clickPreviewButton = (): void => {

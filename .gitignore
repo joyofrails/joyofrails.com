@@ -72,3 +72,5 @@ config/litestream/*.yml
 spec/failures.txt
 
 /coverage
+
+.rspec

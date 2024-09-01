@@ -6,6 +6,19 @@ module ApplicationHelper
       {rel: "apple-touch-icon", href: "/apple-touch-icon.png?v1.0"},
       {rel: "manifest", href: "/manifest.webmanifest?v1.0"}
     ]
+    set_meta_tags index: true
+    set_meta_tags icon: "/favicon.ico"
+    set_meta_tags og: {
+      title: :title,
+      description: :description,
+      type: "article",
+      url: url_for,
+      site_name: "Joy of Rails",
+      locale: "en_US"
+    }
+    set_meta_tags twitter: {
+      site: "@joyofrails"
+    }
     display_meta_tags site: "Joy of Rails"
   end
 end

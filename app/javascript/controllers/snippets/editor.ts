@@ -1,58 +1,97 @@
 import { Controller } from '@hotwired/stimulus';
 
+import { debounce } from '../../utils/debounce';
 import debug from '../../utils/debug';
 
 const console = debug('app:javascript:controllers:snippets:editor');
 
 export default class extends Controller {
-  static targets = ['previewButton', 'source', 'textarea'];
+  static targets = ['source', 'textarea'];
 
-  declare previewButtonTarget: HTMLButtonElement;
   declare sourceTarget: HTMLElement;
   declare textareaTarget: HTMLTextAreaElement;
 
+  declare onResize: EventListenerOrEventListenerObject;
+  declare resizeDebounceDelayValue: number;
+
+  static values = {
+    resizeDebounceDelay: {
+      type: Number,
+      default: 100,
+    },
+  };
+
   connect() {
-    console.log('Stimulus controller connected');
-    this.showCode();
-    this.syncTextarea();
-    // this.textareaTarget.addEventListener('input', this.autoGrow.bind(this));
-    // this.textareaTarget.addEventListener(
-    //   'blur',
-    //   this.handleTextareaBlur.bind(this),
-    // );
+    console.log('Connect!');
+
+    this.disableEditMode();
+
+    this.textareaTarget.style.overflow = 'hidden';
+    const delay: number = this.resizeDebounceDelayValue;
+
+    this.onResize = delay > 0 ? debounce(this.autogrow, delay) : this.autogrow;
+
+    this.autogrow();
+
+    this.element.addEventListener('click', this.enableEditMode);
+
+    this.textareaTarget.addEventListener('blur', this.finishedEditing);
+    this.textareaTarget.addEventListener('input', this.autogrow);
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('click', this.checkIfFinishedEditing);
   }
 
   disconnect() {
-    // this.textareaTarget.removeEventListener('input', this.autoGrow.bind(this));
-    // this.textareaTarget.removeEventListener(
-    //   'blur',
-    //   this.handleTextareaBlur.bind(this),
-    // );
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('click', this.checkIfFinishedEditing);
   }
 
-  preview() {
-    this.previewButtonTarget.click();
-  }
-
-  showTextarea() {
-    this.sourceTarget.style.display = 'none';
-    this.textareaTarget.style.display = 'block';
+  enableEditMode = () => {
+    this.textareaTarget.disabled = false;
+    this.textareaTarget.style.visibility = 'visible';
+    this.sourceTarget.style.visibility = 'hidden';
     this.textareaTarget.focus();
-    this.autoGrow();
-  }
 
-  syncTextarea() {
-    this.textareaTarget.value = this.sourceTarget.textContent || '';
-    this.autoGrow();
-  }
+    this.startedEditing();
+  };
 
-  showCode() {
-    this.sourceTarget.style.display = 'block';
-    this.textareaTarget.style.display = 'none';
-  }
+  disableEditMode = () => {
+    this.textareaTarget.style.visibility = 'hidden';
+    this.sourceTarget.style.visibility = 'visible';
+  };
 
-  autoGrow() {
-    this.textareaTarget.style.height = 'auto';
-    this.textareaTarget.style.height = this.textareaTarget.scrollHeight + 'px';
-  }
+  autogrow = () => {
+    if (this.textareaTarget.parentNode instanceof HTMLElement) {
+      this.textareaTarget.parentNode.dataset.replicatedValue =
+        this.textareaTarget.value;
+    }
+  };
+
+  startedEditing = () => {
+    console.log('Started editing!');
+    this.dispatch('edit-start');
+  };
+
+  finishedEditing = () => {
+    console.log('Finished editing!');
+    this.dispatch('edit-finish', {
+      detail: { content: this.textareaTarget.value },
+    });
+  };
+
+  checkIfFinishedEditing = (event: Event) => {
+    if (document.activeElement !== this.textareaTarget) {
+      return;
+    }
+
+    if (
+      this.textareaTarget === event.target ||
+      this.textareaTarget.contains(event.target as Node) ||
+      this.textareaTarget.parentNode === event.target
+    ) {
+      return;
+    }
+
+    this.finishedEditing();
+  };
 }

@@ -1,0 +1,11 @@
+<%= render Pages::Header.new(title: "Snippet Share") %>
+<div class="section-content container py-gap">
+  <%= turbo_frame_tag :snippet_form do %>
+    <%= render Share::Snippets::Form.new(@snippet) %>
+  <% end %>
+
+  <div>
+    <%= link_to "Show this snippet", share_snippet_path(@snippet) %> |
+    <%= link_to "Back to snippets", share_snippets_path %>
+  </div>
+</div>

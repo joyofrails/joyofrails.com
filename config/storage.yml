@@ -4,7 +4,15 @@ test:
 
 local:
   service: Disk
-  root: <%= Rails.root.join("storage") %>
+  root: <%= Rails.root.join("storage", "attachments") %>
+
+digitalocean:
+  service: S3
+  access_key_id: <%= Rails.application.credentials.dig(:digitalocean, :access_key) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:digitalocean, :secret) %>
+  bucket: <%= Rails.application.credentials.dig(:digitalocean, :bucket) %>
+  endpoint: https://nyc3.digitaloceanspaces.com
+  region: us-east-1
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

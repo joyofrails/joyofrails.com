@@ -7,15 +7,15 @@ class CodeBlock::Code < ApplicationComponent
 
   attr_reader :source, :language, :data
 
-  def initialize(source = nil, language: nil, data: {})
+  def initialize(source = "", language: nil, data: {})
     @source = source
     @language = language
     @data = data
   end
 
   def view_template(&block)
-    pre do
-      code data: data do
+    pre data: data do
+      code do
         unsafe_raw self.class.code_formatter.format(lexer.lex(source))
       end
     end

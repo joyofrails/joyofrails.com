@@ -1,0 +1,60 @@
+.snippet {
+  filter: drop-shadow(0 0 0.75rem var(--joy-color-50));
+  width: fit-content;
+  max-width: var(--grid-max-width);
+
+  & .code-editor {
+    padding-top: var(--space-xs);
+    padding-inline-end: var(--space-m);
+    padding-bottom: var(--space-m);
+    padding-inline-start: var(--space-m);
+  }
+}
+
+.snippet-background {
+  background-color: var(--joy-color-200);
+  padding: var(--space-l);
+  width: fit-content;
+  border-radius: 0.5rem;
+}
+
+/*
+  .autogrow-wrapper taken from
+  https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+*/
+.autogrow-wrapper {
+  /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+  display: grid;
+}
+
+.autogrow-wrapper::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) ' ';
+
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+
+  line-height: var(--code-line-height);
+  font-family: var(--monospace);
+  font-size: var(--step--1);
+}
+
+.autogrow-wrapper > textarea {
+  min-height: auto;
+
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+
+  /* Firefox shows scrollbar on growth, you can hide like this. */
+  overflow: hidden;
+}
+
+.autogrow-wrapper > textarea,
+.autogrow-wrapper::after {
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: var(--grid-max-width);
+}

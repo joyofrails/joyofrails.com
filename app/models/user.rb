@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_one :newsletter_subscription, as: :subscriber, dependent: :destroy
 
+  has_many :snippets, as: :author, dependent: :destroy
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :recently_confirmed, -> { where("confirmed_at > ?", 2.weeks.ago) }
   scope :subscribers, -> { confirmed.joins(:newsletter_subscription) }
@@ -74,5 +76,14 @@ class User < ApplicationRecord
   # https://api.rubyonrails.org/v7.1.3/classes/ActiveModel/SecurePassword/ClassMethods.html
   def errors
     super.tap { |errors| errors.delete(:password, :blank) if subscribing }
+  end
+
+  def can_edit?(resource)
+    case resource
+    when Snippet
+      resource.author == self
+    else
+      false
+    end
   end
 end

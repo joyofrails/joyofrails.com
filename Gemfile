@@ -29,7 +29,7 @@ gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/pos
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
 
 # Rendering
-# gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "image_processing", group: [:default, :wasm] # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
@@ -47,6 +47,7 @@ gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadg
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
+gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
 
 # Admin
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]

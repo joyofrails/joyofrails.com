@@ -1,0 +1,19 @@
+<%= render Pages::Header.new(title: "Snippet Share") %>
+<div id="snippets" class="section-content container py-gap">
+  <% if Flipper.enabled?(:snippets, current_user) %>
+    <div class="flex">
+      <%= link_to "New Snippet", new_share_snippet_path, class: "button primary" %>
+    </div>
+  <% end %>
+
+  <% @snippets.each do |snippet| %>
+    <div id="<%= dom_id(snippet) %>" class="section-content">
+      <%= link_to share_snippet_path(snippet), class: "block" do %>
+        <%= render CodeBlock::Snippet.new(snippet) %>
+      <% end %>
+      <div>
+        <%= render Share::Snippets::Toolbar.new(snippet, current_user: current_user) %>
+      </div>
+    </div>
+  <% end %>
+</div>
