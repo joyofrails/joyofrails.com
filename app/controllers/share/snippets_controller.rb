@@ -1,7 +1,7 @@
 class Share::SnippetsController < ApplicationController
   using Refinements::Emojoy
 
-  before_action :feature_enabled!
+  before_action :feature_enabled!, except: %i[index show]
   before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   # GET /snippets

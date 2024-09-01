@@ -10,7 +10,7 @@ RSpec.describe "Snippets", type: :system do
 
     visit share_snippets_path
 
-    click_link "New snippet"
+    click_link "New Snippet"
 
     fill_in "snippet[filename]", with: "app/models/blog.rb"
     select "Ruby", from: "Language"

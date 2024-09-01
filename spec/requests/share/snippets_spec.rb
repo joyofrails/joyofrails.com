@@ -3,18 +3,27 @@ require "rails_helper"
 RSpec.describe "/snippets", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
-      Flipper.enable(:snippets, login_as_user)
-
       FactoryBot.create(:snippet)
       get share_snippets_url
       expect(response).to be_successful
+    end
+
+    it "does render the New Snippet button when not allowed" do
+      get share_snippets_url
+
+      expect(page).to_not have_content("New Snippet")
+    end
+
+    it "renders the New Snippet button when allowed" do
+      Flipper.enable(:snippets, login_as_user)
+      get share_snippets_url
+
+      expect(page).to have_content("New Snippet")
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      Flipper.enable(:snippets, login_as_user)
-
       snippet = FactoryBot.create(:snippet)
       get share_snippet_url(snippet)
       expect(response).to be_successful
