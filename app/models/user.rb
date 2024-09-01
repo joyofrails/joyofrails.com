@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_one :newsletter_subscription, as: :subscriber, dependent: :destroy
 
+  has_many :snippets, as: :author, dependent: :destroy
+
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :recently_confirmed, -> { where("confirmed_at > ?", 2.weeks.ago) }
   scope :subscribers, -> { confirmed.joins(:newsletter_subscription) }

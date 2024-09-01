@@ -7,6 +7,8 @@ class Snippet < ApplicationRecord
 
   has_one_attached :screenshot
 
+  belongs_to :author, polymorphic: true, inverse_of: :snippets
+
   attr_reader :auto_detecting
 
   def attach_screenshot_from_base64(data)

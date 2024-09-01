@@ -27,6 +27,12 @@ RSpec.describe "/snippets", type: :request do
       get new_share_snippet_url
       expect(response).to be_successful
     end
+
+    it "redirects when not authenticated" do
+      Flipper.enable(:snippets)
+      get new_share_snippet_url
+      expect(response).to be_not_found
+    end
   end
 
   describe "GET /edit" do

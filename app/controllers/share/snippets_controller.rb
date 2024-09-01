@@ -2,6 +2,7 @@ class Share::SnippetsController < ApplicationController
   using Refinements::Emojoy
 
   before_action :feature_enabled!
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   # GET /snippets
   def index
@@ -20,18 +21,18 @@ class Share::SnippetsController < ApplicationController
       source: "class User < ApplicationRecord\n\s\shas_many :posts\nend",
       language: "ruby"
     }
-    @snippet = Snippet.new(snippet_params.presence || default_params)
+    @snippet = current_user.snippets.new(snippet_params.presence || default_params)
   end
 
   # GET /snippets/1/edit
   def edit
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
     @snippet.assign_attributes(snippet_params)
   end
 
   # POST /snippets
   def create
-    @snippet = Snippet.new(snippet_params)
+    @snippet = current_user.snippets.new(snippet_params)
 
     if @snippet.save
       redirect_to share_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
@@ -42,7 +43,7 @@ class Share::SnippetsController < ApplicationController
 
   # PATCH/PUT /snippets/1
   def update
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
     if @snippet.update(snippet_params)
       @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
 
@@ -54,7 +55,7 @@ class Share::SnippetsController < ApplicationController
 
   # DELETE /snippets/1
   def destroy
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
     @snippet.destroy!
     redirect_to share_snippets_url, notice: "Your snippet has been deleted permanently".emojoy, status: :see_other
   end
