@@ -7,8 +7,13 @@
   <% end %>
 
   <% @snippets.each do |snippet| %>
-    <%= link_to share_snippet_path(snippet), class: "block" do %>
-      <%= render CodeBlock::Snippet.new(snippet) %>
-    <% end %>
+    <div id="<%= dom_id(snippet) %>" class="section-content">
+      <%= link_to share_snippet_path(snippet), class: "block" do %>
+        <%= render CodeBlock::Snippet.new(snippet) %>
+      <% end %>
+      <div>
+        <%= render Share::Snippets::Toolbar.new(snippet, current_user: current_user) %>
+      </div>
+    </div>
   <% end %>
 </div>

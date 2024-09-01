@@ -71,4 +71,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include ActiveSupport::Testing::TimeHelpers
+
+  config.after(:all) do
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+  end
 end

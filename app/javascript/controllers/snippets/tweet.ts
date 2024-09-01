@@ -28,7 +28,7 @@ export default class extends Controller {
 
     const tweetText = encodeURIComponent(`Created with @joyofrails ${url}`);
 
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+    const tweetUrl = `https://x.com/intent/post?text=${tweetText}`;
 
     window.open(
       tweetUrl,

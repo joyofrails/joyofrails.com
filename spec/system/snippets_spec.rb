@@ -42,4 +42,27 @@ RSpec.describe "Snippets", type: :system do
     expect(page).to have_content("lib/models/blog.rb")
     expect(page).to have_content("class Blog\n  has_many :posts\nend")
   end
+
+  it "can attach a screenshot" do
+    snippet = FactoryBot.create(:snippet, author: login_as_user)
+
+    visit share_snippet_path(snippet)
+
+    click_link "Share"
+
+    expect(page).to have_content("Screenshot")
+  end
+
+  it "can share Snippet" do
+    snippet = FactoryBot.create(:snippet, author: login_as_user)
+
+    visit share_snippets_path
+
+    within("#snippets") do
+      expect(page).to have_content(snippet.filename)
+      click_link "Share"
+    end
+
+    expect(page).to have_content("Screenshot")
+  end
 end
