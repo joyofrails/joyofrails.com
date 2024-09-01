@@ -1,6 +1,6 @@
 <%= render Pages::Header.new(title: "New Snippet") %>
 <div class="section-content container py-gap">
-  <%= turbo_frame_tag :snippet_form do %>
+  <%= turbo_frame_tag :snippet_form, data: {turbo_action: "advance"} do %>
     <%= render Share::Snippets::Form.new(@snippet) %>
   <% end %>
 

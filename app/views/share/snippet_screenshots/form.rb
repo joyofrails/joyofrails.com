@@ -17,8 +17,7 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       method: :post,
       class: "grid-content",
       data: {
-        controller: "snippet-screenshot",
-        turbo_frame: "_top"
+        controller: "snippet-screenshot"
       }
     ) do |form|
       errors

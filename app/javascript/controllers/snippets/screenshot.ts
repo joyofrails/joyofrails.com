@@ -20,8 +20,8 @@ export default class extends Controller<HTMLFormElement> {
     );
 
     // submit immediately
-    // this.submitButtonTarget.click();
-    // this.submitButtonTarget.disabled = true;
+    this.submitButtonTarget.click();
+    this.submitButtonTarget.disabled = true;
   }
 
   prepareScreenshot = async (event) => {

@@ -18,9 +18,11 @@ import TableOfContents from './table-of-contents';
 
 import FrameForm from './forms/frame';
 import SyntaxHighlightPreview from './syntax-highlight/preview';
+
 import SnippetPreview from './snippets/preview';
 import SnippetEditor from './snippets/editor';
 import SnippetScreenshot from './snippets/screenshot';
+import SnippetTweet from './snippets/tweet';
 
 application.register('analytics', AnalyticsCustomEvent);
 application.register('code-example', CodeExample);
@@ -39,3 +41,4 @@ application.register('syntax-highlight-preview', SyntaxHighlightPreview);
 application.register('snippet-preview', SnippetPreview);
 application.register('snippet-editor', SnippetEditor);
 application.register('snippet-screenshot', SnippetScreenshot);
+application.register('snippet-tweet', SnippetTweet);
