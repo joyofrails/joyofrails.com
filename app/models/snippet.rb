@@ -40,6 +40,10 @@ class Snippet < ApplicationRecord
     Rouge::Lexer.guesses({filename: filename, source: source}.compact).first&.tag
   end
 
+  def title
+    filename
+  end
+
   private
 
   def auto_detecting? = !!@auto_detecting
