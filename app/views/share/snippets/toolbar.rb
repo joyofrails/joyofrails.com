@@ -21,7 +21,7 @@ class Share::Snippets::Toolbar < ApplicationComponent
     if @snippet.screenshot.attached?
       new_share_snippet_tweet_path(@snippet, auto: "true")
     else
-      new_share_snippet_screenshot_path(@snippet)
+      new_share_snippet_screenshot_path(@snippet, auto: "true")
     end
   end
 end
