@@ -2,8 +2,8 @@
   margin-bottom: var(--grid-gutter);
 }
 
-.mb-gap {
-  margin-bottom: var(--grid-gutter);
+.mb-3xl {
+  margin-bottom: var(--space-3xl);
 }
 
 .py-gap {

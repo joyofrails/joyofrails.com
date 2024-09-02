@@ -18,7 +18,7 @@ class Settings::SyntaxHighlights::ShowView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Settings: Syntax Highlighting")
 
-    section(class: %(section-content container py-gap)) do
+    section(class: %(section-content container py-gap mb-3xl)) do
       turbo_frame_tag "syntax-highlight-form" do
         render Settings::SyntaxHighlights::Form.new(
           settings: @settings,

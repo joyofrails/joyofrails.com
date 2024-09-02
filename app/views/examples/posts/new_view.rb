@@ -16,7 +16,7 @@ class Examples::Posts::NewView < ApplicationView
       description: "This is an example for creating a post of different types, like text, link, or image."
     )
 
-    div(class: "section-content container py-gap") do
+    div(class: "section-content container py-gap mb-3xl") do
       turbo_frame_tag :examples_post_form do
         render Examples::Posts::Form.new(post: @post)
       end
