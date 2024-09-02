@@ -15,7 +15,7 @@ class Share::Snippets::Form < ApplicationComponent
 
   def view_template
     turbo_stream.update "flash", partial: "application/flash"
-    div(class: "section-content") do
+    div do
       form_with(
         model: [:share, snippet],
         class: "section-content",

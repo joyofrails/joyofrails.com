@@ -13,7 +13,7 @@ class CodeBlock::Snippet < ApplicationComponent
 
   def view_template
     div(class: "snippet-background", **options) do
-      render CodeBlock::Container.new(language: language) do
+      render CodeBlock::Container.new(language: language, class: "snippet") do
         render CodeBlock::Header.new { title_content } if title_content.present?
 
         render CodeBlock::Body.new do
