@@ -31,7 +31,7 @@ class Share::SnippetTweets::Tweet < ApplicationComponent
   end
 
   def tweet_url
-    @snippet.screenshot.attached? ? rails_storage_proxy_url(@snippet.screenshot) : share_snippet_url(@snippet)
+    share_snippet_url(@snippet)
   end
 
   def auto? = !!@auto
