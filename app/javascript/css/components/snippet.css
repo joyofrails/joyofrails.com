@@ -1,7 +1,7 @@
 .snippet {
   filter: drop-shadow(0 0 0.75rem var(--joy-color-50));
   width: fit-content;
-  max-width: var(--grid-max-width);
+  max-width: var(--grid-max-width) - (2 * var(--grid-gutter));
 
   & .code-editor {
     padding-top: var(--space-xs);
@@ -15,7 +15,18 @@
   background-color: var(--joy-color-200);
   padding: var(--space-l);
   width: fit-content;
+  aspect-ratio: 2 / 1;
   border-radius: 0.5rem;
+  max-width: var(--grid-max-width);
+  overflow-x: clip;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  & .code-wrapper {
+    margin: 0 auto;
+  }
 }
 
 /*
