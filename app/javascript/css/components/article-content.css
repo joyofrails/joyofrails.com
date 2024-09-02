@@ -1,7 +1,5 @@
 .article-content,
 .section-content {
-  padding-bottom: var(--space-3xl);
-
   & h1,
   & h2,
   & h3,

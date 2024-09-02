@@ -26,7 +26,7 @@ class Settings::ColorSchemes::ShowView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Settings: Color Scheme")
 
-    section(class: "section-content container py-gap") do
+    section(class: "section-content container py-gap mb-3xl") do
       turbo_frame_tag "color-scheme-form", data: {turbo_action: "advance", controller: "analytics", analytics_event_value: "Color Scheme Update"} do
         style do
           render(ColorSchemes::Css.new(color_scheme: @session_color_scheme)) if @session_color_scheme

@@ -25,7 +25,7 @@ class Settings::ColorSchemes::PreviewView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Settings: Color Scheme Preview")
 
-    section(class: "section-content container py-gap") do
+    section(class: "section-content container py-gap mb-3xl") do
       turbo_frame_tag "color-scheme-preview", data: {turbo_action: "advance"} do
         style do
           render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))

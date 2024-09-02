@@ -1,5 +1,5 @@
 <%= render Pages::Header.new(title: "Admin: #{@newsletter.title}") %>
-<div class="section-content container py-gap">
+<div class="section-content container py-gap mb-3xl">
   <div class="flex gap-x-2">
     <%= button_to "Send Test", deliver_admin_newsletter_path(@newsletter), method: :patch, class: "button secondary" %>
     <%= button_to "Send Live", deliver_admin_newsletter_path(@newsletter, live: true), method: :patch, class: "button primary" %>

@@ -1,9 +1,26 @@
+import { Turbo } from '@hotwired/turbo-rails';
 import { Controller } from '@hotwired/stimulus';
 
 import debug from '../../utils/debug';
 
 const console = debug('app:javascript:controllers:snippets:tweet');
 
+const WINDOW_OPTIONS = {
+  width: 550,
+  height: 420,
+  toolbar: false,
+  location: false,
+  directories: false,
+  status: false,
+  menubar: false,
+  scrollbars: true,
+  copyhistory: false,
+  resizable: true,
+};
+
+const WINDOW_OPTIONS_ARGUMENT = Object.entries(WINDOW_OPTIONS)
+  .map(([key, value]) => `${key}=${value}`)
+  .join(',');
 export default class extends Controller {
   static values = {
     url: String,
@@ -18,6 +35,7 @@ export default class extends Controller {
 
     if (this.autoValue) {
       this.tweet();
+      Turbo.visit(this.urlValue);
     }
   }
 
@@ -30,10 +48,6 @@ export default class extends Controller {
 
     const tweetUrl = `https://x.com/intent/post?text=${tweetText}`;
 
-    window.open(
-      tweetUrl,
-      '_blank',
-      'width=550,height=420,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes',
-    );
+    window.open(tweetUrl, '_blank', WINDOW_OPTIONS_ARGUMENT);
   }
 }

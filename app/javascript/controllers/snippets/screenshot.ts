@@ -6,10 +6,15 @@ import debug from '../../utils/debug';
 const console = debug('app:javascript:controllers:snippets:screenshot');
 
 export default class extends Controller<HTMLFormElement> {
+  static values = {
+    auto: Boolean,
+  };
+
   static targets = ['snippet', 'submitButton'];
 
   declare readonly snippetTarget: HTMLInputElement;
   declare readonly submitButtonTarget: HTMLInputElement;
+  declare readonly autoValue: boolean;
 
   connect(): void {
     console.log('Connect!');
@@ -19,9 +24,11 @@ export default class extends Controller<HTMLFormElement> {
       this.prepareScreenshot,
     );
 
-    // submit immediately
-    this.submitButtonTarget.click();
-    this.submitButtonTarget.disabled = true;
+    if (this.autoValue) {
+      // submit immediately
+      this.submitButtonTarget.click();
+      this.submitButtonTarget.disabled = true;
+    }
   }
 
   prepareScreenshot = async (event) => {

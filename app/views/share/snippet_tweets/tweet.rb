@@ -23,15 +23,15 @@ class Share::SnippetTweets::Tweet < ApplicationComponent
       )
 
       flex_block do
-        button_tag "Tweet",
-          class: class_names("button", "primary", hidden: auto?),
+        button_tag "Share",
+          class: class_names("button", "primary"),
           data: {action: "click->snippet-tweet#tweet"}
       end
     end
   end
 
   def tweet_url
-    @snippet.screenshot.attached? ? rails_storage_proxy_url(@snippet.screenshot) : share_snippet_url(@snippet)
+    share_snippet_url(@snippet)
   end
 
   def auto? = !!@auto

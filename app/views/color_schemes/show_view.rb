@@ -12,7 +12,7 @@ class ColorSchemes::ShowView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Color Scheme: #{@color_scheme.display_name}")
 
-    section(class: "section-content container py-gap") do
+    section(class: "section-content container py-gap mb-3xl") do
       style do
         render(ColorSchemes::Css.new(color_scheme: @color_scheme, my_theme_enabled: true))
       end

@@ -54,12 +54,12 @@ RSpec.describe "Snippets", type: :system do
   end
 
   it "can share Snippet" do
-    snippet = FactoryBot.create(:snippet, author: login_as_user)
+    FactoryBot.create(:snippet, filename: "example.rb", author: login_as_user)
 
     visit share_snippets_path
 
     within("#snippets") do
-      expect(page).to have_content(snippet.filename)
+      expect(page).to have_content("example.rb")
       click_link "Share"
     end
 

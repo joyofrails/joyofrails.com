@@ -9,11 +9,12 @@ class Share::SnippetScreenshotsController < ApplicationController
 
   def new
     @snippet = Snippet.find(params[:snippet_id])
+    @auto = params[:auto] == "true"
   end
 
   def create
     @snippet = Snippet.find(params[:snippet_id])
     @snippet.attach_screenshot_from_base64(params[:screenshot])
-    redirect_to new_share_snippet_tweet_path(@snippet, auto: true), notice: "Screenshot attached".emojoy
+    redirect_to new_share_snippet_tweet_path(@snippet, auto: true), notice: "Screenshot successful".emojoy
   end
 end

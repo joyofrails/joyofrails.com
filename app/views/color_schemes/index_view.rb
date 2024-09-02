@@ -10,7 +10,7 @@ class ColorSchemes::IndexView < ApplicationView
   def view_template
     render Pages::Header.new(title: "Color Scheme Index")
 
-    section(class: "section-content container py-gap") do
+    section(class: "section-content container py-gap mb-3xl") do
       div(class: "grid grid-content") do
         @color_schemes.each do |color_scheme|
           style do

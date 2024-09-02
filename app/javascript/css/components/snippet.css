@@ -1,7 +1,7 @@
 .snippet {
-  filter: drop-shadow(0 0 0.75rem var(--joy-color-50));
+  filter: drop-shadow(0.25rem 0.5rem 0.75rem var(--joy-color-500));
   width: fit-content;
-  max-width: var(--grid-max-width);
+  max-width: var(--grid-max-width) - (2 * var(--grid-gutter));
 
   & .code-editor {
     padding-top: var(--space-xs);
@@ -9,13 +9,34 @@
     padding-bottom: var(--space-m);
     padding-inline-start: var(--space-m);
   }
+
+  & .clipboard-copy-container {
+    position: absolute;
+    right: 0px;
+    display: none;
+  }
+
+  &:hover .clipboard-copy-container {
+    display: block;
+  }
 }
 
 .snippet-background {
-  background-color: var(--joy-color-200);
+  background: linear-gradient(var(--joy-color-300), var(--joy-color-200));
   padding: var(--space-l);
   width: fit-content;
+  aspect-ratio: 2 / 1;
   border-radius: 0.5rem;
+  max-width: var(--grid-max-width);
+  overflow-x: clip;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  & .code-wrapper {
+    margin: 0 auto;
+  }
 }
 
 /*

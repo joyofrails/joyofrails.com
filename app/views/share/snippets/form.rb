@@ -15,10 +15,10 @@ class Share::Snippets::Form < ApplicationComponent
 
   def view_template
     turbo_stream.update "flash", partial: "application/flash"
-    div(class: "grid-content") do
+    div do
       form_with(
         model: [:share, snippet],
-        class: "grid-content",
+        class: "section-content",
         data: {
           controller: "snippet-preview",
           action: "snippet-editor:edit-finish->snippet-preview#preview"
@@ -26,25 +26,23 @@ class Share::Snippets::Form < ApplicationComponent
       ) do |form|
         errors
 
-        div(class: "grid-cols-12") do
-          div(class: "snippet-background") do
-            render CodeBlock::Container.new(language: language, class: "snippet") do
-              render CodeBlock::Header.new do
-                label(class: "sr-only", for: "snippet[filename]") { "Filename" }
-                input(type: "text", name: "snippet[filename]", value: filename)
-              end
+        div(class: "snippet-background") do
+          render CodeBlock::Container.new(language: language, class: "snippet") do
+            render CodeBlock::Header.new do
+              label(class: "sr-only", for: "snippet[filename]") { "Filename" }
+              input(type: "text", name: "snippet[filename]", value: filename)
+            end
 
-              turbo_frame_tag dom_id(snippet, :code_block) do
-                render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
-                  div(class: "grid-stack") do
-                    render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
-                    label(class: "sr-only", for: "snippet[source]") { "Source" }
-                    div(class: "code-editor autogrow-wrapper") do
-                      textarea(
-                        name: "snippet[source]",
-                        data: {snippet_editor_target: "textarea"}
-                      ) { source }
-                    end
+            turbo_frame_tag dom_id(snippet, :code_block) do
+              render CodeBlock::Body.new(data: {controller: "snippet-editor"}) do
+                div(class: "grid-stack") do
+                  render CodeBlock::Code.new(source, language: language, data: {snippet_editor_target: "source"})
+                  label(class: "sr-only", for: "snippet[source]") { "Source" }
+                  div(class: "code-editor autogrow-wrapper") do
+                    textarea(
+                      name: "snippet[source]",
+                      data: {snippet_editor_target: "textarea"}
+                    ) { source }
                   end
                 end
               end
@@ -54,9 +52,13 @@ class Share::Snippets::Form < ApplicationComponent
 
         fieldset do
           flex_block do
+            language_select(form, data: {action: "change->snippet-preview#preview"})
+
             plain form.submit "Share", class: "button primary"
 
             plain form.submit "Save", class: "button secondary"
+
+            plain form.submit "Save & Close", class: "button secondary"
 
             plain form.submit "Preview",
               class: "button secondary hidden",
@@ -67,19 +69,21 @@ class Share::Snippets::Form < ApplicationComponent
                 snippet_preview_target: "previewButton",
                 turbo_frame: dom_id(snippet, :code_block)
               }
-
-            language_select(form, data: {action: "change->snippet-preview#preview"})
           end
         end
       end
 
       if @snippet.persisted?
-        flex_block do
-          button_to "Destroy this snippet",
-            share_snippet_path(@snippet), method: :delete,
-            data: {confirm: "Are you sure?"},
-            class: "button warn",
-            form: {style: "margin-left: auto"} # move to the right
+        br
+        br
+        div do
+          flex_block do
+            button_to "Destroy this snippet",
+              share_snippet_path(@snippet), method: :delete,
+              data: {confirm: "Are you sure?"},
+              class: "button warn"
+            # form: {style: "margin-left: auto"} # move to the right
+          end
         end
       end
     end

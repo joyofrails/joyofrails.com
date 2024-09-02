@@ -104,6 +104,16 @@ RSpec.describe "/snippets", type: :request do
         post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
         expect(response).to redirect_to(edit_share_snippet_url(Snippet.last))
       end
+
+      it "redirects to the screenshot page" do
+        post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}, commit: "Share"}
+        expect(response).to redirect_to(new_share_snippet_screenshot_url(Snippet.last, auto: true))
+      end
+
+      it "redirects to the show page" do
+        post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}, commit: "Save & Close"}
+        expect(response).to redirect_to(share_snippet_url(Snippet.last))
+      end
     end
 
     context "with invalid parameters" do
@@ -158,6 +168,24 @@ RSpec.describe "/snippets", type: :request do
         patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}}
         snippet.reload
         expect(response).to redirect_to(edit_share_snippet_url(snippet))
+      end
+
+      it "redirects to the screenshot page" do
+        user = login_as_user
+        Flipper.enable(:snippets, user)
+        snippet = FactoryBot.create(:snippet, author: user)
+        patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}, commit: "Share"}
+        snippet.reload
+        expect(response).to redirect_to(new_share_snippet_screenshot_url(snippet, auto: true))
+      end
+
+      it "redirects to the show page" do
+        user = login_as_user
+        Flipper.enable(:snippets, user)
+        snippet = FactoryBot.create(:snippet, author: user)
+        patch share_snippet_url(snippet), params: {snippet: {source: "puts \"Goodbye!\""}, commit: "Save & Close"}
+        snippet.reload
+        expect(response).to redirect_to(share_snippet_url(snippet))
       end
     end
 
