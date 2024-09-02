@@ -52,9 +52,13 @@ class Share::Snippets::Form < ApplicationComponent
 
         fieldset do
           flex_block do
+            language_select(form, data: {action: "change->snippet-preview#preview"})
+
             plain form.submit "Share", class: "button primary"
 
             plain form.submit "Save", class: "button secondary"
+
+            plain form.submit "Save & Close", class: "button secondary"
 
             plain form.submit "Preview",
               class: "button secondary hidden",
@@ -65,13 +69,12 @@ class Share::Snippets::Form < ApplicationComponent
                 snippet_preview_target: "previewButton",
                 turbo_frame: dom_id(snippet, :code_block)
               }
-
-            language_select(form, data: {action: "change->snippet-preview#preview"})
           end
         end
       end
 
       if @snippet.persisted?
+        br
         br
         div do
           flex_block do

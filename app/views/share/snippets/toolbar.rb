@@ -12,7 +12,9 @@ class Share::Snippets::Toolbar < ApplicationComponent
     flex_block do
       link_to "Share", share_url, class: "button primary"
       if @current_user&.can_edit?(@snippet)
-        link_to "Edit this snippet", edit_share_snippet_path(@snippet), class: "button secondary"
+        link_to "Edit this snippet", edit_share_snippet_path(@snippet),
+          class: "button secondary",
+          data: {turbo_frame: "snippet_form"}
       end
     end
   end
