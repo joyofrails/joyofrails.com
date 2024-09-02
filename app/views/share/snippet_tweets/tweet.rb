@@ -23,8 +23,8 @@ class Share::SnippetTweets::Tweet < ApplicationComponent
       )
 
       flex_block do
-        button_tag "Tweet",
-          class: class_names("button", "primary", hidden: auto?),
+        button_tag "Share",
+          class: class_names("button", "primary"),
           data: {action: "click->snippet-tweet#tweet"}
       end
     end

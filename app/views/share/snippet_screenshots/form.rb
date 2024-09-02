@@ -27,7 +27,9 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       render CodeBlock::Snippet.new(snippet, screenshot: true, data: {snippet_screenshot_target: "snippet"})
 
       fieldset do
-        plain form.button "Share", class: "button primary", data: {snippet_screenshot_target: "submitButton"}
+        plain form.button "Share",
+          class: "button primary",
+          data: {snippet_screenshot_target: "submitButton"}
       end
     end
   end

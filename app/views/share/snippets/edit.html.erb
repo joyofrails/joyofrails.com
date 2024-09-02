@@ -4,6 +4,8 @@
     <%= render Share::Snippets::Form.new(@snippet) %>
   <% end %>
 
+  <br>
+
   <div>
     <%= link_to "Show this snippet", share_snippet_path(@snippet) %> |
     <%= link_to "Back to snippets", share_snippets_path %>

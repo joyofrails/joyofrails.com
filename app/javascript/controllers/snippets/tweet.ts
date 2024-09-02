@@ -1,3 +1,4 @@
+import { Turbo } from '@hotwired/turbo-rails';
 import { Controller } from '@hotwired/stimulus';
 
 import debug from '../../utils/debug';
@@ -18,6 +19,7 @@ export default class extends Controller {
 
     if (this.autoValue) {
       this.tweet();
+      Turbo.visit(this.urlValue);
     }
   }
 
