@@ -6,3 +6,4 @@ ignore:
   - 'build/**/*'
   - 'rubies/**/*'
   - '.wasm/**/*'
+  - 'db/*schema.rb'
