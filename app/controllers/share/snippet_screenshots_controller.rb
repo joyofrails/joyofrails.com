@@ -9,6 +9,7 @@ class Share::SnippetScreenshotsController < ApplicationController
 
   def new
     @snippet = Snippet.find(params[:snippet_id])
+    @auto = params[:auto] == "true"
   end
 
   def create

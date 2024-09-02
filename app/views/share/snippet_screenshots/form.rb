@@ -6,8 +6,9 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
 
   attr_accessor :snippet
 
-  def initialize(snippet)
+  def initialize(snippet, auto: false)
     @snippet = snippet
+    @auto = auto
   end
 
   def view_template
@@ -17,7 +18,8 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       method: :post,
       class: "grid-content",
       data: {
-        controller: "snippet-screenshot"
+        controller: "snippet-screenshot",
+        snippet_screenshot_auto_value: auto?.to_s
       }
     ) do |form|
       errors
@@ -48,4 +50,6 @@ class Share::SnippetScreenshots::Form < ApplicationComponent
       end
     end
   end
+
+  def auto? = !!@auto
 end

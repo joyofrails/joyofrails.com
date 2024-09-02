@@ -67,7 +67,7 @@ class Share::SnippetsController < ApplicationController
   def share_snippet_redirect_url(snippet)
     case params[:commit]
     when "Share"
-      new_share_snippet_screenshot_url(snippet)
+      new_share_snippet_screenshot_url(snippet, auto: true)
     else
       edit_share_snippet_url(snippet)
     end
