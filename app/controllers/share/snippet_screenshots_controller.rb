@@ -15,6 +15,15 @@ class Share::SnippetScreenshotsController < ApplicationController
   def create
     @snippet = Snippet.find(params[:snippet_id])
     @snippet.attach_screenshot_from_base64(params[:screenshot])
-    redirect_to new_share_snippet_tweet_path(@snippet, auto: true), notice: "Screenshot successful".emojoy
+    redirect_to intent_url, notice: "Screenshot successful".emojoy
+  end
+
+  def intent_url
+    case params[:intent]
+    when "share"
+      new_share_snippet_tweet_url(@snippet, auto: true)
+    else
+      share_snippet_url(@snippet)
+    end
   end
 end
