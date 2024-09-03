@@ -10,7 +10,8 @@ class Share::Snippets::Toolbar < ApplicationComponent
 
   def view_template
     flex_block do
-      link_to "Share", share_url, class: "button primary"
+      render Share::SnippetTweets::TweetButton.new(@snippet)
+
       if @current_user&.can_edit?(@snippet)
         link_to "Edit this snippet", edit_share_snippet_path(@snippet),
           class: "button secondary",
