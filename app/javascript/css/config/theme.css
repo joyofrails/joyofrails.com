@@ -85,6 +85,9 @@
   --joy-button-tertiary: var(--color-slate-500);
   --joy-button-tertiary-hover: var(--color-slate-600);
   --joy-button-tertiary-active: var(--color-slate-700);
+  --joy-button-transparent: none;
+  --joy-button-transparent-hover: var(--joy-color-100);
+  --joy-button-transparent-active: var(--joy-color-200);
   --joy-button-warn: var(--color-red-500);
   --joy-button-warn-hover: var(--color-red-400);
 }
@@ -123,4 +126,8 @@
   --joy-link-visited: var(--joy-link-3);
   --joy-link-decoration: var(--joy-link-8);
   --joy-link-active: var(--joy-link-5);
+
+  --joy-button-transparent: none;
+  --joy-button-transparent-hover: var(--joy-color-950);
+  --joy-button-transparent-active: var(--joy-color-900);
 }
