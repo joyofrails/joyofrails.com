@@ -10,11 +10,21 @@ class Share::Snippets::Toolbar < ApplicationComponent
 
   def view_template
     flex_block do
-      link_to "Share", share_url, class: "button primary"
+      render Share::SnippetTweets::TweetButton.new(@snippet)
+
+      a(
+        href: download_url,
+        class: "button transparent"
+      ) { "Download" }
+
       if @current_user&.can_edit?(@snippet)
-        link_to "Edit this snippet", edit_share_snippet_path(@snippet),
+        a(
+          href: edit_share_snippet_path(@snippet),
           class: "button secondary",
           data: {turbo_frame: "snippet_form"}
+        ) do
+          "Edit this snippet"
+        end
       end
     end
   end
@@ -23,7 +33,15 @@ class Share::Snippets::Toolbar < ApplicationComponent
     if @snippet.screenshot.attached?
       new_share_snippet_tweet_path(@snippet, auto: "true")
     else
-      new_share_snippet_screenshot_path(@snippet, auto: "true")
+      new_share_snippet_screenshot_path(@snippet, auto: "true", intent: "share")
+    end
+  end
+
+  def download_url
+    if @snippet.screenshot.attached?
+      rails_blob_url(@snippet.screenshot, disposition: "attachment")
+    else
+      new_share_snippet_screenshot_path(@snippet, auto: "true", intent: "download")
     end
   end
 end

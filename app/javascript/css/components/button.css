@@ -55,6 +55,27 @@
       background-color: var(--joy-button-tertiary-active);
     }
   }
+  &.transparent {
+    color: inherit;
+    border: 1px solid var(--joy-button-transparent-active);
+    background-color: var(--joy-button-transparent);
+    &:hover {
+      background-color: var(--joy-button-transparent-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-transparent-active);
+    }
+  }
+  &.tertiary {
+    border: 1px solid var(--joy-button-tertiary);
+    background-color: var(--joy-button-tertiary);
+    &:hover {
+      background-color: var(--joy-button-tertiary-hover);
+    }
+    &:active {
+      background-color: var(--joy-button-tertiary-active);
+    }
+  }
   &.warn {
     background-color: var(--joy-button-warn);
     &:hover {

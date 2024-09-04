@@ -40,6 +40,13 @@ export default class extends Controller<HTMLFormElement> {
       const data = await this.drawScreenshot();
 
       event.detail.fetchOptions.body.append('screenshot', data);
+
+      const searchParams = new URLSearchParams(window.location.search);
+      ['auto', 'intent'].forEach((key) => {
+        if (searchParams.get(key)) {
+          event.detail.fetchOptions.body.append(key, searchParams.get(key));
+        }
+      });
     }
 
     event.detail.resume();

@@ -50,7 +50,7 @@ RSpec.describe "Snippets", type: :system do
 
     click_link "Share"
 
-    expect(page).to have_content("Screenshot")
+    expect(page).to have_content("Download")
   end
 
   it "can share Snippet" do
@@ -63,6 +63,7 @@ RSpec.describe "Snippets", type: :system do
       click_link "Share"
     end
 
-    expect(page).to have_content("Screenshot")
+    expect(page).to have_content("Download")
+    click_link "Download"
   end
 end

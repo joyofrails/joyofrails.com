@@ -21,33 +21,31 @@ const WINDOW_OPTIONS = {
 const WINDOW_OPTIONS_ARGUMENT = Object.entries(WINDOW_OPTIONS)
   .map(([key, value]) => `${key}=${value}`)
   .join(',');
-export default class extends Controller {
+export default class extends Controller<HTMLAnchorElement> {
   static values = {
-    url: String,
     auto: Boolean,
+    url: String,
   };
 
-  declare urlValue: string;
-  declare autoValue: boolean;
+  declare readonly autoValue: boolean;
+  declare readonly urlValue: string;
 
   connect() {
     console.log('Connect!');
 
     if (this.autoValue) {
-      this.tweet();
+      this.element.click();
       Turbo.visit(this.urlValue);
     }
   }
 
-  tweet() {
-    console.log('Tweet!');
+  tweet = (event: Event) => {
+    if (event) {
+      event.preventDefault();
+    }
 
-    const url = this.urlValue;
-
-    const tweetText = encodeURIComponent(`Created with @joyofrails ${url}`);
-
-    const tweetUrl = `https://x.com/intent/post?text=${tweetText}`;
+    const tweetUrl = (this.element as HTMLAnchorElement).href;
 
     window.open(tweetUrl, '_blank', WINDOW_OPTIONS_ARGUMENT);
-  }
+  };
 }
