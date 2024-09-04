@@ -12,6 +12,6 @@ module CodeBlock::AtomAware
   end
 
   def content_type?(type)
-    helpers.headers["Content-Type"].to_s =~ %r{#{Regexp.escape(type)}}
+    helpers&.headers&.[]("Content-Type").to_s =~ %r{#{Regexp.escape(type)}}
   end
 end
