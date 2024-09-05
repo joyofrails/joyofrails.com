@@ -30,11 +30,7 @@ class Layouts::FrontDoorForm < Phlex::HTML
   end
 
   def form_with(**, &)
-    super(
-      class: "grid grid-row-tight",
-      **,
-      &
-    )
+    super(class: "grid grid-row-tight", **, &)
   end
 
   def form_label(form, *args, **opts)
