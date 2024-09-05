@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_01_114558) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_05_104301) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -169,7 +169,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_01_114558) do
     t.text "source", null: false
     t.string "filename"
     t.string "language"
-    t.text "url"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "author_type", null: false
