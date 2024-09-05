@@ -87,8 +87,14 @@ RSpec.describe "/snippets", type: :request do
 
       it "creates a new Snippet" do
         expect {
-          post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
+          post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby", filename: "hello.rb", description: "A simple greeting"}}
         }.to change(Snippet, :count).by(1)
+
+        snippet = Snippet.last
+        expect(snippet.source).to eq("puts \"Hello!\"")
+        expect(snippet.language).to eq("ruby")
+        expect(snippet.filename).to eq("hello.rb")
+        expect(snippet.description).to eq("A simple greeting")
       end
 
       it "associates snippet with the current user" do

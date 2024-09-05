@@ -23,18 +23,18 @@ class Share::SnippetsController < ApplicationController
       source: "class User < ApplicationRecord\n\s\shas_many :posts\nend",
       language: "ruby"
     }
-    @snippet = current_user.snippets.new(snippet_params.presence || default_params)
+    @snippet = Current.user.snippets.new(snippet_params.presence || default_params)
   end
 
   # GET /snippets/1/edit
   def edit
-    @snippet = current_user.snippets.find(params[:id])
+    @snippet = Current.user.snippets.find(params[:id])
     @snippet.assign_attributes(snippet_params)
   end
 
   # POST /snippets
   def create
-    @snippet = current_user.snippets.new(snippet_params)
+    @snippet = Current.user.snippets.new(snippet_params)
 
     if @snippet.save
       redirect_to share_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
@@ -45,7 +45,7 @@ class Share::SnippetsController < ApplicationController
 
   # PATCH/PUT /snippets/1
   def update
-    @snippet = current_user.snippets.find(params[:id])
+    @snippet = Current.user.snippets.find(params[:id])
     if @snippet.update(snippet_params)
       @snippet.attach_screenshot_from_base64(params[:screenshot]) if params[:screenshot]
 
@@ -57,7 +57,7 @@ class Share::SnippetsController < ApplicationController
 
   # DELETE /snippets/1
   def destroy
-    @snippet = current_user.snippets.find(params[:id])
+    @snippet = Current.user.snippets.find(params[:id])
     @snippet.destroy!
     redirect_to share_snippets_url, notice: "Your snippet has been deleted permanently".emojoy, status: :see_other
   end
@@ -77,7 +77,7 @@ class Share::SnippetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def snippet_params
-    params.fetch(:snippet, {}).permit(:filename, :source, :language)
+    params.fetch(:snippet, {}).permit(:filename, :source, :language, :description)
   end
 
   def feature_enabled!

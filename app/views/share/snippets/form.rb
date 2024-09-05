@@ -53,7 +53,15 @@ class Share::Snippets::Form < ApplicationComponent
         fieldset do
           flex_block do
             language_select(form, data: {action: "change->snippet-preview#preview"})
+          end
+        end
 
+        fieldset do
+          form.text_area :description, placeholder: "Say a few words about this code snippet", class: "w-full"
+        end
+
+        fieldset do
+          flex_block do
             plain form.submit "Share", class: "button primary"
 
             plain form.submit "Save", class: "button secondary"
