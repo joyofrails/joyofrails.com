@@ -28,7 +28,7 @@ class Share::SnippetTweets::TweetButton < ApplicationComponent
   end
 
   def tweet_text
-    "Created with @joyofrails #{share_url}"
+    [@snippet.description.presence, "Created with @joyofrails #{share_url}"].compact.join("\n\n")
   end
 
   def encode(text)

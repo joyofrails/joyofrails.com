@@ -8,6 +8,18 @@ RSpec.describe "/snippets", type: :request do
       expect(response).to be_successful
     end
 
+    it "renders a successful response without filename" do
+      FactoryBot.create(:snippet, filename: nil)
+      get share_snippets_url
+      expect(response).to be_successful
+    end
+
+    it "renders a successful response without description" do
+      FactoryBot.create(:snippet, description: nil)
+      get share_snippets_url
+      expect(response).to be_successful
+    end
+
     it "does not render the New Snippet button when not allowed" do
       get share_snippets_url
 
@@ -25,6 +37,18 @@ RSpec.describe "/snippets", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       snippet = FactoryBot.create(:snippet)
+      get share_snippet_url(snippet)
+      expect(response).to be_successful
+    end
+
+    it "renders a successful response without filename" do
+      snippet = FactoryBot.create(:snippet, filename: nil)
+      get share_snippet_url(snippet)
+      expect(response).to be_successful
+    end
+
+    it "renders a successful response without description" do
+      snippet = FactoryBot.create(:snippet, description: nil)
       get share_snippet_url(snippet)
       expect(response).to be_successful
     end
@@ -87,8 +111,14 @@ RSpec.describe "/snippets", type: :request do
 
       it "creates a new Snippet" do
         expect {
-          post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby"}}
+          post share_snippets_url, params: {snippet: {source: "puts \"Hello!\"", language: "ruby", filename: "hello.rb", description: "A simple greeting"}}
         }.to change(Snippet, :count).by(1)
+
+        snippet = Snippet.last
+        expect(snippet.source).to eq("puts \"Hello!\"")
+        expect(snippet.language).to eq("ruby")
+        expect(snippet.filename).to eq("hello.rb")
+        expect(snippet.description).to eq("A simple greeting")
       end
 
       it "associates snippet with the current user" do

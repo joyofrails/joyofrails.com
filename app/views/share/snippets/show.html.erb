@@ -14,6 +14,7 @@
 <div class="section-content container py-gap mb-3xl">
   <%= turbo_frame_tag :snippet_form do %>
     <div class="section-content">
+      <%= render Markdown::Safe.new(@snippet.description) if @snippet.description %>
       <%= render CodeBlock::Snippet.new(@snippet) %>
       <div>
         <%= render Share::Snippets::Toolbar.new(@snippet, current_user: current_user) %>

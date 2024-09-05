@@ -10,10 +10,6 @@ class CodeBlock::Container < ApplicationComponent
   end
 
   def view_template(&)
-    div(
-      class: class_names("code-wrapper", "highlight", "language-#{language}", *classes),
-      **options,
-      &
-    )
+    div(class: class_names("code-wrapper", "highlight", "language-#{language}", *classes), **options, &)
   end
 end
