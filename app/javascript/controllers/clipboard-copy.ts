@@ -13,7 +13,9 @@ export default class extends Controller {
     console.log('connect');
   }
 
-  copy(e: Event) {
+  copy(event: Event) {
+    event.preventDefault();
+
     console.log('copy', this.sourceTarget.dataset.value);
     if (this.sourceTarget.dataset.value !== undefined) {
       navigator.clipboard.writeText(this.sourceTarget.dataset.value);
