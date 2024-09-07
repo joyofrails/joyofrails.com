@@ -34,7 +34,12 @@ gem "image_processing", group: [:default, :wasm] # Use Active Storage variants [
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
-gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
+
+# gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
+# Phlex 2.0 upgrade
+gem "phlex-rails", git: "https://github.com/phlex-ruby/phlex-rails.git"
+gem "phlex", git: "https://github.com/phlex-ruby/phlex.git"
+
 gem "commonmarker", require: false
 gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
 gem "color_conversion", group: [:default, :wasm] # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]

@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/phlex-ruby/phlex-rails.git
+  revision: 14d393f64e12b9a602d0677cdca01e4f84d215cd
+  specs:
+    phlex-rails (2.0.0)
+      phlex (~> 2.0.0)
+      railties (>= 6.1, < 8)
+
+GIT
+  remote: https://github.com/phlex-ruby/phlex.git
+  revision: 74066734f91db0e82605f409700a0afe729334a5
+  specs:
+    phlex (2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -326,10 +340,6 @@ GEM
     parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
-    phlex (1.10.3)
-    phlex-rails (1.2.1)
-      phlex (~> 1.10.0)
-      railties (>= 6.1, < 8)
     postmark (1.25.1)
       json
     postmark-rails (0.22.1)
@@ -606,7 +616,8 @@ DEPENDENCIES
   litestream
   meta-tags
   mission_control-jobs
-  phlex-rails
+  phlex!
+  phlex-rails!
   postmark-rails
   propshaft
   puma (>= 5.0)
