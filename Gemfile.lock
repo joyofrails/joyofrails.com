@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/phlex-ruby/phlex-rails.git
-  revision: 14d393f64e12b9a602d0677cdca01e4f84d215cd
+  revision: 8e353bc95f2512ee12706f05bde3994cbc62db50
   specs:
     phlex-rails (2.0.0)
       phlex (~> 2.0.0)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/phlex-ruby/phlex.git
-  revision: 74066734f91db0e82605f409700a0afe729334a5
+  revision: 815c94ea7d04abca03d925b730bd0ae41fc234b4
   specs:
     phlex (2.0.0)
 
@@ -419,7 +419,7 @@ GEM
       rainbow (>= 2.0, < 4.0)
       rexml (~> 3.1)
     regexp_parser (2.9.2)
-    reline (0.5.9)
+    reline (0.5.10)
       io-console (~> 0.5)
     require_all (3.0.0)
     rexml (3.3.6)
