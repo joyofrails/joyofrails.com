@@ -11,7 +11,7 @@ class CodeBlock::AppFileHeader < ApplicationComponent
     render CodeBlock::Header.new do
       link(app_file.repo_url, "Source code on Github", class: "nc") do
         plain app_file.app_path.to_s
-        plain inline_svg_tag("external-link.svg", class: "icon icon-sm", height: 12, width: 12)
+        raw inline_svg_tag("external-link.svg", class: "icon icon-sm", height: 12, width: 12)
       end
     end
   end

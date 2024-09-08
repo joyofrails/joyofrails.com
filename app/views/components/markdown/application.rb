@@ -24,10 +24,10 @@ class Markdown::Application < Markdown::Base
   end
 
   def html_block(html)
-    unsafe_raw(html)
+    raw safe(html)
   end
 
   def html_inline(html)
-    unsafe_raw(html)
+    raw safe(html)
   end
 end

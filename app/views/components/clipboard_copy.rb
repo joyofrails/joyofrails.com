@@ -28,11 +28,11 @@ class ClipboardCopy < Phlex::HTML
             "absolute hidden text-xs md:text-base top-0 md:top-[3px] left-[-68px] md:left-[-72px] group-focus:inline py-1 px-2 text-white font-semibold bg-black rounded-m"
         ) { "Copied!" }
         whitespace
-        plain inline_svg_tag "copy-text.svg",
+        raw inline_svg_tag "copy-text.svg",
           class:
             "copy-text inline-block cursor-pointer fill-current group-focus:hidden w-[16px] md:w-[20px]"
         whitespace
-        plain inline_svg_tag "check-mark.svg",
+        raw inline_svg_tag "check-mark.svg",
           class:
             "check-mark hidden fill-green-600 group-focus:inline-block w-[16px] md:w-[20px]"
         whitespace

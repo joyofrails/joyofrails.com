@@ -17,7 +17,7 @@ class Layouts::FrontDoorForm < Phlex::HTML
   def form_layout(&block)
     div(class: "flex min-h-full flex-col justify-center container py-xl lg:px-3xl") do
       div(class: "mx-auto w-full max-w-sm text-theme") do
-        plain inline_svg_tag "joy-logo.svg",
+        raw inline_svg_tag "joy-logo.svg",
           class: "fill-current mx-auto",
           style: "max-width: 64px;",
           alt: "Joy of Rails"

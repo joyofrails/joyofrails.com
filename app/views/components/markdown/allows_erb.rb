@@ -21,7 +21,7 @@ module Markdown::AllowsErb
       end
     in :text
       if node.string_content.match?(ERB_TAGS)
-        unsafe_raw(node.string_content)
+        raw safe(node.string_content)
       else
         super
       end

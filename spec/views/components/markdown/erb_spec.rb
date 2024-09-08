@@ -77,5 +77,26 @@ RSpec.describe "Markdown with Erb", type: :view do
       HTML
       expect(render(md)).to eq(html)
     end
+
+    it "handles fenced erb with text" do
+      md = <<~'MD'
+        ```erb
+        <%
+        color_name = @color_scheme.name.parameterize
+        # #to_hsla defined as a helper method
+        %>
+        <style>
+        :root {
+        <%= @color_scheme.weights.map { |weight, color| "--color-#{color_name}-#{weight}: #{to_hsla(color)};" }.join("\n\s\s") %>
+        <% if @my_theme %>
+        <%= @color_scheme.weights.map { |weight, color| "--my-color-#{weight}: var(--color-#{color_name}-#{weight});" }.join("\n\s\s") %>
+        <% end %>
+        }
+        </style>
+        ```
+      MD
+
+      expect(md).to include("color_name = @color_scheme.name.parameterize")
+    end
   end
 end

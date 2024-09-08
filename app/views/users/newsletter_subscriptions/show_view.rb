@@ -29,7 +29,7 @@ class Users::NewsletterSubscriptions::ShowView < ApplicationView
         end
 
         script(type: "text/javascript") do
-          unsafe_raw <<~JS
+          raw safe(<<~JS)
             if (window.plausible) {
               window.plausible("Newsletter signup");
               console.log("Newsletter signup");
