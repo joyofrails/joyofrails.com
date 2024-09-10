@@ -9,9 +9,9 @@ class ColorSchemes::Css < Phlex::HTML
   end
 
   def view_template
-    plain css_variables
+    raw safe(css_variables)
     if my_theme?
-      plain my_css_variables
+      raw safe(my_css_variables)
     end
   end
 

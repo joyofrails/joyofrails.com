@@ -78,7 +78,7 @@ class Settings::SyntaxHighlights::Form < ApplicationView
       "Toggle this switch to see the syntax highlighting when the _site_ is Light or Dark Mode. Choosing **Light Mode** or **Dark Mode** will save in your browser local storage and will persist across page views on your current device. Choose **System Mode** to remove the saved choice and fall back to your system preference."
     end
     div(class: "outside") do
-      render "darkmode/switch", enable_description: true, enable_outline: true
+      render partial: "darkmode/switch", enable_description: true, enable_outline: true
     end
   end
 
