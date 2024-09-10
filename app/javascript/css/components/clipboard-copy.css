@@ -1,3 +1,14 @@
 button.button--clipboard-copy {
   background-color: transparent;
 }
+
+.clipboard-copy-container {
+  position: absolute;
+  bottom: var(--space-s);
+  right: var(--space-s);
+  display: none;
+}
+
+*:has(.clipboard-copy-container):hover > .clipboard-copy-container {
+  display: block;
+}

@@ -1,0 +1,7 @@
+@import '../config/variables.scss';
+
+@media screen and (min-width: $screen-md) {
+  .snippet-background {
+    aspect-ratio: 2 / 1;
+  }
+}

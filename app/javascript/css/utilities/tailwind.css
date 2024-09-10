@@ -1012,3 +1012,6 @@ focus\:ring-0:focus {
 .collapse {
   visibility: collapse;
 }
+.overflow-x-auto {
+  overflow-x: auto;
+}
