@@ -13,7 +13,7 @@
 
 .snippet-background {
   background: linear-gradient(var(--joy-color-300), var(--joy-color-200));
-  padding: var(--space-l);
+  padding: var(--space-s);
   width: fit-content;
   border-radius: 0.5rem;
   max-width: var(--grid-max-width);
