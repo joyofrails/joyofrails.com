@@ -16,11 +16,14 @@ tags:
 
 You may have heard Rails 8 will extract a new framework for delivering Web Push notifications from your web app. Web Push notifications are powerful because they allow you to engage with your users _even when they're not on your site_.
 
+Webkit announcment
+https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/?
+
 that will likely be called Action Notifier.
 
 Though we don’t have Action Notifier yet, it is already possible to implement
 
-I'm going to share how to I got a working demo of the new [Web Push API](https://www.w3.org/TR/push-api/) from a Rails (or any Ruby) web application to push desktop-style notifications through supporting browsers - currently Chrome and Firefox at the time of this writing.
+I'm going to share how to I got a working demo of the [Web Push API](https://www.w3.org/TR/push-api/) for Joy of Rails to push notifications through supporting browsers - currently Chrome and Firefox at the time of this writing.
 
 We'll cover the basics of implementing Push yourself with Rails.
 
@@ -38,10 +41,34 @@ Click the Subscribe button below. You can also unsubscribe anytime.
 
 <%= render Pwa::WebPushDemo.new(web_push_key: web_push_key) %>
 
+Did you see a notification?
+
 ## Troubleshooting
 
-Did you see a notification?
-Not working? Check your system Notification settings for your browser and browser Notification settings for this site.
+If the web push didn‘t succeed, there could be a few reasons.
+
+Check your system Notification settings for your browser and browser Notification settings for this site.
+
+Is your browser supported? <strong id="web-push-browser-support"></strong>
+
+<strong>Maybe?</strong>
+
+<script type="text/javascript">
+  const element = document.getElementById("web-push-browser-support")
+  if (element) element.textContent = (window.PushManager ? 'Yes' : 'No');
+</script>
+
+```js
+if (window.PushManager) {
+  // the current browser supports the Push API and Web Push Notifications
+} else {
+  // fallback for browsers that don't support this feature
+}
+```
+
+https://caniuse.com/?search=web%20push
+
+Finally, it‘s always possible I’ve introduced a regression, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
 
 ## Bird’s eye view
 
