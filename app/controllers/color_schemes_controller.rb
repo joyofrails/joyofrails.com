@@ -8,7 +8,7 @@ class ColorSchemesController < ApplicationController
   def show
     @color_scheme = ColorScheme.find(params[:id])
 
-    if stale?(@color_scheme, public: true)
+    if Rails.configuration.settings.skip_http_cache? || stale?(@color_scheme, public: true)
       respond_to do |format|
         format.html { render ColorSchemes::ShowView.new(color_scheme: @color_scheme) }
         format.css { render ColorSchemes::Css.new(color_scheme: @color_scheme), layout: false }
