@@ -1,5 +1,5 @@
 module Analytics
-  extend ActiveSupport::Concern
+  protected
 
   def plausible_event(name, props: {})
     Analytics::PlausibleEventJob.perform_later(
