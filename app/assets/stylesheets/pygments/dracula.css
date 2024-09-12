@@ -477,3 +477,8 @@
 .highlight.language-css .py {
   color: #8be9fd;
 }
+
+/* Overrides */
+.highlight .hll {
+  background-color: #313131 !important;
+}

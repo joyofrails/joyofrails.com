@@ -9,7 +9,7 @@
   <% @snippets.each do |snippet| %>
     <div id="<%= dom_id(snippet) %>" class="section-content mb-xl">
       <%= render Markdown::Safe.new(snippet.description) if snippet.description %>
-      <%= link_to share_snippet_path(snippet), class: "section-content" do %>
+      <%= link_to share_snippet_path(snippet), class: "section-content overflow-x-auto" do %>
         <%= render CodeBlock::Snippet.new(snippet) %>
       <% end %>
       <div>

@@ -7,6 +7,8 @@ module SyntaxHighlighting
     helper_method :find_syntax_highlight
   end
 
+  protected
+
   def find_syntax_highlight
     @syntax_highlight ||= preview_syntax_highlight || session_syntax_highlight || default_syntax_highlight
   end

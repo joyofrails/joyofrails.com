@@ -37,4 +37,6 @@
 @import './components/color-scheme.scss';
 @import './components/table.css';
 @import './components/snippet.css';
+@import './components/snippet.css';
+@import './components/snippet-media-query.scss';
 @import './components/flash.css';
