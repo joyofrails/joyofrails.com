@@ -3,22 +3,23 @@
 class CodeBlock::Code < ApplicationComponent
   class << self
     def code_formatter
-      @code_formatter ||= LineHighlighter.new(Rouge::Formatters::HTML.new, highlight_lines: 1..4)
+      @code_formatter ||= Rouge::Formatters::HTML.new
     end
   end
 
   attr_reader :source, :language, :data
 
-  def initialize(source = "", language: nil, data: {})
+  def initialize(source = "", language: nil, data: {}, highlight_lines: [])
     @source = source
     @language = language
     @data = data
+    @highlight_lines = highlight_lines
   end
 
   def view_template(&block)
     pre data: data do
       code do
-        unsafe_raw self.class.code_formatter.format(lexer.lex(source))
+        unsafe_raw code_formatter.format(lexer.lex(source))
       end
     end
   end
@@ -28,7 +29,11 @@ class CodeBlock::Code < ApplicationComponent
   private
 
   def code_formatter
-    self.class.code_formatter
+    if @highlight_lines.present?
+      LineHighlighter.new(self.class.code_formatter, highlight_lines: @highlight_lines)
+    else
+      self.class.code_formatter
+    end
   end
 
   def lexer = Rouge::Lexer.find(language) || Rouge::Lexers::PlainText
