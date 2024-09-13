@@ -20,7 +20,7 @@ class ClipboardCopy < Phlex::HTML
           "button--clipboard-copy text-gray-500 dark:text-gray-400 group rounded-md text-sm md:p-2 relative",
         data_action: "clipboard-copy#copy",
         data_clipboard_copy_target: "source",
-        data_value: text
+        data_value: ERB::Util.html_escape(text)
       ) do
         whitespace
         span(
