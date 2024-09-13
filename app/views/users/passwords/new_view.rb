@@ -4,7 +4,6 @@ class Users::Passwords::NewView < ApplicationView
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::Object
   include Phlex::Rails::Helpers::Routes
-  include InlineSvg::ActionView::Helpers
 
   def initialize(user:)
     @user = user

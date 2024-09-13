@@ -4,7 +4,7 @@ class Layouts::FrontDoorForm < Phlex::HTML
   include Phlex::Rails::Helpers::Label
   include Phlex::Rails::Helpers::Object
   include Phlex::Rails::Helpers::Routes
-  include InlineSvg::ActionView::Helpers
+  include PhlexConcerns::SvgTag
 
   def initialize(title:)
     @title = title
@@ -17,7 +17,7 @@ class Layouts::FrontDoorForm < Phlex::HTML
   def form_layout(&block)
     div(class: "flex min-h-full flex-col justify-center container py-xl lg:px-3xl") do
       div(class: "mx-auto w-full max-w-sm text-theme") do
-        raw inline_svg_tag "joy-logo.svg",
+        svg_tag "joy-logo.svg",
           class: "fill-current mx-auto",
           style: "max-width: 64px;",
           alt: "Joy of Rails"
