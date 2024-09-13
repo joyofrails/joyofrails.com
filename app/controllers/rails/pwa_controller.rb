@@ -12,6 +12,6 @@ class Rails::PwaController < Rails::ApplicationController # :nodoc:
   end
 
   def manifest
-    render template: "pwa/manifest", layout: false
+    render template: "pwa/manifest", content_type: "application/manifest+json", layout: false
   end
 end
