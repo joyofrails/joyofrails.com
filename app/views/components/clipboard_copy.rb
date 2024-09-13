@@ -10,7 +10,7 @@ class ClipboardCopy < Phlex::HTML
   def view_template
     div(
       data_controller: "clipboard-copy",
-      class: "clipboard-copy-container mr-2 mt-2 md:mr-4 md:mt-3"
+      class: "clipboard-copy-container"
     ) do
       whitespace
       button(

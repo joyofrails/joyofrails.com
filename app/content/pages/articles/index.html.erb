@@ -2,10 +2,13 @@
 title: Articles
 description: Read the latest articles from Joy of Rails
 ---
-<section>
+<section style="min-height: 51vh">
   <div class="main-content container py-gap lg:py-3xl">
-    <% ArticlePage.published.take(20).zip(%w[left right]).each do |(page, side)| %>
+    <% ArticlePage.published(params).take(4).zip(%w[left right].cycle).each do |(page, side)| %>
       <%= render Pages::Summary.from_page(page, side: side) %>
     <% end %>
   </div>
+</section>
+<section>
+  <%= render "users/newsletter_subscriptions/banner" %>
 </section>
