@@ -62,13 +62,13 @@ class Share::Snippets::Form < ApplicationComponent
 
         fieldset do
           flex_block do
-            plain form.submit "Share", class: "button primary"
+            form.submit "Share", class: "button primary"
 
-            plain form.submit "Save", class: "button secondary"
+            form.submit "Save", class: "button secondary"
 
-            plain form.submit "Save & Close", class: "button secondary"
+            form.submit "Save & Close", class: "button secondary"
 
-            plain form.submit "Preview",
+            form.submit "Preview",
               class: "button secondary hidden",
               formaction: form_path,
               formmethod: "get",
@@ -125,8 +125,8 @@ class Share::Snippets::Form < ApplicationComponent
   def language_select(form, data: {})
     div(class: "flex items-start flex-col space-col-4 md:items-center md:flex-row md:space-row-4") do
       fieldset do
-        plain form.label :language, class: "sr-only"
-        plain form.select :language,
+        form.label :language, class: "sr-only"
+        form.select :language,
           language_select_options,
           {},
           data:,

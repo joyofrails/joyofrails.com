@@ -29,7 +29,7 @@ class Pwa::WebPushDemo < Phlex::HTML
         data: {
           "pwa-web-push-demo-target": "sendDemoPushForm"
         } do |f|
-        plain f.hidden_field :subscription,
+        f.hidden_field :subscription,
           data: {
             "pwa-web-push-demo-target": "subscriptionField"
           }
@@ -41,8 +41,8 @@ class Pwa::WebPushDemo < Phlex::HTML
           class: "flex flex-wrap gap-2",
           disabled: true
         ) do
-          plain f.text_field :title, value: "Joy of Rails"
-          plain f.text_field :message, value: "Hello World"
+          f.text_field :title, value: "Joy of Rails"
+          f.text_field :message, value: "Hello World"
           button(class: "button primary") do
             "Send push notification to myself"
           end

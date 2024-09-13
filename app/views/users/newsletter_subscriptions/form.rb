@@ -16,7 +16,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
       div(class: "flex flex-row items-center mt-2") do
         div(class: "flex-grow mr-2") do
           whitespace
-          plain f.email_field :email,
+          f.email_field :email,
             type: :email,
             autocomplete: "off",
             placeholder: "your@joymail.com",
@@ -24,7 +24,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
               "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] "
         end
         div do
-          plain f.submit "Subscribe", class: "button primary focus-ring"
+          f.submit "Subscribe", class: "button primary focus-ring"
         end
       end
 
