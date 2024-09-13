@@ -1,0 +1,59 @@
+---
+title: You can add a Rails app to the Home Screen
+author: Ross Kaffenberger
+layout: article
+summary: Here is the summary
+description: Here is the description that will show up in the the meta day
+published: '2024-09-19'
+uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
+image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
+meta_image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
+tags:
+  - Rails
+---
+
+Joy of Rails is a Progressive Web App built with Rails. You can install it as an app to your home screen of your mobile device or on your desktop from supporting browsers.
+
+Try it. Of course, you can uninstall the app anytime.
+
+<%= render Pwa::InstallButton %>
+
+In this article, I’ll describe what it will take to turn your Rails app into a Progressive Web App. Let Joy of Rails serve as an example.
+
+---
+
+From "What can PWA do today?"
+
+What is a PWA?
+
+A Progressive Web App (PWA) is basically just a website with some added features, which enable it to provide an app-like user-experience.
+
+This means it can work practically just like a native iOS or Android app. It can be installed to the home screen of your mobile device, work offline and receive push notifications, among other things.
+
+A well-designed PWA is indistinguishable from a native app, but it also offers some strong added benefits:
+
+- It's just a website! You don't need to build separate apps anymore. If you have a website, you can easily turn it into an iOS and Android app as well!
+- A PWA is much smaller than a native app. Your users no longer need to install tens of megabytes of code
+- No need to get your app into the App Store or Play Store. Just share the link to your website and users can install it as an app
+- There's no need to get users to install updates anymore. When you release a new version of your app, all your users automatically get the new version
+
+By default, PWAs are served over HTTPS and are therefore safe and secure
+PWAs are lightweight and offer high performance
+Especially on Android, a PWA can almost do anything a native app can
+
+---
+
+https://vite-pwa-org.netlify.app/assets-generator/#pwa-minimal-icons-requirements
+
+As pointed out in PWA Minimal Requirements, you will need:
+
+a 192x192 icon (PWA Manifest icon)
+a 512x512 icon (PWA Manifest icon)
+a 180x180 icon for iOS/MacOS (html head link: <link rel="apple-touch-icon" href="/apple-touch-icon.png">)
+We also suggest you to include:
+
+A 64x64 icon for Windows (Edge) (PWA Manifest icon)
+A 512x512 icon for Android with purpose: 'any' (PWA Manifest icon)
+Avoid using purpose: 'any maskable' icon, as it is not supported by all browsers
+
+<%= render Pwa::InstallButton %>
