@@ -37,8 +37,8 @@ gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rail
 
 # gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
 # Phlex 2.0 upgrade
-gem "phlex-rails", git: "https://github.com/phlex-ruby/phlex-rails.git"
-gem "phlex", git: "https://github.com/phlex-ruby/phlex.git"
+gem "phlex-rails", "2.0.0.beta1"
+gem "phlex", "2.0.0.beta1"
 
 gem "commonmarker", require: false
 gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
