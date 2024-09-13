@@ -10,7 +10,7 @@ RSpec.describe "PWA Showcase", type: :system do
   it "renders the Install to Homescreen button" do
     visit "/pwa-showcase"
 
-    expect(page).to have_button("Install to Homescreen")
+    expect(page).to have_button("Install to Homescreen", disabled: true)
   end
 
   # To run the following test, add selenium-webdriver to Gemfile
