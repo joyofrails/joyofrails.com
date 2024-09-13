@@ -26,7 +26,7 @@ const isStandaloneApp = window.matchMedia('(display-mode: standalone)').matches;
 const supportsInstallPrompt = 'onbeforeinstallprompt' in window;
 
 export default class extends Controller {
-  static targets = ['installButton', 'infoButton', 'dialog'];
+  static targets = ['installButton', 'infoButton', 'dialog', 'message'];
 
   connect() {
     controllers.add(this);
@@ -59,6 +59,12 @@ export default class extends Controller {
 
   showInstallButton() {
     this.installButtonTarget.classList.remove('hidden');
+    const alreadyInstalled = !installPromptEvent;
+
+    if (alreadyInstalled) {
+      this.installButtonTarget.disabled = alreadyInstalled;
+      this.showMessage('Already installed!');
+    }
   }
 
   hideInstallButton() {
@@ -86,5 +92,10 @@ export default class extends Controller {
     if (e.target === this.dialogTarget) {
       this.closeDialog(e);
     }
+  }
+
+  showMessage(message) {
+    this.messageTarget.textContent = message;
+    this.messageTarget.classList.remove('hidden');
   }
 }
