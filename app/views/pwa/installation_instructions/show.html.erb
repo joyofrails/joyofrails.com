@@ -1,9 +1,11 @@
 <%= turbo_frame_tag "pwa_installation_instructions" do %>
-  <h5 class="font-semibold mb-2">How to Install on <%= @installation_instructions.os_name %></h5>
-  <%= begin
-    render @installation_instructions.partial_name, installation_instructions: @installation_instructions
-  rescue ActionView::MissingTemplate
-    # Report missing template for user agent when error monitoring is in place
-    render "unsupported"
-  end %>
+  <div class="mb-4">
+    <h3 class="font-semibold mb-2" style="margin-top: 0;">How to Install on <%= @installation_instructions.os_name %></h3>
+    <%= begin
+      render @installation_instructions.partial_name, installation_instructions: @installation_instructions
+    rescue ActionView::MissingTemplate
+      # Report missing template for user agent when error monitoring is in place
+      render "unsupported"
+    end %>
+  </div>
 <% end %>
