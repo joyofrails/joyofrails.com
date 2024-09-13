@@ -12,13 +12,14 @@ tags:
   - Rails
 ---
 
+Rails 8
+In this article, I’ll describe what it will take to turn your Rails app into a Progressive Web App.
+
 Joy of Rails is a Progressive Web App built with Rails. You can install it as an app to your home screen of your mobile device or on your desktop from supporting browsers.
 
 Try it. Of course, you can uninstall the app anytime.
 
 <%= render Pwa::InstallButton %>
-
-In this article, I’ll describe what it will take to turn your Rails app into a Progressive Web App. Let Joy of Rails serve as an example.
 
 ---
 
