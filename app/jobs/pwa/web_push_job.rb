@@ -5,7 +5,7 @@ class Pwa::WebPushJob < ApplicationJob
     message_json = {
       title: title,
       body: message,
-      icon: "/icon-192.png"
+      icon: "/pwa-manifest/icon-192.png"
     }.to_json
 
     response = WebPush.payload_send(

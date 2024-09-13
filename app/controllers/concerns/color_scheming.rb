@@ -12,6 +12,11 @@ module ColorScheming
 
   protected
 
+  def current_color_scheme
+    Current.color_scheme ||= find_color_scheme
+  end
+  alias_method :ensure_current_color_scheme, :current_color_scheme
+
   def custom_color_scheme_params = preview_color_scheme_id ? {settings: {color_scheme_id: preview_color_scheme_id}} : {}
 
   def custom_color_scheme? = preview_color_scheme_id.present? || session_color_scheme_id.present?
