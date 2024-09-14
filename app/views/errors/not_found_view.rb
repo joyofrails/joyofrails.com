@@ -8,10 +8,14 @@ class Errors::NotFoundView < ApplicationView
     render Errors::ErrorBody do
       p { "That‘s right, the page you were looking for does not exist." }
       p do
-        "...at least not in this current reality—that is unless you were looking for the 404 page, in which case, congrats! you found it"
+        plain "Unless you"
+        whitespace
+        em { "were" }
+        whitespace
+        plain "looking for the 404 page, in which case: Congrats! You found it!"
       end
       p do
-        "But, it‘s still a 404 Not Found in either case, which might bet confusing if you found the 404 page on purpose."
+        "But it‘s still a 404 Not Found in either case, which might be confusing if you were looking for the 404 page on purpose."
       end
       p { "So... did you find what you were looking for?" }
 
