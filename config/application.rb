@@ -52,9 +52,6 @@ module Joy
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
     end
 
-    # Set up solid cable options
-    config.solid_cable = ActiveSupport::OrderedOptions.new
-
     # Set up custom settings
     config.settings = ActiveSupport::OrderedOptions.new
 
