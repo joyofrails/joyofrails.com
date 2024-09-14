@@ -11,7 +11,8 @@ gem "activerecord-enhancedsqlite3-adapter" # Enhanced SQLite3 adapter for Active
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
 
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
-gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/basecamp/solid_queue]
+gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/rails/solid_queue]
+gem "solid_cable" # A database-backed ActionCable backend [https://github.com/rails/solid_cable]
 
 # Asset management
 gem "propshaft", group: [:default, :wasm] # Deliver assets for Rails [https://github.com/rails/propshaft]
