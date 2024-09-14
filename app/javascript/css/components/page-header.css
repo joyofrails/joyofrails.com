@@ -12,3 +12,7 @@
     color: var(--joy-text-light);
   }
 }
+
+.extend-page-header-bg {
+  background-color: var(--joy-background-header);
+}
