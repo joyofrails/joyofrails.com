@@ -35,10 +35,8 @@ gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://gi
 gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-# gem "phlex-rails", group: [:default, :wasm] # An object-oriented alternative to ActionView for Ruby on Rails. [https://github.com/phlex-ruby/phlex-rails]
-# Phlex 2.0 upgrade
-gem "phlex-rails", "2.0.0.beta1"
-gem "phlex", "2.0.0.beta1"
+gem "phlex", "2.0.0.beta1", group: [:default, :wasm] # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", "2.0.0.beta1", group: [:default, :wasm] # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "commonmarker", require: false
 gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
