@@ -154,7 +154,9 @@ This controller action will respond differently for HTML and CSS requests. Note 
 
 Below you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/html`.
 
+<div class="window">
 <%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill) %>
+</div>
 
 Here’s the code for the `iframe`:
 
@@ -166,12 +168,14 @@ Here’s the code for the `iframe`:
 
 And here you‘ll see an `iframe` with `src` set to request the **Blue Chill** color scheme as `text/css`.
 
-<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+<div class="window">
+  <%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+</div>
 
 Here’s the code for the `iframe`:
 
 ```erb:{"header": false}
-<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css) %>
+<%= tag.iframe src: color_scheme_path(@color_scheme_blue_chill, format: :css), class: "expand" %>
 ```
 
 Behold: dynamic css from a controller action!

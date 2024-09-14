@@ -102,6 +102,10 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/404", to: "errors#not_found"
+  get "/500", to: "errors#internal_server"
+  get "/422", to: "errors#unprocessable"
+
   # Render dynamic PWA files from app/views/pwa/*
   get "serviceworker" => "rails/pwa#serviceworker", :as => :pwa_serviceworker, :constraints => {format: "js"}
   get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest, :constraints => {format: "json"}

@@ -16,7 +16,8 @@ class Pages::Header < ApplicationComponent
       div(class: "container header-content") do
         title = @title_block ? capture(&@title_block) : @title
         h1 { title }
-        p(class: "description") { @description } if @description
+        description = @description_block ? capture(&@description_block) : @description
+        p(class: "description") { description } if description
         if @published_on || @updated_on
           span(class: "block") do
             if @published_on && @updated_on
@@ -47,5 +48,9 @@ class Pages::Header < ApplicationComponent
 
   def title(&block)
     @title_block = block
+  end
+
+  def description(&block)
+    @description_block = block
   end
 end
