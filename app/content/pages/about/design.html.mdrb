@@ -7,7 +7,7 @@ I am [not a designer](https://notadesigner.io/). Though the design of this site 
 
 ## Layout
 
-The design leans heavily into [CSS grid](...). I’m a relatively new student of CSS grid so I’m sure the approach could be improved. I built a 12 column layout from using https://utopia.fyi to generate based grid, layout, and type settings as CSS variables. Utopia allows designers and developers to generate a mathematically consistent
+The design leans heavily into [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout) I’m a relatively new student of CSS grid so I’m sure the approach could be improved. I built a 12 column layout from using https://utopia.fyi to generate based grid, layout, and type settings as CSS variables. Utopia allows designers and developers to generate a mathematically consistent
 
 ## Colors
 
