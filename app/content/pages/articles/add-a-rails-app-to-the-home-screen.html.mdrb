@@ -1,20 +1,20 @@
 ---
-title: You can add a Rails app to the Home Screen
+title: Add a Rails app to the Home Screen
 author: Ross Kaffenberger
 layout: article
 summary: Here is the summary
 description: Here is the description that will show up in the the meta day
 published: '2024-09-24'
 uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
-image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
-meta_image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
+image: articles/add-a-rails-app-to-the-home-screen/placeholder.jpg
+meta_image: articles/add-a-rails-app-to-the-home-screen/placeholder.jpg
 tags:
   - Rails
 ---
 
 In this article, we‘ll learn what it takes to install a Rails app on your device‘s home screen like a native mobile app.
 
-<%= image_tag "articles/you-can-add-a-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
+<%= image_tag "articles/add-a-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
 
 Rails 8 is coming soon which means, by default, new Rails apps will be installable as Progressive Web Apps (PWA). A PWA can do a lot of things a normal web app can’t, like receive push notifications, get native badge counters, provide fallback UX when network connectivity is degraded, and access additional APIs. In a nutshell, PWAs are upgraded web apps that can act more like native mobile apps. The good news is, you don’t have to wait until Rails 8.
 
@@ -34,7 +34,7 @@ Go ahead, try it if your browser and device supports it. I promise I won’t spa
 
 If it worked, you should be able to open Joy of Rails as a standalone application. Voilà!
 
-![Screenshot of Joy of Rails in its standalone form](articles/you-can-add-a-rails-app-to-the-home-screen/standalone.jpg)
+![Screenshot of Joy of Rails in its standalone form](articles/add-a-rails-app-to-the-home-screen/standalone.jpg)
 
 ## Ok, so what?
 
@@ -48,7 +48,7 @@ Making your app installable is the first step.
 
 Plus, there‘s something pretty powerful about being able to launch your web app from the home screen or the Dock or the Launchpad, or from wherever, right alongside those native apps that live on your device.
 
-![The Joy of Rails app in the macos Launchpad](articles/you-can-add-a-rails-app-to-the-home-screen/launchpad.jpg)
+![The Joy of Rails app in the macos Launchpad](articles/add-a-rails-app-to-the-home-screen/launchpad.jpg)
 
 Criteria to be installable
 
@@ -91,3 +91,7 @@ A 64x64 icon for Windows (Edge) (PWA Manifest icon)
 A 512x512 icon for Android with purpose: 'any' (PWA Manifest icon)
 
 <%= render Pwa::InstallButton %>
+
+## Resources
+
+How to use Safari web apps on Mac
