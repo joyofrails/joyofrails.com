@@ -1,4 +1,4 @@
-const webPushKey = window.config.webPushKey;
+const webPushKey = (window.config || {}).webPushKey;
 
 export const withPermission = async () => {
   let permission = Notification.permission;

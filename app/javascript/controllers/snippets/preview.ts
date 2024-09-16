@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 import { debounce } from '../../utils/debounce';
 
 const console = debug('app:javascript:controllers:snippets:preview');

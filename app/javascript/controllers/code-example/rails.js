@@ -6,7 +6,7 @@
 // @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
 // @see https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
 // @see https://advancedweb.hu/how-to-use-async-await-with-postmessage/
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 const console = debug('app:javascript:controllers:code:rails');
 

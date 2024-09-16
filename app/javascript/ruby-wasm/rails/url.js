@@ -1,5 +1,5 @@
 import WASM_APP_VERSION from '../../../../WASM_APP_VERSION?raw';
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 const console = debug('app:javascript:rails:url');
 console.enable('app:*');

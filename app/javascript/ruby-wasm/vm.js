@@ -3,7 +3,7 @@
 import { RubyVM } from '@ruby/wasm-wasi';
 import { File, WASI, OpenFile, ConsoleStdout } from '@bjorn3/browser_wasi_shim';
 
-import debug from '../utils/debug';
+import { debug } from '../utils';
 
 const console = debug('app:javascript:ruby:evaluator');
 

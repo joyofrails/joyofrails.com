@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from '../../utils/debug';
+import { debug, plausible } from '../../utils';
 
 const console = debug('app:javascript:controllers:analytics:custom-event');
 
@@ -10,6 +10,6 @@ export default class extends Controller {
 
   send() {
     console.log('send', this.eventValue);
-    window.plausible(this.eventValue);
+    plausible(this.eventValue);
   }
 }
