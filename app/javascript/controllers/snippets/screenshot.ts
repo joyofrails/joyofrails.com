@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import * as htmlToImage from 'html-to-image';
 
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 const console = debug('app:javascript:controllers:snippets:screenshot');
 

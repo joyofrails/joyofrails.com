@@ -84,7 +84,7 @@ class Markdown::Base < Phlex::HTML
       td { visit_children(node) }
     in :html_block
       html_block(node.to_html(options: @options))
-    in :html_inline # This is a raw HTML inline element, so we skip here in safe mode
+    in :html_inline
       html_inline(node.to_html(options: @options))
     in :strikethrough
       s { visit_children(node) }

@@ -1,4 +1,4 @@
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 import { wrapRubyVM } from '../vm';
 import railsWasmUrl from './url';

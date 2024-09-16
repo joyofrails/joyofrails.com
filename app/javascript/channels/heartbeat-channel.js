@@ -1,5 +1,5 @@
 import consumer from './consumer';
-import debug from '../utils/debug';
+import { debug } from '../utils';
 
 const console = debug('app:javascript:channels:heartbeat-channel');
 

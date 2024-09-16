@@ -1,4 +1,4 @@
-import debug from '../utils/debug';
+import { debug } from '../utils';
 
 const console = debug('app:javascript:initializers:serviceworker-companion');
 

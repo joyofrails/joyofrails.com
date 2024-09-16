@@ -23,7 +23,7 @@ RSpec.describe "/pwa/web_pushes", type: :request do
       message_json = {
         title: title,
         body: message,
-        icon: "/icon-192.png"
+        icon: "/pwa-manifest/icon-192.png"
       }.to_json
       expect(WebPush).to have_received(:payload_send).with(hash_including(
         message: message_json,

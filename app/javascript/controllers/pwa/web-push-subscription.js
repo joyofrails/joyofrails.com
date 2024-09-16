@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 import {
   getSubscription,

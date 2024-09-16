@@ -1,4 +1,4 @@
-function debounce(callback: Function, delay: number) {
+export const debounce = (callback: Function, delay: number) => {
   let timeout: number;
 
   return (...args) => {
@@ -7,6 +7,4 @@ function debounce(callback: Function, delay: number) {
 
     timeout = window.setTimeout(() => callback.apply(context, args), delay);
   };
-}
-
-export { debounce };
+};

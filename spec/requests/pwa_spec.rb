@@ -5,7 +5,11 @@ RSpec.describe "PWA resources", type: :request do
     it "returns the PWA manifest" do
       get "/manifest.json"
       expect(response).to have_http_status(:success)
-      expect(response.content_type).to match("application/json")
+      expect(response.content_type).to match(%r{application/manifest\+json})
+
+      manifest = JSON.parse(response.body, symbolize_names: true)
+      expect(manifest[:theme_color]).to match(/^#[0-9a-f]{6}$/)
+      expect(manifest[:background_color]).to match(/^#[0-9a-f]{6}$/)
     end
 
     it "ignores other formats" do

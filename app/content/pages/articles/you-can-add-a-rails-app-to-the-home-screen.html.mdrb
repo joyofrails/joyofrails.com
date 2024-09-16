@@ -1,0 +1,93 @@
+---
+title: You can add a Rails app to the Home Screen
+author: Ross Kaffenberger
+layout: article
+summary: Here is the summary
+description: Here is the description that will show up in the the meta day
+published: '2024-09-24'
+uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
+image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
+meta_image: articles/you-can-add-a-rails-app-to-the-home-screen/placeholder.jpg
+tags:
+  - Rails
+---
+
+In this article, we‘ll learn what it takes to install a Rails app on your device‘s home screen like a native mobile app.
+
+<%= image_tag "articles/you-can-add-a-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
+
+Rails 8 is coming soon which means, by default, new Rails apps will be installable as Progressive Web Apps (PWA). A PWA can do a lot of things a normal web app can’t, like receive push notifications, get native badge counters, provide fallback UX when network connectivity is degraded, and access additional APIs. In a nutshell, PWAs are upgraded web apps that can act more like native mobile apps. The good news is, you don’t have to wait until Rails 8.
+
+## Install Joy of Rails
+
+I‘ll show you. To recap, this website, Joy of Rails, is a Rails app. I invite you to install Joy of Rails to your desktop or home screen.
+
+In [browsers that support the `beforeinstallprompt` event](https://caniuse.com/?search=beforeinstallprompt) (Chrome, Edge, Android, at the time of this writing), we can provide a custom installation experience, as with a button embedded in this article:
+
+<%= render Pwa::InstallButton %>
+
+Otherwise, try the instructions below:
+
+<%= turbo_frame_tag "pwa_installation_instructions", src: pwa_installation_instructions_path %>
+
+Go ahead, try it if your browser and device supports it. I promise I won’t spam you with notifications or any other nonsense. This is all in the spirit of learning and sharing. Of course, you can uninstall the app anytime.
+
+If it worked, you should be able to open Joy of Rails as a standalone application. Voilà!
+
+![Screenshot of Joy of Rails in its standalone form](articles/you-can-add-a-rails-app-to-the-home-screen/standalone.jpg)
+
+## Ok, so what?
+
+I have to admit, I‘m a big fan of the Web. I want the Web to win.
+
+As a product developer, I prefer to build for the Web. I don‘t want to invest the extra time and effort to build a mobile app alongside a separate web experience nor do I look forward to going through the pain and process of getting approval from the App Store. I want my end users to have the latest updates immediately. I value the traditions of the Web: everyone has a place.
+
+As an end user, I prefer the Web too. But, when it comes to mobile, most end users generally prefer (or are simply indoctrinated) to use installable apps. I can‘t help but feel if the Web is going to win, both product developers and end users may need to be willing to embrace Progressive Web Apps capabilities so that web apps can compete on native mobile apps’ "turf".
+
+Making your app installable is the first step.
+
+Plus, there‘s something pretty powerful about being able to launch your web app from the home screen or the Dock or the Launchpad, or from wherever, right alongside those native apps that live on your device.
+
+![The Joy of Rails app in the macos Launchpad](articles/you-can-add-a-rails-app-to-the-home-screen/launchpad.jpg)
+
+Criteria to be installable
+
+- App provides a manifest
+- Manifest has minimum settings: name, icons (192 and 512), start_url, display, prefer related applications
+- HTTPS
+- HTTP allowed for localhost
+- Supported browser
+
+- Visitor heuristics: visitor has interacted with the page and been active for more than 30 seconds.
+
+---
+
+Why would you make your app installable?
+
+Back in the day, we used this Site-Specific Browser.
+
+Should _you_ make your app installable?
+
+How to make your app installable
+
+---
+
+By default, PWAs are served over HTTPS and are therefore safe and secure
+PWAs are lightweight and offer high performance
+Especially on Android, a PWA can almost do anything a native app can
+
+---
+
+https://vite-pwa-org.netlify.app/assets-generator/#pwa-minimal-icons-requirements
+
+As pointed out in PWA Minimal Requirements, you will need:
+
+a 192x192 icon (PWA Manifest icon)
+a 512x512 icon (PWA Manifest icon)
+a 180x180 icon for iOS/MacOS (html head link: <link rel="apple-touch-icon" href="/apple-touch-icon.png">)
+We also suggest you to include:
+
+A 64x64 icon for Windows (Edge) (PWA Manifest icon)
+A 512x512 icon for Android with purpose: 'any' (PWA Manifest icon)
+
+<%= render Pwa::InstallButton %>

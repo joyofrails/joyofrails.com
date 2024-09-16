@@ -3,7 +3,7 @@
 //
 // @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
 
-import debug from '../../utils/debug';
+import { debug } from '../../utils';
 
 import { bootRailsVM } from './boot';
 
