@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import debug from 'debug';
+import { debug } from '../../utils';
 
-const log = debug('app:javascript:controllers:pwa-installation');
+const console = debug('app:javascript:controllers:pwa:installation');
 
 let installPromptEvent;
 
@@ -11,13 +11,25 @@ const controllers = new Set();
 // Note that this event is currently only implemented in Chromium based browsers.
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener('beforeinstallprompt', async (event) => {
-  event.preventDefault();
-
   const relatedApps = await navigator.getInstalledRelatedApps();
-  log('Related apps', relatedApps);
+  console.log('Install prompt event', event);
+  console.log('Related apps', relatedApps);
 
   installPromptEvent = event;
-  controllers.forEach((controller) => controller.showInstallButton());
+  controllers.forEach((controller) => {
+    controller.initializeDisplay();
+    if (!installPromptEvent) {
+      controller.showMessage('Already installed!');
+    }
+  });
+});
+
+window.addEventListener('appinstalled', (event) => {
+  console.log('App installed event', event);
+
+  controllers.forEach((controller) => {
+    controller.showMessage('Thank you for installing Joy of Rails!');
+  });
 });
 
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Create_a_standalone_app
@@ -29,8 +41,27 @@ export default class extends Controller {
   static targets = ['installButton', 'infoButton', 'dialog', 'message'];
 
   connect() {
+    console.log('connect', installPromptEvent);
     controllers.add(this);
 
+    this.initializeDisplay();
+  }
+
+  disconnect() {
+    controllers.delete(this);
+  }
+
+  async install() {
+    if (!installPromptEvent) {
+      return;
+    }
+    const result = await installPromptEvent.prompt();
+    console.log(`Install prompt was: ${result.outcome}`);
+    installPromptEvent = null;
+    this.installButtonTarget.disabled = true;
+  }
+
+  initializeDisplay() {
     if (isStandaloneApp) {
       this.hideInfoButton();
       this.hideInstallButton();
@@ -43,28 +74,9 @@ export default class extends Controller {
     }
   }
 
-  disconnect() {
-    controllers.delete(this);
-  }
-
-  async install() {
-    if (!installPromptEvent) {
-      return;
-    }
-    const result = await installPromptEvent.prompt();
-    log(`Install prompt was: ${result.outcome}`);
-    installPromptEvent = null;
-    this.hideInstallButton();
-  }
-
   showInstallButton() {
     this.installButtonTarget.classList.remove('hidden');
-    const alreadyInstalled = !installPromptEvent;
-
-    if (alreadyInstalled) {
-      this.installButtonTarget.disabled = alreadyInstalled;
-      this.showMessage('Already installed!');
-    }
+    this.installButtonTarget.disabled = !installPromptEvent;
   }
 
   hideInstallButton() {
@@ -97,5 +109,10 @@ export default class extends Controller {
   showMessage(message) {
     this.messageTarget.textContent = message;
     this.messageTarget.classList.remove('hidden');
+  }
+
+  removeMessage() {
+    this.messageTarget.textContent = '';
+    this.messageTarget.classList.add('hidden');
   }
 }
