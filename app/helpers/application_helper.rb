@@ -1,12 +1,11 @@
 module ApplicationHelper
   def seo_meta_tags
     set_meta_tags icon: [
-      {rel: "icon", href: "/favicon.ico?v1.0", sizes: "32x32"},
-      {rel: "icon", href: "/icon.svg?v1.0", type: "image/svg+xml"},
-      {rel: "apple-touch-icon", href: "/apple-touch-icon.png?v1.0"}
+      {rel: "icon", href: asset_path("app-icons/favicon.ico"), sizes: "32x32"},
+      {rel: "icon", href: asset_path("app-icons/icon.svg"), type: "image/svg+xml"},
+      {rel: "apple-touch-icon", href: asset_path("app-icons/apple-touch-icon.png")}
     ]
     set_meta_tags index: true
-    set_meta_tags icon: "/favicon.ico"
     set_meta_tags og: {
       title: :title,
       description: :description,
