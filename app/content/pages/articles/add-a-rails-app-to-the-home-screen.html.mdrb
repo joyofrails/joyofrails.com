@@ -36,6 +36,15 @@ If it worked, you should be able to open Joy of Rails as a standalone applicatio
 
 ![Screenshot of Joy of Rails in its standalone form](articles/add-a-rails-app-to-the-home-screen/standalone.jpg)
 
+## What does it mean for a web app to be installable?
+
+We‘re not talking about simply add a bookmark to the site to the desktop or home screen. Installed PWAs can more deeply integrate with your device.
+
+Supporting browsers promote the PWA to the user for installation on the device.
+The PWA can be installed like a platform-specific app, and can customize the install process.
+Once installed, the PWA gets an app icon on the device, alongside platform-specific apps.
+Once installed, the PWA can be launched as a standalone app, rather than a website in a browser.
+
 ## Ok, so what?
 
 I have to admit, I‘m a big fan of the Web. I want the Web to win.
