@@ -8,47 +8,4 @@ module PwaHelper
   def web_push_key
     Rails.application.credentials.vapid.public_key.delete("=")
   end
-
-  def manifest_icons
-    [
-      {
-        "src" => "/pwa-manifest/icon-64.png",
-        "type" => "image/png",
-        "sizes" => "64x64"
-      },
-      {
-        "src" => "/pwa-manifest/icon-192-maskable.png",
-        "type" => "image/png",
-        "sizes" => "192x192",
-        "purpose" => "maskable"
-      },
-      {
-        "src" => "/pwa-manifest/icon-192.png",
-        "type" => "image/png",
-        "sizes" => "192x192",
-        "purpose" => "any"
-      },
-      {
-        "src" => "/pwa-manifest/icon-512-maskable.png",
-        "type" => "image/png",
-        "sizes" => "512x512",
-        "purpose" => "maskable"
-      },
-      {
-        "src" => "/pwa-manifest/icon-512.png",
-        "type" => "image/png",
-        "sizes" => "512x512",
-        "purpose" => "any"
-      }
-    ]
-  end
-
-  def manifest_related_applications
-    [
-      {
-        "platform" => "webapp",
-        :url => root_url + "manifest.json"
-      }
-    ]
-  end
 end
