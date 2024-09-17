@@ -12,19 +12,25 @@ tags:
   - Rails
 ---
 
-In this article, we‘ll learn what it takes to install a Rails app on your device‘s home screen like a native mobile app.
+I‘m obsessed with installing web apps on my home screen. Command+Tab on macos to switch between "sites" is built in to my DNA.
 
-<%= image_tag "articles/add-a-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
+As it turns out, several web apps I have installed are built with Rails, including [GitHub](https://github.com/), [Feedbin](https://feedbin.com/), [Mastodon](https://ruby.social/@rossta), and [Campfire](https://once.com/campfire).
 
-Rails 8 is coming soon which means, by default, new Rails apps will be installable as Progressive Web Apps (PWA). A PWA can do a lot of things a normal web app can’t, like receive push notifications, get native badge counters, provide fallback UX when network connectivity is degraded, and access additional APIs. In a nutshell, PWAs are upgraded web apps that can act more like native mobile apps. The good news is, you don’t have to wait until Rails 8.
+![Rails apps in a macos Dock](articles/add-a-rails-app-to-the-home-screen/mac-dock-rails.jpg 'Most of the apps shown here are Progressive Web Apps built with Rails')
+
+Rails 8 is coming soon which means, by default, new Rails apps will be installable as [Progressive Web Apps (PWA)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps). A PWA can do a lot of things a normal web app can’t, like receive push notifications, get native badge counters, provide fallback UX when network connectivity is degraded, and access native-app-like APIs. In a nutshell, PWAs are upgraded web apps that can act more like native mobile apps. The good news is, you don’t have to wait until Rails 8.
 
 ## Install Joy of Rails
 
-I‘ll show you. To recap, this website, Joy of Rails, is a Rails app. I invite you to install Joy of Rails to your desktop or home screen.
+[Joy of Rails](/), is a Rails app. It can be installed to your home screen [from supporting browsers](). I invite you to install Joy of Rails to your desktop or home screen.
 
-In [browsers that support the `beforeinstallprompt` event](https://caniuse.com/?search=beforeinstallprompt) (Chrome, Edge, Android, at the time of this writing), we can provide a custom installation experience, as with a button embedded in this article:
+<%= image_tag "articles/add-a-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
+
+Try installing Joy of Rails right now:
 
 <%= render Pwa::InstallButton %>
+
+In [browsers that support the `beforeinstallprompt` event](https://caniuse.com/?search=beforeinstallprompt) (Chrome, Edge, Android, at the time of this writing), we can provide a custom installation experience, as with a button embedded in this article:
 
 Otherwise, try the instructions below:
 
@@ -69,6 +75,18 @@ Criteria to be installable
 
 - Visitor heuristics: visitor has interacted with the page and been active for more than 30 seconds.
 
+(from MDN https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Installable_PWAs)
+Here is a description of the members shown in the previous code sample:
+
+name: The full name of your web app.
+short_name: Short name to be shown on the home screen.
+description: A sentence or two explaining what your app does.
+icons: Information about the app icons — source URLs, sizes, and types. Be sure to include at least a few, so that one that fits best will be chosen for the user's device. See Define your app icons.
+start_url: The index document to launch when starting the app.
+display: How the app is displayed; can be fullscreen, standalone, minimal-ui, or browser.
+theme_color: A primary color for the UI, used by operating system.
+background_color: A color used as the app's default background, used during install and on the splash screen.
+
 ---
 
 Why would you make your app installable?
@@ -104,3 +122,5 @@ A 512x512 icon for Android with purpose: 'any' (PWA Manifest icon)
 ## Resources
 
 How to use Safari web apps on Mac
+
+Back in the mid-2000s, I remember [site-specific browsers](https://en.wikipedia.org/wiki/Site-specific_browser) were sort of a thing among the tech community. You would get
