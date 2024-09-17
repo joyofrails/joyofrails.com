@@ -64,7 +64,8 @@ export default class extends Controller {
   initializeDisplay() {
     if (isStandaloneApp) {
       this.hideInfoButton();
-      this.hideInstallButton();
+      this.showInstallButton({ disabled: true });
+      this.showMessage('Cool, you are using the standalone app!');
     } else if (supportsInstallPrompt) {
       this.showInstallButton();
       this.hideInfoButton();
@@ -74,9 +75,9 @@ export default class extends Controller {
     }
   }
 
-  showInstallButton() {
+  showInstallButton({ disabled = false } = {}) {
     this.installButtonTarget.classList.remove('hidden');
-    this.installButtonTarget.disabled = !installPromptEvent;
+    this.installButtonTarget.disabled = disabled || !installPromptEvent;
   }
 
   hideInstallButton() {
