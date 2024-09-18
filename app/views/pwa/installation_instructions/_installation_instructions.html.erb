@@ -1,4 +1,4 @@
-<div class="mb-4">
+<div class="section-content">
   <h3 class="font-semibold mb-2" style="margin-top: 0;">
     How to Install a Progressive Web App from <%= installation_instructions.browser_title %> for <%= installation_instructions.os_title %>
   </h3>
@@ -8,6 +8,9 @@
     Honeybadger.notify("Unsupported PWA installation instructions for #{installation_instructions.os_title} on #{installation_instructions.browser_title}")
     render "unsupported", installation_instructions: installation_instructions
   end %>
-</div>
 
-<%= render Pwa::InstallationInstructions::Select.new(selected_nickname: installation_instructions.user_agent_nickname) %>
+  <p>
+    Make a selection to view installation instructions for a different browser:
+  </p>
+  <%= render Pwa::InstallationInstructions::Select.new(selected_nickname: installation_instructions.user_agent_nickname) %>
+</div>

@@ -62,6 +62,8 @@ export default class extends Controller {
   }
 
   initializeDisplay() {
+    this.removeMessage();
+
     if (isStandaloneApp) {
       this.hideInfoButton();
       this.showInstallButton({ disabled: true });
