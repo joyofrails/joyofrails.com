@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title("Joy of Rails")
+  feed.title(Rails.configuration.settings.application_name)
   feed.updated(@articles.first.published_on) if @articles.length > 0
 
   @articles.take(50).each do |article|
