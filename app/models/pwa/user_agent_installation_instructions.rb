@@ -1,16 +1,20 @@
 module Pwa
-  class InstallationInstructions
+  class UserAgentInstallationInstructions
     delegate :full_version, to: :@device_detector
 
     def initialize(user_agent)
       @device_detector = DeviceDetector.new(user_agent)
     end
 
+    def user_agent_nickname
+      "#{installation_os}_#{installation_browser}"
+    end
+
     def partial_name
       return "desktop_firefox" if installation_browser == "firefox" && desktop?
       return "unsupported" if installation_os == "unsupported" || installation_browser == "unsupported"
 
-      "#{installation_os}_#{installation_browser}"
+      Pwa::NamedInstallationInstructions.partial_name(user_agent_nickname)
     end
 
     def desktop?
@@ -21,8 +25,16 @@ module Pwa
       @device_detector.os_name
     end
 
+    def os_title
+      Pwa::NamedInstallationInstructions.os_title(os_name)
+    end
+
     def browser_name
       @device_detector.name
+    end
+
+    def browser_title
+      Pwa::NamedInstallationInstructions.browser_title(browser_name)
     end
 
     private
