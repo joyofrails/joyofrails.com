@@ -1,0 +1,439 @@
+---
+title: Add your Rails app to the Home Screen - the Ultimate Guide
+author: Ross Kaffenberger
+layout: article
+summary: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your app installable today
+description: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your Rails app installable today
+published: '2024-09-24'
+uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
+image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.jpg
+meta_image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.jpg
+enable_twitter_widgets: true
+tags:
+  - Rails
+---
+
+I‘m currently obsessed with installing web apps to my desktop and on my home screen. Using `Command+Tab` on macOS to switch between "sites" is built in to my DNA.
+![Rails apps in a macos Dock](articles/add-your-rails-app-to-the-home-screen/mac-dock-rails.jpg 'Most of the apps shown here are Progressive Web Apps built with Rails')
+
+As it turns out, several web apps I have installed are built with Rails, including [GitHub](https://github.com/), [Feedbin](https://feedbin.com/), [Mastodon](https://ruby.social/@rossta), [Hatchbox](https://hatchbox.io), [Campfire](https://once.com/campfire), and the [Rails Discourse forum](https://discuss.rubyonrails.org/). These Rails apps are installable because they are _Progressive Web Apps_.
+
+## Rails 8 💜 PWAs
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The primary mission for my contributions toward Rails 8 is now crystal clear: PWA. We can extract all the finickiness around web push notifications, for example, and make it trivially easy to use.</p>&mdash; DHH (@dhh) <a href="https://twitter.com/dhh/status/1736421111884288203?ref_src=twsrc%5Etfw">December 17, 2023</a></blockquote>
+
+Rails 8 is coming soon which means, by default, a new Rails app will be installable as a [Progressive Web App (PWA)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps). A PWA can do a lot of things a normal web app can’t:
+
+<p>
+  like receive Web Push notifications,
+</p>
+<p>
+  <%= image_tag("articles/add-your-rails-app-to-the-home-screen/web-push.jpg", alt: "This notification was triggered using Web Push") %>
+</p>
+<p>
+  get native badge counters,
+</p>
+<p>
+  <%= image_tag("articles/add-your-rails-app-to-the-home-screen/app-badge.jpg", alt: 'Important number displayed on your app icon!') %>
+</p>
+<p>
+  detect network connectivity info and provide fallback UX when network connectivity is degraded,
+</p>
+<p>
+  <%= render Figures::ImageTag.new("articles/add-your-rails-app-to-the-home-screen/network-info.jpg", alt: 'Example of network information that can be displayed from a PWA', title: "Image courtesy of 'What can PWA do today'") %>
+</p>
+<p>
+  and access native-app-like APIs. In a nutshell, PWAs are upgraded web apps that can act more like native mobile apps. The good news is, you don’t have to wait until Rails 8.
+</p>
+
+In this article, I‘ll show you how to set up your Rails app to be installable as a PWA.
+
+## Install Joy of Rails
+
+Since [Joy of Rails](/) is itself a Rails app, you can participate in a live demo.
+
+<%= image_tag "articles/add-your-rails-app-to-the-home-screen/dock.jpg", title: "Screenshot of macos Launchpad with several apps including Joy of Rails" %>
+
+I invite you to install Joy of Rails to your desktop or home screen. Try it right now:
+
+<%= render Pwa::InstallButton %>
+
+You should be able to use the installation button above to either launch the installation prompt in supporting browsers or, at least, view installation instructions for your browser.
+
+Go ahead, try it if your browser supports it. I promise I won’t spam you with notifications or any other nonsense. This is all in the spirit of learning and sharing. Of course, you can uninstall the app anytime.
+
+(Think you found a bug? Feel free to let me know on [Twitter](https://x.com/rossta) or [Mastodon](https://ruby.social/@rossta). You can also [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=).)
+
+You can also view installation instructions for various browsers below:
+
+<%= turbo_frame_tag "pwa_installation_instructions", src: pwa_installation_instructions_path %>
+
+If it worked, you should be able to open Joy of Rails as a standalone application. Voilà!
+![Screenshot of Joy of Rails in its standalone form](articles/add-your-rails-app-to-the-home-screen/standalone.jpg)
+
+## What does it mean for a web app to be installable?
+
+We‘re not talking about simply adding a bookmark to the site to the desktop or home screen. Installed PWAs can more deeply integrate with your device.
+
+- A PWA can be installed like a platform-specific app without the need of an App Store\*
+- In some browsers, we can customize the install process.
+- An installed PWA gets an app icon on the device, alongside platform-specific apps.
+- An installed PWA can be launched as a standalone app, rather than as a website in a browser.
+
+\*I haven‘t tried this yet, but PWAs can also be submitted to various app stores ([more info](https://web.dev/articles/pwas-in-app-stores).)
+
+## Ok, so what?
+
+I admit, installing web apps to your home screen isn‘t for everyone. But I‘m a big fan of the Web. I want the Web to win.
+
+As a product developer, I prefer to build for the Web. I don‘t want to invest the extra time and effort to build a mobile app alongside a separate web experience nor do I look forward to going through the pain and process of getting approval from the App Store. I want my end users to have the latest updates immediately. I value the traditions of the Web: everyone has a place.
+
+As an end user, I prefer the Web too. But, when it comes to mobile, most end users generally prefer (or are simply indoctrinated) to use native apps. I can‘t help but feel if the Web is going to win, both product developers and end users may need to be willing to embrace Progressive Web Apps capabilities so that web apps can compete on native app "turf".
+
+Making your app installable is the first step.
+
+<%= image_tag "articles/add-your-rails-app-to-the-home-screen/launchpad.jpg", alt: "macOS Launchpad with Joy of Rails installed", class: "outside" %>
+
+There‘s something pretty powerful about being able to deliver an app experience without building a separate native app.
+
+I bet you‘d like to see your web app launch from the home screen or the Dock or the Launchpad, or from wherever, right alongside those native apps that live on your device.
+
+Let‘s see how.
+
+## Prerequisites for making your app installable
+
+For your Rails app to be installable, there are a few requirements for your application and the end user.
+
+### Your end user:
+
+- Does not already have the app installed
+- Accesses your application using a supporting browser
+- Passes certain browser-specific heuristics. For example, in Chromium-based browsers, the end user must have interacted with your application and been active for more than 30 seconds.
+
+### Your app:
+
+- Serves responses over HTTPS (or HTTP for loopback addresses like `localhost` and `127.0.0.1`)
+- Registers valid web manifest file in the HTML document, and
+- the web manifest minimally declares the following properties:
+
+  - `name`: the display name of your web app ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/name)),
+  - `icons`: an array of icon data including sizes `192x192` and `512x512` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/icons)),
+  - `start_url`: typically, the absolute url of your app‘s landing page ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/start_url)),
+  - `display`: one of `fullscreen`, `standalone`, or `minimal-ui` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/display)),
+  - `prefer_related_applications`: indicate you don‘t want to push users to a mobile app instead, so either omit this property or set to `false` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/prefer_related_applications))
+
+For more on browser-specific installation criteria, I‘ve collected a few resources below:
+
+- [Chrome](https://web.dev/articles/install-criteria)
+- [Edge](https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps-chromium/how-to/web-app-manifests)
+- [Safari](https://support.apple.com/en-us/104996)
+
+Be sure to check out additional manifest properties to enhance your PWA experience, including a entry for `screenshots` ([info](https://web.dev/articles/add-manifest)) to display in app stores, `theme_color` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/theme_color)) and `background_color` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/background_color)) for theming app ui and install splash screens, and `shortcuts` ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/shortcuts)) for additional links to register in the supporting devices.
+
+## Setting up your Rails app
+
+Here’s how to get your Rails app configured to be installable as a Progressive Web App.
+
+### Your app is served over HTTPS
+
+The first thing to do is make sure your Rails app will be served over HTTPS. We can check `config/production.rb` to make sure requests will be forced to HTTPS:
+
+```rb:{"filename": "config/production.rb"}
+Rails.application.configure do
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
+end
+```
+
+Your deployment environment should also be set up to provide valid SSL Certificates for your domain. If you‘re using a platform-as-a-service like Hatchbox, Heroku, Render, or Fly.io, this will most likely be taken care of for you.
+
+If you’re using or planning to use Kamal for deployment, Kamal 2 will support for SSL certificate generation via Let‘s Encrypt.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Kamal 2 will ship with Let&#39;s Encrypt and multi-app-per-server support out of the box. No Traefik needed.</p>&mdash; DHH (@dhh) <a href="https://twitter.com/dhh/status/1790381149560394146?ref_src=twsrc%5Etfw">May 14, 2024</a></blockquote>
+
+For testing your app installation locally, good news is there’s no special set up needed in this regard. Progressive Web App functionality, including app installation, is supported over HTTP from `localhost`.
+![See, PWAs work over http://localhost](articles/add-your-rails-app-to-the-home-screen/localhost-address-bar.jpg)
+
+### Provide a manifest file
+
+Since the Rails 7.2, Rails provides defaults for Progressive Web App manifest JSON and serviceworker JavaScript files ([pull request](https://github.com/rails/rails/pull/50528)).
+
+In your Rails 7.2+ `config/routes.rb` file, make sure you have the following routes added, especially the manifest:
+
+```rb:{"filename": "config/routes.rb", "highlight_lines": [4]}
+Rails.application.routes.draw do
+  # Render dynamic PWA files from app/views/pwa/*
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+end
+```
+
+Your application layout should render a `<link>` tag for the manifest file:
+
+```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5, 6]}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- -->
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  </head>
+  <!-- -->
+```
+
+You should also have corresponding files in `app/views/pwa`:
+
+<%= image_tag "articles/add-your-rails-app-to-the-home-screen/app-views-pwa.jpg", alt: "Rails app file directory displaying app/views/pwa" %>
+
+- `manifest.json.erb`
+- `serviceworker.js.erb`
+
+The contents of `manifest.json.erb` is important for app installation. Only the manifest file is needed, but the serviceworker will come in handy for additional PWA features.😉 You can [subscribe](#newsletter-signup) to my newsletter to get notified when I post more on this subject and other Rails-relevant content.
+
+For a newly generated Rails 7.2 application, this is what you’ll see in `manifest.json.erb`:
+
+```erb:{"filename": "app/views/pwa/manifest.json.erb"}
+{
+  "name": "YourNewApp",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "description": "YourNewApp.",
+  "theme_color": "red",
+  "background_color": "red"
+}
+```
+
+The default manifest may be enough for [minimal manifest criteria](#your-app) to allow your app be installable, but (as of this writing) browsers may require an icon with dimensions 192x192 (more on icons below).
+
+## What if my app isn‘t on Rails 7.2
+
+That‘s ok! If you can’t upgrade now, you can still set up your Rails app similarly. You would add routes and view files as described above.
+
+You‘ll additionally need to add a controller like the one provided by default in Rails 7.2+:
+
+```rb:{"filename": "app/controllers/rails/pwa_controller.rb"}
+# frozen_string_literal: true
+
+class Rails::PwaController < Rails::ApplicationController
+  skip_forgery_protection
+
+  def service_worker
+    render template: "pwa/service-worker", layout: false
+  end
+
+  def manifest
+    render template: "pwa/manifest", layout: false
+  end
+end
+```
+
+## Setting up your icons
+
+As mentioned previously, you should have, at minimum, two square images to represent your app icon on install screens: `192x192` and `512x512`. If you started from a new Rails 7.2+ app, you‘ll want to remove the generated app icon from the Rails app generator and make your own.
+
+Here are the app icons for Joy of Rails:
+![Joy of Rails app icon 192x192](app-icons/icon-192.png 'Joy of Rails app icon 192x192') ![Joy of Rails app icon 512x512](app-icons/icon-512.png 'Joy of Rails app icon 512x512')
+
+I used ImageMagick 7 to convert these icons from the original with a command like:
+
+```sh
+magick ~/path/to/original/icon.png \
+  -gravity Center \
+  -crop 700x700+0+0 \
+  -resize 192x192 \
+  app/assets/images/app-icons/icon-192.png
+```
+
+I recommend starting with an svg or png file at max resolution to use as the source for generating your PWA icons.
+
+For help generating your icons, you can try the website [PWABuilder](https://www.pwabuilder.com) which provides a free [Image Generator tool](https://www.pwabuilder.com/imageGenerator). This tool accepts a source image and will generate _a lot_ of different versions of your app icon. Feel free to use all of them or pick and choose.
+
+If you‘re using [Vite Ruby](https://vite-ruby.netlify.app/) to build assets for your Rails app, you may want to look at [Vite PWA assets generator](https://vite-pwa-org.netlify.app/assets-generator) as an alternative.
+
+### A word on maskable icons
+
+Some browsers will present the icon in a circular window that will crop a significant portion of the icon. If I were to use my primary Joy of Rails app icon, it would look cramped when masked:
+![A masked icon](articles/add-your-rails-app-to-the-home-screen/masked-icon-bad.jpg 'A not-so-nice masked icon')
+
+My approach is to use a separate set of icons with more room to breathe. Compare the two variation:
+![Primary app icon](app-icons/icon-192.png 'Primary app icon') ![Maskable app icon](app-icons/icon-192-maskable.png 'Maskable app icon')
+
+The new icon a lot better when masked:
+![A masked icon](articles/add-your-rails-app-to-the-home-screen/masked-icon-good.jpg 'A nice masked icon')
+
+A maskable icon falls within the "safe zone", a term that comes straight from the W3C:
+
+> The safe zone is the area within a maskable icon which is guaranteed to always be visible, regardless of user agent preferences. It is defined as a circle with center point in the center of the icon and with a radius of 2/5 (40%) of the icon size, which means the smaller of the icon width and height, in case the icon is not square.
+>
+> https://w3c.github.io/manifest/#icon-masks
+
+<%= render Figures::SvgTag.new("articles/add-your-rails-app-to-the-home-screen/safe-zone.svg", class: "fill-none") %>
+
+In your manifest, you can add variations for each size and mark their `purpose` as `maskable`.
+
+```erb:{"filename": "app/views/pwa/manifest.json.erb", "highlight_lines": [9, 10, 11, 12, 13, 14]}
+{
+  // ...
+  "icons": [
+    {
+      "src": "<%= asset_path("app-icons/icon-192.png") %>",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "<%= asset_path("app-icons/icon-192-maskable.png") %>",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+  ],
+  // ...
+}
+```
+
+You can preview the safe masking area for your icons in the Chrome DevTools > Application > Manifest > Icons:
+![Chrome DevTools > Application > Manifest > Icons](articles/add-your-rails-app-to-the-home-screen/chrome-devtools-manifest.jpg)
+
+I know, I know... one more thing to deal with!
+
+You have some help: I recommend [Maskable.app](https://maskable.app/), a free tool to preview and edit your icons with different masking and presentation styles.
+
+## Where your icons should live 🐮
+
+While you can place your own icons in the `public/` directory like the default, I prefer to places the icons under `app/assets/images` and let Propshaft provide a fingerprinting url for the icon images. (You can also use Sprockets, Vite Ruby, etc.)
+
+Since the `manifest.json.erb` file is dynamic like any other Rails ERB template, you can use an asset path helper to reference to generate the icon URLs.
+
+```erb:{"filename": "app/views/pwa/manifest.json.erb", "highlight_lines": [5, 10]}
+{
+  // ...
+  "icons": [
+    {
+      "src": "<%= asset_path("app-icons/icon-192.png") %>",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "<%= asset_path("app-icons/icon-512.png") %>",
+      "type": "image/png",
+      "sizes": "512x512",
+    }
+  ],
+  // ...
+}
+```
+
+With this approach, if I need to change the icons, the updated icon urls will update and (eventually) propagate to installed apps.
+
+## Making changes
+
+Speaking of updating manifests, at some point after you’ve launched your web manifest and made your Rails app installable as a PWA, you’re probably going to want to make changes.
+
+The bad news is, from what I understand, only a subset of web manifest properties will trigger an update and the changes may take up to a day or two to propagate depending on different behaviors across various browsers and devices.
+
+In short, don’t expect to see changes to your manifest immediately reflected in app behavior. But changes should get picked up eventually.
+
+Here‘s [a resource on how Chrome handles manifest updates](https://web.dev/articles/manifest-updates) including some tips on updating Chrome settings for local testing.
+
+## Some things can‘t change
+
+**An important note!** [Chrome recommends uniquely identifying your app with the `id` property in your manifest](https://developer.chrome.com/docs/capabilities/pwa-manifest-id)—especially if you think your `start_url` may change (To top things off, changing the the URL to your manifest file may also be problematic). The crux of the issue is that, without an `id`, browsers will use the `start_url` to identify your application in which case, changes to your `start_url` may mean browsers are unable to correctly identify installed apps.
+
+```erb:{"filename": "app/views/pwa/manifest.json.erb", "highlight_lines": [2]}
+{
+  "id": "joy-of-rails",
+  // ...
+}
+```
+
+To summarize how to uniquely identify your app:
+
+- set `id`
+- avoid changing the URL to the manifest if you can
+
+## Optional: Customize the installation prompt
+
+While each browser provides its own flavor of app install process, there is limited support for customizing the prompt like the custom button I’m using for the Joy of Rails.
+
+<%= render Pwa::InstallButton %>
+
+This can be accomplished by intercepting the [the `beforeinstallprompt` event in supporting browsers](https://caniuse.com/?search=beforeinstallprompt) (Chrome, Edge, Android, at the time of this writing). This event is triggered prior to the browser presenting a prompt to install the PWA on the user’s device.
+
+Here is a Stimulus controller that interacts with the `beforeinstallprompt` event to manage the app installation prompt.
+
+```js:{"filename": "app/controllers/pwa-installation.js"}
+import { Controller } from '@hotwired/stimulus';
+
+let installPromptEvent;
+
+window.addEventListener('beforeinstallprompt', async (event) => {
+  event.preventDefault();
+
+  installPromptEvent = event;
+});
+
+export default class extends Controller {
+  async install(event) {
+    if (!installPromptEvent) {
+      return;
+    }
+    const result = await installPromptEvent.prompt();
+    console.log(`Install prompt was: ${result.outcome}`);  // 'accepted' or 'dismissed'
+
+    installPromptEvent = null;
+
+    event.target.disabled = true;
+  }
+}
+```
+
+There is global event listener for the `beforeinstallprompt` event which is used primarily to cancel the event propagation and store the event as module-scoped variable.
+
+The `beforeinstallprompt` event has a special method `prompt()`.
+
+In this case, the controller’s `install` action—let‘s say we‘re using a custom button to trigger this action—will call the `prompt()` method on the `beforeinstallprompt` event if it is defined. I‘m using `async/await` here because the `prompt()` method returns a promise. When called, the browser will open a prompt that asks the user if they want to install the app on their device. The promise resolves to an object with an `outcome` property: either `accepted` or `dismissed` determined by the user’s choice.
+
+## Now you are ready
+
+We covered a lot of ground! If there’s one key take away you’ll want to remember when you get around to making your Rails app installable is the _manifest_ file. The manifest is how we advertise to the browser how we want our PWA to behave.
+
+Rails 7.2+ apps are set up by default to serve the manifest dynamically but you don’t have to wait until you upgrade to take advantage; the key pieces can be constructed on your own with fundamental a controller and json template.
+
+As a review, here’s the current `manifest.json.erb` for Joy of Rails:
+<%= render CodeBlock::AppFile.new("app/views/pwa/manifest.json.erb", language: "erb") %>
+
+And here‘s the rendered result your browser sees right now:
+
+<div class="window">
+<%= tag.iframe src: pwa_manifest_path(format: :json) %>
+</div>
+
+You‘ll see there‘s a few properties in the Joy of Rails manifest that we didn‘t cover in this article—the [MDN guide on web app manifests](https://developer.mozilla.org/en-US/docs/Web/Manifest) serves as a good reference to learn more.
+
+Got it? Now go install some Rails apps!
+
+---
+
+If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
+
+Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
+
+That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
+
+![Hot Air Balloon](articles/add-your-rails-app-to-the-home-screen/hot-air-balloon.jpg 'Hot Air Balloon, by Jasper (my son)')
