@@ -305,7 +305,7 @@ In your manifest, you can add variations for each size and mark their `purpose` 
 }
 ```
 
-You can preview the safe masking area for your icons in the Chrome DevTools > Application > Manifest > Icons:
+You can preview the safe masking area for your icons in the **Chrome DevTools > Application > Manifest > Icons**:
 ![Chrome DevTools > Application > Manifest > Icons](articles/add-your-rails-app-to-the-home-screen/chrome-devtools-manifest.jpg)
 
 I know, I know... one more thing to deal with!
@@ -406,6 +406,28 @@ There is global event listener for the `beforeinstallprompt` event which is used
 The `beforeinstallprompt` event has a special method `prompt()`.
 
 In this case, the controller’s `install` action—let‘s say we‘re using a custom button to trigger this action—will call the `prompt()` method on the `beforeinstallprompt` event if it is defined. I‘m using `async/await` here because the `prompt()` method returns a promise. When called, the browser will open a prompt that asks the user if they want to install the app on their device. The promise resolves to an object with an `outcome` property: either `accepted` or `dismissed` determined by the user’s choice.
+
+## How do I know if my user has installed my app?
+
+I don’t have a definitive answer for this one yet.
+
+So far, the most consistent method is to use feature detection for the browser’s display mode, which will match your manifest settings:
+
+```js
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+```
+
+You could use this feature to customize UX behavior and report analytics. This approach will only work when an end user accesses your app from the standalone app after it has been installed.
+
+You can try listening for the `appinstalled` event to receive notice when a user has installed your app. Unfortunately it is not currently supported in all browsers: https://caniuse.com/?search=appinstalled.
+
+```js
+window.addEventListener('appinstalled', (event) => {
+  console.log('App installed!', event);
+});
+```
+
+There is also a newer API `navigator.getInstalledRelatedApps();` that seems promising but it also not widely supported. See https://web.dev/articles/get-installed-related-apps for more info.
 
 ## Now you are ready
 
