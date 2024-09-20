@@ -17,7 +17,7 @@ class CodeBlock::Article < ApplicationComponent
       render CodeBlock::Header.new(&title_content) if show_header?
 
       render CodeBlock::Body.new do
-        render CodeBlock::Code.new(source, language: language)
+        render CodeBlock::Code.new(source, language: language, **options)
         whitespace
         render ClipboardCopy.new(text: source)
       end

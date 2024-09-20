@@ -1,0 +1,13 @@
+<p>To add this web app as a standalone application:</p>
+<ol>
+  <li>Click on the "File" menu in the top menu bar.</li>
+  <li>Select "Add to Dock..." from the dropdown menu.</li>
+  <li>The Joy of Rails icon will now be added as a standalone application.</li>
+</ol>
+<p>
+  Note: PWA installation is only supported on Safari 17+.
+  <% if installation_instructions.full_version %>
+    Your current version is <code><%= installation_instructions.full_version %></code>.
+  <% end %>
+</p>
+<p>Once the installation is complete, you can access the web application directly from your macOS device's applications or launchpad.</p>

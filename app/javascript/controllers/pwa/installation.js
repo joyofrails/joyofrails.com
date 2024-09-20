@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { debug } from '../../utils';
+import { debug, plausible } from '../../utils';
 
 const console = debug('app:javascript:controllers:pwa:installation');
 
@@ -11,9 +11,7 @@ const controllers = new Set();
 // Note that this event is currently only implemented in Chromium based browsers.
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener('beforeinstallprompt', async (event) => {
-  const relatedApps = await navigator.getInstalledRelatedApps();
-  console.log('Install prompt event', event);
-  console.log('Related apps', relatedApps);
+  event.preventDefault();
 
   installPromptEvent = event;
   controllers.forEach((controller) => {
@@ -34,6 +32,10 @@ window.addEventListener('appinstalled', (event) => {
 
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Create_a_standalone_app
 const isStandaloneApp = window.matchMedia('(display-mode: standalone)').matches;
+
+if (isStandaloneApp) {
+  plausible('Standalone App Opened');
+}
 
 const supportsInstallPrompt = 'onbeforeinstallprompt' in window;
 
@@ -56,27 +58,35 @@ export default class extends Controller {
       return;
     }
     const result = await installPromptEvent.prompt();
-    console.log(`Install prompt was: ${result.outcome}`);
+    console.log(`Install prompt was: ${result.outcome}`); // 'accepted' or 'dismissed'
     installPromptEvent = null;
     this.installButtonTarget.disabled = true;
   }
 
   initializeDisplay() {
+    this.removeMessage();
+
     if (isStandaloneApp) {
       this.hideInfoButton();
-      this.hideInstallButton();
+      this.showInstallButton({ disabled: true });
+      this.showMessage('Cool, you are using the standalone app!');
     } else if (supportsInstallPrompt) {
       this.showInstallButton();
       this.hideInfoButton();
+      if (!installPromptEvent) {
+        this.showMessage(
+          'The app can’t be installed—either it’s already installed or the browser doesn’t support it.',
+        );
+      }
     } else {
       this.showInfoButton();
       this.hideInstallButton();
     }
   }
 
-  showInstallButton() {
+  showInstallButton({ disabled = false } = {}) {
     this.installButtonTarget.classList.remove('hidden');
-    this.installButtonTarget.disabled = !installPromptEvent;
+    this.installButtonTarget.disabled = disabled || !installPromptEvent;
   }
 
   hideInstallButton() {

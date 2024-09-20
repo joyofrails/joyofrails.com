@@ -61,13 +61,22 @@
     max-width: var(--grid-max-width);
   }
 
+  & ol,
+  & ul {
+    list-style-type: decimal;
+    padding-inline-start: var(--space-s);
+  }
+
   & ul {
     list-style-type: disc;
-    padding-inline-start: var(--space-s);
+  }
 
-    & li:has(+ li) {
-      margin-bottom: var(--space-s);
-    }
+  & ol {
+    list-style-type: decimal;
+  }
+
+  & li:has(+ li) {
+    margin-bottom: var(--space-2xs);
   }
 
   & blockquote {
@@ -114,12 +123,5 @@
     padding-inline-end: var(--space-s);
     padding-bottom: var(--space-s);
     padding-inline-start: var(--space-s);
-  }
-
-  & ol {
-    list-style-type: decimal;
-    padding-inline-start: 1.5rem;
-    margin-top: var(--space-s);
-    margin-bottom: var(--space-s);
   }
 }

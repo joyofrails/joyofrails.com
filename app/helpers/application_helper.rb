@@ -11,12 +11,12 @@ module ApplicationHelper
       description: :description,
       type: "article",
       url: url_for,
-      site_name: "Joy of Rails",
+      site_name: Rails.configuration.settings.application_name,
       locale: "en_US"
     }
     set_meta_tags twitter: {
       site: "@joyofrails"
     }
-    display_meta_tags site: "Joy of Rails"
+    display_meta_tags site: Rails.configuration.settings.application_name
   end
 end

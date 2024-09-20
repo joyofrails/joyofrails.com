@@ -1,13 +1,5 @@
-<%= turbo_frame_tag "pwa_installation_instructions" do %>
-  <div class="mb-4">
-    <h3 class="font-semibold mb-2" style="margin-top: 0;">
-      How to Install a Progressive Web App on <%= @installation_instructions.browser_name %> for <%= @installation_instructions.os_name %>
-    </h3>
-    <%= begin
-      render @installation_instructions.partial_name, installation_instructions: @installation_instructions
-    rescue ActionView::MissingTemplate
-      Honeybadger.notify("Unsupported PWA installation instructions for #{@installation_instructions.os_name} #{@installation_instructions.browser_name}")
-      render "unsupported"
-    end %>
-  </div>
-<% end %>
+<div class="section-content container py-gap">
+  <%= turbo_frame_tag "pwa_installation_instructions", data: {turbo_action: "advance"} do %>
+    <%= render "installation_instructions", installation_instructions: @installation_instructions %>
+  <% end %>
+</div>

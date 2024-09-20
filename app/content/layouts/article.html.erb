@@ -41,3 +41,7 @@
     <%= render "users/newsletter_subscriptions/banner" %>
   </section>
 <% end %>
+
+<% if current_page.data.enable_twitter_widgets %>
+<%= javascript_include_tag "https://platform.twitter.com/widgets.js", charset: "utf-8", async: true %>
+<% end %>
