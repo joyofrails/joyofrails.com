@@ -73,6 +73,11 @@ export default class extends Controller {
     } else if (supportsInstallPrompt) {
       this.showInstallButton();
       this.hideInfoButton();
+      if (!installPromptEvent) {
+        this.showMessage(
+          'The app can’t be installed—either it’s already installed or the browser doesn’t support it.',
+        );
+      }
     } else {
       this.showInfoButton();
       this.hideInstallButton();

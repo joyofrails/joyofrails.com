@@ -58,7 +58,7 @@ I invite you to install Joy of Rails to your desktop or home screen. Try it righ
 
 <%= render Pwa::InstallButton %>
 
-You should be able to use the installation button above to either launch the installation prompt in supporting browsers or, at least, view installation instructions for your browser.
+You can use the install button above to either launch the installation prompt in supporting browsers or, at least, view installation instructions for your browser. When the process completes, Joy of Rails will be available a standalone application on your device.
 
 Go ahead, try it if your browser supports it. I promise I won’t spam you with notifications or any other nonsense. This is all in the spirit of learning and sharing. Of course, you can uninstall the app anytime.
 
@@ -113,7 +113,7 @@ For your Rails app to be installable, there are a few requirements for your appl
 ### Your app:
 
 - Serves responses over HTTPS (or HTTP for loopback addresses like `localhost` and `127.0.0.1`)
-- Registers valid web manifest file in the HTML document, and
+- Registers a valid [web manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) file in the HTML document, and
 - the web manifest minimally declares the following properties:
 
   - `name`: the display name of your web app ([info](https://developer.mozilla.org/en-US/docs/Web/Manifest/name)),
@@ -219,7 +219,7 @@ For a newly generated Rails 7.2 application, this is what you’ll see in `manif
 
 The default manifest may be enough for [minimal manifest criteria](#your-app) to allow your app be installable, but (as of this writing) browsers may require an icon with dimensions 192x192 (more on icons below).
 
-## What if my app isn‘t on Rails 7.2
+## What if my app isn‘t on Rails 7.2?
 
 That‘s ok! If you can’t upgrade now, you can still set up your Rails app similarly. You would add routes and view files as described above.
 

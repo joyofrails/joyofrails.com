@@ -40,7 +40,7 @@ class Pwa::InstallButton < Phlex::HTML
             class: "button transparent"
           ) { "Close" }
         end
-        div(data_pwa_installation_target: "message") do
+        div(data_pwa_installation_target: "message", class: "italic") do
           plain "Initializing install button..."
         end
       end
