@@ -11,9 +11,7 @@ const controllers = new Set();
 // Note that this event is currently only implemented in Chromium based browsers.
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener('beforeinstallprompt', async (event) => {
-  const relatedApps = await navigator.getInstalledRelatedApps();
-  console.log('Install prompt event', event);
-  console.log('Related apps', relatedApps);
+  event.preventDefault();
 
   installPromptEvent = event;
   controllers.forEach((controller) => {
@@ -56,7 +54,7 @@ export default class extends Controller {
       return;
     }
     const result = await installPromptEvent.prompt();
-    console.log(`Install prompt was: ${result.outcome}`);
+    console.log(`Install prompt was: ${result.outcome}`); // 'accepted' or 'dismissed'
     installPromptEvent = null;
     this.installButtonTarget.disabled = true;
   }
