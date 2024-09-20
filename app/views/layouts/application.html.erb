@@ -16,12 +16,6 @@
     <!-- Joy of Rails uses 'Russo One' from Google Fonts for its logo -->
     <%= render "application/google_fonts" %>
 
-    <!--
-      Joy of Rails is a Progressive Web App. The manifest.json makes it possible
-      to add 'Joy of Rails' to your home screen with supporting browsers/devices.
-    -->
-    <link rel="manifest" href="/manifest.json">
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "application/analytics" %>
@@ -39,6 +33,14 @@
     <%= vite_javascript_tag "application.js", media: "all", "data-turbo-track": "reload" %>
 
     <%= auto_discovery_link_tag(:rss, feed_index_url, {title: "joyofrails.com"}) %>
+
+    <!--
+      Joy of Rails is a Progressive Web App. The manifest.json makes it possible
+      to add 'Joy of Rails' to your home screen with supporting browsers/devices.
+    -->
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
     <%= yield :head %>
   </head>
   <body>
