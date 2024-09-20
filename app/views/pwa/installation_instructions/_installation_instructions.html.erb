@@ -10,7 +10,7 @@
   end %>
 
   <p>
-    Make a selection to view installation instructions for a different browser:
+    <strong>Make a selection to view installation instructions for a different browser:</strong>
   </p>
   <%= render Pwa::InstallationInstructions::Select.new(selected_nickname: installation_instructions.user_agent_nickname) %>
 </div>
