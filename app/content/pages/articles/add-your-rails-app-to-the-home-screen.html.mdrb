@@ -2,8 +2,8 @@
 title: Add your Rails app to the Home Screen - the Ultimate Guide
 author: Ross Kaffenberger
 layout: article
-summary: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your app installable today
-description: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your Rails app installable today
+summary: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your app installable today.
+description: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your Rails app installable today.
 published: '2024-09-20'
 uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
 image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.jpg
