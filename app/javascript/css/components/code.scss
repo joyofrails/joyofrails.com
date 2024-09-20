@@ -21,6 +21,12 @@
       margin-inline-start: calc(var(--space-m) * -1);
       margin-inline-end: calc(var(--space-m) * -1);
     }
+    & .hll {
+      margin-inline-start: calc(var(--space-m) * -1);
+      margin-inline-end: calc(var(--space-m) * -1);
+      padding-inline-start: var(--space-m);
+      padding-inline-end: var(--space-m);
+    }
   }
 }
 
@@ -37,6 +43,12 @@
     padding-inline-end: var(--space-m);
     padding-bottom: var(--space-m);
     padding-inline-start: var(--space-m);
+
+    width: 100%;
+  }
+
+  & > pre .hll {
+    white-space: break-spaces;
   }
 
   & > pre,
@@ -164,8 +176,4 @@
       width: 45%;
     }
   }
-}
-
-.highlight .hll {
-  margin: -0.25rem 0;
 }

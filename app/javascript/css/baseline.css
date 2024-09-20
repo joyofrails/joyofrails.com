@@ -43,10 +43,12 @@ h6 {
   line-height: 1.1;
   margin: 0;
   padding: 0;
-  text-wrap: balance;
   align-self: end;
   max-inline-size: 100%;
   color: var(--joy-text-heading);
+
+  /* Putting this style in the doghouse for now */
+  /* text-wrap: balance; */
 }
 
 h1 {
