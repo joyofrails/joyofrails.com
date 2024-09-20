@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { debug } from '../../utils';
+import { debug, plausible } from '../../utils';
 
 const console = debug('app:javascript:controllers:pwa:installation');
 
@@ -32,6 +32,10 @@ window.addEventListener('appinstalled', (event) => {
 
 // @see https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Create_a_standalone_app
 const isStandaloneApp = window.matchMedia('(display-mode: standalone)').matches;
+
+if (isStandaloneApp) {
+  plausible('Standalone App Opened');
+}
 
 const supportsInstallPrompt = 'onbeforeinstallprompt' in window;
 
