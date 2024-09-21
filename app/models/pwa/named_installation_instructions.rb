@@ -24,6 +24,8 @@ module Pwa
       case os_name
       when /macos/i
         "macOS"
+      when /ipad/i
+        "iPad"
       when /ios/i
         "iOS"
       else
