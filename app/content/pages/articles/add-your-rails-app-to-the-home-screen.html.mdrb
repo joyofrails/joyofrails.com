@@ -440,9 +440,7 @@ As a review, here’s the current `manifest.json.erb` for Joy of Rails:
 
 And here‘s the rendered result your browser sees right now:
 
-<div class="window">
-<%= tag.iframe src: pwa_manifest_path(format: :json) %>
-</div>
+<%= render CodeBlock::Article.new(ApplicationController.render("pwa/manifest", assigns: { color_scheme: ColorScheme.cached_default }), language: "erb") %>
 
 You‘ll see there‘s a few properties in the Joy of Rails manifest that we didn‘t cover in this article—the [MDN guide on web app manifests](https://developer.mozilla.org/en-US/docs/Web/Manifest) serves as a good reference to learn more.
 
