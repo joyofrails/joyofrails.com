@@ -1,11 +1,11 @@
 <div class="section-content">
   <h3 class="font-semibold mb-2" style="margin-top: 0;">
-    How to Install a Progressive Web App from <%= installation_instructions.browser_title %> for <%= installation_instructions.os_title %>
+    How to Install a Progressive Web App from <%= installation_instructions.browser_name&.titleize %> for <%= installation_instructions.os_name %>
   </h3>
   <%= begin
     render @installation_instructions.partial_name, installation_instructions: installation_instructions
   rescue ArgumentError
-    Honeybadger.notify("Unsupported PWA installation instructions for #{installation_instructions.os_title} on #{installation_instructions.browser_title}")
+    Honeybadger.notify("Unsupported PWA installation instructions for #{installation_instructions.os_name} on #{installation_instructions.browser_name}")
     render "unsupported", installation_instructions: installation_instructions
   end %>
 

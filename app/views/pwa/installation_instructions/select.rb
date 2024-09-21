@@ -26,7 +26,16 @@ class Pwa::InstallationInstructions::Select < ApplicationComponent
 
   def select_options
     Pwa::NamedInstallationInstructions.user_agent_nicknames.map do |partial_name|
-      [partial_name.titleize, partial_name]
+      [titleize(partial_name), partial_name]
     end
+  end
+
+  def titleize(partial_name)
+    partial_name
+      .tr("_", " ")
+      .gsub(/(?:\A|\s)\w/) { |match| match.upcase }
+      .gsub(/macos/i, "macOS")
+      .gsub(/ios/i, "iOS")
+      .gsub(/ipad/i, "iPad")
   end
 end

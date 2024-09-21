@@ -20,23 +20,6 @@ module Pwa
       new(user_agent_nickname)
     end
 
-    def self.os_title(os_name)
-      case os_name
-      when /macos/i
-        "macOS"
-      when /ipad/i
-        "iPad"
-      when /ios/i
-        "iOS"
-      else
-        os_name&.titleize || "this platform"
-      end
-    end
-
-    def self.browser_title(browser_name)
-      browser_name&.titleize || "your browser"
-    end
-
     attr_reader :user_agent_nickname
 
     def initialize(user_agent_nickname)
@@ -50,41 +33,35 @@ module Pwa
     def os_name
       case user_agent_nickname
       when /macos/i
-        "macos"
+        "macOS"
+      when /ipados/i
+        "iPadOS"
       when /windows/i
-        "windows"
+        "Windows"
       when /ios/i
-        "ios"
+        "iOS"
       when /android/i
-        "android"
+        "Android"
       when /linux/i
-        "linux"
+        "Linux"
       else
         "your platform"
       end
     end
 
-    def os_title
-      self.class.os_title(os_name)
-    end
-
     def browser_name
       case user_agent_nickname
       when /chrome/i
-        "chrome"
+        "Chrome"
       when /firefox/i
-        "firefox"
+        "Firefox"
       when /edge/i
-        "edge"
+        "Microsoft Edge"
       when /safari/i
-        "safari"
+        "Safari"
       else
         "this browser"
       end
-    end
-
-    def browser_title
-      self.class.browser_title(browser_name)
     end
 
     def full_version
