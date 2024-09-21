@@ -25,16 +25,8 @@ module Pwa
       @device_detector.os_name
     end
 
-    def os_title
-      Pwa::NamedInstallationInstructions.os_title(os_name)
-    end
-
     def browser_name
       @device_detector.name
-    end
-
-    def browser_title
-      Pwa::NamedInstallationInstructions.browser_title(browser_name)
     end
 
     private
@@ -43,6 +35,8 @@ module Pwa
       case os_name
       when /ios/i
         "ios"
+      when /ipad/i
+        "ipados"
       when /android/i
         "android"
       when /mac/i
@@ -60,7 +54,7 @@ module Pwa
         "chrome"
       when /firefox|fxios/i
         "firefox"
-      when /edg/i
+      when /edge/i
         "edge"
       when /safari/i
         "safari"
