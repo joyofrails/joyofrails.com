@@ -3,7 +3,7 @@ require "rails/application_controller"
 class Rails::PwaController < Rails::ApplicationController # :nodoc:
   include ColorScheming
 
-  before_action :ensure_current_color_scheme
+  before_action :ensure_current_color_scheme, only: %i[manifest]
 
   skip_forgery_protection
 
