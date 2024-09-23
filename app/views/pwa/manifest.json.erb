@@ -1,6 +1,7 @@
 {
   "id": "joy-of-rails",
   "name": "<%= Rails.configuration.settings.application_name %>",
+  "short_name": "<%= Rails.configuration.settings.application_name %>",
   "description": "A place to learn about Ruby on Rails and how it makes web development a joy",
   "start_url": "<%= root_url %>",
   "theme_color": "<%= @color_scheme.weight_200.hex.to_s %>",
@@ -20,33 +21,63 @@
   ],
   "icons": [
     {
-      "src": "<%= asset_path("app-icons/icon-64.png") %>",
+      "src": "<%= image_url("app-icons/icon-64.png") %>",
       "type": "image/png",
       "sizes": "64x64"
     },
     {
-      "src": "<%= asset_path("app-icons/icon-192-maskable.png") %>",
+      "src": "<%= image_url("app-icons/icon-192-maskable.png") %>",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "<%= asset_path("app-icons/icon-192.png") %>",
+      "src": "<%= image_url("app-icons/icon-192.png") %>",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "<%= asset_path("app-icons/icon-512-maskable.png") %>",
+      "src": "<%= image_url("app-icons/icon-512-maskable.png") %>",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     },
     {
-      "src": "<%= asset_path("app-icons/icon-512.png") %>",
+      "src": "<%= image_url("app-icons/icon-512.png") %>",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
+    }
+  ],
+  "screenshots" : [
+    {
+      "src": "<%= image_url("screenshots/homepage.jpg") %>",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Homescreen of Joy of Rails"
+    },
+    {
+      "src": "<%= image_url("screenshots/color-schemes.jpg") %>",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Personalized Settings for Joy of Rails"
+    },
+    {
+      "src": "<%= image_url("screenshots/homepage-narrow.jpg") %>",
+      "sizes": "400x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Homescreen of Joy of Rails"
+    },
+    {
+      "src": "<%= image_url("screenshots/color-schemes-narrow.jpg") %>",
+      "sizes": "400x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Personalized Settings for Joy of Rails"
     }
   ]
 }
