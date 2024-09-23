@@ -98,4 +98,10 @@ Rails.application.configure do
   else
     "POSTMARK_API_TEST"
   end
+
+  # With branch-specific databases for development defined in config/database.yml
+  # we need to prepare the databases before starting the server
+  config.after_initialize do
+    ActiveRecord::Tasks::DatabaseTasks.prepare_all
+  end
 end
