@@ -4,7 +4,6 @@
 
 import { application } from './application';
 
-import CodeExample from './code-example';
 import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import Flash from './flash';
@@ -25,7 +24,6 @@ import SnippetScreenshot from './snippets/screenshot';
 import SnippetTweet from './snippets/tweet';
 
 application.register('analytics', AnalyticsCustomEvent);
-application.register('code-example', CodeExample);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('flash', Flash);
