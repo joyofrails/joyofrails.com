@@ -12,6 +12,7 @@
     "dracula-ui": "^1.0.6",
     "html-to-image": "^1.11.11",
     "postcss-import": "^16.1.0",
+    "rails_admin": "3.2.0",
     "system-font-css": "^2.0.2"
   },
   "devDependencies": {
@@ -24,7 +25,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.38",
-    "sass": "^1.76.0",
+    "sass": "^1.79.3",
     "vite": "^5.4.6",
     "vite-plugin-rails": "^0.5.0",
     "vite-plugin-ruby": "^5.0.0",

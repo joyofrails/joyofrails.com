@@ -1,4 +1,4 @@
-class Admin::NewslettersController < ApplicationController
+class Admin::NewslettersController < Admin::BaseController
   # GET /admin/newsletters
   def index
     @newsletters = Newsletter.all

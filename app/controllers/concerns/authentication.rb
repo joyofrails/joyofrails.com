@@ -9,11 +9,11 @@ module Authentication
     helper_method :admin_user_signed_in?
   end
 
-  protected
-
   def warden
     request.env["warden"]
   end
+
+  protected
 
   def authenticate_user!
     store_location
