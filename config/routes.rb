@@ -102,6 +102,8 @@ Rails.application.routes.draw do
     end
   end
 
+  mount RailsAdmin::Engine => "/admin/data", :as => "rails_admin", :constraints => Routes::AdminAccessConstraint.new
+
   get "/404", to: "errors#not_found"
   get "/500", to: "errors#internal_server"
   get "/422", to: "errors#unprocessable"

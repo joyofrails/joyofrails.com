@@ -50,6 +50,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (7.2.1)
       activesupport (= 7.2.1)
+    activemodel-serializers-xml (1.0.3)
+      activemodel (>= 5.0.0.a)
+      activesupport (>= 5.0.0.a)
+      builder (~> 3.1)
     activerecord (7.2.1)
       activemodel (= 7.2.1)
       activesupport (= 7.2.1)
@@ -139,6 +143,7 @@ GEM
     crass (1.0.6)
     css_parser (1.17.1)
       addressable
+    csv (3.3.0)
     cuprite (0.15.1)
       capybara (~> 3.0)
       ferrum (~> 0.15.0)
@@ -266,6 +271,18 @@ GEM
     json (2.7.2)
     jwt (2.8.2)
       base64
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     launchy (3.0.1)
       addressable (~> 2.8)
@@ -307,6 +324,7 @@ GEM
       turbo-rails
     msgpack (1.7.2)
     multi_json (1.15.0)
+    nested_form (0.3.2)
     net-imap (0.4.14)
       date
       net-protocol
@@ -383,6 +401,13 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_admin (3.2.0)
+      activemodel-serializers-xml (>= 1.0)
+      csv
+      kaminari (>= 0.14, < 2.0)
+      nested_form (~> 0.3)
+      rails (>= 6.0, < 8)
+      turbo-rails (>= 1.0, < 3)
     rails_best_practices (1.23.2)
       activesupport
       code_analyzer (~> 0.5.5)
@@ -613,6 +638,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rack-mini-profiler
   rails (~> 7.2)
+  rails_admin
   rails_best_practices
   reek
   rouge

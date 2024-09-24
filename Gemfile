@@ -28,6 +28,7 @@ gem "device_detector" # DeviceDetector is a precise and fast user agent parser a
 gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
+gem "rails_admin", group: [:default, :wasm] # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
 
 # Rendering
 gem "image_processing", group: [:default, :wasm] # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
