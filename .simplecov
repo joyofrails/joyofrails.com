@@ -36,7 +36,6 @@ SimpleCov.profiles.define :joyofrails do
   add_filter %r{^/app/javascript/}
 
   add_filter %r{^/lib/assets/}
-  add_filter %r{^/lib/rails-wasm/}
 
   track_files "{app,lib}/**/*.rb"
 end

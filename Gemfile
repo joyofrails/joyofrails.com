@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".ruby-version"
 
-gem "rails", "~> 7.2", group: [:default, :wasm] # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.2" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
@@ -15,34 +15,34 @@ gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/rail
 gem "solid_cable" # A database-backed ActionCable backend [https://github.com/rails/solid_cable]
 
 # Asset management
-gem "propshaft", group: [:default, :wasm] # Deliver assets for Rails [https://github.com/rails/propshaft]
-gem "stimulus-rails", group: [:default, :wasm] # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "turbo-rails", group: [:default, :wasm] # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "vite_rails", group: [:default, :wasm] # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
+gem "propshaft" # Deliver assets for Rails [https://github.com/rails/propshaft]
+gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 
 # Utilities
-gem "bcrypt", "~> 3.1.7", group: [:default, :wasm] # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "flipper", group: [:default, :wasm] # Feature flipping for Ruby [https://www.flippercloud.io/]
+gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "flipper" # Feature flipping for Ruby [https://www.flippercloud.io/]
 gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flippercloud.io/docs/adapters/active-record]
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
-gem "warden", group: [:default, :wasm] # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
+gem "warden" # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
-gem "rails_admin", group: [:default, :wasm] # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
+gem "rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
 
 # Rendering
-gem "image_processing", group: [:default, :wasm] # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
-gem "rouge", group: [:default, :wasm] # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
-gem "sitepress-rails", group: [:default, :wasm] # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
+gem "rouge" # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
+gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "phlex", "2.0.0.beta1", group: [:default, :wasm] # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
-gem "phlex-rails", "2.0.0.beta1", group: [:default, :wasm] # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex", "2.0.0.beta1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", "2.0.0.beta1" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "commonmarker", require: false
-gem "invisible_captcha", group: [:default, :wasm] # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
-gem "color_conversion", group: [:default, :wasm] # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
-gem "meta-tags", group: [:default, :wasm] # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
+gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
+gem "color_conversion" # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
+gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
@@ -51,7 +51,6 @@ gem "httpx" # An HTTP client library for Ruby [https://gitlab.com/os85/httpx]
 gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
-gem "fog-aws", require: false # Module for the 'fog' gem to support Amazon Web Services [https://github.com/fog/fog-aws]
 gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
 
 # Admin
@@ -91,14 +90,4 @@ group :development, :test do
   gem "standard", require: false # Ruby style guide, linter, and formatter [https://github.com/testdouble/standard]
   gem "vcr", require: false # Record your test suite's HTTP interactions and replay them during future test runs [https://github.com/vcr/vcr]
   gem "w3c_validators", require: false # W3C HTML and CSS validators [https://github.com/w3c-validators/w3c_validators]
-end
-
-group :wasm do
-  gem "activerecord-nulldb-adapter" # Use nulldb as the database for Active Record [https://github.com/nulldb/nulldb]
-  gem "tzinfo-data" # WASM needs to include zoneinfo files, so bundle the tzinfo-data gem
-  gem "ruby_wasm", "~> 2.5" # Building WebAssembly modules in Ruby [https://github.com/ruby/ruby.wasm]
-end
-
-group :browser do
-  gem "js" # JavaScript bindings for ruby.wasm [https://github.com/ruby/ruby.wasm/blob/main/packages/gems/js]
 end

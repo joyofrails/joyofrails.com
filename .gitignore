@@ -61,11 +61,8 @@ node_modules
 config/litestream.yml
 config/litestream/*.yml
 
-# Ignore wasm files
 /build/*
 /rubies/*
-/.wasm/*
-!/.wasm/.keep
 /config/credentials/wasm.key
 
 # Ignore rspec failure file

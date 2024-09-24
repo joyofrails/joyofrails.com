@@ -61,8 +61,6 @@ GEM
     activerecord-enhancedsqlite3-adapter (0.8.0)
       activerecord (>= 7.1)
       sqlite3 (>= 1.6)
-    activerecord-nulldb-adapter (0.5.1)
-      activerecord (>= 5.2.0)
     activestorage (7.2.1)
       actionpack (= 7.2.1)
       activejob (= 7.2.1)
@@ -195,7 +193,6 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.11)
       tzinfo
-    excon (0.111.0)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
@@ -222,22 +219,6 @@ GEM
       rack-protection (>= 1.5.3, < 5.0.0)
       rack-session (>= 1.0.2, < 3.0.0)
       sanitize (< 7)
-    fog-aws (3.24.0)
-      fog-core (~> 2.1)
-      fog-json (~> 1.1)
-      fog-xml (~> 0.1)
-    fog-core (2.4.0)
-      builder
-      excon (~> 0.71)
-      formatador (>= 0.2, < 2.0)
-      mime-types
-    fog-json (1.2.0)
-      fog-core
-      multi_json (~> 1.10)
-    fog-xml (0.1.4)
-      fog-core
-      nokogiri (>= 1.5.11, < 2.0.0)
-    formatador (1.1.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -267,7 +248,6 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
-    js (2.6.2)
     json (2.7.2)
     jwt (2.8.2)
       base64
@@ -323,7 +303,6 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.7.2)
-    multi_json (1.15.0)
     nested_form (0.3.2)
     net-imap (0.4.14)
       date
@@ -477,8 +456,6 @@ GEM
     ruby-vips (2.2.2)
       ffi (~> 1.12)
       logger
-    ruby_wasm (2.6.2-arm64-darwin)
-    ruby_wasm (2.6.2-x86_64-linux)
     sanitize (6.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -555,8 +532,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2024.1)
-      tzinfo (>= 1.0.0)
     unicode-display_width (2.5.0)
     useragent (0.16.10)
     vcr (6.2.0)
@@ -600,7 +575,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-enhancedsqlite3-adapter
-  activerecord-nulldb-adapter
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap
@@ -620,13 +594,11 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
-  fog-aws
   honeybadger
   httpx
   image_processing
   inline_svg
   invisible_captcha
-  js
   letter_opener
   litestream
   meta-tags
@@ -643,7 +615,6 @@ DEPENDENCIES
   reek
   rouge
   rspec-rails
-  ruby_wasm (~> 2.5)
   scout_apm
   simplecov
   simplecov-cobertura
@@ -657,7 +628,6 @@ DEPENDENCIES
   standard
   stimulus-rails
   turbo-rails
-  tzinfo-data
   vcr
   vite_rails
   w3c_validators

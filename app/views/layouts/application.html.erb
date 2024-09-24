@@ -20,8 +20,8 @@
     <%= csp_meta_tag %>
     <%= render "application/analytics" %>
     <%= render "application/config" %>
-    <%= render "application/theme/color" unless Rails.env.wasm? %>
-    <%= render "application/theme/code" unless Rails.env.wasm? %>
+    <%= render "application/theme/color" %>
+    <%= render "application/theme/code" %>
     <%= render "darkmode/setup" %>
 
     <!--
