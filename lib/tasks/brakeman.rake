@@ -13,7 +13,6 @@ namespace :brakeman do
       skip_files: [
         "build/",
         "rubies/",
-        ".wasm/",
         "node_modules/",
         "vendor/",
         "tmp/"

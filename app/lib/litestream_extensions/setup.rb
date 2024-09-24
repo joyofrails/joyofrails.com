@@ -3,7 +3,7 @@ module LitestreamExtensions
     module_function
 
     def configure_litestream
-      if Rails.env.wasm? || litestream_bucket.blank?
+      if litestream_bucket.blank?
         Rails.logger.debug "[#{self}] Skipping Litestream configuration"
         return
       end

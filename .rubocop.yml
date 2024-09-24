@@ -15,4 +15,3 @@ AllCops:
     - '.git/**/*'
     - 'build/**/*'
     - 'rubies/**/*'
-    - '.wasm/**/*'

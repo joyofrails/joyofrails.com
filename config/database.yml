@@ -70,6 +70,3 @@ production:
     <<: *default
     database: storage/production/cable.sqlite3
     migrations_paths: db/migrate_cable
-
-wasm:
-  adapter: nulldb

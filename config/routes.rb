@@ -95,11 +95,9 @@ Rails.application.routes.draw do
       end
     end
 
-    unless Rails.env.wasm?
-      mount Flipper::UI.app(Flipper) => "/flipper"
-      mount MissionControl::Jobs::Engine, at: "/jobs"
-      mount Litestream::Engine => "/litestream"
-    end
+    mount Flipper::UI.app(Flipper) => "/flipper"
+    mount MissionControl::Jobs::Engine, at: "/jobs"
+    mount Litestream::Engine => "/litestream"
   end
 
   mount RailsAdmin::Engine => "/admin/data", :as => "rails_admin", :constraints => Routes::AdminAccessConstraint.new
