@@ -6,7 +6,7 @@ RSpec.describe "Customize Syntax Highlighting", type: :system do
   it "user can selected a curated syntax highlight" do
     visit root_path
 
-    click_link "Syntax Highlighting"
+    click_link "Syntax Highlight"
 
     expect(page).to have_css("link[data-syntax-highlight*=dracula]", visible: false)
 
