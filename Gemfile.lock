@@ -323,9 +323,9 @@ GEM
     parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
-    phlex (2.0.0.beta1)
-    phlex-rails (2.0.0.beta1)
-      phlex (= 2.0.0.beta1)
+    phlex (2.0.0.beta2)
+    phlex-rails (2.0.0.beta2)
+      phlex (= 2.0.0.beta2)
       railties (>= 6.1, < 8)
     postmark (1.25.1)
       json
@@ -603,8 +603,8 @@ DEPENDENCIES
   litestream
   meta-tags
   mission_control-jobs
-  phlex (= 2.0.0.beta1)
-  phlex-rails (= 2.0.0.beta1)
+  phlex (= 2.0.0.beta2)
+  phlex-rails (= 2.0.0.beta2)
   postmark-rails
   propshaft
   puma (>= 5.0)
