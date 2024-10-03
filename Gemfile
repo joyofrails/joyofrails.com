@@ -3,11 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".ruby-version"
 
-gem "rails", "~> 7.2" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "8.0.0.beta1 " # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
-gem "activerecord-enhancedsqlite3-adapter" # Enhanced SQLite3 adapter for Active Record [https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter]
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
 
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
@@ -36,8 +35,8 @@ gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://gi
 gem "rouge" # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "phlex", "2.0.0.beta1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
-gem "phlex-rails", "2.0.0.beta1" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex", "2.0.0.beta2" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", "2.0.0.beta2" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "commonmarker", require: false
 gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
