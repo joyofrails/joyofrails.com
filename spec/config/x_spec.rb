@@ -14,4 +14,8 @@ RSpec.describe "Custom configuration" do
   describe "#postmark" do
     it { expect(Rails.configuration.x.postmark.api_token).to eq("POSTMARK_API_TEST") }
   end
+
+  describe "#skip_http_cache" do
+    it { expect(Rails.configuration.skip_http_cache).to eq(false) }
+  end
 end

@@ -59,7 +59,5 @@ module Joy
 
     # Set up custom settings
     config.settings = ActiveSupport::OrderedOptions.new
-
-    config.settings.skip_http_cache = ENV["SKIP_HTTP_CACHE"] == "true"
   end
 end
