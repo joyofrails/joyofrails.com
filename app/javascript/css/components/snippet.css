@@ -4,7 +4,7 @@
   max-width: var(--grid-max-width) - (2 * var(--grid-gutter));
 
   & .code-editor {
-    padding-top: var(--space-xs);
+    padding-top: var(--space-m);
     padding-inline-end: var(--space-m);
     padding-bottom: var(--space-m);
     padding-inline-start: var(--space-m);

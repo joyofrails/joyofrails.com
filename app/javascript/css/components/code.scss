@@ -37,7 +37,7 @@
   overflow-x: auto;
   position: relative;
 
-  & > pre {
+  & pre {
     border-radius: 0.5rem;
     padding-top: var(--space-m);
     padding-inline-end: var(--space-m);
@@ -47,11 +47,11 @@
     width: 100%;
   }
 
-  & > pre .hll {
+  & pre .hll {
     white-space: break-spaces;
   }
 
-  & > pre,
+  & pre,
   & textarea {
     line-height: var(--code-line-height);
     margin-top: 0;
