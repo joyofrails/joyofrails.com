@@ -18,4 +18,12 @@ RSpec.describe "Custom configuration" do
   describe "#skip_http_cache" do
     it { expect(Rails.configuration.skip_http_cache).to eq(false) }
   end
+
+  describe "#emails" do
+    it { expect(Rails.configuration.x.emails.transactional_from_address).to eq "hello@example.com" }
+    it { expect(Rails.configuration.x.emails.transactional_from_name).to eq "Joy of Rails" }
+    it { expect(Rails.configuration.x.emails.broadcast_from_address).to eq "hello@example.com" }
+    it { expect(Rails.configuration.x.emails.broadcast_from_name).to eq "Joy of Rails" }
+    it { expect(Rails.configuration.x.emails.test_recipient).to eq "hello@example.com" }
+  end
 end
