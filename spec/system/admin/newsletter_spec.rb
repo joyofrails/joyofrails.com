@@ -45,7 +45,7 @@ RSpec.describe "Admin for Newsletters", type: :system do
 
   it "send a newsletter test", :vcr do
     newsletter = FactoryBot.create(:newsletter)
-    test_recipient_email = Rails.configuration.settings.emails.test_recipient
+    test_recipient_email = Rails.configuration.x.emails.test_recipient
     FactoryBot.create(:user, :confirmed, :subscribed, email: test_recipient_email)
 
     allow(PostmarkClient).to receive(:deliver_messages).and_call_original

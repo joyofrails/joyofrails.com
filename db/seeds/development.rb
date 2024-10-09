@@ -7,7 +7,7 @@ AdminUser.find_or_create_by!(
 end
 
 User.find_or_create_by(
-  email: Rails.configuration.settings.emails.test_recipient
+  email: Rails.configuration.x.emails.test_recipient
 ) do |u|
   u.password = "password"
   u.password_confirmation = "password"

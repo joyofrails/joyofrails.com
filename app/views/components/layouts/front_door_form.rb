@@ -20,7 +20,7 @@ class Layouts::FrontDoorForm < Phlex::HTML
         svg_tag "joy-logo.svg",
           class: "fill-current mx-auto",
           style: "max-width: 64px;",
-          alt: Rails.configuration.settings.application_name
+          alt: Rails.configuration.x.application_name
         h2(
           class: "mt-4 text-center text-2xl text-theme font-bold leading-9 tracking-tight"
         ) { @title }

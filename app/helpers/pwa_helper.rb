@@ -6,6 +6,6 @@ module PwaHelper
   # which is not necessary for the WebPush API and just doesn't feel like a nice API.
   #
   def web_push_key
-    Rails.application.credentials.vapid.public_key.delete("=")
+    Rails.configuration.x.vapid.public_key
   end
 end

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Emails::NewsletterMailer < ApplicationMailer
-  NEWSLETTER_EMAIL = Rails.configuration.settings.emails.broadcast_from_address
-
   default from: email_address_with_name(
-    Rails.configuration.settings.emails.broadcast_from_address,
-    "Ross from Joy of Rails"
+    Rails.configuration.x.emails.broadcast_from_address,
+    Rails.configuration.x.emails.broadcast_from_name
   )
 
   def newsletter(newsletter:, user:, unsubscribe_token:)

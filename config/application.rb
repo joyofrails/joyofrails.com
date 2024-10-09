@@ -56,12 +56,5 @@ module Joy
     if ENV["RAILS_LOG_TO_STDOUT"] == "true"
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
     end
-
-    # Set up custom settings
-    config.settings = ActiveSupport::OrderedOptions.new
-
-    config.settings.application_name = "Joy of Rails"
-    config.settings.postmark_api_token = Rails.application.credentials.postmark&.api_token || "POSTMARK_API_TEST"
-    config.settings.skip_http_cache = ENV["SKIP_HTTP_CACHE"] == "true"
   end
 end
