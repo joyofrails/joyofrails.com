@@ -92,10 +92,4 @@ Rails.application.configure do
   config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
-
-  config.settings.postmark_api_token = if ENV["ENABLE_POSTMARK_IN_DEV"] == "true"
-    Rails.application.credentials.postmark&.api_token || "POSTMARK_API_TEST"
-  else
-    "POSTMARK_API_TEST"
-  end
 end

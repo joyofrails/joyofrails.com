@@ -8,6 +8,6 @@ class PostmarkClient
   end
 
   def api_client
-    @api_client ||= Postmark::ApiClient.new(Rails.configuration.settings.postmark_api_token)
+    @api_client ||= Postmark::ApiClient.new(Rails.configuration.x.postmark.api_token)
   end
 end

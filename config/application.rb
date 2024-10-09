@@ -60,7 +60,6 @@ module Joy
     # Set up custom settings
     config.settings = ActiveSupport::OrderedOptions.new
 
-    config.settings.postmark_api_token = Rails.application.credentials.postmark&.api_token || "POSTMARK_API_TEST"
     config.settings.skip_http_cache = ENV["SKIP_HTTP_CACHE"] == "true"
   end
 end

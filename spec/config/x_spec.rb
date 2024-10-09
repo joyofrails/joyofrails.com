@@ -10,4 +10,8 @@ RSpec.describe "Custom configuration" do
     it { expect(Rails.configuration.x.vapid.public_key.length).to eq(87) }
     it { expect(Rails.configuration.x.vapid.private_key.length).to eq(43) }
   end
+
+  describe "#postmark" do
+    it { expect(Rails.configuration.x.postmark.api_token).to eq("POSTMARK_API_TEST") }
+  end
 end
