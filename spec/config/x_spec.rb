@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Custom configuration" do
+  describe "#application_name" do
+    it { expect(Rails.configuration.x.application_name).to eq("Joy of Rails") }
+  end
+
   describe "#vapid" do
     it { expect(Rails.configuration.x.vapid.subject).to eq("mailto:hello@example.com") }
     it { expect(Rails.configuration.x.vapid.public_key.length).to eq(87) }
