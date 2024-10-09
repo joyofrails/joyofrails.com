@@ -31,9 +31,9 @@ RSpec.describe "/pwa/web_pushes", type: :request do
         p256dh: subscription.dig(:keys, :p256dh),
         auth: subscription.dig(:keys, :auth),
         vapid: {
-          subject: Rails.application.credentials.vapid.subject,
-          public_key: Rails.application.credentials.vapid.public_key,
-          private_key: Rails.application.credentials.vapid.private_key
+          subject: Rails.configuration.x.vapid.subject,
+          public_key: Rails.configuration.x.vapid.public_key,
+          private_key: Rails.configuration.x.vapid.private_key
         },
         ssl_timeout: kind_of(Integer),
         open_timeout: kind_of(Integer),

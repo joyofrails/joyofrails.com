@@ -14,9 +14,9 @@ class Pwa::WebPushJob < ApplicationJob
       p256dh: subscription["keys"]["p256dh"],
       auth: subscription["keys"]["auth"],
       vapid: {
-        subject: Rails.application.credentials.vapid.subject,
-        public_key: Rails.application.credentials.vapid.public_key,
-        private_key: Rails.application.credentials.vapid.private_key
+        subject: Rails.configuration.x.vapid.subject,
+        public_key: Rails.configuration.x.vapid.public_key,
+        private_key: Rails.configuration.x.vapid.private_key
       },
       ssl_timeout: 5, # optional value for Net::HTTP#ssl_timeout=
       open_timeout: 5, # optional value for Net::HTTP#open_timeout=
