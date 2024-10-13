@@ -17,8 +17,12 @@ end
 ColorScheme.find_or_create_default
 
 START_COUNT_NEWSLETTERS = 5
-fill_count = START_COUNT_NEWSLETTERS - Newsletter.count
-FactoryBot.create_list(:newsletter, fill_count) if fill_count > 0
+newsletter_fill_count = START_COUNT_NEWSLETTERS - Newsletter.count
+FactoryBot.create_list(:newsletter, newsletter_fill_count) if newsletter_fill_count > 0
+
+SNIPPET_COUNT = 10
+snippet_fill_count = SNIPPET_COUNT - Snippet.count
+FactoryBot.create_list(:snippet, snippet_fill_count) if snippet_fill_count > 0
 
 # Enable all flags by default
 Flipper.enable(:user_registration)
