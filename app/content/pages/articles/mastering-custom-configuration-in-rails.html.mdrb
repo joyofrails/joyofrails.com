@@ -3,11 +3,11 @@ title: Mastering Custom Configuration in Rails
 author: Ross Kaffenberger
 layout: article
 summary:
-description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions and practical use cases.
+description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions, and practical use cases.
 published: '2024-10-14'
 uuid: 476af131-561e-408e-80fb-8daa64592677
-image: articles/mastering-custom-configuration-in-ruby-on-rails/ice-cream.jpg
-meta_image: articles/mastering-custom-configuration-in-ruby-on-rails/ice-cream.jpg
+image: articles/mastering-custom-configuration-in-rails/ice-cream.jpg
+meta_image: articles/mastering-custom-configuration-in-rails/ice-cream.jpg
 tags:
   - Rails
 ---
@@ -23,8 +23,8 @@ But there‘s no need for all that. `Rails.configuration` has your back. It‘s 
 You can set any value you want on `Rails.configuration`:
 
 ```ruby
-Rails.configuration.my_setting = "awesome"
-Rails.configuration.my_setting # => "awesome"
+Rails.configuration.newsletter_title = "Joy of Rails"
+Rails.configuration.newsletter_title # => "Joy of Rails"
 ```
 
 Within the scope of `YourApp::Application` (replace "YourApp" with your app‘s namespace), you can access `Rails.configuration` through the `config` method:
@@ -34,8 +34,8 @@ module YourApp
   class Application < Rails::Application
     config # => #<Rails::Application::Configuration:0x000...>
 
-    config.my_setting = "awesome"
-    config.my_setting # => "awesome"
+    config.newsletter_title = "Joy of Rails"
+    config.newsletter_title # => "Joy of Rails"
   end
 end
 ```
@@ -46,15 +46,14 @@ You can also use the `config` method under `Rails.application.configure`, such a
 Rails.application.configure do
   config # => #<Rails::Application::Configuration:0x000...>
 
-  config.my_setting = "awesome"
-  config.my_setting # => "awesome"
+  config.newsletter_title = "Joy of Rails"
 end
 ```
 
 Everywhere else, use `Rails.configuration`.
 
 ```ruby
-Rails.configuration.my_setting # => "awesome"
+Rails.configuration.newsletter_title # => "Joy of Rails"
 ```
 
 ## Using Rails config.x
@@ -352,7 +351,7 @@ Armed with knowledge of the Rails features that enable custom configuration, her
    config.x.vapid.private_key = ENV.fetch("VAPID_PRIVATE_KEY")
    ```
 
-1. **Namespace Your Configurations**: Keep your configurations organized by using namespaces.
+1. **Namespace Your Configurations**: Keep your configurations organized by using namespaces, preferably with `config.x`.
 
    ```ruby
    config.x.payment_gateway.timeout = 30
@@ -362,7 +361,7 @@ Armed with knowledge of the Rails features that enable custom configuration, her
    config.x.api.base_url = "https://api.example.com"
    ```
 
-1. **Initialize early**: It may be tempting to lazy-initialize your custom configuration. You are also free to modify your custom configuration at any time. However, this can lead to unexpected behavior in production. I recommend running all the setup of your custom configuration during the Rails initialization process and treating values as read-only in your app logic.
+1. **Initialize early**: It may be tempting to lazy-initialize your custom configuration. You are also free to modify your custom configuration at any time. However, this can lead to unexpected behavior in production. I recommend running all the setup of your custom configuration during the Rails initialization process under separate `config/initializers` files. Treat values as read-only in your app logic.
 
 1. **Use Strong Typing**: Convert string values to appropriate types when possible.
 
@@ -397,8 +396,10 @@ If you like ’em, use ’em! There‘s nothing wrong with using third-party gem
 
 Just consider that using Rails built-in custom configuration features means:
 
-- No Additional Dependencies: You don’t _have_ to add gems for custom configuratio thus reducing your maintenance burden and keep your dependency list lean.
-- Consistency with Rails Conventions: Using Rails' built-in methods keeps your configuration consistent with other Rails conventions, making it easier for Rails developers to understand and maintain.
+- No Additional Dependencies
+- Consistency with Rails Conventions
+
+You don’t _have_ to add gems for custom configuration thus reducing your maintenance burden and keep your dependency list lean. Using Rails' built-in methods keeps your configuration consistent with other Rails conventions, making it easier for Rails developers to understand and maintain.
 
 ## Conclusion
 
@@ -408,4 +409,16 @@ At its core, Rails configuration is about managing various settings that control
 1. Store sensitive data (like API keys) securely
 1. Make your application more maintainable and flexible
 
-By leveraging the `config.x` namespace and `ActiveSupport::OrderedOptions`, you can create powerful and intuitive configuration systems for your Rails projects.
+With `Rails.configuration`, `config.x`, and `ActiveSupport::OrderedOptions`, you can customize your application settings to your heart‘s content.
+
+---
+
+If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
+
+Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+
+[Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
+
+That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
+
+![Ice cream](articles/mastering-custom-configuration-in-rails/ice-cream.jpg 'Ice cream')
