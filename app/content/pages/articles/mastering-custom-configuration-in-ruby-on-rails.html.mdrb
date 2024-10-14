@@ -1,10 +1,10 @@
 ---
-title: Mastering Custom Configuration in Ruby on Rails
+title: Mastering Custom Configuration in Rails
 author: Ross Kaffenberger
 layout: article
 summary:
-description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions, practical use cases, and best practices.
-published: '2024-10-17'
+description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions and practical use cases.
+published: '2024-10-14'
 uuid: 476af131-561e-408e-80fb-8daa64592677
 image: articles/mastering-custom-configuration-in-ruby-on-rails/ice-cream.jpg
 meta_image: articles/mastering-custom-configuration-in-ruby-on-rails/ice-cream.jpg
@@ -16,14 +16,15 @@ As your Ruby on Rails application grows, you‘ll need to add your own bits of c
 
 Where do you put API keys for third-party apps? What if you need different application values depending on the Rails environment? What if you‘re testing a new feature that should be disabled in production for the time-being? Sure, you can add some `ENV` vars here and there. You could manually load YAML files in different places throughout your app. You might be tempted to reach for another Ruby gem to help manage all this behind a common interface.
 
-But there‘s no need for all that. `Rails.configuration` has your back, providing features to support your custom configuration needs including the built-in X-factor: `config.x`.
+But there‘s no need for all that. `Rails.configuration` has your back. It‘s got features to support your custom configuration, not to mention the built-in X-factor: `config.x`.
 
-## Rails.configuration
+## The Ins and Outs
 
 You can set any value you want on `Rails.configuration`:
 
 ```ruby
 Rails.configuration.my_setting = "awesome"
+Rails.configuration.my_setting # => "awesome"
 ```
 
 Within the scope of `YourApp::Application` (replace "YourApp" with your app‘s namespace), you can access `Rails.configuration` through the `config` method:
@@ -292,11 +293,9 @@ puts config.database.username  # => admin
 One powerful feature of `ActiveSupport::OrderedOptions` is the ability to raise an exception when accessing a value that is `nil` or blank by adding a `!` to the end of the method name. This is particularly useful for catching configuration errors early:
 
 ```ruby
-config = ActiveSupport::OrderedOptions.new
-config.required_api_key = ''
+settings = ActiveSupport::OrderedOptions.new
 
-# This will raise an ActiveSupport::OrderedOptions::MissingKeyError exception
-config.required_api_key!
+settings.required_api_key! # => Raises KeyError
 ```
 
 This feature is incredibly useful for validating that all required configuration values are properly set, especially for critical settings like API keys or database credentials.
@@ -304,14 +303,25 @@ This feature is incredibly useful for validating that all required configuration
 By raising an exception early, you can prevent your application from running with incomplete or invalid configuration, which could lead to errors or unexpected behavior later on.
 
 ```ruby:{"filename":"config/initializers/my_api_client.rb"}
-Rails.configuration.x.api_client.secret_key! # => Raises KeyError if not set
+Rails.configuration.x.api_client.secret_key!
 ```
 
 ### OrderedOptions in the wild
 
 `ActiveSupport::OrderedOptions` is used extensively throughout the framework.
 
-In fact, many of your favorite gems use it to provide you with the ability to customize behavior to fit the needs of your application.. If you look hard enough, you will find many examples of `ActiveSupport::OrderedOptions` for configuring Rails gems littered across the landscape. Here are just a few:
+```ruby
+Rails.application.configure do
+  config.action_controller.class # => ActiveSupport::OrderedOptions
+  config.action_mailer.class     # => ActiveSupport::OrderedOptions
+  config.active_job.class        # => ActiveSupport::OrderedOptions
+  config.active_record.class     # => ActiveSupport::OrderedOptions
+  config.active_support.class    # => ActiveSupport::OrderedOptions
+  # ... you get the point
+end
+```
+
+On top of that, many of your favorite gems use it to provide you with the ability to customize behavior to fit the needs of your application.. If you look hard enough, you will find many examples of `ActiveSupport::OrderedOptions` for configuring Rails gems littered across the landscape. Here are just a few:
 
 - [rails/solid-queue](https://github.com/rails/solid_queue/blob/51c75bec01c8c53f2fe573822f0158e8b62030aa/lib/solid_queue/engine.rb#L11)
 - [hotwired/turbo-rails](https://github.com/hotwired/turbo-rails/blob/b775fe4a1f9db28e3d650864c1bb6c089f44efa6/lib/turbo/engine.rb#L7)
