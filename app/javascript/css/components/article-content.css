@@ -76,7 +76,13 @@
   }
 
   & li:has(+ li) {
-    margin-bottom: var(--space-2xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  & li {
+    & p:has(+ *) {
+      margin-bottom: var(--space-xs);
+    }
   }
 
   & blockquote {
