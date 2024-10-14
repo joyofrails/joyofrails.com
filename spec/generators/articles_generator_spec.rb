@@ -11,7 +11,7 @@ RSpec.describe ArticleGenerator, type: :generator do
 
   it "creates a new article" do
     uuid = "00000000-0000-0000-0000-000000000000"
-    allow(SecureRandom).to receive(:uuid).and_return(uuid)
+    allow(SecureRandom).to receive(:uuid_v7).and_return(uuid)
 
     run_generator ["My New Article"]
 
@@ -37,6 +37,8 @@ RSpec.describe ArticleGenerator, type: :generator do
           Hello World
         FILE
       end
+
+      expect("spec/system/articles/my-new-article_spec.rb").to be_file
     end
   end
 end
