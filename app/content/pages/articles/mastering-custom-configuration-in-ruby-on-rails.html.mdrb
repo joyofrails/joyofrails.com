@@ -3,7 +3,7 @@ title: Mastering Custom Configuration in Ruby on Rails
 author: Ross Kaffenberger
 layout: article
 summary:
-description: Learn how to add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions, practical use cases, best practices, and comparisons with third-party gems.
+description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions, practical use cases, and best practices.
 published: '2024-10-17'
 uuid: 476af131-561e-408e-80fb-8daa64592677
 image: articles/mastering-custom-configuration-in-ruby-on-rails/placeholder.jpg
@@ -12,86 +12,102 @@ tags:
   - Rails
 ---
 
-As your Ruby on Rails application grows, managing configuration becomes crucial for maintaining flexibility, security, and ease of deployment across different environments. Rails provides powerful built-in tools for handling custom configuration, allowing you to keep your code clean, maintainable, and environment-specific. In this comprehensive guide, we'll explore the ins and outs of custom configuration in Rails, from basic usage to advanced techniques.
+As your Ruby on Rails application grows, you‘ll need to add your own bits of configuration.
 
-## Understanding Rails Configuration
+Where do you put API keys for third-party apps? What if you need different application values depending on the Rails environment? What if you‘re testing a new feature that should be disabled in production for the time-being? Sure, you can add some `ENV` vars here and there. You could manually load YAML files in different places throughout your app. You might be tempted to reach for another Ruby gem to help manage all this behind a common interface.
 
-At its core, Rails configuration is about managing various settings that control how your application behaves in different environments. These settings can include database connections, API keys, feature flags, and much more. Effective use of configuration allows you to:
+But there‘s no need for all that. `Rails.configuration` has your back, providing features to support your custom configuration needs including the built-in X-factor: `config.x`.
 
-1. Keep environment-specific settings separate from your code
-2. Manage feature flags and toggles
-3. Store sensitive data (like API keys) securely
-4. Make your application more maintainable and flexible
+## Rails.configuration
 
-## Rails Built-in Configuration Methods
-
-Rails provides two primary methods for handling custom configuration: the `config.x` namespace and the `config_for` method. Both of these utilize `ActiveSupport::OrderedOptions` under the hood.
-
-### Loading Configuration from YAML Files
-
-Rails provides the `Rails.application.config_for` method to load settings from YAML files:
-
-```yaml:{"filename":"config/analytics.yml"}
-shared:
-  enabled: true
-
-development:
-  provider: 'local'
-  sampling_rate: 100
-
-production:
-  provider: 'google'
-  sampling_rate: 10
-  property_id: 'UA-XXXXXXXX-X'
-```
-
-Load the configuration in your application such as within the context of `Rails::Application` during the boot process like so:
-
-```ruby:{"filename:":"config/application.rb"}
-module YourApp
-  class Application < Rails::Application
-    config.analytics = config_for(:analytics)
-  end
-end
-```
-
-Now you can access the configuration anywhere:
+You can set any value you want on `Rails.configuration`:
 
 ```ruby
-Rails.configuration.analytics.enabled
-Rails.configuration.analytics.provider
+Rails.configuration.my_setting = "awesome"
 ```
 
-### Using Rails.configuration.x Namespace
-
-The `config.x` namespace, introduced in Rails 4.2, offers a clean and consistent interface for storing custom configuration settings. Here are some examples of how to use it:
+Within the scope of `YourApp::Application` (replace "YourApp" with your app‘s namespace), you can access `Rails.configuration` through the `config` method:
 
 ```ruby:{"filename":"config/application.rb"}
 module YourApp
   class Application < Rails::Application
-    # Hard-coded values
+    config # => #<Rails::Application::Configuration:0x000...>
+
+    config.my_setting = "awesome"
+    config.my_setting # => "awesome"
+  end
+end
+```
+
+You can also use the `config` method under `Rails.application.configure`, such as in an initializer file:
+
+```ruby:{"filename":"config/initializers/my_setting.rb"}
+Rails.application.configure do
+  config # => #<Rails::Application::Configuration:0x000...>
+
+  config.my_setting = "awesome"
+  config.my_setting # => "awesome"
+end
+```
+
+Everywhere else, use `Rails.configuration`.
+
+```ruby
+Rails.configuration.my_setting # => "awesome"
+```
+
+## Using Rails config.x
+
+You‘ll often want to group related values together. For this purpose, Rails `config.x` offers a clean and consistent namespace for storing your custom configuration settings.
+
+Here’s a simple example. Note the format `config.x.nested.value`:
+
+```ruby:{"filename":"config/application.rb"}
+module YourApp
+  class Application < Rails::Application
     config.x.payment_gateway.merchant_id = 'ABC123'
-    config.x.features.enable_new_ui = true
+    config.x.payment_gateway.enabled = true
+  end
+end
+```
 
-    # Logic in configuration
+Add logic to assignment:
+
+```ruby:{"filename":"config/application.rb"}
+module YourApp
+  class Application < Rails::Application
     config.x.cache.ttl = Rails.env.production? ? 1.hour : 5.minutes
+  end
+end
+```
 
-    # Load Rails credentials with default value fallbacks
+Load values from Rails `credentials` or from `ENV` variables with defaults:
+
+```ruby:{"filename":"config/application.rb"}
+module YourApp
+  class Application < Rails::Application
     config.x.analytics.api_secret = credentials.dig(:analytics, :api_secret) || 'TEST_KEY'
 
-    # Load ENV vars with default value fallbacks
     config.x.analytics.provider = ENV.fetch('ANALYTICS_PROVIDER', 'google')
+  end
+end
+```
 
-    # Boolean configuration with type casting and default values
+Type cast from string inputs:
+
+```ruby:{"filename":"config/application.rb"}
+module YourApp
+  class Application < Rails::Application
+    # Boolean configuration
     config.x.analytics.enabled = ActiveModel::Type::Boolean.new.cast(ENV.fetch('ANALYTICS_ENABLED', 'true'))
 
-    # Numeric configuration with type casting
+    # Numeric configuration
     config.x.rate_limiting.max_requests = ENV.fetch('MAX_REQUESTS', '100').to_i
   end
 end
 ```
 
-You can then access these settings anywhere in your application:
+Access the values through `Rails.configuration.x` anywhere in your application:
 
 ```ruby:{"filename":"app/controllers/payments_controller.rb"}
 class PaymentsController < ApplicationController
@@ -121,23 +137,50 @@ class AnalyticsClient
 end
 ```
 
-### Why I like config.x
+### Loading Configuration from YAML Files
 
-The `config.x` namespace provides several benefits:
+You may find it convenient to describe a group of related settings in YAML files in the `config` directory as Rails does for database configuration with `config/database.yml`.
 
-1. **Consistent Interface**: The `config.x` namespace provides a consistent way to access custom configuration throughout your application. This replaces the need to mix ENV variables, Rails credentials, and other methods of storing configuration data, leading to cleaner and more maintainable code.
+Rails provides the `Rails.application.config_for` method to load settings from YAML files:
 
-2. **Logic and Type Casting**: You can apply logic and type casting to your custom configuration during Rails initialization. This ensures that your configuration values are of the correct type and format when your application code accesses them.
+```yaml:{"filename":"config/analytics.yml"}
+default: &default
+  enabled: true
 
-3. **Namespace Organization**: The `x` namespace allows you to organize your configuration settings into logical groups, improving readability and maintainability.
+development:
+  <<: *default
+  provider: 'local'
+  sampling_rate: 100
 
-4. **Environment-Specific Overrides**: You can easily set different values for different environments, all within the Rails configuration structure.
+production:
+  <<: *default
+  provider: 'google'
+  sampling_rate: 10
+  property_id: 'UA-XXXXXXXX-X'
+```
 
-5. **Testability**: Having a centralized configuration makes it easier to stub or mock configuration values in your tests.
+Load the configuration in your application such as within the context of `Rails::Application` during the boot process like so:
 
-## Practical Use Cases
+```ruby:{"filename:":"config/application.rb"}
+module YourApp
+  class Application < Rails::Application
+    config.analytics = config_for(:analytics)
+  end
+end
+```
 
-Let's explore some practical use cases for custom configuration in Rails applications.
+With this approach, you have created your own config namespace under `Rails.configuration.analytics`. Now you can access the configuration anywhere:
+
+```ruby
+Rails.configuration.analytics.enabled
+Rails.configuration.analytics.provider
+```
+
+The `config_for` method will expect to find settings under the current `Rails.env` so make sure to organize your YAML configuration accordingly.
+
+## Let’s get practical
+
+In case you‘re having trouble imagining when you would reach for Rails custom configuration, here are just a few practical use cases.
 
 ### Bare bones feature toggles
 
@@ -163,6 +206,17 @@ if Rails.configuration.x.features.enable_beta
 end
 ```
 
+### Configuring VAPID web push
+
+If you‘d like to use Web Push in your Rails app, load your "Voluntary Application Server Identification" (VAPID) public and private keys from your Rails credentials.
+
+```ruby:{"filename":"config/initializers/vapid.rb"}
+Rails.application.configure do
+  config.x.vapid.public_key = credentials.dig(:vapid, :public_key)
+  config.x.vapid.private_key = credentials.dig(:vapid, :private_key)
+end
+```
+
 ### External Service Configuration
 
 When working with external services, you often need different settings for development and production:
@@ -181,8 +235,7 @@ production:
   password: <%= ENV['SENDGRID_PASSWORD'] %>
 ```
 
-```ruby
-# config/application.rb
+```ruby:{"filename":"config/application.rb"}
 module YourApp
   class Application < Rails::Application
     config.action_mailer.smtp_settings = config_for(:smtp)
@@ -190,61 +243,25 @@ module YourApp
 end
 ```
 
-### Multi-tenant Settings
+## Getting to know ActiveSupport::OrderedOptions
 
-For applications serving multiple clients, you might need client-specific configurations:
-
-```yaml
-# config/client_settings.yml
-default: &default
-  timeout: 30
-  max_attempts: 3
-
-client_a:
-  <<: *default
-  api_key: 'client_a_key'
-  subdomain: 'client-a'
-
-client_b:
-  <<: *default
-  api_key: 'client_b_key'
-  subdomain: 'client-b'
-  timeout: 60 # Override default
-```
+The secret sauce behind Rails configuration is `ActiveSupport::OrderedOptions`. When you call a new method on `config.x` for the first time, an instance of `ActiveSupport::OrderedOptions` is lazy-initialized.
 
 ```ruby
-# app/models/client.rb
-class Client < ApplicationRecord
-  def settings
-    @settings ||= Rails.application.config_for(:client_settings)[subdomain.to_sym]
-  end
-end
-
-# Usage
-client = Client.find_by(subdomain: 'client-a')
-client.settings[:api_key]    # => 'client_a_key'
-client.settings[:timeout]    # => 30
+Rails.configuration.x.anything.class # => ActiveSupport::OrderedOptions
 ```
 
-## The Secret Sauce: ActiveSupport::OrderedOptions
+You may recognize `ActiveSupport::OrderedOptions` as the underlying mechanism that powers the configuration of most Rails gems it‘s used extensively in Rails’ default configurations (e.g., `config.action_mailer`, `config.active_record`).
 
-`config.x` is special configuration object that will lazily initialize an instance of `ActiveSupport::OrderedOptions` for any namespace you send it. (Under the hood, an instance of undocumented `Rails::Application::Configuration::Custom`).
+And nothing is stopping you from manually using `ActiveSupport::OrderedOptions` for your custom configuration namespaces.
 
 ```ruby
-Rails.configuration.x.class    # => Rails::Application::Configuration::Custom
-Rails.configuration.x.anything # => ActiveSupport::OrderedOptions
+Rails.configuration.aws = ActiveSupport::OrderedOptions.new
+Rails.configuration.aws.access_key_id = credentials.dig(:aws, :access_key_id)
+Rails.configuration.aws.secret_access_key = credentials.dig(:aws, :secret_access_key)
 ```
 
-You may recognize `ActiveSupport::OrderedOptions` as the underlying mechanism that powers much of Rails' configuration functionality.
-
-`ActiveSupport::OrderedOptions` is a subclass of `Hash` that allows you to access keys as methods. This is what enables the intuitive and flexible configuration syntax in Rails.
-
-1. It’s used extensively in Rails’ default configurations (e.g., `config.action_mailer`, `config.active_record`).
-1. `config.x` lazily initializes an instance of `ActiveSupport::OrderedOptions` for each namespace.
-1. `config_for` returns an instance of `ActiveSupport::OrderedOptions`.
-1. You can create your own `ActiveSupport::OrderedOptions` instances for custom configurations.
-
-Here’s a closer look at how `ActiveSupport::OrderedOptions` works:
+`ActiveSupport::OrderedOptions` is a subclass of `Hash` with a little syntax sugar baked in. Here are some more examples of how to use it:
 
 ```ruby
 require 'active_support/ordered_options'
@@ -264,13 +281,13 @@ puts config.has_key?(:api_key)  # => true
 
 # Nested configurations
 config.database = ActiveSupport::OrderedOptions.new
-config.database.username = 'admin'
-config.database.password = 'secret'
+config.database.username = credentials.dig(:db, :username)
+config.database.password = credentials.dig(:db, :password)
 
 puts config.database.username  # => admin
 ```
 
-### Raising Exceptions for Blank Values
+### Raising exceptions for missing values
 
 One powerful feature of `ActiveSupport::OrderedOptions` is the ability to raise an exception when accessing a value that is `nil` or blank by adding a `!` to the end of the method name. This is particularly useful for catching configuration errors early:
 
@@ -282,30 +299,26 @@ config.required_api_key = ''
 config.required_api_key!
 ```
 
-This feature is incredibly useful for validating that all required configuration values are properly set, especially for critical settings like API keys or database credentials. By raising an exception early, you can prevent your application from running with incomplete or invalid configuration, which could lead to errors or unexpected behavior later on.
+This feature is incredibly useful for validating that all required configuration values are properly set, especially for critical settings like API keys or database credentials.
 
-You can use this in your application code like this:
+By raising an exception early, you can prevent your application from running with incomplete or invalid configuration, which could lead to errors or unexpected behavior later on.
 
-```ruby
-class ApiClient
-  def initialize
-    @api_key = Rails.configuration.x.api.key!
-  end
-
-  # rest of the class implementation
-end
+```ruby:{"filename":"config/initializers/my_api_client.rb"}
+Rails.configuration.x.api_client.secret_key! # => Raises KeyError if not set
 ```
 
-### Ordered options in the wild
+### OrderedOptions in the wild
 
-If you look hard enough, you will find thousands of usages of `ActiveSupport::OrderedOptions` for configuring Rails gems littered across the landscape:
+`ActiveSupport::OrderedOptions` is used extensively throughout the framework.
+
+In fact, many of your favorite gems use it to provide you with the ability to customize behavior to fit the needs of your application.. If you look hard enough, you will find many examples of `ActiveSupport::OrderedOptions` for configuring Rails gems littered across the landscape. Here are just a few:
 
 - [rails/solid-queue](https://github.com/rails/solid_queue/blob/51c75bec01c8c53f2fe573822f0158e8b62030aa/lib/solid_queue/engine.rb#L11)
 - [hotwired/turbo-rails](https://github.com/hotwired/turbo-rails/blob/b775fe4a1f9db28e3d650864c1bb6c089f44efa6/lib/turbo/engine.rb#L7)
-- [ankane/slowpoke](https://github.com/ankane/slowpoke/blob/86c8791a3dd1fdd9a401c167365095f3ecf980e0/lib/slowpoke/railtie.rb#L3)
 - [flippercloud/flipper](https://github.com/flippercloud/flipper/blob/4b911dd3d185b5ba8d7f0be1323a5ba633565af1/lib/flipper/engine.rb#L20)
 - [bkeepers/dotenv](https://github.com/bkeepers/dotenv/blob/ee3975c208b2f490835cf49a9cebf61d529c0415/lib/dotenv/rails.rb#L27)
 - [Shopify/ruby-lsp-rails](https://github.com/Shopify/ruby-lsp-rails/blob/9cc59fcd72a01266912028d7bcd5fc10416d1ee1/lib/ruby_lsp_rails/railtie.rb#L9)
+- [ankane/slowpoke](https://github.com/ankane/slowpoke/blob/86c8791a3dd1fdd9a401c167365095f3ecf980e0/lib/slowpoke/railtie.rb#L3)
 - [pay-rails/pay](https://github.com/pay-rails/pay/blob/e0f5a81d784c594e6ee6216a6e4e4caef1d1c2e0/lib/pay.rb#L66)
 - [excid3/madmin](https://github.com/excid3/madmin/blob/c3009f706977103094b907db945e81e5c239ab05/lib/madmin/resource.rb#L46)
 - [thoughtbot/factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails/blob/f5aabdd1a690abcc321c2fb123194d368ce19769/lib/factory_bot_rails/railtie.rb#L11)
@@ -313,20 +326,20 @@ If you look hard enough, you will find thousands of usages of `ActiveSupport::Or
 
 This [search query](https://github.com/search?q=%22ActiveSupport%3A%3AOrderedOptions.new%22&type=code) on GitHub open source alone yields 4.5K results.
 
-Understanding `ActiveSupport::OrderedOptions` is a key to mastering Rails configuration, as it's used extensively throughout the framework and the broader community.
+## Hot tips
 
-## Tips for managing for Rails Configuration
+Armed with knowledge of the Rails features that enable custom configuration, here are some guidelines to keep in mind:
 
-To make the most of Rails configuration, here are some of my favorite recommendations for keeping your sanity.
-
-1. **Many inputs, One output**: Sources for custom configuration values can come from many sources: YAML files, ENV vars, Rails credentials. During the Rails initialization process, copy your settings into `config.x` for consistent usage through your application.
+1. **Use a common interface**: Custom configuration values can come from many sources: YAML files, ENV vars, Rails credentials—but don‘t embed knowledge of all these sources in your application logic. During the Rails initialization process, copy your settings into `config.x`. This approach makes access to custom configuration throughout your application consistent.
 
    ```ruby
+   # All roads lead to config.x
+
    config.x.analytics = config_for(:analytics)
 
-   config.x.payment_gateway.api_secret = credentials.dig(:payment_gateway, :api_secret) || "TEST_KEY"
+   config.x.payment.api_secret = credentials.dig(:payment, :api_secret)
 
-   config.x.vapid.private_key = ENV.fetch("VAPID_PRIVATE_KEY", "replace-me")
+   config.x.vapid.private_key = ENV.fetch("VAPID_PRIVATE_KEY")
    ```
 
 1. **Namespace Your Configurations**: Keep your configurations organized by using namespaces.
@@ -335,42 +348,42 @@ To make the most of Rails configuration, here are some of my favorite recommenda
    config.x.payment_gateway.timeout = 30
    config.x.payment_gateway.retries = 3
 
-   config.x.api.version = 'v1'
-   config.x.api.base_url = 'https://api.example.com'
+   config.x.api.version = "v1"
+   config.x.api.base_url = "https://api.example.com"
    ```
+
+1. **Initialize early**: It may be tempting to lazy-initialize your custom configuration. You are also free to modify your custom configuration at any time. However, this can lead to unexpected behavior in production. I recommend running all the setup of your custom configuration during the Rails initialization process and treating values as read-only in your app logic.
 
 1. **Use Strong Typing**: Convert string values to appropriate types when possible.
 
    ```ruby
-   config.x.analytics.enabled = ActiveModel::Type::Boolean.new.cast(ENV.fetch('ANALYTICS_ENABLED', 'true'))
+   config.x.rate_limiting.max = ENV.fetch('MAX_REQUESTS', '100').to_i
    ```
 
 1. **Leverage Rails Environments**: Utilize Rails' built-in environment-specific configuration files for settings that vary between environments.
 
 1. **Validate Configuration**: Assert important configuration values required for your application to run and catch errors early in the Rails initialization process.
 
-1. **Use Rails credentials for Sensitive Data**: Never commit sensitive information in plain text directly in application files. Use Rails credentials instead.
+1. **Use Rails credentials for Sensitive Data**: Never commit sensitive information in plain text directly in application files. Instead, use Rails credentials to store these values and load them into `config.x` as described above.
 
-   ```sh
-   bin/rails credentials:edit
-   ```
-
-   ```yaml
+   ```yaml:{"filename":"config/credentials.yml.enc"}
    aws:
      access_key_id: YOUR_ACCESS_KEY_ID
      secret_access_key: YOUR_SECRET_ACCESS_KEY_ID
    ```
 
-## Rails Configuration vs. Third-Party Gems
+Check out the Rails guides for more on using [Rails credentials](https://guides.rubyonrails.org/security.html#environmental-security).
 
-While Rails provides robust built-in options for custom configuration, some developers opt for third-party gems like
+## Hey, I like my $THIRD_PARTY_GEM!
 
-- [figaro](https://github.com/laserlemon/figaro),
-- [rails-settings-cached](https://github.com/huacnlee/rails-settings-cached),
+There are quite a few Ruby gems for managing custom Rails configuration too:
+
 - [rubyconfig](https://github.com/rubyconfig/config),
+- [figaro](https://github.com/laserlemon/figaro),
+- [rails-settings-cached](https://github.com/huacnlee/rails-settings-cached), and
 - [fittings](https://github.com/stitchfix/fittings).
 
-If you like these gems, feel free to use them! There‘s nothing wrong with using third-party gems for custom configuration, especially if you want the extra features they provide.
+If you like ’em, use ’em! There‘s nothing wrong with using third-party gems for custom configuration, especially if you want the extra features they provide.
 
 Just consider that using Rails built-in custom configuration features means:
 
@@ -379,10 +392,10 @@ Just consider that using Rails built-in custom configuration features means:
 
 ## Conclusion
 
-Mastering custom configuration in Ruby on Rails allows you to build more flexible, maintainable, and environment-aware applications. By leveraging `ActiveSupport::OrderedOptions`, the `config.x` namespace, and `config_for`, you can create powerful and intuitive configuration systems for your Rails projects.
+At its core, Rails configuration is about managing various settings that control how your application behaves in different environments. Effective use of configuration allows you to:
 
-Custom configuration in Rails provides a powerful way to manage your application's settings across different environments. Whether you're using the simple `config.x` namespace or loading complex configurations from YAML files, Rails has you covered. By following best practices and choosing the right approach for your needs, you can keep your application's configuration clean, maintainable, and secure.
+1. Keep environment-specific settings separate from your code
+1. Store sensitive data (like API keys) securely
+1. Make your application more maintainable and flexible
 
-Remember to follow best practices, choose the right tools for your specific needs, and always prioritize security when dealing with sensitive configuration data. With these techniques and considerations in mind, you'll be well-equipped to handle even the most complex configuration requirements in your Rails applications.
-
-Remember to always keep sensitive data out of your configuration files and use environment variables instead. With these tools and practices in hand, you're well-equipped to handle any configuration needs your Rails application might have.
+By leveraging the `config.x` namespace and `ActiveSupport::OrderedOptions`, you can create powerful and intuitive configuration systems for your Rails projects.
