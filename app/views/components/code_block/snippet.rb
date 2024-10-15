@@ -1,9 +1,10 @@
 class CodeBlock::Snippet < ApplicationComponent
-  include Phlex::DeferredRender
   include Phlex::Rails::Helpers::DOMID
   prepend CodeBlock::AtomAware
 
   attr_reader :snippet, :options
+
+  delegate :language, :filename, to: :snippet
 
   def initialize(snippet, screenshot: false, **options)
     @snippet = snippet
@@ -14,7 +15,7 @@ class CodeBlock::Snippet < ApplicationComponent
   def view_template
     div(class: "snippet-background", **options) do
       render CodeBlock::Container.new(language: language, class: "snippet") do
-        render CodeBlock::Header.new { title_content } if title_content.present?
+        render CodeBlock::Header.new { title } if title.present?
 
         render CodeBlock::Body.new do
           render CodeBlock::Code.new(source, language: language)
@@ -27,20 +28,13 @@ class CodeBlock::Snippet < ApplicationComponent
     end
   end
 
-  # Overwite the source code with a block
-  def body(&)
-    @source = capture(&)
-  end
-
-  def title_content
-    filename.presence || language.presence || ""
+  def title
+    filename || language
   end
 
   def source
     snippet.source || ""
   end
-
-  delegate :language, :filename, to: :snippet
 
   def screenshot? = @screenshot
 end

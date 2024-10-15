@@ -2,11 +2,14 @@
 title: Joy of Rails
 ---
 
+<% articles = ArticlePage.published(params) %>
 <section style="min-height: 51vh">
   <div class="main-content container py-gap lg:py-3xl">
-    <% ArticlePage.published(params).take(4).zip(%w[left right].cycle).each do |(page, side)| %>
+    <% articles.take(3).zip(%w[left right].cycle).each do |(page, side)| %>
       <%= render Pages::Summary.from_page(page, side: side) %>
     <% end %>
+
+    <%= render Pages::List.new(articles.drop(3).take(6), class: "mt-16") %>
   </div>
 </section>
 <section>

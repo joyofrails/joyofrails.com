@@ -1,5 +1,4 @@
 class CodeBlock::Article < ApplicationComponent
-  include Phlex::DeferredRender
   prepend CodeBlock::AtomAware
 
   attr_reader :source, :language, :filename, :options
@@ -14,7 +13,7 @@ class CodeBlock::Article < ApplicationComponent
 
   def view_template
     render CodeBlock::Container.new(language: language, **options) do
-      render CodeBlock::Header.new(&title_content) if show_header?
+      render CodeBlock::Header.new { title } if show_header?
 
       render CodeBlock::Body.new do
         render CodeBlock::Code.new(source, language: language, **options)
@@ -24,20 +23,11 @@ class CodeBlock::Article < ApplicationComponent
     end
   end
 
-  def title(&block)
-    @title = block
-  end
-
-  # Overwite the source code with a block
-  def body(&)
-    @source = capture(&)
-  end
-
-  def title_content
-    @title || ->(*) { filename || language }
+  def title
+    @filename || @language
   end
 
   def show_header?
-    @title || @header
+    @header
   end
 end

@@ -10,10 +10,6 @@ RSpec.describe Pages::Header, type: :view do
       expect(render(title: "Hello")).to have_css(".page-header h1", text: "Hello")
     end
 
-    it "renders the title block" do
-      expect(render { |h| h.title { "Hello" } }).to have_css(".page-header h1", text: "Hello")
-    end
-
     it "renders the description" do
       expect(render(description: "Describe me")).to have_css(".page-header p", text: "Describe me")
     end
@@ -30,6 +26,20 @@ RSpec.describe Pages::Header, type: :view do
       rendered = render(published_on: Date.yesterday, updated_on: Date.today)
       expect(rendered).to have_css("time.dt-published", text: Date.yesterday.to_fs(:long))
       expect(rendered).to have_css("time.dt-modified", text: Date.today.to_fs(:long))
+    end
+  end
+
+  describe Pages::Header::Container do
+    def render(**kwargs, &block)
+      described_class.new(**kwargs, &block).call(view_context: view)
+    end
+
+    it "renders the title block" do
+      expect(render { |h| h.title { "Hello" } }).to have_css(".page-header h1", text: "Hello")
+    end
+
+    it "renders the description block" do
+      expect(render { |h| h.description { "Hello" } }).to have_css(".description", text: "Hello")
     end
   end
 end

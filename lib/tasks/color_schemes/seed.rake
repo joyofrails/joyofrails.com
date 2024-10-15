@@ -10,23 +10,10 @@ namespace :color_schemes do
     end
 
     hex_json_1500 = JSON.parse(File.read("./script/colors/tmp/1500-palette-hex.json"))
-    hex_json_1500.each do |name, weights|
-      ColorScheme.find_or_create_by!(name: name) do |cs|
-        weights.each do |weight, css|
-          cs.set_weight(weight, css)
-        end
-      end
-    end
+    ColorScheme.bulk_load(hex_json_1500)
 
     hex_json_uicolors = JSON.parse(File.read("./script/colors/data/uicolors-palette-hex.json"))
-    hex_json_uicolors.each do |name, weights|
-      custom_name = "Custom #{name.titleize}"
-      ColorScheme.find_or_create_by!(name: custom_name) do |cs|
-        weights.each do |weight, css|
-          cs.set_weight(weight, css)
-        end
-      end
-    end
+    ColorSchme.bulk_load(hex_json_uicolors) { |name| "Custom #{name.titleize}" }
   end
 
   task :generate_1500 do

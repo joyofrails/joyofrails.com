@@ -60,6 +60,20 @@ class ColorScheme < ApplicationRecord
     end
   end
 
+  # @param [Hash] data in the format of { "name": { "50": "#000000", ..., "950": "#ffffff" }, ... }
+  # @param [Block] block to transform the name
+  def self.bulk_load(data, &block)
+    data.each do |name, weights|
+      name = name.to_s
+      name = yield(name) if block
+      ColorScheme.find_or_create_by!(name: name) do |cs|
+        weights.each do |weight, css|
+          cs.set_weight(weight, css)
+        end
+      end
+    end
+  end
+
   def set_weight(weight, value)
     raise ArgumentError, "Invalid weight: #{weight}" unless VALID_WEIGHTS.include?(weight.to_s)
 

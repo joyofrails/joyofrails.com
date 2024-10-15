@@ -44,10 +44,6 @@ main > *,
   grid-template-columns: 2fr;
 }
 
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .main-content,
 .article-content,
 .grid-content {
@@ -104,8 +100,4 @@ main > *,
   .article-content > .stretch {
     grid-column: col-start / span var(--grid-columns);
   }
-}
-
-.grid-cols-12 {
-  grid-column: col-start 1 / span var(--grid-columns);
 }
