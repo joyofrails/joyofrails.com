@@ -1,6 +1,6 @@
 class Errors::InternalServerView < ApplicationView
   def view_template
-    render Pages::Header.new do |header|
+    render Pages::Header::Container.new do |header|
       header.title { "500 INTERNAL SERVER ERROR" }
       header.description { "Oops! Something went wrong 😭" }
     end

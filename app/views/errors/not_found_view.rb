@@ -1,6 +1,6 @@
 class Errors::NotFoundView < ApplicationView
   def view_template
-    render Pages::Header.new do |header|
+    render Pages::Header::Container.new do |header|
       header.title { "404 NOT FOUND" }
       header.description { "Oops! The page you were looking for doesn’t exist 🧐" }
     end

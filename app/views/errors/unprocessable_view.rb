@@ -1,6 +1,6 @@
 class Errors::UnprocessableView < ApplicationView
   def view_template
-    render Pages::Header.new do |header|
+    render Pages::Header::Container.new do |header|
       header.title { "422 UNPROCESSABLE" }
       header.description { "Oops! The change you wanted was rejected 😱" }
     end
