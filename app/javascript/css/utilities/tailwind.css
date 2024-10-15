@@ -420,6 +420,11 @@
   gap: 1px;
 }
 
+.gap-y-2 {
+  -moz-row-gap: 0.5rem;
+  row-gap: 0.5rem;
+}
+
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
   column-gap: 0.5rem;
@@ -1014,4 +1019,12 @@ focus\:ring-0:focus {
 }
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.inset-0 {
+  inset: 0px;
+}
+
+.aspect-\[16\/9\] {
+  aspect-ratio: 16 / 9;
 }
