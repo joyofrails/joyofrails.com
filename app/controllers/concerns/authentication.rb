@@ -39,7 +39,7 @@ module Authentication
   end
 
   def current_user
-    Current.user ||= warden.user(scope: :user)
+    Current.user ||= warden.user(scope: :user) || Guest.new
   end
 
   def current_admin_user
@@ -47,7 +47,7 @@ module Authentication
   end
 
   def user_signed_in?
-    current_user.present?
+    current_user.persisted?
   end
 
   def admin_user_signed_in?

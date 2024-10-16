@@ -1,10 +1,10 @@
 <%= turbo_frame_tag :header_navigation do %>
   <%= render layout: "layouts/header/nav" do %>
-    <% if current_admin_user %>
+    <% if admin_user_signed_in? %>
       <%= header_navigation_link_to current_admin_user.email, "/admin" %>
       <%= header_navigation_button_to "Sign out admin", destroy_admin_users_sessions_path, method: :delete %>
     <% end %>
-    <% if current_user %>
+    <% if user_signed_in? %>
       <%= header_navigation_link_to current_user.email, users_dashboard_path %>
       <%= header_navigation_button_to "Sign out", destroy_users_sessions_path, method: :delete %>
     <% end %>
