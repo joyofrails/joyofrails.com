@@ -15,7 +15,7 @@ class CodeBlock::Snippet < ApplicationComponent
   def view_template
     div(class: "snippet-background", **options) do
       render CodeBlock::Container.new(language: language, class: "snippet") do
-        render CodeBlock::Header.new { title } if title.present?
+        render CodeBlock::Header.new { header } if header.present?
 
         render CodeBlock::Body.new do
           render CodeBlock::Code.new(source, language: language)
@@ -28,7 +28,7 @@ class CodeBlock::Snippet < ApplicationComponent
     end
   end
 
-  def title
+  def header
     filename || language
   end
 

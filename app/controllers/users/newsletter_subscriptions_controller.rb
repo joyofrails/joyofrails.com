@@ -18,7 +18,7 @@ class Users::NewsletterSubscriptionsController < ApplicationController
   end
 
   def new
-    user = current_user || User.new
+    user = user_signed_in? ? current_user : User.new
     @newsletter_subscription = user.newsletter_subscription || user.build_newsletter_subscription
 
     render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription)
@@ -94,7 +94,7 @@ class Users::NewsletterSubscriptionsController < ApplicationController
     subscriber = if params[:token]
       subscription = NewsletterSubscription.find_by_token_for!(:unsubscribe, params[:token])
       subscription&.subscriber
-    else
+    elsif user_signed_in?
       current_user
     end
 

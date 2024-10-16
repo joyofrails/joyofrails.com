@@ -14,14 +14,6 @@ class Users::Dashboard::IndexView < ApplicationView
         p { "Here's what you can do next:" }
         ul(class: "list-disc list-outside px-4") do
           li do
-            plain "Check your your email for a confirmation link to activate your account."
-            whitespace
-            plain "If you don’t see it, check your spam folder, or you can"
-            whitespace
-            link_to("resend the confirmation email", new_users_confirmation_path)
-            plain "."
-          end
-          li do
             plain "Check out"
             whitespace
             strong { link_to("articles", "/articles") }
