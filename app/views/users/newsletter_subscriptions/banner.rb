@@ -6,7 +6,8 @@ class Users::NewsletterSubscriptions::Banner < ApplicationComponent
   def view_template(&block)
     div(class: "newsletter-banner section-content container py-gap mb-3xl lg:py-3xl lg:grid-cols-1/2") do
       h3(class: "font-semibold") do
-        plain "The Joy of Rails Newsletter: "
+        plain "The Joy of Rails Newsletter:"
+        br
         span { "A spark of joy for your inbox" }
       end
 
