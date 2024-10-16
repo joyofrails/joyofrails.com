@@ -41,7 +41,7 @@ class Snippet < ApplicationRecord
   end
 
   def title
-    filename
+    read_attribute(:title) || filename
   end
 
   private

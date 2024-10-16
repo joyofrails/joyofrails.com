@@ -77,7 +77,7 @@ class Share::SnippetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def snippet_params
-    params.fetch(:snippet, {}).permit(:filename, :source, :language, :description)
+    params.fetch(:snippet, {}).permit(:filename, :source, :language, :description, :title)
   end
 
   def feature_enabled!

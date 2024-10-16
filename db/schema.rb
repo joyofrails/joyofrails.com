@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_13_104822) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_16_121615) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -174,6 +174,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_13_104822) do
     t.datetime "updated_at", null: false
     t.string "author_type", null: false
     t.string "author_id", null: false
+    t.string "title"
     t.index ["author_type", "author_id"], name: "index_snippets_on_author"
   end
 

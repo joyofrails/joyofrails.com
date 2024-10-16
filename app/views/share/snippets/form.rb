@@ -57,6 +57,12 @@ class Share::Snippets::Form < ApplicationComponent
         end
 
         fieldset do
+          form.label :title, class: "sr-only"
+          form.text_field :title, placeholder: "Title your snippet", class: "w-full"
+        end
+
+        fieldset do
+          form.label :description, class: "sr-only"
           form.text_area :description, placeholder: "Say a few words about this code snippet", class: "w-full"
         end
 

@@ -18,6 +18,8 @@ RSpec.describe "Snippets", type: :system do
     find(".code-editor").click
 
     fill_in "snippet[source]", with: "class Blog\nend"
+    fill_in "snippet[title]", with: "A Ruby class"
+    fill_in "snippet[description]", with: "This is how you do it"
 
     click_button "Save"
 
@@ -27,6 +29,8 @@ RSpec.describe "Snippets", type: :system do
     expect(snippet.source).to eq("class Blog\nend")
     expect(snippet.language).to eq("ruby")
     expect(snippet.filename).to eq("app/models/blog.rb")
+    expect(snippet.title).to eq("A Ruby class")
+    expect(snippet.description).to eq("This is how you do it")
 
     fill_in "snippet[filename]", with: "lib/models/blog.rb"
 
@@ -41,6 +45,8 @@ RSpec.describe "Snippets", type: :system do
 
     expect(page).to have_content("lib/models/blog.rb")
     expect(page).to have_content("class Blog\n  has_many :posts\nend")
+    expect(page).to have_content("A Ruby class")
+    expect(page).to have_content("This is how you do it")
   end
 
   it "can attach a screenshot" do
