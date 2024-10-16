@@ -555,13 +555,13 @@ a {
 
 a:visited,
 a.visited,
-a:visited > * {
+a:visited > :not(.keep-style-when-linked) {
   color: var(--joy-link-visited);
 }
 
 a:hover,
 a.hover,
-a:hover > * {
+a:hover > :not(.keep-style-when-linked) {
   text-decoration-color: currentColor;
 }
 
@@ -573,7 +573,7 @@ a:focus > * {
 
 a:active,
 a.active,
-a:active > * {
+a:active > :not(.keep-style-when-linked) {
   color: var(--joy-link-active);
 }
 

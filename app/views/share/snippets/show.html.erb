@@ -13,16 +13,7 @@
 <%= render Pages::Header.new(title: "Snippet Share") %>
 <div class="section-content container py-gap mb-3xl">
   <%= turbo_frame_tag :snippet_form do %>
-    <div class="section-content">
-      <% if @snippet.title %>
-        <h2><%= @snippet.title %></h2>
-      <% end %>
-      <%= render Markdown::Safe.new(@snippet.description) if @snippet.description %>
-      <%= render CodeBlock::Snippet.new(@snippet) %>
-      <div>
-        <%= render Share::Snippets::Toolbar.new(@snippet, current_user: current_user) %>
-      </div>
-    </div>
+    <%= render Share::Snippets::Snippet.new(@snippet, current_user: current_user, class: "mb-3xl") %>
   <% end %>
 
   <br>
