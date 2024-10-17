@@ -35,6 +35,10 @@ class User < ApplicationRecord
     end
   end
 
+  def registered?
+    persisted?
+  end
+
   def reconfirming?
     pending_email_exchange.present?
   end
