@@ -47,7 +47,7 @@ module Authentication
   end
 
   def user_signed_in?
-    current_user.persisted?
+    current_user.registered?
   end
 
   def admin_user_signed_in?
