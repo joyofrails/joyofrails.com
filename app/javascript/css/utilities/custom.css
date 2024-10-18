@@ -86,3 +86,7 @@
 .fill-none {
   fill: none;
 }
+
+.rounded-full {
+  border-radius: 100%;
+}

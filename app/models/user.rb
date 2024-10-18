@@ -27,6 +27,10 @@ class User < ApplicationRecord
     last_sign_in_at
   end
 
+  def name
+    email.to_s.split("@").first
+  end
+
   def confirmable_email
     if pending_email_exchange.present?
       pending_email_exchange.email

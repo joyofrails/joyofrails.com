@@ -32,7 +32,8 @@ module Users
             if current_user.registered?
               header_navigation_link_to \
                 href: users_dashboard_path do
-                  plain current_user.email
+                  plain current_user.name
+                  img src: avatar_url_for(current_user, size: 24), class: "rounded-full mr-1"
                 end
 
               header_navigation_button_to \
@@ -56,6 +57,13 @@ module Users
         flex justify-center items-center px-2
         rounded mr-2 hover:bg-joy-bg-hover
       ", **, &)
+      end
+
+      def avatar_url_for(user, opts = {})
+        size = opts[:size || 32]
+
+        hash = Digest::MD5.hexdigest("fooadjflakdfalwdk@example.com".downcase)
+        "https://secure.gravatar.com/avatar/#{hash}.png?s=#{size}&d=retro"
       end
     end
   end
