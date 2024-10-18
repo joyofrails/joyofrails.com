@@ -15,13 +15,11 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
       invisible_captcha
       div(class: "flex flex-row items-center mt-2") do
         div(class: "flex-grow mr-2") do
-          whitespace
           f.email_field :email,
             type: :email,
             autocomplete: "off",
             placeholder: "your@joymail.com",
-            class:
-              "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset ring-white/10 w-full lg:min-w-[36ch] "
+            class: "flex-1 rounded bg-white/5 focus-ring focus:ring-0 ring-1 ring-inset w-full lg:min-w-[36ch]"
         end
         div do
           f.submit "Subscribe", class: "button primary focus-ring"
@@ -29,8 +27,7 @@ class Users::NewsletterSubscriptions::Form < ApplicationComponent
       end
 
       if f.object.errors.any?
-        div(class: "text-red-500") do
-          whitespace
+        div(class: "bg-rose-300 px-2 py-2 mt-1") do
           plain f.object.errors.full_messages.first
         end
       end
