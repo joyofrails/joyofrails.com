@@ -7,6 +7,7 @@ import { application } from './application';
 import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import Flash from './flash';
+import Modal from './modal';
 
 import PwaInstallation from './pwa/installation';
 import PwaWebPushSubscription from './pwa/web-push-subscription';
@@ -23,6 +24,7 @@ import SnippetEditor from './snippets/editor';
 import SnippetScreenshot from './snippets/screenshot';
 import SnippetTweet from './snippets/tweet';
 
+application.register('modal', Modal);
 application.register('analytics', AnalyticsCustomEvent);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
