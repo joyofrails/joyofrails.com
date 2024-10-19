@@ -72,13 +72,21 @@ module Users
                 end
 
                 dialog.footer do
+                  button_to "Sign out", destroy_users_sessions_path, method: :delete, class: "button ghost outline"
                 end
               end
-
-              header_navigation_button_to \
-                "Sign out",
-                destroy_users_sessions_path,
-                method: :delete
+            elsif Flipper.enabled?(:user_registration, current_admin_user)
+              a(
+                href: new_users_session_path,
+                class: "button ghost outline"
+                # data: {
+                #   controller: "modal",
+                #   action: "modal#show",
+                #   "modal-dialog-param": "user-session-dialog"
+                # }
+              ) do
+                plain "Subscribe"
+              end
             end
           end
         end
@@ -100,13 +108,10 @@ module Users
 
       def avatar_url_for(user, size: 32)
         Gravatar.new(user.email).url(size: size)
-
-        # hash = Digest::MD5.hexdigest(user.email.downcase)
-        # "https://secure.gravatar.com/avatar/#{hash}.png?s=#{size}&d=retro"
       end
 
       def user_info
-        div(class: "grid grid-gap mt-8 rounded-lg joy-border-quiet") do
+        div(class: "grid grid-gap rounded-lg joy-border-quiet") do
           div(class: "group relative flex items-center gap-x-6 p-4 leading-6 hover:bg-gray-50") do
             div(class: "flex-auto") do
               p(class: "block font-semibold text-gray-900") do

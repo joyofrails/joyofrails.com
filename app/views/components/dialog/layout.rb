@@ -10,7 +10,7 @@ module Dialog
 
     def view_template(&)
       dialog(**mix(attributes, class: "rounded-lg drop-shadow-xl p-xl")) do
-        div(class: "flex min-h-full flex-col justify-center relative", &)
+        div(class: "flex min-h-full flex-col justify-center relative grid-gap", &)
       end
     end
 
