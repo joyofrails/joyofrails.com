@@ -10,7 +10,7 @@ class Users::Passwords::NewView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Forgot your password?") do |layout|
+    render FrontDoor::Form.new(title: "Forgot your password?") do |layout|
       layout.form_with model: @user, url: users_passwords_path do |form|
         fieldset do
           layout.form_label form, :email, "Email address"

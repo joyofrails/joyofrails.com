@@ -1,4 +1,4 @@
-class Layouts::FrontDoorForm < Phlex::HTML
+class FrontDoor::Form < ApplicationComponent
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::FieldsFor
   include Phlex::Rails::Helpers::Label

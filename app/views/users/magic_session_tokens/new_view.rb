@@ -6,7 +6,7 @@ class Users::MagicSessionTokens::NewView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Sign in by email") do |layout|
+    render FrontDoor::Form.new(title: "Sign in by email") do |layout|
       layout.form_with model: @user, url: users_magic_session_tokens_path do |form|
         fieldset do
           layout.form_label form, :email, "Email address"

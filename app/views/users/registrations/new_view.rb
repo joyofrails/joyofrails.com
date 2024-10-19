@@ -6,7 +6,7 @@ class Users::Registrations::NewView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Create a new account") do |layout|
+    render FrontDoor::Form.new(title: "Create a new account") do |layout|
       layout.form_with model: @user,
         url: users_registration_path do |form|
         invisible_captcha

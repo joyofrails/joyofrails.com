@@ -8,7 +8,7 @@ class Users::Sessions::NewView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Sign in") do |layout|
+    render FrontDoor::Form.new(title: "Sign in") do |layout|
       layout.form_with model: @user,
         url: users_sessions_path do |form|
         if form.object.errors.any?

@@ -4,7 +4,7 @@ class Users::Confirmations::NewView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Resend confirmation instructions") do |layout|
+    render FrontDoor::Form.new(title: "Resend confirmation instructions") do |layout|
       layout.form_with model: @user,
         url: users_confirmations_path do |form|
         if form.object.errors.any?
