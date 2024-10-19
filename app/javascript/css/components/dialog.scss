@@ -1,0 +1,43 @@
+@import '../config/variables.scss';
+
+dialog {
+  width: 100%;
+  border: none;
+  margin: auto;
+  animation: dialog-popup 0.25s ease-in-out;
+  transform: translateY(0px);
+
+  box-shadow: 4px 4px 2.2px rgba(0, 0, 0, 0.028);
+
+  &::backdrop {
+    background: linear-gradient(
+      315deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    backdrop-filter: blur(1px) grayscale(100%);
+    opacity: 0.8;
+  }
+
+  header,
+  footer {
+    background-color: inherit;
+  }
+}
+
+@keyframes dialog-popup {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+
+  1% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

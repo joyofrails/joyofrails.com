@@ -44,4 +44,9 @@ RSpec.describe User, type: :model do
       expect(User.recently_confirmed).to eq([recently_confirmed_user])
     end
   end
+
+  describe "#registered?" do
+    it { expect(User.new).not_to be_registered }
+    it { expect(FactoryBot.create(:user)).to be_registered }
+  end
 end

@@ -7,7 +7,7 @@ class Users::Passwords::EditView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Reset your password") do |layout|
+    render FrontDoor::Form.new(title: "Reset your password") do |layout|
       layout.form_with model: @user, url: users_password_path(@password_reset_token) do |form|
         fieldset do
           layout.form_label form, :password

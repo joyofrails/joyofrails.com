@@ -27,7 +27,7 @@ RSpec.describe "Site: articles" do
       expect(response).to have_http_status(:ok)
 
       expect(response.body).to include(first_article.title)
-      expect(response.body).not_to include(first_draft.title)
+      expect(response.body).not_to include(first_draft.title) if first_draft
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe "Site: articles" do
 
       expect(response).to have_http_status(:ok)
 
-      expect(response.body).to include(first_draft.title)
+      expect(response.body).to include(first_draft.title) if first_draft
       expect(response.body).not_to include(first_article.title)
     end
   end

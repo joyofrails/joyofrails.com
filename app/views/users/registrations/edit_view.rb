@@ -6,7 +6,7 @@ class Users::Registrations::EditView < ApplicationView
   end
 
   def view_template
-    render Layouts::FrontDoorForm.new(title: "Edit your account") do |layout|
+    render FrontDoor::Form.new(title: "Edit your account") do |layout|
       layout.form_with model: @user,
         url: users_registration_path do |form|
         if form.object.errors.any?

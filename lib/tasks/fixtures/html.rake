@@ -8,7 +8,7 @@ namespace :fixtures do
       end
     end
 
-    File.write(Rails.root.join("app", "javascript", "test", "fixtures", "views", "darkmode", "switch.html"), ApplicationController.render(partial: "darkmode/switch"))
+    File.write(Rails.root.join("app", "javascript", "test", "fixtures", "views", "darkmode", "switch.html"), DarkMode::Switch.call)
   end
 end
 
