@@ -15,6 +15,15 @@
   padding-bottom: var(--grid-gutter);
 }
 
+.py-lg {
+  padding-top: var(--space-l);
+  padding-bottom: var(--space-l);
+}
+
+.p-xl {
+  padding: var(--space-xl);
+}
+
 .py-xl {
   padding-top: var(--space-xl);
   padding-bottom: var(--space-xl);
