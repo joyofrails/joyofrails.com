@@ -1,6 +1,50 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "690098d85fc8739353285debac5a26f57148c6150eac806a1ce8574d8b3db76f",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/pwa/installation_instructions/_installation_instructions.html.erb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => (if params[:user_agent_nickname] then\n  Pwa::NamedInstallationInstructions.find(params[:user_agent_nickname])\nelse\n  Honeybadger.event(\"installation_instructions_controller.show\", :user_agent => request.user_agent)\n  Pwa::UserAgentInstallationInstructions.new(request.user_agent)\nend).partial_name, { :installation_instructions => installation_instructions })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Pwa::InstallationInstructionsController",
+          "method": "show",
+          "line": 4,
+          "file": "app/controllers/pwa/installation_instructions_controller.rb",
+          "rendered": {
+            "name": "pwa/installation_instructions/show",
+            "file": "app/views/pwa/installation_instructions/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "pwa/installation_instructions/show",
+          "line": 3,
+          "file": "app/views/pwa/installation_instructions/show.html.erb",
+          "rendered": {
+            "name": "pwa/installation_instructions/_installation_instructions",
+            "file": "app/views/pwa/installation_instructions/_installation_instructions.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "pwa/installation_instructions/_installation_instructions"
+      },
+      "user_input": "params[:user_agent_nickname]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "ee467aaea70b8a7b361ef6e8ee6c5082b3ff265dc67d798ea3f24c1687ff4584",
@@ -24,6 +68,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-08-22 08:48:23 -0400",
-  "brakeman_version": "6.1.2"
+  "updated": "2024-10-19 12:01:18 -0400",
+  "brakeman_version": "6.2.2"
 }
