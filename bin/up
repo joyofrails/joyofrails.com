@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "uri"
+require "net/http"
+
+url = ARGV[0] || "http://localhost:3000/up"
+
+uri = URI(url)
+res = Net::HTTP.get_response(uri)
+
+puts "Request to #{url} returned #{res.code}"
+
+exit 1 unless res.is_a?(Net::HTTPSuccess)
