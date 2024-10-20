@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "addressable"
+require "addressable/template"
 
 class Gravatar
   # Gravatar URI template
