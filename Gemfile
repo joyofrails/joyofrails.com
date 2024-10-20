@@ -28,6 +28,7 @@ gem "warden" # General Rack Authentication Framework [https://github.com/wardenc
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
 gem "rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
+gem "addressable" # Addressable is an alternative implementation to URI [https://github.com/sporkmonger/addressable]
 
 # Rendering
 gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
