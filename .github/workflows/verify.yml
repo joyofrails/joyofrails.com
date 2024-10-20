@@ -210,3 +210,40 @@ jobs:
           name: assets
           path: public
           retention-days: 1
+
+  boot:
+    name: Boot
+    runs-on: ubuntu-latest
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_PRODUCTION_KEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Node version
+        run: |
+          node --version
+
+      - name: Install packages
+        run: |
+          npm ci
+
+      - name: Start Rails server in the background
+        run: |
+          RAILS_FORCE_SSL=false bundle exec puma -b tcp://127.0.0.1:3001 -e production &
+          sleep 10
+
+      - name: Make sure the server is running
+        run: |
+          bin/up http://127.0.0.1:3001/up
