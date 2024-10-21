@@ -4,7 +4,12 @@ import { debug } from '../../utils';
 const console = debug('app:javascript:controllers:pwa-web-push-demo');
 
 export default class extends Controller {
-  static targets = ['sendPushDemoFieldset', 'subscriptionField', 'error'];
+  static targets = [
+    'sendPushDemoFieldset',
+    'subscriptionField',
+    'error',
+    'status',
+  ];
 
   initialize() {
     console.log('initialize');
@@ -37,9 +42,13 @@ export default class extends Controller {
     console.log('setSubscription', subscription ? subscription.toJSON() : null);
 
     if (subscription) {
+      this.statusTarget.textContent =
+        'Status: YES! Your browser is currently subscribed to push notifications';
       this.subscriptionFieldTarget.value = JSON.stringify(subscription);
       this.sendPushDemoFieldsetTarget.disabled = false;
     } else {
+      this.statusTarget.textContent =
+        'Status: Your browser is NOT subscribed to push notifications';
       this.subscriptionFieldTarget.value = '';
       this.sendPushDemoFieldsetTarget.disabled = true;
     }

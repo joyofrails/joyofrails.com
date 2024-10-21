@@ -18,7 +18,7 @@ class Pwa::WebPushSubscription < Phlex::HTML
       div do
         button(
           data: {
-            action: "pwa-web-push-subscription#subscribe",
+            action: "pwa-web-push-subscription#trySubscribe",
             "pwa-web-push-subscription-target": "subscribeButton"
           },
           disabled: true,
