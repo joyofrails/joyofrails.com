@@ -12,6 +12,7 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
+    <%= tag.meta name: "vapid-public-key", content: Rails.configuration.x.vapid.public_key %>
 
     <!-- Joy of Rails uses 'Russo One' from Google Fonts for its logo -->
     <%= render "application/google_fonts" %>

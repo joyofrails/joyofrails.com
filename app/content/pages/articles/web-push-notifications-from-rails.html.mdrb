@@ -16,9 +16,9 @@ tags:
 
 You may have heard Rails 8 will extract a new framework for delivering Web Push notifications from your web app. Web Push notifications are powerful because they allow you to engage with your users _even when they're not on your site_.
 
-I'm going to share how to I got a working demo of the [Web Push API](https://www.w3.org/TR/push-api/) for Joy of Rails to push notifications through supporting browsers - currently Chrome and Firefox at the time of this writing.
+I'm going to share how to I got a working demo of the [Web Push API](https://www.w3.org/TR/push-api/) for Joy of Rails to provide Web Push notifications through supporting browsers.
 
-We'll cover the basics of implementing Push yourself with Rails.
+In advance of [Rails Action Notifier](https://github.com/rails/rails/issues/50454), it may be helpful to know how things will work under the hood. In this article, we'll cover the basics of implementing Web Push yourself with Rails.
 
 ## Demo
 
@@ -30,7 +30,7 @@ First click the Subscribe button below. You may have also need to accept a brows
 
 <%= render Pwa::WebPushDemo.new(web_push_key: Rails.configuration.x.vapid.public_key) %>
 
-(Don‘t worry, I‘m not persisting this subscription in anyway so I won‘t be sending you notifications unless you click that button. You can also "Unsubscribe" at any time to be sure.)
+(I‘m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.)
 
 ## Troubleshooting
 
@@ -139,208 +139,103 @@ Luckily, the details of the implementing VAPID spec are abstracted away in the `
 
 Before a web push message can be delivered, a few criteria should be satisfied:
 
+1. A Progressive Web App `manifest.json` file is linked from our page to identify our app settings.
 1. Your application server has generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
-2. A `manifest.json` file, linked from a page on our website, identifies our app settings.
-3. In the user's web browser, a service worker script is installed and activated. The `pushManager` property of the `ServiceWorkerRegistration` is subscribed to push events with our VAPID public key, with creates a `subscription` JSON object on the client side.
-4. Your server makes an API request to a push server (likely using a server-side library) to send a notification with the `subscription` obtained from the client and an optional payload (the message).
-5. Your service worker is set up to receive `'push'` events. To trigger a desktop notification, the user has accepted the prompt to receive notifications from our site.
+1. In the user's web browser, a service worker script is installed and activated.
+1. The `pushManager` property of the `ServiceWorkerRegistration` is subscribed to push events with our VAPID public key, with creates a `subscription` JSON object on the client side.
+1. Your server makes an API request to a push server (likely using a server-side library) to send a notification with the `subscription` obtained from the client and an optional payload (the message).
+1. The user has enabled permissions to receive notifications from our site.
+1. Your service worker is set up to receive `'push'` events.
 
-## Setup
+## Provide a manifest file
 
-The following setup assumes we're using a modern browser that supports `async/await` and Service Workers.
+Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](articles/add-your-rails-app-to-the-home-screen). I‘ve provided a quick recap below.
 
-### Link to a web app manifest
+Since the Rails 7.2, Rails provides defaults for Progressive Web App manifest JSON and serviceworker JavaScript files ([pull request](https://github.com/rails/rails/pull/50528)).
 
-The browser needs a link to a web application manifest file to provide metadata
-for push subscriptions and notifications.
+In your Rails 7.2+ `config/routes.rb` file, make sure you have the following routes added, especially the manifest:
 
-Here's an example from [Joy of Rails](/manifest.json):
+```rb:{"filename": "config/routes.rb", "highlight_lines": [4]}
+Rails.application.routes.draw do
+  # Render dynamic PWA files from app/views/pwa/*
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+end
+```
 
-```json
+Your application layout should render a `<link>` tag for the manifest file:
+
+```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5, 6]}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- -->
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  </head>
+  <!-- -->
+```
+
+You should also have corresponding files in `app/views/pwa`:
+
+<%= image_tag "articles/web-push-notifications-from-rails/app-views-pwa.jpg", alt: "Rails app file directory displaying app/views/pwa" %>
+
+- `manifest.json.erb`
+- `serviceworker.js.erb`
+
+_What if my app isn’t on Rails 7.2?_ That‘s ok! If you can’t upgrade now, you can still set up your Rails app similarly. Simply copy the files and routes changes as described here.
+
+For a newly generated Rails 7.2 application, this is what you’ll see in `manifest.json.erb`:
+
+```erb:{"filename": "app/views/pwa/manifest.json.erb"}
 {
-  "name": "Joy of Rails",
-  "start_url": "/",
+  "name": "YourNewApp",
   "icons": [
     {
-      "src": "/icon-512.png",
+      "src": "/icon.png",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#FFFFFF",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "author": "Ross Kaffenberger"
+  "scope": "/",
+  "description": "YourNewApp.",
+  "theme_color": "red",
+  "background_color": "red"
 }
 ```
 
-We could add this as a static file in `public/manifest.json`.
+The default manifest may be enough for [minimal manifest criteria](#your-app) to allow your app be installable, but (as of this writing) browsers may require an icon with dimensions 192x192 (more on icons below).
 
-Instead, we'll treat this file as a special Rails view.
+If you’re not on Rails 7.2 yet, you may also need to add a controller like the one provided by default in Rails 7.2+:
 
-In your
-`app/views/layouts/application.html.erb` template, you'll also need to add a
-special `<link>` tag in the document `<head>`:
+```rb:{"filename": "app/controllers/rails/pwa_controller.rb"}
+# frozen_string_literal: true
 
-```html
-<link rel="manifest" href="/manifest.json" />
-```
+class Rails::PwaController < Rails::ApplicationController
+  skip_forgery_protection
 
-### The Service Worker
+  def service_worker
+    render template: "pwa/service-worker", layout: false
+  end
 
-In a separate file, `app/views/pwa/serviceworker.js.erb`, we'll have our service worker show notifications when the `'push'` event is received:
-
-```javascript
-const onPush = (event) => {
-  console.log('[Serviceworker]', 'Push event!', event.data.json());
-  const { title, ...options } = event.data.json();
-
-  const showNotification = self.registration.showNotification(title, {
-    icon,
-    ...options,
-  });
-
-  event.waitUntil(showNotification);
-};
-
-self.addEventListener('push', onPush);
-```
-
-## Subscribe through a service worker
-
-In our application javascript we'll use this following snippet to request registration of a service worker script.
-
-```javascript
-const registerServiceWorker = async () => {
-  if (navigator.serviceWorker) {
-    try {
-      await navigator.serviceWorker.register('/serviceworker.js');
-      console.log('Service worker registered!');
-    } catch (error) {
-      console.error('Error registering service worker: ', error);
-    }
-  }
-};
-
-registerServiceWorker();
-```
-
-The key bit is `navigator.serviceWorker.register('/service-worker.js')`. It returns a
-[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
-
-We should be able to see the message `'Service worker registered!'` in our browser's dev tools console when the promise resolves.
-
-## Persist the subscription
-
-Let's set up a controller action to serialize the subscription into the visitor's session though any persistence method that will allow us to retrieve the subscription(s) for a given user will do.
-
-The push subscription has important pieces of data: the endpoint and a set of keys: p256dh and auth. We need use this data in requests from our rails app to the push server.
-
-```javascript
-// subscription.toJSON();
-
-{
-  endpoint: "https://android.googleapis.com/gcm/send/a-subscription-id",
-  keys: {
-    auth: "16ByteString",
-    p256dh: "65ByteString"
-  }
-}
-```
-
-When our visitor subscribes, we can post the subscription to our Rails app:
-
-```javascript
-export default Controller {
-  subscribe() {
-    reg.pushManager
-      .subscribe({ userVisibleOnly: true })
-      .then(function (subscription) {
-        $.post('/subscribe', { subscription: subscription.toJSON() });
-      });
-  }
-}
-```
-
-```javascript
-// subscription.toJSON();
-
-{
-  endpoint: "https://android.googleapis.com/gcm/send/a-subscription-id",
-  keys: {
-    auth: "16ByteString",
-    p256dh: "65ByteString"
-  }
-}
-```
-
-The route:
-
-```ruby:config/routes.rb
-post "/subscribe" => "subscriptions#create"
-```
-
-Our controller - of course, greatly simplified for the purposes of the this demo:
-
-```ruby:app/controllers/subscriptions_controller.rb
-class SubscriptionsController < ApplicationController
-  def create
-    session[:subscription] = JSON.dump(params.fetch(:subscription, {}))
-
-    head :ok
+  def manifest
+    render template: "pwa/manifest", layout: false
   end
 end
 ```
-
-Start with a button to trigger a `POST` to a new `/push` endpoint in our app. In a real Rails app, you'd probably deliver push notifications from background jobs in response to other events in the system.
-
-```rb:config/routes.rb
-post "/push" => "push_notifications#create"
-```
-
-Route the request to a new controller.
-
-```ruby:app/controllers/web_pushes_controller.rb
-class WebPushesController < ApplicationController
-  def create
-    web_push_params = params.require(:web_push).permit(:title, :message, :subscription)
-
-    WebPushJob.perform_later(
-      title: web_push_params[:title],
-      message: web_push_params[:message],
-      subscription: JSON.parse(web_push_params[:subscription])
-    )
-
-    head :ok
-  end
-end
-```
-
-The controller deserializes the subscription from the session and builds up the
-necessary parameters to send to the `Webpush` Ruby client. Only the `:endpoint`
-is required to send a notification in theory. The `:p256dh` and `:auth` keys are
-also required if providing a `:message` parameter, which must be encrypted to
-deliver over the wire. Google requires the Google Cloud Message API key we
-grabbed from th developer console, so we test the endpoint to decide whether to
-include it in the request.
-
-You'd also want to send a request to your Rails app to delete the persisted
-subscription data from the backend which will no longer be valid on the Web Push
-server. That exercise is left up to you!
 
 ## Generating VAPID keys
 
 To take advantage of the VAPID protocol, we would generate a public/private VAPID key pair to store on our server to be used for all user subscriptions.
 
-In Ruby, we can use the `webpush` gem to generate a VAPID key that has both a `public_key` and `private_key` attribute to be saved on the server side.
+In Ruby, we can use the `web-push` gem to generate a VAPID key that has both a `public_key` and `private_key` attribute to be saved on the server side.
 
 ```ruby:Gemfile
 gem 'web-push'
@@ -366,6 +261,65 @@ The keys returned will both be Base64-encoded byte strings. Only the public key
 will be shared, both with the user's browser and the push server as we'll see
 later.
 
+## Register the service worker
+
+In our application javascript we'll use this following snippet to request registration of a service worker script.
+
+```javascript
+const registerServiceWorker = async () => {
+  if (navigator.serviceWorker) {
+    try {
+      await navigator.serviceWorker.register('/serviceworker.js');
+      console.log('Service worker registered!');
+    } catch (error) {
+      console.error('Error registering service worker: ', error);
+    }
+  }
+};
+
+registerServiceWorker();
+```
+
+The key bit is `navigator.serviceWorker.register('/service-worker.js')`. It returns a
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
+
+We should be able to see the message `'Service worker registered!'` in our browser's dev tools console when the promise resolves.
+
+## Requesting permission
+
+Before the notifications can be displayed, the user must grant permission for [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification) in a browser prompt, using something like the example below.
+
+```javascript
+export const hasNotificationPermission = async () => {
+  switch (Notification.permission) {
+    case 'granted':
+      console.log('Permission to receive notifications has been granted');
+      return Promise.resolve(true);
+    case 'denied':
+      console.log('Permission to receive notifications has been denied');
+      return Promise.resolve(false);
+    default:
+      const permission = await Notification.requestPermission();
+      console.log(`Permission to receive notifications has been ${permission}`);
+      return Promise.resolve(permission === 'granted');
+  }
+};
+
+if (Notification.permission === 'granted') {
+  console.log('Permission to receive notifications has been granted');
+} else if (Notification.permission !== 'denied') {
+// Otherwise, we need to ask the user for permission
+else if (Notification.permission !== 'denied') {
+  Notification.requestPermission(function (permission) {
+    // If the user accepts, let's create a notification
+    if (permission === 'granted') {
+      console.log('Permission to receive notifications has been granted');
+    }
+  });
+}
+```
+
 ## Subscribing to push notifications
 
 The VAPID public key we generated earlier is made available to the client from Ruby.
@@ -377,27 +331,23 @@ The VAPID public key we generated earlier is made available to the client from R
 Your application javascript would then use the `pushManager` property to subscribe to push notifications, passing the VAPID public key to the subscription settings.
 
 ```javascript
-export const subscribe = async () => {
-  if (!navigator.serviceWorker) {
-    throw new Error('Service worker not supported');
-  }
+const vapidPublicKey = document.querySelector(
+  'meta[name="vapid-public-key"]',
+).content;
 
-  // When serviceWorker is supported, installed, and activated,
-  // subscribe the pushManager property with the webPushKey
+export const subscribe = async () => {
   const registration = await navigator.serviceWorker.ready;
 
   let subscription = await registration.pushManager.getSubscription();
 
   if (!subscription) {
-    subscription = registration.pushManager.subscribe({
+    subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: Uint8Array.from(atob(webPushKey), (m) =>
-        m.codePointAt(0),
-      ),
+      applicationServerKey: vapidPublicKey,
     });
 
     if (!subscription) {
-      throw new Error('Web push subscription failed');
+      console.error('Web push subscription failed');
     }
   }
 
@@ -407,24 +357,21 @@ export const subscribe = async () => {
 
 ## Triggering a web push notification
 
-The web push library we're using on the backend will be responsible for
-packaging up the request to the subscription's endpoint and handling encryption, so the user's push subscription must be sent from the client to the application server at some point.
+The `web-push` gem packaging up the request to the
+subscription's endpoint and handling encryption, so the user's push subscription
+must be sent from the client to the application server at some point.
 
 In the example below, we send the JSON generated subscription object to our backend with a message when a button on the page is clicked.
 
 ```javascript
-// application.js
-$('.webpush-button').on('click', (e) => {
-  navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
-    serviceWorkerRegistration.pushManager
-      .getSubscription()
-      .then((subscription) => {
-        $.post('/push', {
-          subscription: subscription.toJSON(),
-          message: 'You clicked a button!',
-        });
-      });
-  });
+import { post } from '@rails/request.js';
+
+const registration = await navigator.serviceWorker.ready;
+const subscription = registration.pushManager.getSubscription();
+
+post('/push', {
+  subscription: subscription.toJSON(),
+  message: 'You clicked a button!',
 });
 ```
 
@@ -447,7 +394,7 @@ labelled as `p256dh` and `auth` required to encrypt the push message payload. If
 
 Imagine a Ruby app endpoint that responds to the request by triggering notification through the `web-push` gem. VAPID details include a URL or mailto address for our website and the Base64-encoded public/private VAPID key pair we generated earlier.
 
-```ruby:app/jobs/web_push_job.rb
+```ruby{"filename": "app/jobs/web_push_job.rb"}
 class WebPushJob < ApplicationJob
   queue_as :default
 
@@ -479,41 +426,48 @@ class WebPushJob < ApplicationJob
 end
 ```
 
-Before the notifications can be displayed, the user must grant permission for [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification) in a browser prompt, using something like the example below.
+### Displaying the notification
+
+Because the service worker runs in the background, this is where we need to listen for web push notifications delivered from the Push Server.
+
+In `app/views/pwa/serviceworker.js.erb`, we can use the service worker API to show notifications when the `'push'` event is received:
 
 ```javascript
-// application.js
+const onPush = (event) => {
+  console.log('[Serviceworker]', 'Push event!', event.data.json());
+  const { title, ...options } = event.data.json();
 
-// Let's check if the browser supports notifications
-if (!('Notification' in window)) {
-  console.error('This browser does not support desktop notification');
-}
-
-// Let's check whether notification permissions have already been granted
-else if (Notification.permission === 'granted') {
-  console.log('Permission to receive notifications has been granted');
-}
-
-// Otherwise, we need to ask the user for permission
-else if (Notification.permission !== 'denied') {
-  Notification.requestPermission(function (permission) {
-    // If the user accepts, let's create a notification
-    if (permission === 'granted') {
-      console.log('Permission to receive notifications has been granted');
-    }
+  const showNotification = self.registration.showNotification(title, {
+    icon,
+    ...options,
   });
-}
+
+  event.waitUntil(showNotification);
+};
+
+self.addEventListener('push', onPush);
 ```
+
+The MDN docs are a good resource for more on [service worker `self`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope) and [the service worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 
 After all that setup, we should see a browser notification triggered via the Push API.
 
 ## Wrap up
 
-This took quite a bit of setup though not nearly as much as getting [Apple
-Push Notifications to work in Safari](https://developer.apple.com/notifications/safari-push-notifications/). Overall, the Web Push API is an interesting step for the web in terms of feature parity with mobile.
+This took quite a bit of setup though not nearly as much as getting [Apple Push Notifications to work in Safari](https://developer.apple.com/notifications/safari-push-notifications/). Things may get easier once Action Notifier is released. Overall, the Web Push API is an interesting step for the web in terms of feature parity with mobile.
 
-As this is still an emerging technology, things are rapidly changing. I'd be
-interested to hear how things are working out for folks integrating web push
-into their web apps.
+I'd be interested to hear how things are working out for folks integrating web push into their web apps.
 
 What do you think?
+
+One more thing—a great resource to learn more about Web Push is the [Pushpad blog](https://pushpad.xyz/blog) from the maintainer of the `web-push` gem!
+
+---
+
+If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
+
+Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
+
+That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
