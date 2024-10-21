@@ -4,7 +4,7 @@ author: Ross Kaffenberger
 layout: article
 summary: How to deliver desktop notifications from your Rails app
 description: This blog post describes how to set up a simple demonstration of the Web Push and Service Worker JavaScript APIs to send notifications to users from a Ruby on Rails application in advance of Rails 8 Active Notifier.
-published: '2026-01-01'
+published: '2024-10-24'
 toc: false
 uuid: 0191e0e2-7991-79b4-978d-439b2679da67
 image: articles/introducing-joy-of-rails/adventure-world.gif
@@ -16,47 +16,33 @@ tags:
 
 You may have heard Rails 8 will extract a new framework for delivering Web Push notifications from your web app. Web Push notifications are powerful because they allow you to engage with your users _even when they're not on your site_.
 
-Webkit announcment
-https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/?
-
-that will likely be called Action Notifier.
-
-Though we don’t have Action Notifier yet, it is already possible to implement
-
 I'm going to share how to I got a working demo of the [Web Push API](https://www.w3.org/TR/push-api/) for Joy of Rails to push notifications through supporting browsers - currently Chrome and Firefox at the time of this writing.
 
 We'll cover the basics of implementing Push yourself with Rails.
-
-First, some friendly advice.
-
-> With great power comes great responsibility
-
-If you choose to use Web Push in your application, I recommend using Web Push sparingly. No one wants to be spammed with notifications.
 
 ## Demo
 
 Want to see it in action first?
 
-Click the Subscribe button below. You can also unsubscribe anytime.
+Normally, a web push notification would be triggered by some event on the server side. This demo allows you to send a push notification to yourself by clicking a few buttons in this article.
 
-<%= render Pwa::WebPushDemo.new(web_push_key: web_push_key) %>
+First click the Subscribe button below. You may have also need to accept a browser dialog to allow notifications.
 
-Did you see a notification?
+<%= render Pwa::WebPushDemo.new(web_push_key: Rails.configuration.x.vapid.public_key) %>
+
+(Don‘t worry, I‘m not persisting this subscription in anyway so I won‘t be sending you notifications unless you click that button. You can also "Unsubscribe" at any time to be sure.)
 
 ## Troubleshooting
 
-If the web push didn‘t succeed, there could be a few reasons.
+Did you see a notification from your operating system matching the message you
+sent? Whether you did or did not, if you‘re interested in sending web push
+notifications, then it will be good to know why they might not get delivered.
 
-Check your system Notification settings for your browser and browser Notification settings for this site.
+Most web browsers support Web Push notifications (according to [caniuse.com](https://caniuse.com/?search=web%20push)), but let‘s check:
 
-Is your browser supported? <strong id="web-push-browser-support"></strong>
+<%= render partial: "pwa/web_pushes/test" %>
 
-<strong>Maybe?</strong>
-
-<script type="text/javascript">
-  const element = document.getElementById("web-push-browser-support")
-  if (element) element.textContent = (window.PushManager ? 'Yes' : 'No');
-</script>
+To render the test, this article is running a small snippet of JavaScript similar to this:
 
 ```js
 if (window.PushManager) {
@@ -66,17 +52,53 @@ if (window.PushManager) {
 }
 ```
 
-https://caniuse.com/?search=web%20push
+You can also check your Notification settings, both for your browser and this site.
 
-Finally, it‘s always possible I’ve introduced a regression, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
+In Chrome for macOS, for example, you should be able to check your Notification settings for any site from the address bar.
 
-## Bird’s eye view
+![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg)
 
-Delivering push notifications involve interactions among three parties - the
-user (through her browser), your Rails application, and the Web Push server,
-which for our purposes is either Google or Firefox.
+You also might need to check you operating system settings.
 
-> Diagram courtesy of the [Firefox wiki](https://wiki.mozilla.org/Firefox/Push_Notifications)
+In macOS, for example, you may need to go to the System Settings app and the Notifications settings for your browser:
+
+![System Settings Notifications Chrome](articles/web-push-notifications-from-rails/system-settings-notifications.jpg)
+
+System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It‘s easy to forget about this one—ask me how I found that out while testing this article after hours.
+
+![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg)
+
+Please check the settings for your device and browser if you‘re wondering why you didn’t get a notification.
+
+Another reason a web push notification fails to deliver could be because your
+browser‘s web push subscription to this site has gone stale. This may be
+unlikely if this is the first time visiting the site, but the likelihood
+increases especially if you‘re coming back to the site after some time. So you
+could try resubscribing using the buttons above.
+
+Finally, it‘s possible I’ve introduced a regression since the last time I
+tested, so you could check your web browser’s dev tools for JavaScript errors.
+Feel free to [report an issue on
+GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting
+information if you think there’s a bug.
+
+## How does it work?
+
+There are three parties involved in delivering a push message.
+
+- Your Application Server
+- Your user
+- A Push Server
+
+The only thing you as the web developer will be responsible for is the application server (your Rails app).
+
+One thing developers miss about this Push Server is a third party, which, in
+most cases, is managed by the big company behind your browser, namely Google,
+Apple, Mozilla, or Microsoft.
+
+Here‘s what it looks like at a high level:
+
+![High level view of web push](articles/web-push-notifications-from-rails/push-notifications-high-level.png 'Diagram courtest of the Firefox wiki https://wiki.mozilla.org/Firefox/Push_Notifications')
 
 1. We'll use JavaScript on the user's current page to [register a service
    worker](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register)
@@ -87,14 +109,17 @@ which for our purposes is either Google or Firefox.
    which will contain a unique endpoint to the Web Push server and authorization
    keys required for encrypting the push notification request body.
 
-1. We'll post the subscription info to our Rails app to allow the notification to be sent.
+1. We'll post the subscription info to our Rails app to allow the notification
+   to be sent.
 
 1. To send a push notification, we'll use the
    [`web-push`](https://github.com/push-pad/web-push) Ruby gem triggered from our
    Rails app. `web-push` is responsible for [encrypting of the message
    payload](https://developers.google.com/web/updates/2016/03/web-push-encryption?hl=en)
-   and sending the request to "push" the notification for the given subscription via
-   a third-party Web Push server, i.e., Google, Apple, and Mozilla all host their own Push Servers to support the Push API in Chrome, Safari, and Firefox respectively.
+   and sending the request to "push" the notification for the given subscription
+   via a third-party Web Push server, i.e., Google, Apple, and Mozilla all host
+   their own Push Servers to support the Push API in Chrome, Safari, and Firefox
+   respectively.
 
 1. If the request is successful, the Web Push server opens a socket to our
    registered service worker which can listen for `'push'` events to show a
@@ -102,29 +127,17 @@ which for our purposes is either Google or Firefox.
    the web page, they can process events even when the user isn't actively using
    our website.
 
-## Vapid
+## Web Push Auth is spelled VAPID
 
-Push messages from mobile and desktop browsers are [now a thing](http://caniuse.com/#feat=push-api) on the open web.
+Before we jump into the details of sending a web push notification from Rails, a word about security.
 
-Why use the Push API? It allows us to use free, third-party services to notify our users
-of events, even when they're not actively engaged with our site. It's
-not meant to replace other methods of pushing data to clients, like
-[WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) or [Server Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), but can be useful for sending small, infrequent payloads to keep users engaged. Think: a build has finished successfully, a new post was published, a touchdown was scored. What's
-common place on our smartphones from installed apps is now possible from the browser.
+When a Web Push notification is triggered by an application, like your Rails app, the application authenticates with the Push Service using the [Voluntary Application server Identification (VAPID)](https://tools.ietf.org/html/draft-ietf-webpush-vapid-01) protocol. Application servers use VAPID to identify themselves to the push servers so push subscriptions can be properly restricted to their origin app servers. VAPID prevents an attacker from stealing a user’s `PushSubscription` and sending push messages to that recipient from another server.
 
-Though only supported in Chrome and Firefox on the desktop and in Chrome on Android at the time of this writing, it'll be more widespread soon enough. While I previously [wrote about this topic](/blog/web-push-notifications-from-rails.html), there have been recent changes in the Chrome implementation to make the API consistent with Firefox, which we'll describe here.
-
-In this post, we'll walk through setting up a Ruby or Node.js web application to use the Push API with the [Voluntary Application server Identification (VAPID)](https://tools.ietf.org/html/draft-ietf-webpush-vapid-01). Use of VAPID for push requests is optional, but primarily a security benefit. Application servers use VAPID to identify themselves to the push servers so push subscriptions can be properly restricted to their origin app servers. In other words, VAPID could theoretically prevent an attacker from stealing a user `PushSubscription` and sending push messages to that recipient from another server. Down the road, push services may be able to provide analytics and debugging assistance for app servers using the VAPID protocol. Another benefit: in Chrome, it is no longer necessary to register our web apps through the Google Developer Console and pass around Google app credentials in web push requests.
+Luckily, the details of the implementing VAPID spec are abstracted away in the `web-push` Ruby gem. (I should know, I added [the initial implementation myself](https://github.com/zaru/webpush/pull/26)). You will need to create and securely store a set of VAPID keys. More on that below.
 
 ## Overview
 
-There are three parties involved in delivering a push message.
-
-- Your application server
-- Your user
-- A push server, e.g., Google or Mozilla
-
-Before a push message can be delivered with VAPID, a few criteria should be satisfied:
+Before a web push message can be delivered, a few criteria should be satisfied:
 
 1. Your application server has generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
 2. A `manifest.json` file, linked from a page on our website, identifies our app settings.
@@ -342,8 +355,8 @@ require 'web-push'
 vapid_key = WebPush.generate_key
 
 # Save these in our application server settings
-vapid_key.public_key
-# => "BC1mp...HQ="
+vapid_key.public_key.delete("=")
+# => "BC1mp...HQ"
 
 vapid_key.private_key
 # => "XhGUr...Kec"
@@ -355,14 +368,10 @@ later.
 
 ## Subscribing to push notifications
 
-The VAPID public key we generated earlier is made available to the client as a `Uint8Array`. To do this, one way would be to expose the urlsafe-decoded bytes from Ruby to JavaScript when rendering the HTML template.
+The VAPID public key we generated earlier is made available to the client from Ruby.
 
-In Ruby, we might embed the key as raw bytes from the application `ENV` or some other application settings mechanism into an HTML template with help from the `Base64` module in the standard library. Global variables are used here for simplicity.
-
-```html:app/views/layouts/application.html.erb
-<script>
-  window.vapidPublicKey = <_ERB_%= ENV['VAPID_PUBLIC_KEY'].delete("=").to_json %_ERB_>
-</script>
+```erb:{"filename": "app/views/layouts/application.html.erb"}
+<%= tag.meta name: "vapid-public-key", content: Rails.configuration.x.vapid.public_key %>
 ```
 
 Your application javascript would then use the `pushManager` property to subscribe to push notifications, passing the VAPID public key to the subscription settings.
@@ -436,7 +445,7 @@ labelled as `p256dh` and `auth` required to encrypt the push message payload. If
 }
 ```
 
-Imagine a Ruby app endpoint that responds to the request by triggering notification through the `webpush` gem. VAPID details include a URL or mailto address for our website and the Base64-encoded public/private VAPID key pair we generated earlier.
+Imagine a Ruby app endpoint that responds to the request by triggering notification through the `web-push` gem. VAPID details include a URL or mailto address for our website and the Base64-encoded public/private VAPID key pair we generated earlier.
 
 ```ruby:app/jobs/web_push_job.rb
 class WebPushJob < ApplicationJob
@@ -456,8 +465,8 @@ class WebPushJob < ApplicationJob
       auth: subscription["keys"]["auth"],
       vapid: {
         subject: "mailto:ross@rossta.net",
-        public_key: Rails.application.credentials.vapid.public_key,
-        private_key: Rails.application.credentials.vapid.private_key
+        public_key: Rails.configuration.x.vapid.public_key,
+        private_key: Rails.configuration.x.vapid.private_key
       },
       ssl_timeout: 5, # optional value for Net::HTTP#ssl_timeout=
       open_timeout: 5, # optional value for Net::HTTP#open_timeout=
