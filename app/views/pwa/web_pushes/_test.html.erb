@@ -1,0 +1,7 @@
+<p class="italic">
+  Does your browser support Web Push Notifications? <strong id="web-push-browser-support">Maybe?</strong>
+</p>
+<script type="text/javascript">
+  const element = document.getElementById("web-push-browser-support")
+  if (element) element.textContent = (window.PushManager ? 'Yes' : 'No');
+</script>
