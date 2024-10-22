@@ -16,6 +16,8 @@ tags:
 
 You may have heard Rails 8 will extract a new framework for delivering Web Push notifications from your web app. Web Push notifications are powerful because they allow you to engage with your users _even when they're not on your site_.
 
+<%= image_tag "articles/web-push-notifications-from-rails/a-web-push-notification.jpg", alt: "A Web Push Notification" %>
+
 I'm going to share how to I got a working demo of the [Web Push API](https://www.w3.org/TR/push-api/) for Joy of Rails to provide Web Push notifications through supporting browsers.
 
 In advance of [Rails Action Notifier](https://github.com/rails/rails/issues/50454), it may be helpful to know how things will work under the hood. In this article, we'll cover the basics of implementing Web Push yourself with Rails.
@@ -52,35 +54,21 @@ if (window.PushManager) {
 }
 ```
 
-You can also check your Notification settings, both for your browser and this site.
+You can also check your Notification settings. ![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg 'Google Chrome Notifications setting from address bar | {"class":"pull-right"}')
 
 In Chrome for macOS, for example, you should be able to check your Notification settings for any site from the address bar.
 
-![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg)
-
 You also might need to check you operating system settings.
 
-In macOS, for example, you may need to go to the System Settings app and the Notifications settings for your browser:
+In macOS, for example, you may need to go to the System Settings app and the Notifications settings for your browser: ![System Settings Notifications Chrome](articles/web-push-notifications-from-rails/system-settings-notifications.jpg 'macOS System Settings > Notifications > Google Chrome | {"class":"pull-right row-span-2"}')
 
-![System Settings Notifications Chrome](articles/web-push-notifications-from-rails/system-settings-notifications.jpg)
-
-System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It‘s easy to forget about this one—ask me how I found that out while testing this article after hours.
-
-![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg)
+System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It‘s easy to forget about this one—ask me how I found that out while testing this article after hours. ![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg 'macOS System Settings > Focus > Do Not Disturb | {"class":"pull-right row-span-2"}')
 
 Please check the settings for your device and browser if you‘re wondering why you didn’t get a notification.
 
-Another reason a web push notification fails to deliver could be because your
-browser‘s web push subscription to this site has gone stale. This may be
-unlikely if this is the first time visiting the site, but the likelihood
-increases especially if you‘re coming back to the site after some time. So you
-could try resubscribing using the buttons above.
+Another reason a web push notification fails to deliver could be because your browser‘s web push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you‘re coming back to the site after some time. So you could try resubscribing using the buttons above.
 
-Finally, it‘s possible I’ve introduced a regression since the last time I
-tested, so you could check your web browser’s dev tools for JavaScript errors.
-Feel free to [report an issue on
-GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting
-information if you think there’s a bug.
+Finally, it‘s possible I’ve introduced a regression since the last time I tested, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
 
 ## How does it work?
 
@@ -90,15 +78,20 @@ There are three parties involved in delivering a push message.
 - Your user
 - A Push Server
 
-The only thing you as the web developer will be responsible for is the application server (your Rails app).
+When your Rails app determines something is worthy of notifying a subscribed user, it makes an HTTP request to a Push Server endpoint with the user’s Web Push subscription and a message payload. It’s this third party Push Server that actually sends the notification to the user ![Web Push messaging flow](articles/web-push-notifications-from-rails/web-push-flow.svg 'Diagram courtesy of web.dev https://web.dev/articles/push-notifications-web-push-protocol').
 
-One thing developers miss about this Push Server is a third party, which, in
-most cases, is managed by the big company behind your browser, namely Google,
-Apple, Mozilla, or Microsoft.
+One thing developers miss about this Push Server is a third party, which, in most cases, is managed by the big company behind your browser, namely Google, Apple, Mozilla, or Microsoft.
 
-Here‘s what it looks like at a high level:
+As the developer implementing Web Push, you’ll need to do the following:
 
-![High level view of web push](articles/web-push-notifications-from-rails/push-notifications-high-level.png 'Diagram courtest of the Firefox wiki https://wiki.mozilla.org/Firefox/Push_Notifications')
+- provide a user experience for a visitor to subscribe to Web Push,
+- send the Web Push subscription data to Rails from the frontend,
+- make a Web Push request to the third party Push Server (using the `web-push` gem),
+- listen for the `'push'` event on the frontend in a [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to display the notification
+
+Here’s how it works at a high level: ![High level view of web push](articles/web-push-notifications-from-rails/push-notifications-high-level.png 'Diagram courtesy of the Firefox wiki https://wiki.mozilla.org/Firefox/Push_Notifications')
+
+Breaking it down:
 
 1. We'll use JavaScript on the user's current page to [register a service
    worker](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register)
@@ -135,19 +128,19 @@ When a Web Push notification is triggered by an application, like your Rails app
 
 Luckily, the details of the implementing VAPID spec are abstracted away in the `web-push` Ruby gem. (I should know, I added [the initial implementation myself](https://github.com/zaru/webpush/pull/26)). You will need to create and securely store a set of VAPID keys. More on that below.
 
-## Overview
+## Key ingredients
 
 Before a web push message can be delivered, a few criteria should be satisfied:
 
-1. A Progressive Web App `manifest.json` file is linked from our page to identify our app settings.
-1. Your application server has generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
-1. In the user's web browser, a service worker script is installed and activated.
-1. The `pushManager` property of the `ServiceWorkerRegistration` is subscribed to push events with our VAPID public key, with creates a `subscription` JSON object on the client side.
-1. Your server makes an API request to a push server (likely using a server-side library) to send a notification with the `subscription` obtained from the client and an optional payload (the message).
-1. The user has enabled permissions to receive notifications from our site.
-1. Your service worker is set up to receive `'push'` events.
+1. [Manifest](#the-manifest): A Progressive Web App `manifest.json` file is linked from our page to identify our app settings.
+1. [VAPID](#generating-vapid-keys): You have generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
+1. [Registration](#register-the-service-worker): In the user's web browser, a service worker script is installed and activated.
+1. [Permissions](#requesting-notification-permission): The user has enabled permissions to receive notifications from our site.
+1. [Subscription](#subscribing-to-push-notifications): The `pushManager` property of the `ServiceWorkerRegistration` is subscribed to push events with our VAPID public key, with creates a `subscription` JSON object on the client side.
+1. [Trigger](#triggering-a-web-push-notification): Some trigger results in a Web Push notification. The `subscription` obtained from the client is needed to send the Web Push request from Rails.
+1. [Listener](#displaying-the-notification): Your service worker is set up to receive `'push'` events and display a notification.
 
-## Provide a manifest file
+### The Manifest
 
 Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](articles/add-your-rails-app-to-the-home-screen). I‘ve provided a quick recap below.
 
@@ -231,7 +224,7 @@ class Rails::PwaController < Rails::ApplicationController
 end
 ```
 
-## Generating VAPID keys
+### Generating VAPID keys
 
 To take advantage of the VAPID protocol, we would generate a public/private VAPID key pair to store on our server to be used for all user subscriptions.
 
@@ -261,7 +254,7 @@ The keys returned will both be Base64-encoded byte strings. Only the public key
 will be shared, both with the user's browser and the push server as we'll see
 later.
 
-## Register the service worker
+### Register the service worker
 
 In our application javascript we'll use this following snippet to request registration of a service worker script.
 
@@ -286,7 +279,7 @@ that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](ht
 
 We should be able to see the message `'Service worker registered!'` in our browser's dev tools console when the promise resolves.
 
-## Requesting permission
+### Requesting Notification permission
 
 Before the notifications can be displayed, the user must grant permission for [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification) in a browser prompt, using something like the example below.
 
@@ -295,32 +288,21 @@ export const hasNotificationPermission = async () => {
   switch (Notification.permission) {
     case 'granted':
       console.log('Permission to receive notifications has been granted');
-      return Promise.resolve(true);
+      break;
     case 'denied':
       console.log('Permission to receive notifications has been denied');
-      return Promise.resolve(false);
+      break;
     default:
       const permission = await Notification.requestPermission();
       console.log(`Permission to receive notifications has been ${permission}`);
-      return Promise.resolve(permission === 'granted');
+      break;
   }
 };
-
-if (Notification.permission === 'granted') {
-  console.log('Permission to receive notifications has been granted');
-} else if (Notification.permission !== 'denied') {
-// Otherwise, we need to ask the user for permission
-else if (Notification.permission !== 'denied') {
-  Notification.requestPermission(function (permission) {
-    // If the user accepts, let's create a notification
-    if (permission === 'granted') {
-      console.log('Permission to receive notifications has been granted');
-    }
-  });
-}
 ```
 
-## Subscribing to push notifications
+You should be able to adapt this logic to fit your own user experience, such as to message the user that Web Push will be disabled as long as their browser’s notification permission is denied.
+
+### Subscribing to push notifications
 
 The VAPID public key we generated earlier is made available to the client from Ruby.
 
@@ -355,13 +337,7 @@ export const subscribe = async () => {
 };
 ```
 
-## Triggering a web push notification
-
-The `web-push` gem packaging up the request to the
-subscription's endpoint and handling encryption, so the user's push subscription
-must be sent from the client to the application server at some point.
-
-In the example below, we send the JSON generated subscription object to our backend with a message when a button on the page is clicked.
+In the example below, we send the JSON generated subscription object to our backend. It could be stored in a session or database record.
 
 ```javascript
 import { post } from '@rails/request.js';
@@ -369,17 +345,19 @@ import { post } from '@rails/request.js';
 const registration = await navigator.serviceWorker.ready;
 const subscription = registration.pushManager.getSubscription();
 
-post('/push', {
-  subscription: subscription.toJSON(),
-  message: 'You clicked a button!',
+const {
+  endpoint,
+  keys: { p256dh, auth },
+} = subscription.toJSON();
+
+const body = JSON.stringify({
+  push_subscription: { endpoint, p256dh_key: p256dh, auth_key: auth },
 });
+
+post('/push_subscriptions', { body });
 ```
 
-The call to `pushManager.getSubscription()` returns a Promise that provides the
-`PushSubscription` instance with all the information the push service needs to
-send a push message to this user's browser. This includes an `endpoint`, the URL
-on the push server where we'll send the push request, and a pair of `keys`
-labelled as `p256dh` and `auth` required to encrypt the push message payload. If interested to learn more about how this encryption works, check out this detailed summary on [web push payload encryption](https://developers.google.com/web/updates/2016/03/web-push-encryption).
+The call to `pushManager.getSubscription()` returns a Promise that provides the `PushSubscription` instance with all the information the push service needs to send a push message to this user's browser. This includes an `endpoint`, the URL on the push server where we'll send the push request, and a pair of `keys` labelled as `p256dh` and `auth` required to encrypt the push message payload. If interested to learn more about how this encryption works, check out this detailed summary on [web push payload encryption](https://developers.google.com/web/updates/2016/03/web-push-encryption).
 
 ```javascript
 // subscription.toJSON();
@@ -392,39 +370,75 @@ labelled as `p256dh` and `auth` required to encrypt the push message payload. If
 }
 ```
 
-Imagine a Ruby app endpoint that responds to the request by triggering notification through the `web-push` gem. VAPID details include a URL or mailto address for our website and the Base64-encoded public/private VAPID key pair we generated earlier.
+A database record to store a subscription would store the `endpoint`, `auth` key, and `p256dh` and is tied to an account record, like a `User`. Storing the `user_agent` is an optional convenience.
 
-```ruby{"filename": "app/jobs/web_push_job.rb"}
+```ruby
+create_table :push_subscriptions, force: :cascade do |t|
+  t.references :user, null: false, index: true
+  t.string :endpoint
+  t.string :p256dh_key
+  t.string :auth_key
+  t.timestamps
+
+  t.string :user_agent
+end
+```
+
+```ruby:{"filename":"app/controllers/push_subscriptions_controller.rb"}
+class Users::PushSubscriptionsController < ApplicationController
+  def create
+    if subscription = @push_subscriptions.find_by(push_subscription_params)
+      subscription.touch
+    else
+      @push_subscriptions.create! push_subscription_params.merge(user_agent: request.user_agent)
+    end
+
+    head :ok
+  end
+
+  private
+
+  def push_subscription_params
+    params.require(:push_subscription).permit(:endpoint, :p256dh_key, :auth_key)
+  end
+end
+```
+
+### Triggering a web push notification
+
+Imagine a use case for your Rails app to trigger a Web Push notification. Perhaps you published a new article and want to inform your readers.
+
+Now it’s time to trigger the request to the Push Server with the `web-push` gem. Here’s what it could look like as implemented in an ActiveJob:
+
+```ruby:{"filename":"app/jobs/web_push_job.rb"}
 class WebPushJob < ApplicationJob
   queue_as :default
 
-  def perform(title:, message:, subscription:)
+  def perform(title:, message:, endpoint:, p256dh_key:, auth_key:)
     message_json = {
       title: title,
       body: message,
-      icon: "/pwa-manifest/icon-192.png"
+      icon: ActionController::Base.helpers.asset_url("app-icons/icon-192.png")
     }.to_json
 
     response = WebPush.payload_send(
       message: message_json,
-      endpoint: subscription["endpoint"],
-      p256dh: subscription["keys"]["p256dh"],
-      auth: subscription["keys"]["auth"],
+      endpoint: endpoint,
+      p256dh: p256dh_key,
+      auth: auth_key,
       vapid: {
-        subject: "mailto:ross@rossta.net",
+        subject: "mailto:hello@joyofrails.com",
         public_key: Rails.configuration.x.vapid.public_key,
         private_key: Rails.configuration.x.vapid.private_key
-      },
-      ssl_timeout: 5, # optional value for Net::HTTP#ssl_timeout=
-      open_timeout: 5, # optional value for Net::HTTP#open_timeout=
-      read_timeout: 5 # optional value for Net::HTTP#read_timeout=
+      }
     )
-
-    Rails.logger.info "Web push sent to #{subscription["endpoint"]} with message: #{message.inspect}"
-    Rails.logger.info "Web push response: #{response}"
   end
 end
 ```
+
+The `WebPush.payload_send` method requires you to provide the user’s subscription attributes, VAPID public and private keys, and a message payload serialized as JSON.
+
+For the message payload, I am setting the `title`, `body`, and `icon` properties. The [MDN Notification docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification) and this [web.dev Notification article](https://web.dev/articles/push-notifications-display-a-notification) are good resources to learn more about the options you have available.
 
 ### Displaying the notification
 
@@ -432,7 +446,7 @@ Because the service worker runs in the background, this is where we need to list
 
 In `app/views/pwa/serviceworker.js.erb`, we can use the service worker API to show notifications when the `'push'` event is received:
 
-```javascript
+```javascript:{"filename":"app/views/pwa/serviceworker.js.erb"}
 const onPush = (event) => {
   console.log('[Serviceworker]', 'Push event!', event.data.json());
   const { title, ...options } = event.data.json();
