@@ -284,7 +284,7 @@ We should be able to see the message `'Service worker registered!'` in our brows
 Before the notifications can be displayed, the user must grant permission for [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification) in a browser prompt, using something like the example below.
 
 ```javascript
-export const hasNotificationPermission = async () => {
+export const checkPermission = async () => {
   switch (Notification.permission) {
     case 'granted':
       console.log('Permission to receive notifications has been granted');
