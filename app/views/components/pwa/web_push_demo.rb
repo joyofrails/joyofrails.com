@@ -2,12 +2,6 @@ class Pwa::WebPushDemo < Phlex::HTML
   include Phlex::Rails::Helpers::FormFor
   include Phlex::Rails::Helpers::Routes
 
-  attr_accessor :web_push_key
-
-  def initialize(web_push_key:)
-    @web_push_key = web_push_key
-  end
-
   def view_template
     div(
       data: {
@@ -18,7 +12,7 @@ class Pwa::WebPushDemo < Phlex::HTML
       },
       class: "not-prose"
     ) do
-      render Pwa::WebPushSubscription.new(web_push_key: web_push_key)
+      render Pwa::WebPushSubscription.new
 
       p(
         data_pwa_web_push_demo_target: "status",

@@ -1,17 +1,10 @@
 class Pwa::WebPushSubscription < Phlex::HTML
   include Phlex::Rails::Helpers::ButtonTag
 
-  attr_accessor :web_push_key
-
-  def initialize(web_push_key:)
-    @web_push_key = web_push_key
-  end
-
   def view_template
     div(
       data: {
-        controller: "pwa-web-push-subscription",
-        web_push_key: web_push_key
+        controller: "pwa-web-push-subscription"
       },
       class: "pwa-web-push-subscription flex gap-2"
     ) do
