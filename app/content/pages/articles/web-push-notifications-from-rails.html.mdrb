@@ -140,7 +140,7 @@ Before a web push message can be delivered, a few criteria should be satisfied:
 1. [Trigger](#triggering-a-web-push-notification): Some trigger results in a Web Push notification. The `subscription` obtained from the client is needed to send the Web Push request from Rails.
 1. [Listener](#displaying-the-notification): Your service worker is set up to receive `'push'` events and display a notification.
 
-### The Manifest
+## The Manifest
 
 Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](articles/add-your-rails-app-to-the-home-screen). I‘ve provided a quick recap below.
 
@@ -224,7 +224,7 @@ class Rails::PwaController < Rails::ApplicationController
 end
 ```
 
-### Generating VAPID keys
+## Generating VAPID keys
 
 To take advantage of the VAPID protocol, we would generate a public/private VAPID key pair to store on our server to be used for all user subscriptions.
 
@@ -254,7 +254,7 @@ The keys returned will both be Base64-encoded byte strings. Only the public key
 will be shared, both with the user's browser and the push server as we'll see
 later.
 
-### Register the service worker
+## Register the service worker
 
 In our application javascript we'll use this following snippet to request registration of a service worker script.
 
@@ -279,7 +279,7 @@ that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](ht
 
 We should be able to see the message `'Service worker registered!'` in our browser's dev tools console when the promise resolves.
 
-### Requesting Notification permission
+## Requesting Notification permission
 
 Before the notifications can be displayed, the user must grant permission for [notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification) in a browser prompt, using something like the example below.
 
@@ -302,7 +302,7 @@ export const hasNotificationPermission = async () => {
 
 You should be able to adapt this logic to fit your own user experience, such as to message the user that Web Push will be disabled as long as their browser’s notification permission is denied.
 
-### Subscribing to push notifications
+## Subscribing to push notifications
 
 The VAPID public key we generated earlier is made available to the client from Ruby.
 
@@ -404,7 +404,7 @@ class Users::PushSubscriptionsController < ApplicationController
 end
 ```
 
-### Triggering a web push notification
+## Triggering a web push notification
 
 Imagine a use case for your Rails app to trigger a Web Push notification. Perhaps you published a new article and want to inform your readers.
 
@@ -440,7 +440,7 @@ The `WebPush.payload_send` method requires you to provide the user’s subscript
 
 For the message payload, I am setting the `title`, `body`, and `icon` properties. The [MDN Notification docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification) and this [web.dev Notification article](https://web.dev/articles/push-notifications-display-a-notification) are good resources to learn more about the options you have available.
 
-### Displaying the notification
+## Displaying the notification
 
 Because the service worker runs in the background, this is where we need to listen for web push notifications delivered from the Push Server.
 
