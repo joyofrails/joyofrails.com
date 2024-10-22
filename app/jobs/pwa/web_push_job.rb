@@ -5,7 +5,7 @@ class Pwa::WebPushJob < ApplicationJob
     message_json = {
       title: title,
       body: message,
-      icon: "/pwa-manifest/icon-192.png"
+      icon: icon_url
     }.to_json
 
     response = WebPush.payload_send(
@@ -17,13 +17,14 @@ class Pwa::WebPushJob < ApplicationJob
         subject: Rails.configuration.x.vapid.subject,
         public_key: Rails.configuration.x.vapid.public_key,
         private_key: Rails.configuration.x.vapid.private_key
-      },
-      ssl_timeout: 5, # optional value for Net::HTTP#ssl_timeout=
-      open_timeout: 5, # optional value for Net::HTTP#open_timeout=
-      read_timeout: 5 # optional value for Net::HTTP#read_timeout=
+      }
     )
 
     Rails.logger.info "Web push sent to #{subscription["endpoint"]} with message: #{message.inspect}"
     Rails.logger.info "Web push response: #{response}"
+  end
+
+  def icon_url
+    ActionController::Base.helpers.asset_url("app-icons/icon-192.png")
   end
 end

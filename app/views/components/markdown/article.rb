@@ -14,29 +14,37 @@ class Markdown::Article < Markdown::Application
   end
 
   def code_block(source, metadata = "", **attributes)
-    language, json_attributes = parse_code_block_metadata(metadata)
+    language, json_attributes = parse_text_and_metadata(metadata)
     render ::CodeBlock::Article.new(source, language: language, **json_attributes, **attributes)
+  end
+
+  def image(src, alt: "", title: "")
+    title, json_attributes = parse_text_and_metadata(title, separator: "|")
+    figure(**json_attributes) do
+      image_tag(src, alt: alt, title: title)
+      figcaption { title }
+    end
   end
 
   private
 
-  # Parse the metadata string from a code block.
+  # Parse the metadata string from a code block or title.
   #
   # @param metadata [String] the metadata string.
-  # @return [Array<String, Hash>] the language and attributes.
+  # @return [Array<String, Hash>] the text and attributes.
   #
   # @example
-  #   parse_code_block_metadata("ruby")
+  #   parse_text_and_metadata("ruby")
   #   => ["ruby", {}]
   # @example
-  #   parse_code_block_metadata("ruby:{ \"filename\": \"main.rb\" }")
+  #   parse_text_and_metadata("ruby:{ \"filename\": \"main.rb\" }")
   #   => ["ruby", { filename: "main.rb" }]
   # @example
-  #   parse_code_block_metadata("ruby:{ \"filename\": \"main.rb\", "run": true }")
+  #   parse_text_and_metadata("ruby:{ \"filename\": \"main.rb\", "run": true }")
   #   => ["ruby", { filename: "main.rb", run: true }]
   #
-  def parse_code_block_metadata(metadata)
-    language, json_string = metadata.split(":", 2)
+  def parse_text_and_metadata(metadata, separator: ":")
+    text, json_string = metadata.split(separator, 2)
 
     json_attributes = begin
       JSON.parse(json_string.to_s, symbolize_names: true)
@@ -44,7 +52,7 @@ class Markdown::Article < Markdown::Application
       {}
     end
 
-    [language, json_attributes]
+    [text, json_attributes]
   end
 
   def anchor_svg

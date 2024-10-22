@@ -91,9 +91,14 @@ main > *,
   .grid-content > .outside {
     grid-column: col-start 9 / span 4;
   }
-  .article-content > img {
+  .article-content > img,
+  .article-content > .pull-right {
     grid-column: col-start 9 / span 4;
     grid-row-start: span 4;
+
+    &.row-span-2 {
+      grid-row-start: span 2;
+    }
   }
 
   // For making blocks span the full width of the article
