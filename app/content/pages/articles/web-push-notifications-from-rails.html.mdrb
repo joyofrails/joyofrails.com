@@ -7,8 +7,8 @@ description: An embedded Web Push demo and deep dive tutorial to set up Web Push
 published: '2024-10-24'
 toc: false
 uuid: 0191e0e2-7991-79b4-978d-439b2679da67
-image: articles/introducing-joy-of-rails/adventure-world.gif
-meta_image: articles/introducing-joy-of-rails/screenshot.jpg
+image: articles/web-push-notifications-from-rails/airplane.jpg
+meta_image: articles/web-push-notifications-from-rails/airplane.jpg
 tags:
   - Rails
   - JavaScript
@@ -26,7 +26,7 @@ In advance of [Rails Action Notifier](https://github.com/rails/rails/issues/5045
 
 Want to see it in action first?
 
-Normally, a web push notification would be triggered by some event on the server side. This demo allows you to send a push notification to yourself by clicking a few buttons in this article.
+Normally, a Web Push notification would be triggered by some event on the server side. This demo allows you to send a push notification to yourself by clicking a few buttons in this article.
 
 First click the Subscribe button below. You may have also need to accept a browser dialog to allow notifications.
 
@@ -37,7 +37,7 @@ First click the Subscribe button below. You may have also need to accept a brows
 ## Troubleshooting
 
 Did you see a notification from your operating system matching the message you
-sent? Whether you did or did not, if you‘re interested in sending web push
+sent? Whether you did or did not, if you‘re interested in sending Web Push
 notifications, then it will be good to know why they might not get delivered.
 
 Most web browsers support Web Push notifications (according to [caniuse.com](https://caniuse.com/?search=web%20push)), but let‘s check:
@@ -66,7 +66,7 @@ System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It�
 
 Please check the settings for your device and browser if you‘re wondering why you didn’t get a notification.
 
-Another reason a web push notification fails to deliver could be because your browser‘s web push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you‘re coming back to the site after some time. So you could try resubscribing using the buttons above.
+Another reason a Web Push notification fails to deliver could be because your browser‘s Web Push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you‘re coming back to the site after some time. So you could try resubscribing using the buttons above.
 
 Finally, it‘s possible I’ve introduced a regression since the last time I tested, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
 
@@ -89,7 +89,7 @@ As the developer implementing Web Push, you’ll need to do the following:
 - make a Web Push request to the third party Push Server (using the `web-push` gem),
 - listen for the `'push'` event on the frontend in a [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) to display the notification
 
-Here’s how it works at a high level: ![High level view of web push](articles/web-push-notifications-from-rails/push-notifications-high-level.png 'Diagram courtesy of the Firefox wiki https://wiki.mozilla.org/Firefox/Push_Notifications')
+Here’s how it works at a high level: ![High level view of Web Push](articles/web-push-notifications-from-rails/push-notifications-high-level.png 'Diagram courtesy of the Firefox wiki https://wiki.mozilla.org/Firefox/Push_Notifications')
 
 Breaking it down:
 
@@ -122,15 +122,17 @@ Breaking it down:
 
 ## Web Push Auth is spelled VAPID
 
-Before we jump into the details of sending a web push notification from Rails, a word about security.
+Before we jump into the details of sending a Web Push notification from Rails, a word about security.
 
 When a Web Push notification is triggered by an application, like your Rails app, the application authenticates with the Push Service using the [Voluntary Application server Identification (VAPID)](https://tools.ietf.org/html/draft-ietf-webpush-vapid-01) protocol. Application servers use VAPID to identify themselves to the push servers so push subscriptions can be properly restricted to their origin app servers. VAPID prevents an attacker from stealing a user’s `PushSubscription` and sending push messages to that recipient from another server.
 
-Luckily, the details of the implementing VAPID spec are abstracted away in the `web-push` Ruby gem. (I should know, I added [the initial implementation myself](https://github.com/zaru/webpush/pull/26)). You will need to create and securely store a set of VAPID keys. More on that below.
+Luckily, the details of the VAPID spec are abstracted away in the `web-push` Ruby gem. (I should know, I wrote [its initial implementation of the VAPID protocol](https://github.com/zaru/webpush/pull/26) 😅).
 
-## Key ingredients
+You will need to create and securely store a set of VAPID keys. More on that below.
 
-Before a web push message can be delivered, a few criteria should be satisfied:
+## A Recipe for Web Push
+
+Before a Web Push message can be delivered, a few criteria should be satisfied:
 
 1. [Manifest](#the-manifest): A Progressive Web App `manifest.json` file is linked from our page to identify our app settings.
 1. [VAPID](#generating-vapid-keys): You have generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
@@ -158,7 +160,7 @@ end
 
 Your application layout should render a `<link>` tag for the manifest file:
 
-```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5, 6]}
+```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5]}
 <!DOCTYPE html>
 <html>
   <head>
@@ -179,7 +181,7 @@ _What if my app isn’t on Rails 7.2?_ That‘s ok! If you can’t upgrade now, 
 
 For a newly generated Rails 7.2 application, this is what you’ll see in `manifest.json.erb`:
 
-```erb:{"filename": "app/views/pwa/manifest.json.erb"}
+```json:{"filename": "app/views/pwa/manifest.json.erb"}
 {
   "name": "YourNewApp",
   "icons": [
@@ -230,16 +232,13 @@ To take advantage of the VAPID protocol, we would generate a public/private VAPI
 
 In Ruby, we can use the `web-push` gem to generate a VAPID key that has both a `public_key` and `private_key` attribute to be saved on the server side.
 
-```ruby:Gemfile
+```ruby:{"filename": "Gemfile"}
 gem 'web-push'
 ```
 
-In a Ruby console:
+We can generate the VAPID public and private keys on the Rails console:
 
-```ruby
-require 'web-push'
-
-# One-time, on the server
+```ruby:{"filename": "bin/rails console"}
 vapid_key = WebPush.generate_key
 
 # Save these in our application server settings
@@ -306,8 +305,14 @@ You should be able to adapt this logic to fit your own user experience, such as 
 
 The VAPID public key we generated earlier is made available to the client from Ruby.
 
-```erb:{"filename": "app/views/layouts/application.html.erb"}
-<%= tag.meta name: "vapid-public-key", content: Rails.configuration.x.vapid.public_key %>
+```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5]}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- -->
+    <%= tag.meta name: "vapid-public-key", content: Rails.configuration.x.vapid.public_key %>
+  </head>
+  <!-- -->
 ```
 
 Your application javascript would then use the `pushManager` property to subscribe to push notifications, passing the VAPID public key to the subscription settings.
@@ -337,7 +342,22 @@ export const subscribe = async () => {
 };
 ```
 
-In the example below, we send the JSON generated subscription object to our backend. It could be stored in a session or database record.
+The call to `pushManager.subscribe()` returns a Promise that provides the `PushSubscription` instance with all the information the push service needs to send a push message to this user's browser. This includes an `endpoint`, the URL on the push server where we'll send the push request, and a pair of `keys` labelled as `p256dh` and `auth` required to encrypt the push message payload.
+
+```javascript
+// subscription.toJSON();
+{
+  endpoint: "https://android.googleapis.com/gcm/send/a-subscription-id",
+  keys: {
+    auth: 'AEl35...7fG',
+    p256dh: 'Fg5t8...2rC'
+  }
+}
+```
+
+If you are interested to learn more about how this encryption works, check out this detailed summary on [Web Push payload encryption](https://developers.google.com/web/updates/2016/03/web-push-encryption).
+
+In the example below, we send the subscription object to our backend. It could be stored in a session or database record.
 
 ```javascript
 import { post } from '@rails/request.js';
@@ -357,18 +377,7 @@ const body = JSON.stringify({
 post('/push_subscriptions', { body });
 ```
 
-The call to `pushManager.getSubscription()` returns a Promise that provides the `PushSubscription` instance with all the information the push service needs to send a push message to this user's browser. This includes an `endpoint`, the URL on the push server where we'll send the push request, and a pair of `keys` labelled as `p256dh` and `auth` required to encrypt the push message payload. If interested to learn more about how this encryption works, check out this detailed summary on [web push payload encryption](https://developers.google.com/web/updates/2016/03/web-push-encryption).
-
-```javascript
-// subscription.toJSON();
-{
-  endpoint: "https://android.googleapis.com/gcm/send/a-subscription-id",
-  keys: {
-    auth: 'AEl35...7fG',
-    p256dh: 'Fg5t8...2rC'
-  }
-}
-```
+Note that, once subscribed, `pushManager.getSubscription()` returns a Promise that provides the `PushSubscription` instance with all the information the push service needs to send a push message to this user's browser.
 
 A database record to store a subscription would store the `endpoint`, `auth` key, and `p256dh` and is tied to an account record, like a `User`. Storing the `user_agent` is an optional convenience.
 
@@ -404,7 +413,7 @@ class Users::PushSubscriptionsController < ApplicationController
 end
 ```
 
-## Triggering a web push notification
+## Triggering a Web Push notification
 
 Imagine a use case for your Rails app to trigger a Web Push notification. Perhaps you published a new article and want to inform your readers.
 
@@ -440,9 +449,23 @@ The `WebPush.payload_send` method requires you to provide the user’s subscript
 
 For the message payload, I am setting the `title`, `body`, and `icon` properties. The [MDN Notification docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification) and this [web.dev Notification article](https://web.dev/articles/push-notifications-display-a-notification) are good resources to learn more about the options you have available.
 
+```ruby
+subscription = user.push_subscriptions.last
+
+WebPushJob.perform_later(
+  title: "Hello from Joy of Rails 🌈",
+  message: "You can subscribe to my newsletter below! ",
+  endpoint: subscription.endpoint,
+  p256dh_key: subscription.p256dh_key,
+  auth_key: subscription.auth_key
+)
+```
+
+To trigger the job, we just need to deserialize the user’s subscription and to send them a worthwhile message 😉.
+
 ## Displaying the notification
 
-Because the service worker runs in the background, this is where we need to listen for web push notifications delivered from the Push Server.
+Because the service worker runs in the background, this is where we need to listen for Web Push notifications delivered from the Push Server.
 
 In `app/views/pwa/serviceworker.js.erb`, we can use the service worker API to show notifications when the `'push'` event is received:
 
@@ -468,9 +491,11 @@ After all that setup, we should see a browser notification triggered via the Pus
 
 ## Wrap up
 
-This took quite a bit of setup though not nearly as much as getting [Apple Push Notifications to work in Safari](https://developer.apple.com/notifications/safari-push-notifications/). Things may get easier once Action Notifier is released. Overall, the Web Push API is an interesting step for the web in terms of feature parity with mobile.
+Overall, the Web Push API is an interesting step for the web in terms of feature parity with mobile.
 
-I'd be interested to hear how things are working out for folks integrating web push into their web apps.
+As you can see, Web Push takes quite a bit of setup. Things may get easier once Action Notifier is released. Even when it is released, I think this article will still be relevant to help you understand the key ingredients of what’s required to wire up native push notifications with web technology.
+
+I'd be interested to hear how things are working out for folks integrating Web Push into their web apps.
 
 What do you think?
 
@@ -480,8 +505,10 @@ One more thing—a great resource to learn more about Web Push is the [Pushpad b
 
 If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
 
-Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), [Bluesky](https://bsky.app/profile/rossta.bsky.social), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
 
 Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
 That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it.
+
+![Airplane](articles/web-push-notifications-from-rails/airplane.jpg 'Airplane')
