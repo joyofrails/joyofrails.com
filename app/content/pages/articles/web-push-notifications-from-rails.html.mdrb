@@ -3,7 +3,7 @@ title: Sending Web Push Notifications from Rails
 author: Ross Kaffenberger
 layout: article
 summary: How to deliver desktop notifications from your Rails app
-description: An embedded Web Push demo and deep dive tutorial to set up Web Push notifications for a Ruby on Raimastering-custom-configuration-in-rails/airplanels application in advance of Rails 8 Active Notifier.
+description: An embedded Web Push demo and deep dive recipe for Web Push notifications for a Ruby on Rails application in advance of Rails 8 Action Notifier.
 published: '2024-10-22'
 toc: false
 uuid: 0191e0e2-7991-79b4-978d-439b2679da67
