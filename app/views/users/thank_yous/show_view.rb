@@ -10,7 +10,7 @@ class Users::ThankYous::ShowView < ApplicationView
         description: "Thank you for signing up 😂"
       )
 
-      div(class: "container article-content") do
+      div(class: "section-content container py-gap mb-3xl") do
         p { "Here's what you can do next:" }
         ul(class: "list-disc list-outside px-4") do
           li do
