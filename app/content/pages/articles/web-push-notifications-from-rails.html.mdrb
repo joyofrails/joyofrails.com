@@ -135,8 +135,8 @@ You will need to create and securely store a set of VAPID keys. More on that bel
 Before a Web Push message can be delivered, a few criteria should be satisfied:
 
 1. [Manifest](#the-manifest): A Progressive Web App `manifest.json` file is linked from our page to identify our app settings.
+1. [Service Worker](#register-the-service-worker): In the user’s web browser, a service worker script is installed and activated.
 1. [VAPID](#generating-vapid-keys): You have generated a set of VAPID keys that will be used to sign Push API requests. This is a one-time step (at least until we decide to reset the keys).
-1. [Registration](#register-the-service-worker): In the user’s web browser, a service worker script is installed and activated.
 1. [Permissions](#requesting-notification-permission): The user has enabled permissions to receive notifications from our site.
 1. [Subscription](#subscribing-to-push-notifications): The `pushManager` property of the `ServiceWorkerRegistration` is subscribed to push events with our VAPID public key, with creates a `subscription` JSON object on the client side.
 1. [Trigger](#triggering-a-web-push-notification): Some trigger results in a Web Push notification. The `subscription` obtained from the client is needed to send the Web Push request from Rails.
@@ -226,6 +226,31 @@ class Rails::PwaController < Rails::ApplicationController
 end
 ```
 
+## Register the service worker
+
+In our application javascript we’ll use this following snippet to request registration of a service worker script.
+
+```javascript
+const registerServiceWorker = async () => {
+  if (navigator.serviceWorker) {
+    try {
+      await navigator.serviceWorker.register('/serviceworker.js');
+      console.log('Service worker registered!');
+    } catch (error) {
+      console.error('Error registering service worker: ', error);
+    }
+  }
+};
+
+registerServiceWorker();
+```
+
+The key bit is `navigator.serviceWorker.register('/service-worker.js')`. It returns a
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
+
+We should be able to see the message `'Service worker registered!'` in our browser’s dev tools console when the promise resolves.
+
 ## Generating VAPID keys
 
 To take advantage of the VAPID protocol, we would generate a public/private VAPID key pair to store on our server to be used for all user subscriptions.
@@ -252,31 +277,6 @@ vapid_key.private_key
 The keys returned will both be Base64-encoded byte strings. Only the public key
 will be shared, both with the user’s browser and the push server as we’ll see
 later.
-
-## Register the service worker
-
-In our application javascript we’ll use this following snippet to request registration of a service worker script.
-
-```javascript
-const registerServiceWorker = async () => {
-  if (navigator.serviceWorker) {
-    try {
-      await navigator.serviceWorker.register('/serviceworker.js');
-      console.log('Service worker registered!');
-    } catch (error) {
-      console.error('Error registering service worker: ', error);
-    }
-  }
-};
-
-registerServiceWorker();
-```
-
-The key bit is `navigator.serviceWorker.register('/service-worker.js')`. It returns a
-[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-that, if successful, resolves to an instance of [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
-
-We should be able to see the message `'Service worker registered!'` in our browser’s dev tools console when the promise resolves.
 
 ## Requesting Notification permission
 
