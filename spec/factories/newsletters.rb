@@ -4,7 +4,7 @@ FactoryBot.define do
     content { Faker::Markdown.sandwich(sentences: 3) }
 
     trait :sent do
-      sent_at { |n| n.days.ago }
+      sent_at { rand(100).to_i.days.ago }
     end
   end
 end
