@@ -1,17 +1,20 @@
 <%= render Pages::Header.new(title: "Joy of Rails Newsletter") %>
 <div class="section-content container py-gap mb-3xl">
+  <% if @newsletters.blank? %>
   <div class="only:inherit grid grid-row-mid">
     <h2>No newsletters have been sent yet!</h2>
     <div>
       <p>Coming soon ;)</p>
     </div>
   </div>
-  <% @newsletters.each do |newsletter| %>
-    <div id="dom_id(newsletter)">
-      <h2><%= link_to newsletter.title, newsletter %></h2>
-      <div>
-        <p><%= time_tag newsletter.sent_at.to_date %></p>
+  <% else %>
+    <% @newsletters.each do |newsletter| %>
+      <div id="dom_id(newsletter)">
+        <h2><%= link_to newsletter.title, newsletter %></h2>
+        <div>
+          <p><%= time_tag newsletter.sent_at.to_date %></p>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
