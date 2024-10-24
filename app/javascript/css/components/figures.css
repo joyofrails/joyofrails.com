@@ -1,0 +1,7 @@
+figure {
+  &.img\:bg-joy-color-100 {
+    img {
+      background-color: var(--joy-color-100);
+    }
+  }
+}

@@ -32,13 +32,13 @@ First click the Subscribe button below. You may have also need to accept a brows
 
 <%= render Pwa::WebPushDemo.new %>
 
-(I‘m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.)
+I‘m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.
 
 ## Troubleshooting
 
-Did you see a notification from your operating system matching the message you
-sent? Whether you did or did not, if you‘re interested in sending Web Push
-notifications, then it will be good to know why they might not get delivered.
+If you‘re interested in sending Web Push notifications, then it will be good to know why they might work.
+
+### Browser support
 
 Most web browsers support Web Push notifications (according to [caniuse.com](https://caniuse.com/?search=web%20push)), but let‘s check:
 
@@ -54,19 +54,31 @@ if (window.PushManager) {
 }
 ```
 
-You can also check your Notification settings. ![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg 'Google Chrome Notifications setting from address bar | {"class":"pull-right"}')
+For some browsers, you may need to add the app to your home screen before Web Push notifications can be enabled. You can try that with the Joy of Rails install button:
 
-In Chrome for macOS, for example, you should be able to check your Notification settings for any site from the address bar.
+<%= render Pwa::InstallButton %>
 
-You also might need to check you operating system settings.
+You can use the install button above to either launch the installation prompt in supporting browsers or, at least, view installation instructions for your browser. When the process completes, Joy of Rails will be available a standalone application on your device.
+
+### Browser notification settings
+
+You may have been able to Subscribe to Web Push but you still didn’t get a notification. If you’re in a supported browser, it‘s possible that notifications are disabled in your browser which means when the Web Push event is received the Service Worker won’t be able to trigger a notification. ![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg 'Google Chrome Notifications setting from address bar | {"class":"pull-right"}')
+
+Try checking your Notification settings. This setting can be controlled per origin. In Chrome for macOS, for example, you should be able to check your Notification settings for any site from the address bar.
+
+### System settings
+
+You also might need to check you operating System Settings.
 
 In macOS, for example, you may need to go to the System Settings app and the Notifications settings for your browser: ![System Settings Notifications Chrome](articles/web-push-notifications-from-rails/system-settings-notifications.jpg 'macOS System Settings > Notifications > Google Chrome | {"class":"pull-right row-span-2"}')
 
 System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It‘s easy to forget about this one—ask me how I found that out while testing this article after hours. ![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg 'macOS System Settings > Focus > Do Not Disturb | {"class":"pull-right row-span-2"}')
 
-Please check the settings for your device and browser if you‘re wondering why you didn’t get a notification.
+### Expired Subscriptions
 
 Another reason a Web Push notification fails to deliver could be because your browser‘s Web Push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you‘re coming back to the site after some time. So you could try resubscribing using the buttons above.
+
+### Bug 🐞 ???
 
 Finally, it‘s possible I’ve introduced a regression since the last time I tested, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
 
@@ -78,7 +90,7 @@ There are three parties involved in delivering a push message.
 - Your user
 - A Push Server
 
-When your Rails app determines something is worthy of notifying a subscribed user, it makes an HTTP request to a Push Server endpoint with the user’s Web Push subscription and a message payload. It’s this third party Push Server that actually sends the notification to the user ![Web Push messaging flow](articles/web-push-notifications-from-rails/web-push-flow.svg 'Diagram courtesy of web.dev https://web.dev/articles/push-notifications-web-push-protocol').
+When your Rails app determines something is worthy of notifying a subscribed user, it makes an HTTP request to a Push Server endpoint with the user’s Web Push subscription and a message payload. It’s this third party Push Server that actually sends the notification to the user. ![Web Push messaging flow](articles/web-push-notifications-from-rails/web-push-flow.svg 'Diagram courtesy of web.dev https://web.dev/articles/push-notifications-web-push-protocol | {"class": "img:bg-joy-color-100"}')
 
 One thing developers miss about this Push Server is a third party, which, in most cases, is managed by the big company behind your browser, namely Google, Apple, Mozilla, or Microsoft.
 
@@ -148,9 +160,9 @@ Previously, I wrote about the manifest file in [Add your Rails app to the Home S
 
 Since the Rails 7.2, Rails provides defaults for Progressive Web App manifest JSON and serviceworker JavaScript files ([pull request](https://github.com/rails/rails/pull/50528)).
 
-In your Rails 7.2+ `config/routes.rb` file, make sure you have the following routes added, especially the manifest:
+In your Rails 7.2+ `config/routes.rb` file, make sure you have the following routes added:
 
-```rb:{"filename": "config/routes.rb", "highlight_lines": [4]}
+```rb:{"filename": "config/routes.rb", "highlight_lines": [3, 4]}
 Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
@@ -158,7 +170,7 @@ Rails.application.routes.draw do
 end
 ```
 
-Your application layout should render a `<link>` tag for the manifest file:
+We’ll need to register the manifest with the browser by linking from the HTML document. Your application layout should render a `<link>` tag for the manifest file:
 
 ```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5]}
 <!DOCTYPE html>
@@ -227,6 +239,8 @@ end
 ```
 
 ## Register the service worker
+
+Next, we need to tell the browser where to find our Service Worker file.
 
 In our application javascript we’ll use this following snippet to request registration of a service worker script.
 
