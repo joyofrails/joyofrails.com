@@ -38,7 +38,7 @@ jobs:
 
       - name: Run ERB linter
         run: |
-          bin/erblint --lint-all
+          bin/erb_lint --lint-all
 
       - name: Run Bundler audit
         run: |
