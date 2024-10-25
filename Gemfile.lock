@@ -319,6 +319,7 @@ GEM
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     openssl (3.2.0)
+    ostruct (0.6.0)
     parallel (1.25.1)
     parser (3.3.4.0)
       ast (~> 2.4.1)
@@ -572,6 +573,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
@@ -604,6 +606,7 @@ DEPENDENCIES
   litestream
   meta-tags
   mission_control-jobs
+  ostruct
   phlex (= 2.0.0.beta2)
   phlex-rails (= 2.0.0.beta2)
   postmark-rails
@@ -638,7 +641,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.3.4p94
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.19
