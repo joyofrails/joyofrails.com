@@ -13,4 +13,4 @@ bin/vitest --watch=false
 bundle exec standardrb --fix
 
 # Check erb file formatting
-bundle exec erblint --lint-all
+bundle exec erb_lint --lint-all
