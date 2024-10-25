@@ -1,10 +1,13 @@
 class SiteController < Sitepress::SiteController
-  # render_resource is a helper method provided by Sitepress to render the current resource.
-  # current_resource is the Sitepress::Resource object that represents the current page.
+  # This is the default controller for Sitepress. It is used to render the pages of the site.
+  # We prefer not to override this method but instead use the hooks provided by Sitepress below.
   #
-  def show
-    render_resource current_resource
-  end
+  # render_resource is a helper method provided by Sitepress to render the current resource.
+  # requested_resource is the Sitepress::Resource object that represents the current page.
+  #
+  # def show
+  #   render_resource requeste_resource
+  # end
 
   protected
 

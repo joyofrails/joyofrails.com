@@ -10,7 +10,7 @@ gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Activ
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
 
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
-gem "solid_queue" # A database-backed ActiveJob backend [https://github.com/rails/solid_queue]
+gem "solid_queue", "0.4.0" # A database-backed ActiveJob backend [https://github.com/rails/solid_queue]
 gem "solid_cable" # A database-backed ActionCable backend [https://github.com/rails/solid_cable]
 
 # Asset management
@@ -29,6 +29,7 @@ gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/pos
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
 gem "rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
 gem "addressable" # Addressable is an alternative implementation to URI [https://github.com/sporkmonger/addressable]
+gem "ostruct" # OpenStruct is a data structure, similar to a Hash, that allows the definition of arbitrary attributes with their accompanying values
 
 # Rendering
 gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
