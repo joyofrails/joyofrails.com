@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_25_133648) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_25_223627) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -86,6 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_25_133648) do
     t.string "hostname"
     t.text "metadata"
     t.datetime "created_at", null: false
+    t.string "name"
     t.index ["last_heartbeat_at"], name: "index_solid_queue_processes_on_last_heartbeat_at"
     t.index ["supervisor_id"], name: "index_solid_queue_processes_on_supervisor_id"
   end
