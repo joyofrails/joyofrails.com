@@ -27,7 +27,7 @@ class Users::ThankYous::ShowView < ApplicationView
             strong { link_to("articles", "/articles") }
             whitespace
             plain "I’ve written on Ruby, Rails, and Hotwire."
-            if ArticlePage.published.length < 5
+            if SitepressArticle.published.length < 5
               whitespace
               plain "I’m working on adding some new content, so check back soon!"
             end

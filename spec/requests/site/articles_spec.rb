@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Site: articles" do
-  let(:first_article) { ArticlePage.published.first }
+  let(:first_article) { SitepressArticle.published.first }
 
   # Filter out index.html.erb from article pages before selecting first draft
-  let(:first_draft) { ArticlePage.draft.lazy.filter { |article| article.page.request_path != "/articles" }.first }
+  let(:first_draft) { SitepressArticle.draft.lazy.filter { |article| article.page.request_path != "/articles" }.first }
 
   describe "GET /" do
     it "lists recent published articles" do
