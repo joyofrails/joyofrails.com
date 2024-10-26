@@ -36,24 +36,26 @@ I didn’t know it at the time, but this moment changed my life.
 
 These boxes were full of Legos. Not just any Legos—these were [Lego Mindstorms](https://en.wikipedia.org/wiki/Lego_Mindstorms) kits. Basically Lego Mindstorms was what you’d get if Legos, Scratch, and Arduino made a baby.
 
-_Cool_. I took those boxes. I felt like a kid again. I tore into the tutorials and taught myself just enough to pass on to my students. Later that month, I started an after school club. Later that year, we entered Robotic competitions. It was a lot of fun.
+_Cool_. I accepted Ms. Young’s invitation to take those boxes and use them to spark interest among my students. I felt like a kid again. I tore into the tutorials and taught myself just enough. Soon I started an after school club. Later that year, we entered Robotic competitions. Sometimes we won. It was a lot of fun for the students. For me as well.
 
 I thought I had been given Legos but the real gift was computer programming.
 
-Looking back on these memories and my teaching experience, I remember it has being very challenging—emotionally, mentally, physically. But I also remember all the joy. Helping a student learn brought me so much. How Miguel’s eyes lit up during a demonstration. The way Juana pumped her fist when she balanced a difficult chemistry equation. When our rocket project helped Jerry transform from my worst nightmare and to my biggest supporter.
+Looking back on these memories and my teaching experience, I remember it has being very challenging—emotionally, mentally, physically. But I also remember all the joy. Helping students learn brought me so much it. I can still remember my student Miguel and how his eyes lit up during a Science demonstration (I got a lot of "Bill Nye the Science Guy" comparisons). The way Juana pumped her fist when she balanced a difficult chemistry equation. How our rocket project helped Jerry transform from my worst nightmare to my biggest supporter.
 
-I often say my first day of teaching was also my first day as a programmer. In the [first article for this site](https://joyofrails.com/articles/introducing-joy-of-rails), I talked about the joy I felt when I experienced Ruby on Rails for the first time. Looking back, it seems likely I might never have encountered Ruby or Rails or even started a career in computers had it not been for my humble beginnings as a teacher and Ms. Young’s Lego Mindstorms kits. I may have left teaching for tech, but the teacher in me never left. Teaching and programming for me are inexorably linked.
+I often say my first day of teaching was also my first day as a programmer. In the [first article for this site](https://joyofrails.com/articles/introducing-joy-of-rails), I talked about the joy I felt when I experienced Ruby on Rails for the first time. Looking back, it seems likely I might never have encountered Ruby or Rails or even started a career in computers had it not been for my humble beginnings as a teacher and Ms Young’s Lego Mindstorms kits.
+
+I may have left teaching for tech, but the teacher in me never left. Teaching and programming for me are inexorably linked.
 
 So Joy of Rails is born from that.
 
 ---
 
-My name is Ross Kaffenberger and I’ve been building web applications with Ruby on Rails since 2008—Rails `1.2.0` and Ruby `1.8.6`. I've worked at startups like [LearnZillion](https://learnzillion.com/), [Devpost](https://devpost.com/), and [Weplay](https://github.com/weplay) and public companies like at [Stitch Fix](https://www.stitchfix.com/) and (now) [Cisco Meraki](https://meraki.cisco.com/).
+My name is Ross Kaffenberger and I’ve been building web applications with Ruby on Rails since 2008. My first Rails app was on Rails `1.2.0` and Ruby `1.8.6`. I've worked at startups like [LearnZillion](https://learnzillion.com/), [Devpost](https://devpost.com/), and [Weplay](https://github.com/weplay) and public companies like at [Stitch Fix](https://www.stitchfix.com/) and (now) [Cisco Meraki](https://meraki.cisco.com/).
 
-[I started Joy of Rails](/articles/introducing-joy-of-rails) to teach and demonstrate Ruby on Rails to other programmers like me and you. Joy of Rails highlights concepts, news, notes, and contributions relevant to the broader Ruby on Rails community. The Joy of Rails application is [open sourced on Github](https://github.com/joyofrails/joyofrails.com). Just as a Science lesson isn’t the same without the physical demonstration, Joy of Rails aims to bring programming concepts to life. Like how my [article on custom color schemes](/articles/custom-color-schemes-with-ruby-on-rails) lets you edit the color scheme of this site.
+[I started Joy of Rails](/articles/introducing-joy-of-rails) to teach and demonstrate Ruby on Rails to other programmers like me and you. Joy of Rails highlights concepts, news, notes, and contributions relevant to the broader Ruby on Rails community. The Joy of Rails application is [open source on Github](https://github.com/joyofrails/joyofrails.com). Just as a Science lesson isn’t the same without the physical demonstration, Joy of Rails aims to bring programming concepts to life. Like how my [article on custom color schemes](/articles/custom-color-schemes-with-ruby-on-rails) lets you edit the color scheme of this site.
 
 I’d love for you to look around and let me know what you think.
 
-Free free to reach out on any number of channels. [Send me an email](mailto:ross@joyofrails.com). Connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and [Linkedin](https://www.linkedin.com/in/rosskaffenberger). You can [subscribe](#newsletter-signup) to my newsletter to get notified of new content.
+Free free to reach out on any number of channels. [Send me an email](mailto:ross@joyofrails.com). Connect with me on [Twitter](https://x.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), [Bluesky](https://bsky.app/profile/rossta.bsky.social) and [Linkedin](https://www.linkedin.com/in/rosskaffenberger). You can [subscribe](#newsletter-signup) to my newsletter to get notified of new content.
 
 And of course, enjoy the ride.

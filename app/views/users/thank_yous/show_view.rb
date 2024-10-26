@@ -42,7 +42,7 @@ class Users::ThankYous::ShowView < ApplicationView
           li do
             plain "Connect with me on"
             whitespace
-            link_to("Twitter", "https://twitter.com/rossta", target: "_blank")
+            link_to("Twitter", "https://x.com/rossta", target: "_blank")
             plain ","
             whitespace
             link_to("Mastodon", "https://ruby.social/rossta", target: "_blank")

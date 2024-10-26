@@ -170,6 +170,8 @@ Rails.application.routes.draw do
 end
 ```
 
+(For another example, check out the [joyofrails.com routes](https://github.com/joyofrails/joyofrails.com/blob/4b9b3fad020f59e0e167b977911309272e112108/config/routes.rb#L110-L111).)
+
 We’ll need to register the manifest with the browser by linking from the HTML document. Your application layout should render a `<link>` tag for the manifest file:
 
 ```erb:{"filename": "app/views/layouts/application.html.erb", "highlight_lines": [5]}
@@ -188,6 +190,8 @@ You should also have corresponding files in `app/views/pwa`:
 
 - `manifest.json.erb`
 - `serviceworker.js.erb`
+
+(Check out the joyofrails.com [manifest and serviceworker files here](https://github.com/joyofrails/joyofrails.com/tree/4b9b3fad020f59e0e167b977911309272e112108/app/views/pwa).)
 
 _What if my app isn’t on Rails 7.2?_ That’s ok! If you can’t upgrade now, you can still set up your Rails app similarly. Simply copy the files and routes changes as described here.
 
@@ -238,6 +242,8 @@ class Rails::PwaController < Rails::ApplicationController
 end
 ```
 
+(You can also see the joyofrails.com [PWA controller here](https://github.com/joyofrails/joyofrails.com/blob/4b9b3fad020f59e0e167b977911309272e112108/app/controllers/rails/pwa_controller.rb).)
+
 ## Register the service worker
 
 Next, we need to tell the browser where to find our Service Worker file.
@@ -258,6 +264,8 @@ const registerServiceWorker = async () => {
 
 registerServiceWorker();
 ```
+
+([Here is how the service worker gets registered on joyofrails.com](https://github.com/joyofrails/joyofrails.com/blob/4b9b3fad020f59e0e167b977911309272e112108/app/javascript/initializers/serviceworker-companion.js).)
 
 The key bit is `navigator.serviceWorker.register('/service-worker.js')`. It returns a
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
@@ -503,6 +511,12 @@ The MDN docs are a good resource for more on [service worker `self`](https://dev
 
 After all that setup, we should see a browser notification triggered via the Push API.
 
+## Examples
+
+Want to see an example of how the Web Push subscription JavaScript can be packaged up in a Rails Stimulus controller? Here’s [the source code for how it’s done on joyofrails.com](https://github.com/joyofrails/joyofrails.com/blob/4b9b3fad020f59e0e167b977911309272e112108/app/javascript/controllers/pwa/web-push-subscription.js).
+
+If you purchase Basecamp Campfire, you can peruse the Rails source code as they have also implemented Web Push subscriptions on the frontend as a Stimulus controller, store the subscription data in an ActiveRecord model, and use the `web-push` gem to send notifications in an ActiveJob.
+
 ## Wrap up
 
 Overall, the Web Push API is an interesting step for the web in terms of feature parity with mobile.
@@ -519,7 +533,7 @@ One more thing—a great resource to learn more about Web Push is the [Pushpad b
 
 If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
 
-Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://twitter.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), [Bluesky](https://bsky.app/profile/rossta.bsky.social), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+Did you find a bug or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://x.com/rossta), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), [Bluesky](https://bsky.app/profile/rossta.bsky.social), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
 
 Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
