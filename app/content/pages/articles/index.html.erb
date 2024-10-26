@@ -9,7 +9,7 @@ description: Read the latest articles from Joy of Rails
     description: "Read the latest articles from Joy of Rails"
   ) %>
   <div class="main-content container py-gap">
-    <%= render Pages::List.new(ArticlePage.published(params)) %>
+    <%= render Pages::List.new(SitepressArticle.published(params)) %>
   </div>
 </section>
 <section>

@@ -1,4 +1,4 @@
-class ArticlePage < Sitepress::Model
+class SitepressArticle < Sitepress::Model
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 

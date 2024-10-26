@@ -32,15 +32,15 @@ First click the Subscribe button below. You may have also need to accept a brows
 
 <%= render Pwa::WebPushDemo.new %>
 
-I‘m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.
+I’m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.
 
 ## Troubleshooting
 
-If you‘re interested in sending Web Push notifications, then it will be good to know why they might work.
+If you’re interested in sending Web Push notifications, then it will be good to know why they might work.
 
 ### Browser support
 
-Most web browsers support Web Push notifications (according to [caniuse.com](https://caniuse.com/?search=web%20push)), but let‘s check:
+Most web browsers support Web Push notifications (according to [caniuse.com](https://caniuse.com/?search=web%20push)), but let’s check:
 
 <%= render partial: "pwa/web_pushes/test" %>
 
@@ -62,7 +62,7 @@ You can use the install button above to either launch the installation prompt in
 
 ### Browser notification settings
 
-You may have been able to Subscribe to Web Push but you still didn’t get a notification. If you’re in a supported browser, it‘s possible that notifications are disabled in your browser which means when the Web Push event is received the Service Worker won’t be able to trigger a notification. ![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg 'Google Chrome Notifications setting from address bar | {"class":"pull-right"}')
+You may have been able to Subscribe to Web Push but you still didn’t get a notification. If you’re in a supported browser, it’s possible that notifications are disabled in your browser which means when the Web Push event is received the Service Worker won’t be able to trigger a notification. ![Screenshot](articles/web-push-notifications-from-rails/chrome-macos-notifications-permissions.jpg 'Google Chrome Notifications setting from address bar | {"class":"pull-right"}')
 
 Try checking your Notification settings. This setting can be controlled per origin. In Chrome for macOS, for example, you should be able to check your Notification settings for any site from the address bar.
 
@@ -72,15 +72,15 @@ You also might need to check you operating System Settings.
 
 In macOS, for example, you may need to go to the System Settings app and the Notifications settings for your browser: ![System Settings Notifications Chrome](articles/web-push-notifications-from-rails/system-settings-notifications.jpg 'macOS System Settings > Notifications > Google Chrome | {"class":"pull-right row-span-2"}')
 
-System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It‘s easy to forget about this one—ask me how I found that out while testing this article after hours. ![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg 'macOS System Settings > Focus > Do Not Disturb | {"class":"pull-right row-span-2"}')
+System Settings on macOS also has a Focus tab with a Do Not Disturb feature. It’s easy to forget about this one—ask me how I found that out while testing this article after hours. ![System Settings Focus Do Not Disturb](articles/web-push-notifications-from-rails/system-settings-focus-do-no-disturb.jpg 'macOS System Settings > Focus > Do Not Disturb | {"class":"pull-right row-span-2"}')
 
 ### Expired Subscriptions
 
-Another reason a Web Push notification fails to deliver could be because your browser‘s Web Push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you‘re coming back to the site after some time. So you could try resubscribing using the buttons above.
+Another reason a Web Push notification fails to deliver could be because your browser’s Web Push subscription to this site has gone stale. This may be unlikely if this is the first time visiting the site, but the likelihood increases especially if you’re coming back to the site after some time. So you could try resubscribing using the buttons above.
 
 ### Bug 🐞 ???
 
-Finally, it‘s possible I’ve introduced a regression since the last time I tested, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
+Finally, it’s possible I’ve introduced a regression since the last time I tested, so you could check your web browser’s dev tools for JavaScript errors. Feel free to [report an issue on GitHub](https://github.com/joyofrails/joyofrails.com/issues) with supporting information if you think there’s a bug.
 
 ## How does it work?
 
@@ -156,7 +156,7 @@ Before a Web Push message can be delivered, a few criteria should be satisfied:
 
 ## The Manifest
 
-Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](articles/add-your-rails-app-to-the-home-screen). I‘ve provided a quick recap below.
+Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](/articles/add-your-rails-app-to-the-home-screen). I’ve provided a quick recap below.
 
 Since the Rails 7.2, Rails provides defaults for Progressive Web App manifest JSON and serviceworker JavaScript files ([pull request](https://github.com/rails/rails/pull/50528)).
 
@@ -189,7 +189,7 @@ You should also have corresponding files in `app/views/pwa`:
 - `manifest.json.erb`
 - `serviceworker.js.erb`
 
-_What if my app isn’t on Rails 7.2?_ That‘s ok! If you can’t upgrade now, you can still set up your Rails app similarly. Simply copy the files and routes changes as described here.
+_What if my app isn’t on Rails 7.2?_ That’s ok! If you can’t upgrade now, you can still set up your Rails app similarly. Simply copy the files and routes changes as described here.
 
 For a newly generated Rails 7.2 application, this is what you’ll see in `manifest.json.erb`:
 
