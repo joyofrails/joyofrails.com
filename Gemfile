@@ -10,7 +10,7 @@ gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Activ
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
 
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
-gem "solid_queue", "0.7.0" # A database-backed ActiveJob backend [https://github.com/rails/solid_queue]
+gem "solid_queue", "0.9.0" # A database-backed ActiveJob backend [https://github.com/rails/solid_queue]
 gem "solid_cable" # A database-backed ActionCable backend [https://github.com/rails/solid_cable]
 
 # Asset management
