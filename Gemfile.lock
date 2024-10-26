@@ -503,7 +503,7 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (0.9.0)
+    solid_queue (1.0.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
       concurrent-ruby (>= 1.3.1)
@@ -638,7 +638,7 @@ DEPENDENCIES
   sitepress-rails
   solid_cable
   solid_cache
-  solid_queue (= 0.9.0)
+  solid_queue
   sqlite-ulid
   sqlite3
   standard
