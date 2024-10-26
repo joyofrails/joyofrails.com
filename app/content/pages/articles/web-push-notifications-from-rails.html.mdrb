@@ -156,7 +156,7 @@ Before a Web Push message can be delivered, a few criteria should be satisfied:
 
 ## The Manifest
 
-Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](articles/add-your-rails-app-to-the-home-screen). I’ve provided a quick recap below.
+Previously, I wrote about the manifest file in [Add your Rails app to the Home Screen - the Ultimate Guide](/articles/add-your-rails-app-to-the-home-screen). I’ve provided a quick recap below.
 
 Since the Rails 7.2, Rails provides defaults for Progressive Web App manifest JSON and serviceworker JavaScript files ([pull request](https://github.com/rails/rails/pull/50528)).
 
