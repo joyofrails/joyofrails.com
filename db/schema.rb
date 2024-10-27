@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_20_143851) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_27_033302) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -163,6 +163,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_20_143851) do
     t.datetime "processed_at"
     t.index ["notification_event_id"], name: "index_notifications_on_notification_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "request_path", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_path"], name: "index_pages_on_request_path", unique: true
   end
 
   create_table "snippets", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
