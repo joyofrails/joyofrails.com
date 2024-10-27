@@ -12,7 +12,8 @@ tags:
   - Rails
 ---
 
-<% @color_scheme_blue_chill = ColorScheme.find_by(name: 'Custom Blue Chill') || ColorScheme.last %>
+<% @color_scheme_blue_chill = ColorScheme.find_by(name: 'Custom Blue Chill') || ColorScheme.cached_default %>
+<% @color_scheme ||= ColorScheme.cached_default %>
 
 Let‘s talk about how to render CSS dynamically with Ruby on Rails.
 
