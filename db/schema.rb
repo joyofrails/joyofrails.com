@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_27_033302) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_27_034443) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -200,4 +200,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_27_033302) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "email_exchanges", "users"
   add_foreign_key "notifications", "notification_events"
+
+  # Virtual tables defined in this database.
+  # Note that virtual tables may not work with other database engines. Be careful if changing database.
+  create_virtual_table "pages_search_index", "fts5", ["title", "body", "content_rowid=id"]
 end
