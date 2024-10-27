@@ -74,3 +74,6 @@ spec/failures.txt
 /coverage
 
 .rspec
+
+# Ignore sqlpkg installation directory
+/.sqlpkg
