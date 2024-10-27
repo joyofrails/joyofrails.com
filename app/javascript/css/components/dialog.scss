@@ -3,7 +3,6 @@
 dialog {
   width: 100%;
   border: none;
-  margin: auto;
   animation: dialog-popup 0.25s ease-in-out;
   transform: translateY(0px);
 
@@ -22,6 +21,10 @@ dialog {
   header,
   footer {
     background-color: inherit;
+  }
+
+  input[type='search'] {
+    border: 0;
   }
 }
 
