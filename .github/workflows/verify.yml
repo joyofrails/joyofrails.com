@@ -28,9 +28,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Run Ruby linter
         run: |
@@ -75,9 +79,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Setup test database
         env:
@@ -120,9 +128,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Run local setup script
         env:
@@ -159,9 +171,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Run JavaScript unit tests
         run: |
@@ -195,9 +211,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Make sure assets compile
         run: |
@@ -235,9 +255,13 @@ jobs:
         run: |
           node --version
 
-      - name: Install packages
+      - name: Install npm packages
         run: |
           npm ci
+
+      - name: Install sqlite extensions
+        run: |
+          bin/sqlpkg install
 
       - name: Start Rails server in the background
         run: |

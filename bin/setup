@@ -21,6 +21,9 @@ FileUtils.chdir APP_ROOT do
   # Install JavaScript dependencies
   system("npm ls > /dev/null 2>&1") || system!("npm install")
 
+  # Install SQLite extensions
+  system!("bin/sqlpkg install")
+
   puts "\n== Copying sample files =="
   unless File.exist?(".env")
     FileUtils.cp ".env.example", ".env"

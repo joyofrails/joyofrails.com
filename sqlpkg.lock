@@ -1,0 +1,19 @@
+{
+    "packages": {
+        "asg017/ulid": {
+            "owner": "asg017",
+            "name": "ulid",
+            "version": "v0.2.1",
+            "specfile": "https://github.com/nalgeon/sqlpkg/raw/main/pkg/asg017/ulid.json",
+            "assets": {
+                "path": "https://github.com/asg017/sqlite-ulid/releases/download/v0.2.1",
+                "files": {
+                    "darwin-amd64": "sqlite-ulid-v0.2.1-loadable-macos-x86_64.tar.gz",
+                    "darwin-arm64": "sqlite-ulid-v0.2.1-loadable-macos-aarch64.tar.gz",
+                    "linux-amd64": "sqlite-ulid-v0.2.1-loadable-linux-x86_64.tar.gz",
+                    "windows-amd64": "sqlite-ulid-v0.2.1-loadable-windows-x86_64.zip"
+                }
+            }
+        }
+    }
+}
