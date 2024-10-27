@@ -8,6 +8,11 @@ class Page < ApplicationRecord
     find_each(&:update_in_search_index)
   end
 
+  def self.search(query)
+    joins("JOIN pages_search_index ON pages.id = pages_search_index.page_id")
+      .where("pages_search_index MATCH ?", query)
+  end
+
   def title
     resource.data.title
   end
