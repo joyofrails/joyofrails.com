@@ -43,7 +43,7 @@ module Users
                 plain current_user.name
               end
 
-              render Dialog::Layout.new(id: "user-account-dialog", "aria-labelledby": "user-account-title", class: "max-w-lg") do |dialog|
+              render Dialog::Layout.new(id: "user-account-dialog", "aria-labelledby": "user-account-title", class: "max-w-lg p-xl m-auto") do |dialog|
                 dialog.header do
                   dialog.close_button
                   dialog.feature_img src: avatar_url_for(current_user, size: 80), class: "rounded-full"
