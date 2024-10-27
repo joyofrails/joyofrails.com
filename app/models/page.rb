@@ -21,7 +21,7 @@ class Page < ApplicationRecord
   end
 
   def body_text
-    Sanitize.clean(body_html).squish
+    Nokogiri::HTML(body_html).text.squish
   end
 
   def resource
