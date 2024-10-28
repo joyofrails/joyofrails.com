@@ -5,5 +5,7 @@ class SearchesController < ApplicationController
     else
       Page.limit(3)
     end
+
+    render Searches::ShowView.new(pages: @pages)
   end
 end
