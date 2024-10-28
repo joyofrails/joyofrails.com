@@ -28,6 +28,12 @@ dialog {
   }
 }
 
+#search-dialog {
+  & .selected {
+    background-color: var(--joy-button-secondary);
+  }
+}
+
 @keyframes dialog-popup {
   0% {
     transform: translateY(-30px);
