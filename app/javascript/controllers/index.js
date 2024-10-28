@@ -8,6 +8,7 @@ import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import Flash from './flash';
 import ModalOpener from './modal-opener';
+import Combolist from './combolist';
 
 import Dialog from './dialog';
 
@@ -33,6 +34,7 @@ application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('flash', Flash);
 application.register('dialog', Dialog);
+application.register('combolist', Combolist);
 
 application.register('pwa-installation', PwaInstallation);
 application.register('pwa-web-push-subscription', PwaWebPushSubscription);

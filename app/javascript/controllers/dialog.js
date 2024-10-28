@@ -23,7 +23,6 @@ export default class extends Controller {
 
   disconnect() {
     console.log('Disconnecting...');
-    this.unobserve();
   }
 
   isOpen() {
