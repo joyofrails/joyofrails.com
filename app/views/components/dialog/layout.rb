@@ -9,13 +9,13 @@ module Dialog
     end
 
     def view_template(&)
-      dialog(**mix(attributes, class: "rounded-lg drop-shadow-xl p-xl")) do
+      dialog(**mix(attributes, class: "rounded-lg drop-shadow-xl")) do
         div(class: "flex min-h-full flex-col justify-center relative grid-gap", &)
       end
     end
 
     def header(&)
-      super(class: "w-full max-w-sm text-theme", &)
+      super(class: "w-full text-theme", &)
     end
 
     def feature_img(**attributes)
@@ -27,7 +27,7 @@ module Dialog
     end
 
     def body(&)
-      div(class: "w-full max-w-sm", &)
+      div(class: "w-full", &)
     end
 
     def close_button

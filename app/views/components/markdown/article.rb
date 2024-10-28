@@ -8,6 +8,7 @@ class Markdown::Article < Markdown::Application
       a(href: "##{anchor}", class: ["anchor-link not-prose"]) do
         anchor_svg
         span(class: "sr-only") { "Link to heading" }
+        whitespace
       end
       plain content
     end

@@ -89,19 +89,9 @@
   margin: 0.75rem;
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .my-32 {
   margin-top: 8rem;
   margin-bottom: 8rem;
-}
-
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 .-mt-16 {
@@ -200,6 +190,20 @@
   margin-block-end: 1rem;
 }
 
+.m-auto {
+  margin: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .block {
   display: block;
 }
@@ -284,6 +288,10 @@
   width: 24px;
 }
 
+.w-\[32px\] {
+  width: 32px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -302,6 +310,18 @@
 
 .max-w-screen-lg {
   max-width: 1024px;
+}
+
+.max-w-sm {
+  max-width: 24rem;
+}
+
+.max-w-lg {
+  max-width: 32rem;
+}
+
+.max-w-xl {
+  max-width: 40rem;
 }
 
 .flex-1 {
@@ -654,6 +674,10 @@
   padding-bottom: 0.5rem;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .pl-2 {
   padding-left: 0.5rem;
 }
@@ -668,6 +692,10 @@
 
 .pt-16 {
   padding-top: 4rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .pt-6 {
@@ -979,14 +1007,6 @@ focus\:ring-0:focus {
 
 .text-right {
   text-align: right;
-}
-
-.max-w-sm {
-  max-width: 24rem;
-}
-
-.max-w-lg {
-  max-width: 32rem;
 }
 
 .list-disc {

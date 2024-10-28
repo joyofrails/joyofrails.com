@@ -12,6 +12,8 @@ tags:
   - Rails
 ---
 
+<% @color_scheme ||= ColorScheme.cached_default %>
+
 This blog post uses Rails and Hotwire to let you edit the color scheme of this site, [Joy of Rails](/).
 
 Give it a try.
