@@ -2,8 +2,16 @@ require "rails_helper"
 
 RSpec.describe "Searches", type: :request do
   describe "GET show" do
-    it "renders no results when pages not indexed" do
+    it "renders empty without search query" do
       get search_path
+
+      expect(response).to have_http_status(:success)
+
+      expect(page).not_to have_content("No results")
+    end
+
+    it "renders No results feedback when query is long enough" do
+      get search_path, params: {query: "Pro"}
 
       expect(response).to have_http_status(:success)
 
