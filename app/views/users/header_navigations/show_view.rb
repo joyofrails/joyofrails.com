@@ -34,16 +34,26 @@ module Users
                 href: "#",
                 class: "button ghost outline",
                 data: {
-                  controller: "modal",
-                  action: "modal#show",
-                  "modal-dialog-param": "user-account-dialog"
+                  controller: "modal-opener",
+                  action: "modal-opener#open",
+                  "modal-opener-dialog-param": "user-account-dialog"
                 }
               ) do
                 img src: avatar_url_for(current_user), class: "rounded-full mr-2"
                 plain current_user.name
               end
 
-              render Dialog::Layout.new(id: "user-account-dialog", "aria-labelledby": "user-account-title", class: "max-w-lg p-xl m-auto") do |dialog|
+              render Dialog::Layout.new(
+                id: "user-account-dialog",
+                "aria-labelledby": "user-account-title",
+                class: "max-w-lg p-xl m-auto",
+                data: {
+                  controller: "dialog",
+                  action: "
+                    click->dialog#tryClose
+                  "
+                }
+              ) do |dialog|
                 dialog.header do
                   dialog.close_button
                   dialog.feature_img src: avatar_url_for(current_user, size: 80), class: "rounded-full"

@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-import { debug } from '../../utils';
+import { debug } from '../utils';
 
 const console = debug('app:javascript:controllers:search:dialog');
 
@@ -42,9 +42,9 @@ export default class extends Controller {
 
   tryClose(event) {
     const dialog = this.element;
-    const clickIsOutsideDialog = !dialog.contains(event.target);
+    const clickIsOutsideDialog = !isEventClickInsideElement(event, dialog);
 
-    if (!isEventClickInsideElement(event, dialog)) {
+    if (clickIsOutsideDialog) {
       this.close();
     }
   }

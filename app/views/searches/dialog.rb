@@ -11,34 +11,34 @@ module Searches
         "aria-label": "Search",
         class: "max-w-xl p-2 mt-32 mx-auto",
         data: {
-          controller: "search-dialog",
+          controller: "dialog",
           action: "
-            keydown.meta+k@window->search-dialog#open
-            click->search-dialog#tryClose
+            keydown.meta+k@window->dialog#open
+            click->dialog#tryClose
           "
         }
       ) do |dialog|
         dialog.body do
-          form_with url: "search_path",
+          form_with url: search_path,
             method: :get,
             data: {
-              controller: "autosubmit",
+              controller: "autosubmit-form",
               autosubmit_delay_value: 300,
               turbo_frame: :search
             } do |f|
-            div(class: "flex items-start flex-row md:items-center") do
+            div(class: "flex items-center flex-row px-2") do
               svg_tag "icons/search.svg", class: "w-[32px] fill-current text-theme"
               whitespace
               plain f.search_field :query,
                 autofocus: true,
                 data: {
-                  action: "autosubmit#submit"
+                  action: "autosubmit-form#submit"
                 },
                 class: "w-full step-1"
             end
           end
 
-          # turbo_frame_tag :search, loading: :lazy, src: "search_path"
+          turbo_frame_tag :search
         end
       end
     end

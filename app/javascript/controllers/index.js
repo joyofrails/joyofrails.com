@@ -7,9 +7,9 @@ import { application } from './application';
 import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import Flash from './flash';
-import Modal from './modal';
+import ModalOpener from './modal-opener';
 
-import SearchDialog from './search/dialog';
+import Dialog from './dialog';
 
 import PwaInstallation from './pwa/installation';
 import PwaWebPushSubscription from './pwa/web-push-subscription';
@@ -19,6 +19,7 @@ import AnalyticsCustomEvent from './analytics/custom-event';
 import TableOfContents from './table-of-contents';
 
 import FrameForm from './forms/frame';
+import AutosubmitForm from './forms/autosubmit';
 import SyntaxHighlightPreview from './syntax-highlight/preview';
 
 import SnippetPreview from './snippets/preview';
@@ -26,19 +27,20 @@ import SnippetEditor from './snippets/editor';
 import SnippetScreenshot from './snippets/screenshot';
 import SnippetTweet from './snippets/tweet';
 
-application.register('modal', Modal);
+application.register('modal-opener', ModalOpener);
 application.register('analytics', AnalyticsCustomEvent);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('flash', Flash);
+application.register('dialog', Dialog);
 
-application.register('search-dialog', SearchDialog);
 application.register('pwa-installation', PwaInstallation);
 application.register('pwa-web-push-subscription', PwaWebPushSubscription);
 application.register('pwa-web-push-demo', PwaWebPushDemo);
 application.register('table-of-contents', TableOfContents);
 
 application.register('frame-form', FrameForm);
+application.register('autosubmit-form', AutosubmitForm);
 application.register('syntax-highlight-preview', SyntaxHighlightPreview);
 
 application.register('snippet-preview', SnippetPreview);

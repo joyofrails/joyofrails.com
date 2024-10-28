@@ -1,21 +1,23 @@
-<%= turbo_frame_tag :search do %>
-  <div class="p-4">
-    <% if @pages.any? %>
-      <ul class="grid grid-row-2xs">
-        <% @pages.each do |post| %>
-          <li>
-            <%= link_to post.title, post.request_path, data: { turbo_frame: "_top" } %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="pb-2">No results 😬 </p>
-      <p class="pb-2 step--2">
-        Search function is new, bear with me 🧸.
-      </p>
-      <p class="step--2">
-        Please <a href="/contact">reach out</a> if you’d like to see me address a new topic.
-      </p>
-    <% end %>
-  </div>
-<% end %>
+<div class="section-content container py-gap mb-3xl">
+  <%= turbo_frame_tag :search do %>
+    <div class="p-4">
+      <% if @pages.any? %>
+        <ul class="grid grid-row-2xs">
+          <% @pages.each do |post| %>
+            <li>
+              <%= link_to post.title, post.request_path, data: { turbo_frame: "_top" } %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="pb-2">No results 😬 </p>
+        <p class="pb-2 step--2">
+          Search function is new, bear with me 🧸.
+        </p>
+        <p class="step--2">
+          Please <a href="/contact">reach out</a> if you’d like to see me address a new topic.
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

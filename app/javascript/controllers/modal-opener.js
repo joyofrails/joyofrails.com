@@ -2,15 +2,15 @@ import { Controller } from '@hotwired/stimulus';
 
 import { debug } from '../utils';
 
-const console = debug('app:javascript:controllers:modal');
+const console = debug('app:javascript:controllers:modal-opener');
 
 // Connects to data-controller="modal"
 export default class extends Controller {
   connect() {
-    console.log('Modal controller connected!');
+    console.log('Connect');
   }
 
-  show(event) {
+  open(event) {
     event.preventDefault();
     console.log('Show modal dialog: ', event.params);
 
