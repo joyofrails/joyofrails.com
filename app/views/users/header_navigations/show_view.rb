@@ -39,8 +39,8 @@ module Users
                   "modal-opener-dialog-param": "user-account-dialog"
                 }
               ) do
-                img src: avatar_url_for(current_user), class: "rounded-full mr-2"
-                plain current_user.name
+                img src: avatar_url_for(current_user), class: "rounded-full md:mr-2"
+                span(class: "hidden md:inline") { current_user.name }
               end
 
               render Dialog::Layout.new(

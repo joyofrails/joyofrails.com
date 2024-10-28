@@ -96,6 +96,10 @@ main > *,
   column-gap: var(--space-m);
 }
 
+.col-gap-3xs {
+  column-gap: var(--space-3xs);
+}
+
 @media screen and (min-width: $screen-lg) {
   .article-content > *,
   .grid-content > * {

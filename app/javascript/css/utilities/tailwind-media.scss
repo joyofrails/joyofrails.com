@@ -23,8 +23,15 @@
 }
 
 @media screen and (min-width: $screen-md) {
+  .md\:inline {
+    display: inline;
+  }
+
   .md\:mt-3 {
     margin-top: 0.75rem;
+  }
+  .md\:mr-2 {
+    margin-right: 0.5rem;
   }
   .md\:mr-4 {
     margin-right: 1rem;

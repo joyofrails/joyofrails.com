@@ -7,8 +7,8 @@ module SiteHeader
     def view_template
       header aria: {label: "header"} do
         div(class: "site-header container") do
-          nav(class: "p-2") do
-            a href: root_path, class: "logo" do
+          nav do
+            a href: root_path, class: "logo", style: "margin-left: -0.75rem;" do
               svg_tag "joy-logo.svg", class: "fill-current"
               span { "Joy of Rails" }
             end
