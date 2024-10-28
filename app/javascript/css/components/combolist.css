@@ -1,0 +1,11 @@
+.combolist {
+  & ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & .selected {
+    background-color: var(--joy-button-secondary);
+  }
+}
