@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
-import { debug } from '../utils';
+import { debug } from '../../utils';
 
-const console = debug('app:javascript:controllers:combolist');
+const console = debug('app:javascript:controllers:searches:combobox');
 
 const cancel = (event) => {
   event.stopPropagation();

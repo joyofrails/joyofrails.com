@@ -1,10 +1,11 @@
-.combolist {
+.combobox {
   & ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
 
+  & a:hover,
   & .selected {
     background-color: var(--joy-button-secondary);
   }
