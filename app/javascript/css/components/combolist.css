@@ -5,6 +5,7 @@
     margin: 0;
   }
 
+  & a:hover,
   & .selected {
     background-color: var(--joy-button-secondary);
   }
