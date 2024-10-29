@@ -3,10 +3,15 @@ module Searches
     include Phlex::Rails::Helpers::FormWith
     include PhlexConcerns::SvgTag
 
-    attr_reader :query
+    attr_reader :query, :aria
 
-    def initialize(query: nil)
+    def initialize(query: nil, aria: {})
       @query = query
+      @aria = {
+        expanded: false,
+        autocomplete: "off",
+        controls: "search-results"
+      }.merge(aria)
     end
 
     def view_template(&)
@@ -23,6 +28,7 @@ module Searches
           plain f.search_field :query,
             value: query,
             autofocus: true,
+            aria: aria,
             data: {
               action: "autosubmit-form#submit"
             },
