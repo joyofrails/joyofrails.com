@@ -16,19 +16,7 @@ module Searches
         }
       ) do |dialog|
         dialog.body do
-          div(
-            class: "combolist",
-            data: {
-              controller: "combolist",
-              action: "
-                keydown->combolist#navigate
-              "
-            }
-          ) do
-            render Searches::Form.new
-
-            turbo_frame_tag :search
-          end
+          render Searches::Combobox.new
         end
       end
     end

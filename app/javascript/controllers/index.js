@@ -8,7 +8,6 @@ import ClipboardCopy from './clipboard-copy';
 import Darkmode from './darkmode';
 import Flash from './flash';
 import ModalOpener from './modal-opener';
-import Combolist from './combolist';
 
 import Dialog from './dialog';
 
@@ -28,13 +27,14 @@ import SnippetEditor from './snippets/editor';
 import SnippetScreenshot from './snippets/screenshot';
 import SnippetTweet from './snippets/tweet';
 
+import SearchCombobox from './searches/combobox';
+
 application.register('modal-opener', ModalOpener);
 application.register('analytics', AnalyticsCustomEvent);
 application.register('clipboard-copy', ClipboardCopy);
 application.register('darkmode', Darkmode);
 application.register('flash', Flash);
 application.register('dialog', Dialog);
-application.register('combolist', Combolist);
 
 application.register('pwa-installation', PwaInstallation);
 application.register('pwa-web-push-subscription', PwaWebPushSubscription);
@@ -49,3 +49,5 @@ application.register('snippet-preview', SnippetPreview);
 application.register('snippet-editor', SnippetEditor);
 application.register('snippet-screenshot', SnippetScreenshot);
 application.register('snippet-tweet', SnippetTweet);
+
+application.register('search-combobox', SearchCombobox);
