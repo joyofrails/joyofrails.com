@@ -337,6 +337,7 @@ GEM
     parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
+    parslet (2.0.0)
     phlex (2.0.0.beta2)
     phlex-rails (2.0.0.beta2)
       phlex (= 2.0.0.beta2)
@@ -621,6 +622,7 @@ DEPENDENCIES
   meta-tags
   mission_control-jobs
   ostruct
+  parslet
   phlex (= 2.0.0.beta2)
   phlex-rails (= 2.0.0.beta2)
   postmark-rails
