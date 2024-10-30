@@ -1,23 +1,25 @@
 module Searches
   class QueryParser < Parslet::Parser
-    rule(:term) { match(%([^\s"'])).repeat(1).as(:term) }
-
-    rule(:clause) { (operator.maybe >> (phrase | term)).as(:clause) }
-    rule(:phrase) do
-      (
-        (squote >> (term >> space.maybe).repeat >> squote) |
-        (dquote >> (term >> space.maybe).repeat >> dquote)
-      ).as(:phrase)
-    end
-
     rule(:dquote) { str(%(")) }
     rule(:squote) { str(%(')) }
-    rule(:operator) { (str("+") | str("-")).as(:operator) }
 
     rule(:space) { match('\s').repeat(1) }
     rule(:space?) { space.maybe }
 
-    rule(:query) { (clause >> space?).repeat.as(:query) }
+    rule(:operator) { (str("+") | str("-") | str("|")).as(:operator) >> space? }
+    rule(:term) { match[%(a-zA-Z0-9_)].repeat(1).as(:term) >> space? }
+    rule(:phrase) do
+      (
+        (squote >> (term >> space?).repeat >> squote) |
+        (dquote >> (term >> space?).repeat >> dquote)
+      ).as(:phrase) >> space?
+    end
+
+    rule(:condition) { (token.as(:left) >> operator >> expression.as(:right)).as(:condition) }
+    rule(:token) { phrase | term }
+    rule(:expression) { condition | token }
+
+    rule(:query) { expression.repeat.as(:query) }
     root(:query)
   end
 end

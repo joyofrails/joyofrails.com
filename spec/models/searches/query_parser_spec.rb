@@ -3,57 +3,72 @@ require "rails_helper"
 RSpec.describe Searches::QueryParser do
   subject(:parser) { described_class.new }
 
-  it "can parse a simple query" do
-    parse_tree = parser.parse("hello parslet")
-
-    expect(parse_tree[:query]).to match([
-      {clause: {term: kind_of(Parslet::Slice)}},
-      {clause: {term: kind_of(Parslet::Slice)}}
-    ])
+  def parse_query(query)
+    ast = parser.parse(query)
+    puts ast if ENV["DEBUG"]
+    ast
+  rescue Parslet::ParseFailed => error
+    puts error.parse_failure_cause.ascii_tree
+    raise error
   end
 
-  it "ignores punctuation characters" do
-    parse_tree = parser.parse("hello, parslet")
+  it "can parse a simple query" do
+    parse_tree = parse_query("hello parslet")
 
-    expect(parse_tree[:query]).to match([
-      {clause: {term: kind_of(Parslet::Slice)}},
-      {clause: {term: kind_of(Parslet::Slice)}}
-    ])
+    expect(parse_tree[:query].flat_map(&:keys)).to eq([:term, :term])
   end
 
   it "parses boolean operators" do
-    expect(parser.parse("the +cat in the -hat")[:query]).to match([
-      {clause: {term: kind_of(Parslet::Slice)}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}},
-      {clause: {term: kind_of(Parslet::Slice)}},
-      {clause: {term: kind_of(Parslet::Slice)}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}}
+    expect(parse_query(%(the + cat | "the hat"))[:query]).to match([
+      hash_including(
+        condition: hash_including(
+          :operator,                          # +
+          left: hash_including(:term),        # the
+          right: hash_including(
+            condition: hash_including(
+              :operator,                      # |
+              left: hash_including(:term),    # cat
+              right: hash_including(:phrase)  # "the hat"
+            )
+          )
+        )
+      )
     ])
   end
 
-  it "parses phrases" do
-    expect(parser.parse(%("cat in the hat" -green +ham))[:query]).to match([
-      {clause: {phrase: [
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)}
-      ]}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}}
+  it "parses double quoted phrases with logic" do
+    expect(parse_query(%("cat in the hat" -green +ham))[:query]).to match([
+      hash_including(
+        condition: hash_including(
+          :operator,
+          left: hash_including(:phrase),
+          right: hash_including(
+            condition: hash_including(
+              :operator,
+              left: hash_including(:term),
+              right: hash_including(:term)
+            )
+          )
+        )
+      )
     ])
   end
 
-  it "parses phrases" do
-    expect(parser.parse(%('cat in the hat' -green +ham))[:query]).to match([
-      {clause: {phrase: [
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)},
-        {term: kind_of(Parslet::Slice)}
-      ]}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}},
-      {clause: {operator: kind_of(Parslet::Slice), term: kind_of(Parslet::Slice)}}
+  it "parses single quoted phrases with logic" do
+    expect(parse_query(%('cat in the hat' -green +ham))[:query]).to match([
+      hash_including(
+        condition: hash_including(
+          :operator,
+          left: hash_including(:phrase),
+          right: hash_including(
+            condition: hash_including(
+              :operator,
+              left: hash_including(:term),
+              right: hash_including(:term)
+            )
+          )
+        )
+      )
     ])
   end
 end
