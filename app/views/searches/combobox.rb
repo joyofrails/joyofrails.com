@@ -65,16 +65,18 @@ module Searches
                 end
               end
             elsif query && query.length > 2
-              p(class: "pb-2") { "No results 😬" }
-              p(class: "pb-2 step--2") do
-                "Search function is new, bear with me 🧸."
-              end
-              p(class: "step--2") do
-                plain "Please"
-                whitespace
-                a(href: "/contact") { "reach out" }
-                whitespace
-                plain "if you’d like to see me address an unlisted topic."
+              div(class: "p-2") do
+                p(class: "pb-2") { "No results 😬" }
+                p(class: "pb-2 step--2") do
+                  "Search function is new, bear with me 🧸."
+                end
+                p(class: "step--2") do
+                  plain "Please"
+                  whitespace
+                  a(href: "/contact") { "reach out" }
+                  whitespace
+                  plain "if you’d like to see me address an unlisted topic."
+                end
               end
             end
           end
