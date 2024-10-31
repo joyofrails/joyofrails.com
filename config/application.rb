@@ -56,5 +56,7 @@ module Joy
     if ENV["RAILS_LOG_TO_STDOUT"] == "true"
       config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout))
     end
+
+    config.active_support.to_time_preserves_timezone = :zone
   end
 end

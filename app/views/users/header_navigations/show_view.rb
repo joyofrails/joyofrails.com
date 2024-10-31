@@ -124,7 +124,7 @@ module Users
         div(class: "grid grid-gap rounded-lg joy-border-quiet") do
           div(class: "group relative flex items-center gap-x-6 p-4 leading-6 hover:bg-gray-50") do
             div(class: "flex-auto") do
-              p(class: "block font-semibold text-gray-900") do
+              p(class: "block font-semibold") do
                 plain current_user.name
               end
               p(class: "mt-1 text-gray-600") do

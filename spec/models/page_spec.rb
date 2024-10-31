@@ -22,12 +22,6 @@ RSpec.describe Page, type: :model do
       expect(Page.search("Joy of Rails")).to include page
     end
 
-    it "ignores special characters in the query" do
-      page = Page.find_or_create_by!(request_path: "/")
-
-      expect(Page.search("Joy\"&^ of Rails")).to include page
-    end
-
     it "works after rebuilding index" do
       page = Page.find_or_create_by!(request_path: "/")
 

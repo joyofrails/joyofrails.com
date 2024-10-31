@@ -1,0 +1,41 @@
+Search the Joy of Rails archives.
+
+### Usage
+
+Type search text into the Search box above.
+
+On all other pages on the site, click the Search icon in the top nav or type `cmd+k` (macos) / `Windows+k` (windows) to open the Search dialog.
+
+![Screenshot of search dialog](https://github.com/user-attachments/assets/7ee482bf-3f56-4750-bf38-31832923bb65)
+
+### Syntax
+
+The Search input supports a bare text search:
+
+```sh:{"header":false}
+Ruby on Rails  # => Search for any of the three tokens
+```
+
+Quotes help group terms into phrases:
+
+```sh:{"header":false}
+"Ruby Rails" "Laravel PHP"  # => Search for any of the two phrases
+```
+
+The symbols `+`, `-`, and `|` are used to perform `AND`, `NOT`, and `OR` operations respectively with left-to-right precedence.
+
+```sh:{"header":false}
+Phlex + ERB # => Search must return both terms
+
+"Active Record" - "Action View" # => Search must only return the first of the two phrases
+
+Ruby + Rails | Hanami # => Search for "Ruby AND Rails" OR "Hanami"
+```
+
+Use parens to group conditions and change precedence:
+
+```sh:{"header":false}
+Ruby + (Rails | Hanami) # => Search for "Ruby AND Rails" OR "Ruby AND Hanami"
+```
+
+The search parsing and transformation logic is built on top of [Parslet](https://kschiess.github.io/parslet/get-started.html). The Parslet docs and [this blog post on query parsing](http://recursion.org/query-parser) provided helpful guidance.
