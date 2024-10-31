@@ -1,6 +1,7 @@
 @import '../config/variables.scss';
 
 dialog {
+  color: var(--joy-text);
   width: 100%;
   border: none;
   animation: dialog-popup 0.25s ease-in-out;
@@ -25,6 +26,20 @@ dialog {
 
   input[type='search'] {
     border: 0;
+    color: var(--joy-text);
+  }
+}
+
+.dark {
+  & dialog {
+    border: 1px solid var(--joy-border-quiet);
+    background-color: var(--color-gray-950);
+
+    & input[type='search'] {
+      margin-left: 1rem;
+      background-color: var(--color-gray-800);
+      border: 1px solid var(--joy-border);
+    }
   }
 }
 

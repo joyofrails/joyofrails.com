@@ -7,6 +7,6 @@
 
   & a:hover,
   & .selected {
-    background-color: var(--joy-button-secondary);
+    background-color: var(--joy-block-selected);
   }
 }

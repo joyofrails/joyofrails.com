@@ -76,6 +76,8 @@
   --joy-link-decoration: var(--joy-link-1);
   --joy-link-active: var(--joy-link-5);
 
+  --joy-block-selected: var(--joy-color-200);
+
   --joy-button-primary: var(--joy-color-600);
   --joy-button-primary-hover: var(--joy-color-700);
   --joy-button-primary-active: var(--joy-color-800);
@@ -126,6 +128,8 @@
   --joy-link-visited: var(--joy-link-3);
   --joy-link-decoration: var(--joy-link-8);
   --joy-link-active: var(--joy-link-5);
+
+  --joy-block-selected: var(--joy-color-900);
 
   --joy-button-transparent: none;
   --joy-button-transparent-hover: var(--joy-color-950);

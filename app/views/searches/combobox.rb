@@ -28,7 +28,7 @@ module Searches
             autosubmit_delay_value: 300,
             turbo_frame: :search
           } do |f|
-          div(class: "flex items-center flex-row px-2") do
+          div(class: "flex items-center flex-row pl-2") do
             svg_tag "icons/search.svg", class: "w-[32px] fill-current text-theme"
             whitespace
             plain f.search_field :query,
@@ -59,7 +59,7 @@ module Searches
                       },
                       class: ["p-2", "block", ("selected" if i == 0)]
                     ) do
-                      div { strong { raw safe(page.title_snippet) } }
+                      div(class: "font-semibold") { raw safe(page.title_snippet) }
                       div(class: "text-sm") { raw safe(page.body_snippet) }
                     end
                   end
