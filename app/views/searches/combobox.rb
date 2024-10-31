@@ -28,7 +28,7 @@ module Searches
             autosubmit_delay_value: 300,
             turbo_frame: :search
           } do |f|
-          div(class: "flex items-center flex-row pl-2") do
+          div(class: "flex items-center flex-row pl-2 col-gap-xs") do
             svg_tag "icons/search.svg", class: "w-[32px] fill-current text-theme"
             whitespace
             plain f.search_field :query,
@@ -42,6 +42,7 @@ module Searches
               data: {
                 action: "autosubmit-form#submit"
               },
+              placeholder: "Search Joy of Rails",
               class: "w-full step-1"
           end
         end

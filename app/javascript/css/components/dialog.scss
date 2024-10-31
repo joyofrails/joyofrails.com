@@ -25,7 +25,8 @@ dialog {
   }
 
   input[type='search'] {
-    border: 0;
+    border: none;
+    border-left: 1px solid var(--joy-border-quiet);
     color: var(--joy-text);
   }
 }

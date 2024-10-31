@@ -96,6 +96,10 @@ main > *,
   column-gap: var(--space-m);
 }
 
+.col-gap-xs {
+  column-gap: var(--space-xs);
+}
+
 .col-gap-3xs {
   column-gap: var(--space-3xs);
 }
