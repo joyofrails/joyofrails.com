@@ -59,7 +59,8 @@ module Searches
                       },
                       class: ["p-2", "block", ("selected" if i == 0)]
                     ) do
-                      page.title
+                      div { strong { raw safe(page.title_snippet) } }
+                      div(class: "text-sm") { raw safe(page.body_snippet) }
                     end
                   end
                 end

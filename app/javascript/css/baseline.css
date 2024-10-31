@@ -621,6 +621,10 @@ figcaption {
   padding: 0;
 }
 
+mark {
+  background-color: aqua;
+}
+
 .dark {
   p {
     font-weight: 300;
