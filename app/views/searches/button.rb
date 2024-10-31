@@ -3,7 +3,7 @@ module Searches
     include PhlexConcerns::SvgTag
 
     def view_template
-      button(
+      a(
         id: "search-button",
         data: {
           controller: "modal-opener",
@@ -13,6 +13,7 @@ module Searches
         type: "button",
         class: ["button ghost focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"],
         aria_label: "Open Search Dialog",
+        href: "/search",
         role: "button"
       ) do
         svg_tag "icons/search.svg",
