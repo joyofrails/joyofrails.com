@@ -10,7 +10,7 @@ class Page < ApplicationRecord
 
   def self.search(query)
     joins("JOIN pages_search_index ON pages.id = pages_search_index.page_id")
-      .where("pages_search_index MATCH ?", query.to_s.gsub(/\W/, " ") + "*")
+      .where("pages_search_index MATCH ?", query)
   end
 
   def title
