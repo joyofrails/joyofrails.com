@@ -1,16 +1,25 @@
+# frozen_string_literal: true
+
 # ActiveRecord model to represent a static page in the database.
 class Page < ApplicationRecord
   after_create_commit :create_in_search_index
   after_update_commit :update_in_search_index
   after_destroy_commit :remove_from_search_index
 
-  def self.rebuild_search_index
-    find_each(&:update_in_search_index)
+  scope :ranked, -> { order(:rank) }
+  scope :with_snippets, ->(**options) do
+    select("#{table_name}.*")
+      .select("snippet(pages_search_index, 0, '<mark>', '</mark>', '…', 32) AS title_snippet")
+      .select("snippet(pages_search_index, 1, '<mark>', '</mark>', '…', 32) AS body_snippet")
   end
 
   def self.search(query)
     joins("JOIN pages_search_index ON pages.id = pages_search_index.page_id")
       .where("pages_search_index MATCH ?", query)
+  end
+
+  def self.rebuild_search_index
+    find_each(&:update_in_search_index)
   end
 
   def title
