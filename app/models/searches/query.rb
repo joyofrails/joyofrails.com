@@ -21,7 +21,7 @@ module Searches
     end
 
     def to_s
-      expressions.map(&:to_s).join(" ") + "*"
+      expressions.map(&:to_s).join(" ")
     end
   end
 end

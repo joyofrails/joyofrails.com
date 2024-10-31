@@ -10,7 +10,7 @@ class SearchesController < ApplicationController
     @raw_query = params[:query] || ""
     pages = if @raw_query.present?
       query = Searches::Query.parse!(@raw_query)
-      Page.search(query.to_s).limit(3)
+      Page.search("#{query}*").with_snippets.ranked.limit(3)
     else
       []
     end
