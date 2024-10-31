@@ -25,7 +25,7 @@ RSpec.describe "Searches", type: :request do
 
       expect(response).to have_http_status(:success)
 
-      expect(page).to have_content("Progressive Web Apps on Rails Showcase")
+      expect(page).not_to have_content("No results")
     end
 
     it "renders the search results with query" do
@@ -38,6 +38,19 @@ RSpec.describe "Searches", type: :request do
 
       expect(page).to have_content("Progressive Web Apps on Rails Showcase")
       expect(page).not_to have_content("Introducing Joy of Rails")
+    end
+
+    it "doesn’t blow up with invalid query" do
+      get search_path, params: {query: "(((("}
+
+      expect(response).to have_http_status(:success)
+      expect(page).to have_content("No results")
+    end
+
+    it "doesn’t blow up with invalid query as turbo stream" do
+      get search_path, params: {query: "(((("}, as: :turbo_stream
+
+      expect(response).to have_http_status(:success)
     end
   end
 end
