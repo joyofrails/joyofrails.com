@@ -71,4 +71,19 @@ RSpec.describe Searches::QueryParser do
       )
     ])
   end
+
+  it "parses a subexpression" do
+    expect(parse_query("the (cat | hat)")[:query]).to match([
+      hash_including(:term),
+      hash_including(
+        subexpression: hash_including(
+          condition: hash_including(
+            :operator,
+            left: hash_including(:term),
+            right: hash_including(:term)
+          )
+        )
+      )
+    ])
+  end
 end

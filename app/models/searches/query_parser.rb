@@ -2,6 +2,8 @@ module Searches
   class QueryParser < Parslet::Parser
     rule(:dquote) { str(%(")) }
     rule(:squote) { str(%(')) }
+    rule(:lparen) { str("(") }
+    rule(:rparen) { str(")") }
 
     rule(:space) { match('\s').repeat(1) }
     rule(:space?) { space.maybe }
@@ -17,9 +19,11 @@ module Searches
 
     rule(:condition) { (token.as(:left) >> operator >> expression.as(:right)).as(:condition) }
     rule(:token) { phrase | term }
-    rule(:expression) { condition | token }
+    rule(:expression) { (condition | token) }
 
-    rule(:query) { expression.repeat.as(:query) }
+    rule(:subexpression) { (lparen >> expression.as(:subexpression) >> rparen) }
+
+    rule(:query) { (expression | subexpression).repeat.as(:query) }
     root(:query)
   end
 end
