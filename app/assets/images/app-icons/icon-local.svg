@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg version="1.1" viewBox="200 200 800 800" xmlns="http://www.w3.org/2000/svg"
-  style="background-color:rgb(249, 252, 252)">
+  style="background-color:rgb(214, 214, 214)">
   <style>
     #favicon-g {
-      fill: rgb(121, 96, 248);
+      fill: rgb(12, 20, 28);
     }
 
     @media (prefers-color-scheme: dark) {
       #favicon-g {
-        fill: rgb(121, 96, 248);
+        fill: rgb(12, 20, 28);
       }
     }
   </style>
