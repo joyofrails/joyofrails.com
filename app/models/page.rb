@@ -30,7 +30,7 @@ class Page < ApplicationRecord
       .where("pages_search_index MATCH ?", query)
   end
 
-  def self.rebuild_search_index
+  def self.refresh_search_index
     find_each(&:update_in_search_index)
   end
 
