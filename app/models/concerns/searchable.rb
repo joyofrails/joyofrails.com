@@ -31,8 +31,10 @@ module Searchable
     # part of the FTS5 extension.
     # https://www.sqlite.org/fts5.html#the_snippet_function
     #
+    klass = self
+
     scope :with_snippets, ->(*columns) do
-      snippet_columns = search_index_mapping.keys.map(&:to_s) & columns.map(&:to_s)
+      snippet_columns = klass.search_index_mapping.keys.map(&:to_s) & columns.map(&:to_s)
       scope = select("#{table_name}.*").join_search_index
       snippet_columns.each.with_index do |column, column_index|
         scope = scope.select("snippet(#{search_table_name}, #{column_index}, '<mark>', '</mark>', '…', 32) AS #{column}_snippet")
@@ -85,7 +87,6 @@ module Searchable
 
       @search_index_mapping ||= search_index_definition.flat_map { |item| Array(item) }.map { |a, b = a| [a, b] }.to_h
     end
-    private :search_index_mapping
 
     def refresh_search_index
       find_each(&:update_in_search_index)
