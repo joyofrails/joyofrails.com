@@ -1,7 +1,12 @@
 module Searchable
   extend ActiveSupport::Concern
 
+  Error = Class.new(StandardError)
+  ConfigurationError = Class.new(Error)
+
   included do
+    class_attribute :search_index_definition
+
     after_create_commit :create_in_search_index
     after_update_commit :update_in_search_index
     after_destroy_commit :remove_from_search_index
@@ -56,6 +61,32 @@ module Searchable
   end
 
   module ClassMethods
+    # Declare the columns indexed in the search index in order. Optionally use
+    # key-value pairs to map a column name to a method name in the source model.
+    #
+    # Given the following migration
+    #
+    #   create_virtual_table :pages_search_index, :fts5, ["title", "body", "page_id"]
+    #
+    # Declare the search index :title for the model’s title attribute,
+    # :body for the body_text attribute, and :page_id for the id attribute.
+    #
+    #   class Page < ApplicationRecord
+    #     include Searchable
+    #
+    #     search_index :title, body: :body_text, page_id: :id
+    #
+    def search_index(*args)
+      self.search_index_definition = args
+    end
+
+    def search_index_mapping
+      raise ConfigurationError, "#[#{self}].search_index not defined" unless search_index_definition
+
+      @search_index_mapping ||= search_index_definition.flat_map { |item| Array(item) }.map { |a, b = a| [a, b] }.to_h
+    end
+    private :search_index_mapping
+
     def refresh_search_index
       find_each(&:update_in_search_index)
     end
@@ -77,15 +108,6 @@ module Searchable
         DELETE FROM #{search_table_name}
         WHERE #{search_table_foreign_key} = ?
       SQL
-    end
-
-    # Order is important here. The search snippet query needs to know the index of the columns.
-    def search_index_mapping
-      {
-        title: :title,
-        body: :body_text,
-        page_id: :id
-      }
     end
 
     def search_index_columns

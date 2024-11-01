@@ -4,6 +4,8 @@
 class Page < ApplicationRecord
   include Searchable
 
+  search_index :title, body: :body_text, page_id: :id
+
   def title
     resource.data.title
   end
