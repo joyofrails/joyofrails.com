@@ -7,11 +7,11 @@ RSpec.describe Page, type: :model do
     expect(page.resource).to eq Sitepress.site.get("/")
   end
 
-  describe ".rebuild_search_index" do
+  describe ".refresh_search_index" do
     it "doesn’t blow up" do
       Page.find_or_create_by!(request_path: "/")
 
-      Page.rebuild_search_index
+      Page.refresh_search_index
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Page, type: :model do
     it "works after rebuilding index" do
       page = Page.find_or_create_by!(request_path: "/")
 
-      Page.rebuild_search_index
+      Page.refresh_search_index
 
       expect(Page.search("Joy of Rails")).to include page
     end
