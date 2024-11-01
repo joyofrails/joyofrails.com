@@ -43,7 +43,15 @@ class Page < ApplicationRecord
   end
 
   def body_html
-    ApplicationController.render(inline: body, type: resource.handler, layout: false)
+    ApplicationController.render(
+      inline: body,
+      type: (resource.handler.to_sym == :mdrb) ? :"mdrb-atom" : resource.handler,
+      layout: false,
+      content_type: "application/atom+xml",
+      assigns: {
+        format: :atom
+      }
+    )
   end
 
   def body_text
