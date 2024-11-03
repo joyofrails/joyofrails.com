@@ -48,6 +48,7 @@ gem "color_conversion" # A ruby gem to perform color conversions [https://github
 gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
+gem "get_process_mem" # A Ruby library to get memory usage of a process [https://github.com/zombocom/get_process_mem]
 
 # Clients
 gem "httpx" # An HTTP client library for Ruby [https://gitlab.com/os85/httpx]

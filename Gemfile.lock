@@ -222,6 +222,9 @@ GEM
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    get_process_mem (1.0.0)
+      bigdecimal (>= 2.0)
+      ffi (~> 1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.1)
@@ -612,6 +615,7 @@ DEPENDENCIES
   flipper
   flipper-active_record
   flipper-ui
+  get_process_mem
   honeybadger
   httpx
   image_processing
