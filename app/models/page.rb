@@ -2,9 +2,7 @@
 
 # ActiveRecord model to represent a static page in the database.
 class Page < ApplicationRecord
-  include Searchable
-
-  search_index :title, body: :body_text, page_id: :id
+  include Page::Searchable
 
   def title
     resource.data.title

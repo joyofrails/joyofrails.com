@@ -46,7 +46,7 @@ RSpec.describe Page, type: :model do
     it "orders search results by rank" do
       Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
-      page = Page.search("Color*").with_snippets(:title, :body).first
+      page = Page.search("Color*").with_snippets.first
 
       expect(page.title_snippet).to match(%r{<mark>Color</mark>})
       expect(page.body_snippet).to match(%r{<mark>color</mark>})
