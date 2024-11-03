@@ -14,12 +14,19 @@ class Page
         join_search_index.where("pages_search_index MATCH ?", query)
       end
 
-      # The pages_search_index table is a full-text search index for the pages
-      # table. FTS5 tables contain a hidden 'rank' column that is (hand waving) a
-      # relevancy score for sorting search results.
+      # The bm25() function is used to rank search results. The numerical
+      # arguments are weights applied to the corresponding indexed columns,
+      # i.e., title gets a weight of 10.0 and body gets a weight of 1.0.
+      # FTS5 tables also contain a hidden 'rank' column that uses bm25() without
+      # arguments under the hood.
       # https://www.sqlite.org/fts5.html#sorting_by_auxiliary_function_results
       #
-      scope :ranked, -> { order(:rank) }
+      # rubyvideo.dev also uses this scope
+      # https://github.com/adrienpoly/rubyvideo/blob/512527816cda529b09302f88140e9b3882ad823a/app/models/talk/searchable.rb#L20
+      #
+      scope :ranked, -> do
+        order(Arel.sql("bm25(pages_search_index, 10.0, 1.0) ASC"))
+      end
 
       # The with_snippets scope is used to add a snippet of text to search results.
       # It requires a join to the search index table.
