@@ -13,16 +13,17 @@ module Searches
 
     def view_template
       div(
-        class: "combobox",
+        class: "combobox grid gap-2",
         data: {
           controller: "search-combobox",
           action: "
             keydown->search-combobox#navigate
+            search-listbox:connected->search-combobox#listboxOpen
           "
         }
       ) do
         form_with url: search_path,
-          method: :get,
+          method: :post,
           data: {
             controller: "autosubmit-form",
             autosubmit_delay_value: 300,
@@ -34,10 +35,12 @@ module Searches
             plain f.search_field :query,
               value: query,
               autofocus: true,
+              role: "combobox",
               aria: {
                 expanded: false,
-                autocomplete: "off",
-                controls: "search-results"
+                autocomplete: "none",
+                controls: "search-listbox",
+                activedescendant: nil
               },
               data: {
                 action: "autosubmit-form#submit"
@@ -47,42 +50,7 @@ module Searches
           end
         end
 
-        turbo_frame_tag :search do
-          div do
-            if pages.any?
-              ul(**mix(id: "search-results", role: "listbox", class: "grid")) do
-                pages.each.with_index do |page, i|
-                  li(role: "option") do
-                    a(
-                      href: page.request_path,
-                      data: {
-                        turbo_frame: "_top"
-                      },
-                      class: ["p-2", "block", ("selected" if i == 0)]
-                    ) do
-                      div(class: "font-semibold") { raw safe(page.title_snippet) }
-                      div(class: "text-sm") { raw safe(page.body_snippet) }
-                    end
-                  end
-                end
-              end
-            elsif query && query.length > 2
-              div(class: "p-2") do
-                p(class: "pb-2") { "No results 😬" }
-                p(class: "pb-2 step--2") do
-                  "Search function is new, bear with me 🧸."
-                end
-                p(class: "step--2") do
-                  plain "Please"
-                  whitespace
-                  a(href: "/contact") { "reach out" }
-                  whitespace
-                  plain "if you’d like to see me address an unlisted topic."
-                end
-              end
-            end
-          end
-        end
+        render Searches::Listbox.new(pages: pages, query: query)
       end
     end
   end

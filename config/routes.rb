@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   sitepress_root controller: :site
   sitepress_pages controller: :site
 
-  resource :search, only: [:show]
+  match "search", to: "searches#show", via: [:get, :post]
 
   namespace :share do
     resources :snippets do

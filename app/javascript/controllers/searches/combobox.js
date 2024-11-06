@@ -9,22 +9,79 @@ const cancel = (event) => {
   event.preventDefault();
 };
 
+function cyclingValueAt(array, index) {
+  const first = 0;
+  const last = array.length - 1;
+
+  if (index < first) return array[last];
+  if (index > last) return array[first];
+  return array[index];
+}
+
 export default class extends Controller {
   connect() {
-    console.log('Connected');
-
-    this.selectIndex(0);
+    console.log('Connected', this.element, this.listbox, this.combobox);
   }
 
   selectIndex(index) {
-    return this.items.forEach((item, i) => {
-      item.classList.toggle('selected', i === index);
-    });
+    if (this.options.length === 0) return;
+
+    console.log('Selecting index', index);
+
+    const option = cyclingValueAt(this.options, index);
+
+    this.select(option);
+  }
+
+  select(option) {
+    console.log('Selecting', option.id);
+
+    this.options.forEach(this.deselect.bind(this));
+
+    option.classList.add('selected');
+    option.setAttribute('aria-selected', 'true');
+    this.setActiveDescendant(option.id);
+  }
+
+  deselect(option) {
+    option.classList.remove('selected');
+    option.removeAttribute('aria-selected');
+    this.setActiveDescendant('');
+  }
+
+  setActiveDescendant(id) {
+    console.log('Setting active descendant', id);
+    this.combobox.setAttribute('aria-activedescendant', id);
+  }
+
+  listboxOpen({ detail }) {
+    console.log('Listbox open', this.options.length > 0);
+    this.combobox.setAttribute('aria-expanded', this.options.length > 0);
   }
 
   navigate(event) {
     console.log('Navigating', event); // event.key, e.g. "ArrowDown"
     this.navigationKeyHandlers[event.key]?.call(this, event);
+  }
+
+  get options() {
+    return [...this.element.querySelectorAll('[role="option"]')];
+  }
+
+  get selectedItem() {
+    return this.element.querySelector('.selected');
+  }
+
+  get selectedItemIndex() {
+    return this.options.indexOf(this.selectedItem);
+  }
+
+  get combobox() {
+    return this.element.querySelector('[role="combobox"]');
+  }
+
+  get listbox() {
+    return this.element.querySelector('[role="listbox"]');
   }
 
   get navigationKeyHandlers() {
@@ -42,25 +99,13 @@ export default class extends Controller {
         cancel(event);
       },
       End: (event) => {
-        this.selectIndex(this.items.length - 1);
+        this.selectIndex(this.options.length - 1);
         cancel(event);
       },
       Enter: (event) => {
-        this.selectedItem.click();
+        this.selectedItem?.querySelector('a')?.click();
         cancel(event);
       },
     };
-  }
-
-  get items() {
-    return [...this.element.querySelectorAll('a')];
-  }
-
-  get selectedItem() {
-    return this.element.querySelector('.selected');
-  }
-
-  get selectedItemIndex() {
-    return this.items.indexOf(this.selectedItem);
   }
 }
