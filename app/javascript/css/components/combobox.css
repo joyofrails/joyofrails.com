@@ -5,8 +5,13 @@
     margin: 0;
   }
 
-  & a:hover,
-  & .selected {
-    background-color: var(--joy-block-selected);
+  & [role='option'] {
+    &:hover {
+      background-color: var(--joy-block-hover);
+    }
+
+    &.selected {
+      background-color: var(--joy-block-selected);
+    }
   }
 }

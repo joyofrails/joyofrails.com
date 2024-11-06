@@ -13,7 +13,7 @@ module Searches
       ul(**mix(
         id: "search-listbox",
         role: "listbox",
-        class: ["grid"],
+        class: ["grid", ("hidden" unless pages.any? || query_long_enough?)],
         data: {
           controller: "search-listbox"
         }
