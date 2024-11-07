@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchesController < ApplicationController
   rescue_from Searches::ParseFailed do |error|
     respond_to do |format|
