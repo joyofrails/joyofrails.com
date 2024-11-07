@@ -27,6 +27,7 @@ module Searches
           data: {
             controller: "autosubmit-form",
             autosubmit_delay_value: 300,
+            autosubmit_minimum_length_value: 3,
             turbo_frame: :search
           } do |f|
           div(class: "flex items-center flex-row pl-2 col-gap-xs") do
