@@ -20,7 +20,7 @@ module Searches
       )) do
         if pages.any?
           pages.each.with_index do |page, i|
-            li(role: "option", id: dom_id(page, "search-option")) do
+            li(role: "option", id: dom_id(page, "search-option"), class: "rounded") do
               a(
                 href: page.request_path,
                 data: {

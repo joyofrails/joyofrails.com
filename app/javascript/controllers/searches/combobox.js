@@ -9,6 +9,7 @@ const cancel = (event) => {
   event.preventDefault();
 };
 
+/* When the index is out of bounds, return the first or last item */
 function cyclingValueAt(array, index) {
   const first = 0;
   const last = array.length - 1;
@@ -20,7 +21,7 @@ function cyclingValueAt(array, index) {
 
 export default class extends Controller {
   connect() {
-    console.log('Connected', this.element, this.listbox, this.combobox);
+    console.log('Connected');
   }
 
   selectIndex(index) {
@@ -60,7 +61,6 @@ export default class extends Controller {
   }
 
   navigate(event) {
-    console.log('Navigating', event); // event.key, e.g. "ArrowDown"
     this.navigationKeyHandlers[event.key]?.call(this, event);
   }
 
@@ -69,7 +69,7 @@ export default class extends Controller {
   }
 
   get selectedItem() {
-    return this.element.querySelector('.selected');
+    return this.element.querySelector('[role="option"].selected');
   }
 
   get selectedItemIndex() {

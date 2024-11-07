@@ -61,7 +61,9 @@
 
   --joy-border-quiet: var(--joy-color-100);
   --joy-border-subtle: var(--joy-color-300);
+  --joy-border-bold: var(--joy-color-700);
   --joy-border: var(--joy-color-600);
+
   --joy-color-quote: var(--joy-color-600);
 
   --joy-text: var(--color-dark);
@@ -117,6 +119,7 @@
 
   --joy-border-quiet: var(--joy-color-900);
   --joy-border-subtle: var(--joy-color-800);
+  --joy-border-bold: var(--joy-color-400);
   --joy-border: var(--joy-color-600);
 
   --joy-text: var(--joy-color-50);
