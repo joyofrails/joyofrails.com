@@ -1,5 +1,3 @@
-require "debug"
-
 class SearchesController < ApplicationController
   rescue_from Searches::ParseFailed do |error|
     respond_to do |format|
