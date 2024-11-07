@@ -27,11 +27,11 @@ RSpec.describe "Markdown with Erb", type: :view do
     end
 
     it "ignores inline fenced erb following text" do
-      expect(render("This is the number <%= 1 + 1 %>")).to eq("<p>This is the number <%= 1 + 1 %></p>")
+      expect(render("This is the number <%= 1 + 1 %>").strip).to eq("<p>This is the number <%= 1 + 1 %></p>")
     end
 
     it "escapes inline fenced erb" do
-      expect(render("`<%= 1 + 1 %>`")).to eq("<p><code>&lt;%= 1 + 1 %&gt;</code></p>")
+      expect(render("`<%= 1 + 1 %>`").strip).to eq("<p><code>&lt;%= 1 + 1 %&gt;</code></p>")
     end
 
     it "handles multiline fenced erb" do

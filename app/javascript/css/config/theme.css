@@ -61,7 +61,9 @@
 
   --joy-border-quiet: var(--joy-color-100);
   --joy-border-subtle: var(--joy-color-300);
+  --joy-border-bold: var(--joy-color-700);
   --joy-border: var(--joy-color-600);
+
   --joy-color-quote: var(--joy-color-600);
 
   --joy-text: var(--color-dark);
@@ -76,6 +78,7 @@
   --joy-link-decoration: var(--joy-link-1);
   --joy-link-active: var(--joy-link-5);
 
+  --joy-block-hover: var(--joy-color-100);
   --joy-block-selected: var(--joy-color-200);
 
   --joy-button-primary: var(--joy-color-600);
@@ -116,6 +119,7 @@
 
   --joy-border-quiet: var(--joy-color-900);
   --joy-border-subtle: var(--joy-color-800);
+  --joy-border-bold: var(--joy-color-400);
   --joy-border: var(--joy-color-600);
 
   --joy-text: var(--joy-color-50);
@@ -129,7 +133,8 @@
   --joy-link-decoration: var(--joy-link-8);
   --joy-link-active: var(--joy-link-5);
 
-  --joy-block-selected: var(--joy-color-900);
+  --joy-block-hover: var(--joy-color-900);
+  --joy-block-selected: var(--joy-color-800);
 
   --joy-button-transparent: none;
   --joy-button-transparent-hover: var(--joy-color-950);

@@ -28,6 +28,7 @@ import SnippetScreenshot from './snippets/screenshot';
 import SnippetTweet from './snippets/tweet';
 
 import SearchCombobox from './searches/combobox';
+import SearchListbox from './searches/listbox';
 
 application.register('modal-opener', ModalOpener);
 application.register('analytics', AnalyticsCustomEvent);
@@ -51,3 +52,4 @@ application.register('snippet-screenshot', SnippetScreenshot);
 application.register('snippet-tweet', SnippetTweet);
 
 application.register('search-combobox', SearchCombobox);
+application.register('search-listbox', SearchListbox);

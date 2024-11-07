@@ -13,8 +13,8 @@ RSpec.describe Markdown::Base, type: :view do
       ###### 6
     MD
 
-    expect(output).to be ==
-      "<h1>1</h1><h2>2</h2><h3>3</h3><h4>4</h4><h5>5</h5><h6>6</h6>"
+    expect(output.strip).to be ==
+      "<h1>1</h1> <h2>2</h2> <h3>3</h3> <h4>4</h4> <h5>5</h5> <h6>6</h6>"
   end
 
   it "supports ordered lists" do
@@ -25,7 +25,7 @@ RSpec.describe Markdown::Base, type: :view do
     MD
 
     expect(output).to be ==
-      "<ol><li>One</li><li>Two</li><li>Three</li></ol>"
+      "<ol><li>One</li> <li>Two</li> <li>Three</li> </ol>"
   end
 
   it "supports unordered lists" do
@@ -36,12 +36,12 @@ RSpec.describe Markdown::Base, type: :view do
     MD
 
     expect(output).to be ==
-      "<ul><li>One</li><li>Two</li><li>Three</li></ul>"
+      "<ul><li>One</li> <li>Two</li> <li>Three</li> </ul>"
   end
 
   it "supports inline code" do
     output = md "Some `code` here"
-    expect(output).to be == "<p>Some <code>code</code> here</p>"
+    expect(output.strip).to be == "<p>Some <code>code</code> here</p>"
   end
 
   it "supports block code" do
@@ -59,27 +59,27 @@ RSpec.describe Markdown::Base, type: :view do
 
   it "supports paragraphs" do
     output = md "A\n\nB"
-    expect(output).to be == "<p>A</p><p>B</p>"
+    expect(output.strip).to be == "<p>A</p> <p>B</p>"
   end
 
   it "supports links" do
     output = md "[Hello](world 'title')"
-    expect(output).to be == %(<p><a href="world" title="title">Hello</a></p>)
+    expect(output.strip).to be == %(<p><a href="world" title="title">Hello</a></p>)
   end
 
   it "supports emphasis" do
     output = md "*Hello*"
-    expect(output).to be == "<p><em>Hello</em></p>"
+    expect(output.strip).to be == "<p><em>Hello</em></p>"
   end
 
   it "supports strong" do
     output = md "**Hello**"
-    expect(output).to be == "<p><strong>Hello</strong></p>"
+    expect(output.strip).to be == "<p><strong>Hello</strong></p>"
   end
 
   it "supports blockquotes" do
     output = md "> Hello"
-    expect(output).to be == "<blockquote><p>Hello</p></blockquote>"
+    expect(output).to be == "<blockquote><p>Hello</p> </blockquote>"
   end
 
   it "supports horizontal rules" do
@@ -89,7 +89,7 @@ RSpec.describe Markdown::Base, type: :view do
 
   it "supports images" do
     output = md "![alt](src 'title')"
-    expect(output).to be == %(<p><img src="src" alt="alt" title="title"></p>)
+    expect(output.strip).to be == %(<p><img src="src" alt="alt" title="title"></p>)
   end
 
   it "supports softbreaks in content as spaces" do
@@ -100,7 +100,7 @@ RSpec.describe Markdown::Base, type: :view do
       Three
     MD
 
-    expect(output).to be == "<p>One Two</p><p>Three</p>"
+    expect(output.strip).to be == "<p>One Two</p> <p>Three</p>"
   end
 
   xit "supports blockquote [!NOTE]" do
@@ -109,7 +109,7 @@ RSpec.describe Markdown::Base, type: :view do
       > Hello!
     MD
 
-    expect(output).to match %r{<blockquote><svg .*><p>Hello!</p></blockquote>}
+    expect(output.strip).to match %r{<blockquote><svg .*><p>Hello!</p> </blockquote>}
   end
 
   def md(content)

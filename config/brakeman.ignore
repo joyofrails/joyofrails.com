@@ -45,6 +45,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "75fc982bf0fdc1992076ca5a34bdf947d7cdc80b38d207e9b712fb6d8ae2af38",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/concerns/searchable.rb",
+      "line": 47,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "joins(\"JOIN #{search_table_name} ON #{table_name}.id = #{search_table_name}.#{search_table_foreign_key}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Searchable::ClassMethods",
+        "method": "search"
+      },
+      "user_input": "search_table_name",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Command Injection",
       "warning_code": 14,
       "fingerprint": "ee467aaea70b8a7b361ef6e8ee6c5082b3ff265dc67d798ea3f24c1687ff4584",
@@ -68,6 +91,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-10-19 12:01:18 -0400",
+  "updated": "2024-11-01 07:34:07 -0400",
   "brakeman_version": "6.2.2"
 }

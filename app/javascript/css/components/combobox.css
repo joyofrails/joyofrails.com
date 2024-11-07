@@ -1,12 +1,28 @@
 .combobox {
+  cursor: pointer;
+
   & ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
 
-  & a:hover,
-  & .selected {
-    background-color: var(--joy-block-selected);
+  /*
+   * Note: Because transparent borders are visible on some systems with operating system high contrast settings enabled, transparency cannot be used to create a visual difference between the element that is focused and other elements. Instead of using transparency, the focused element has a thicker border and less padding. When an element receives focus, its border changes from zero to two pixels and padding is reduced by two pixels. When an element loses focus, its border changes from two pixels to two and padding is increased by two pixels.
+   * Courtesy https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/
+   */
+  & [role='option'] {
+    padding: 2px;
+
+    &:hover {
+      background-color: var(--joy-block-hover);
+    }
+
+    &.selected {
+      padding: 0;
+
+      background-color: var(--joy-block-selected);
+      border: 2px solid var(--joy-border-bold);
+    }
   }
 }

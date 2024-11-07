@@ -37,6 +37,7 @@ class Markdown::Base < Phlex::HTML
       plain(node.string_content)
     in :heading
       header(node.header_level) { visit_children(node) }
+      whitespace
     in :paragraph
       grandparent = node.parent&.parent
 
@@ -44,6 +45,7 @@ class Markdown::Base < Phlex::HTML
         visit_children(node)
       else
         p { visit_children(node) }
+        whitespace
       end
     in :link
       link(node.url, node.title) { visit_children(node) }
@@ -60,6 +62,7 @@ class Markdown::Base < Phlex::HTML
       end
     in :item
       li { visit_children(node) }
+      whitespace
     in :code
       inline_code do |**attributes|
         code(**attributes) { plain(node.string_content) }
