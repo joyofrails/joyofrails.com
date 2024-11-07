@@ -41,6 +41,7 @@ module Searches
               autofocus: true,
               role: "combobox",
               aria: input_aria,
+              id: combobox_id,
               data: {
                 action: "
                   focus->combobox#tryOpen
@@ -62,11 +63,15 @@ module Searches
       {
         expanded: false,
         autocomplete: "none",
-        controls: "search-listbox",
-        owns: "search-listbox",
+        controls: listbox_id,
+        owns: listbox_id,
         haspopup: "listbox",
         activedescendant: ""
       }
+    end
+
+    def combobox_id
+      "search-combobox"
     end
 
     def listbox_id
