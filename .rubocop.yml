@@ -13,3 +13,8 @@ AllCops:
     - 'build/**/*'
     - 'rubies/**/*'
   SuggestExtensions: false
+
+Lint/Debugger:
+  Enabled: true
+  DebuggerRequires:
+    - debug
