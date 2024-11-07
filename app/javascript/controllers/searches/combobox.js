@@ -83,7 +83,6 @@ export default class extends Controller {
   }
 
   tryOpen() {
-    console.log('Trying to open');
     if (this.options.length > 0) {
       this.open();
     } else {
@@ -154,7 +153,6 @@ export default class extends Controller {
   }
 
   navigate(event) {
-    console.log('Navigating', event); // event.key, e.g. "ArrowDown"
     this.navigationKeyHandlers[event.key]?.call(this, event);
   }
 
