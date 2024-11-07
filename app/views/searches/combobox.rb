@@ -50,6 +50,8 @@ module Searches
               placeholder: "Search Joy of Rails",
               class: "w-full step-1"
           end
+
+          plain f.hidden_field :listbox_id, value: listbox_id
         end
 
         render Searches::Listbox.new(pages: pages, query: query)

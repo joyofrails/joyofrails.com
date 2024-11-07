@@ -27,7 +27,10 @@ class SearchesController < ApplicationController
       }
       format.turbo_stream {
         render turbo_stream: [
-          turbo_stream.replace("search-listbox", Searches::Listbox.new(pages: pages, query: raw_query))
+          turbo_stream.replace(
+            params.fetch(:listbox_id, "search-listbox"),
+            Searches::Listbox.new(pages: pages, query: raw_query)
+          )
         ]
       }
     end
