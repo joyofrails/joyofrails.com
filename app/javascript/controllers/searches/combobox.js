@@ -83,6 +83,7 @@ export default class extends Controller {
   }
 
   tryOpen() {
+    console.log('Trying to open');
     if (this.options.length > 0) {
       this.open();
     } else {
@@ -95,6 +96,7 @@ export default class extends Controller {
   }
 
   expand() {
+    console.log('Expand');
     this.listbox.classList.remove('hidden');
     this.combobox.setAttribute('aria-expanded', true);
   }
@@ -120,6 +122,7 @@ export default class extends Controller {
   }
 
   collapse() {
+    console.log('Collapse');
     this.combobox.setAttribute('aria-expanded', false);
     this.listbox.classList.add('hidden');
   }
@@ -151,6 +154,7 @@ export default class extends Controller {
   }
 
   navigate(event) {
+    console.log('Navigating', event); // event.key, e.g. "ArrowDown"
     this.navigationKeyHandlers[event.key]?.call(this, event);
   }
 
