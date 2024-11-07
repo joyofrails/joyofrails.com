@@ -1,8 +1,5 @@
 require:
   - standard
-  # TODO: Add cops later
-  # - rubocop-rails
-  # - rubocop-rspec
 
 inherit_gem:
   standard: config/base.yml
@@ -15,3 +12,9 @@ AllCops:
     - '.git/**/*'
     - 'build/**/*'
     - 'rubies/**/*'
+  SuggestExtensions: false
+
+Lint/Debugger:
+  Enabled: true
+  DebuggerRequires:
+    - debug
