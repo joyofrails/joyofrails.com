@@ -20,8 +20,26 @@ function cyclingValueAt(array, index) {
 }
 
 export default class extends Controller {
+  static values = {
+    expanded: Boolean,
+  };
+
   connect() {
     console.log('Connected');
+
+    this.tryOpen();
+  }
+
+  // Many Comboboxes act like fancy select inputs for forms. The Search Combobox
+  // is currently hard-coded for for navigation: when an option is selected and
+  // enabled with Enter key, we expect it to have a anchor tag and follow its link.
+  go(event) {
+    let anchor = this.selectedItem?.querySelector('a');
+
+    if (anchor) {
+      this.close();
+      anchor.click();
+    }
   }
 
   selectIndex(index) {
@@ -55,13 +73,61 @@ export default class extends Controller {
     this.combobox.setAttribute('aria-activedescendant', id);
   }
 
-  listboxOpen({ detail }) {
-    console.log('Listbox open', this.options.length > 0);
-    this.combobox.setAttribute('aria-expanded', this.options.length > 0);
+  expandedValueChanged() {
+    console.log('Expanded value changed', this.expandedValue);
+    if (this.expandedValue) {
+      this.expand();
+    } else {
+      this.collapse();
+    }
   }
 
-  navigate(event) {
-    this.navigationKeyHandlers[event.key]?.call(this, event);
+  tryOpen() {
+    if (this.options.length > 0) {
+      this.open();
+    } else {
+      this.close();
+    }
+  }
+
+  open() {
+    this.expandedValue = true;
+  }
+
+  expand() {
+    this.listbox.classList.remove('hidden');
+    this.combobox.setAttribute('aria-expanded', true);
+  }
+
+  close() {
+    this.expandedValue = false;
+  }
+
+  openInTarget(event) {
+    if (!event.target) return;
+
+    if (event.target.contains(this.element)) {
+      this.tryOpen();
+    }
+  }
+
+  closeInTarget(event) {
+    if (!event.target) return;
+
+    if (event.target.contains(this.element)) {
+      this.close();
+    }
+  }
+
+  collapse() {
+    this.combobox.setAttribute('aria-expanded', false);
+    this.listbox.classList.add('hidden');
+  }
+
+  closeAndBlur() {
+    this.close();
+    this.combobox.blur();
+    this.dispatch('close');
   }
 
   get options() {
@@ -84,6 +150,10 @@ export default class extends Controller {
     return this.element.querySelector('[role="listbox"]');
   }
 
+  navigate(event) {
+    this.navigationKeyHandlers[event.key]?.call(this, event);
+  }
+
   get navigationKeyHandlers() {
     return {
       ArrowDown: (event) => {
@@ -103,8 +173,12 @@ export default class extends Controller {
         cancel(event);
       },
       Enter: (event) => {
-        this.selectedItem?.querySelector('a')?.click();
+        this.go(event);
         cancel(event);
+      },
+      Escape: (event) => {
+        this.closeAndBlur();
+        cancel(event); // Prevent ESC from clearing the search input as is the behavior in some browsers
       },
     };
   }

@@ -32,11 +32,13 @@ export default class extends Controller {
   open() {
     console.log('Opening dialog');
     this.element.showModal();
+    this.dispatch('open');
   }
 
   close() {
     console.log('Closing dialog');
     this.element.close();
+    this.dispatch('close');
   }
 
   tryClose(event) {

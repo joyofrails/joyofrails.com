@@ -18,7 +18,9 @@ module Searches
           controller: "search-combobox",
           action: "
             keydown->search-combobox#navigate
-            search-listbox:connected->search-combobox#listboxOpen
+            search-listbox:connected->search-combobox#tryOpen
+            dialog:close@window->search-combobox#closeInTarget
+            dialog:open@window->search-combobox#openInTarget
           "
         }
       ) do
@@ -38,14 +40,12 @@ module Searches
               value: query,
               autofocus: true,
               role: "combobox",
-              aria: {
-                expanded: false,
-                autocomplete: "none",
-                controls: "search-listbox",
-                activedescendant: nil
-              },
+              aria: input_aria,
               data: {
-                action: "autosubmit-form#submit"
+                action: "
+                  focus->combobox#tryOpen
+                  input->autosubmit-form#submit
+                "
               },
               placeholder: "Search Joy of Rails",
               class: "w-full step-1"
@@ -54,6 +54,21 @@ module Searches
 
         render Searches::Listbox.new(pages: pages, query: query)
       end
+    end
+
+    def input_aria
+      {
+        expanded: false,
+        autocomplete: "none",
+        controls: "search-listbox",
+        owns: "search-listbox",
+        haspopup: "listbox",
+        activedescendant: ""
+      }
+    end
+
+    def listbox_id
+      "search-listbox"
     end
   end
 end
