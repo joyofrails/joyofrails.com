@@ -1,20 +1,27 @@
 ---
 EnableDefaultLinters: true
-
+glob: "**/*.{html}{+*,}.erb"
 exclude:
-  - '**/vendor/**/*'
-  - '**/node_modules/**/*'
+  - vendor/bundle/**/*
+  - node_modules/**/*
+  - tmp/**/*
+  - log/**/*
 
 linters:
-  AllowedScriptType:
+  ErbSafety:
     enabled: true
-    allowed_types:
-      - 'application/json'
-      - 'application/ld+json'
-      - 'module'
-      - 'text/html'
-      - 'text/javascript'
-      - 'text/ruby'
-      - 'text/template'
-    allow_blank: false
-    disallow_inline_scripts: false
+  PartialInstanceVariable:
+    enabled: true
+
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      require: standard
+      inherit_gem:
+        standard: config/base.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false

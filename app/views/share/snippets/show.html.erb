@@ -1,14 +1,14 @@
 <% set_meta_tags(
-  title: "Joy of Rails Snippet#{@snippet.title.presence && ": " + @snippet.title}",
-  description: "A code snippet from Joy of Rails",
-  keywords: [@snippet.language].compact,
-  og: {
-    image: @snippet.screenshot.attached? && rails_storage_proxy_url(@snippet.screenshot)
-  },
-  twitter: {
-    card: @snippet.screenshot.attached? ? "summary_large_image" : "summary",
-  }
-) %>
+     title: "Joy of Rails Snippet#{@snippet.title.presence && ": " + @snippet.title}",
+     description: "A code snippet from Joy of Rails",
+     keywords: [@snippet.language].compact,
+     og: {
+       image: @snippet.screenshot.attached? && rails_storage_proxy_url(@snippet.screenshot)
+     },
+     twitter: {
+       card: @snippet.screenshot.attached? ? "summary_large_image" : "summary"
+     }
+   ) %>
 
 <%= render Pages::Header.new(title: "Snippet Share") %>
 <div class="section-content container py-gap mb-3xl">
