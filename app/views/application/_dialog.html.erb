@@ -1,1 +1,1 @@
-<%= render Searches::Dialog.new unless current_page?(search_path) %>
+<%= render Searches::Dialog.new unless current_page?(search_path) || request.post? %>

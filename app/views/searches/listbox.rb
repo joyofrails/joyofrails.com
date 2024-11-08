@@ -2,40 +2,38 @@ module Searches
   class Listbox < ApplicationComponent
     include Phlex::Rails::Helpers::DOMID
 
-    attr_reader :pages, :query
+    attr_reader :results, :query, :name
 
-    def initialize(pages: [], query: "")
-      @pages = pages
+    def self.dom_id(name)
+      "#{name}-listbox"
+    end
+
+    def initialize(results: [], query: "", name: "search")
+      @results = results
       @query = query
+      @name = name
     end
 
     def view_template
       ul(**mix(
-        id: "search-listbox",
+        id: listbox_dom_id,
         role: "listbox",
         class: ["grid"],
         data: {
           controller: "search-listbox"
         }
       )) do
-        if pages.any?
-          pages.each.with_index do |page, i|
+        # Using `results.present?` instead of `results.any?` is a concious decision to avoid an extra "SELECT 1" query
+        # For more information, see: https://www.speedshop.co/2019/01/10/three-activerecord-mistakes.html#any-exists-and-present
+        if results.present?
+          results.each.with_index do |result, i|
             li(
-              aria: {label: page.title},
+              aria: {label: result.title},
               role: "option",
-              id: dom_id(page, "search-option"),
+              id: dom_id(result, "search-option"),
               class: "rounded"
             ) do
-              a(
-                href: page.request_path,
-                data: {
-                  turbo_frame: "_top"
-                },
-                class: ["p-2", "block"]
-              ) do
-                div(class: "font-semibold") { raw safe(page.title_snippet) }
-                div(class: "text-sm") { raw safe(page.body_snippet) }
-              end
+              render Searches::Result.new(result)
             end
           end
         elsif query_long_enough?
@@ -58,6 +56,10 @@ module Searches
 
     def query_long_enough?
       query && query.length > 2
+    end
+
+    def listbox_dom_id
+      self.class.dom_id(@name)
     end
   end
 end

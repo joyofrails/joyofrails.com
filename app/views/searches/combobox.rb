@@ -4,11 +4,12 @@ module Searches
     include Phlex::Rails::Helpers::FormWith
     include PhlexConcerns::SvgTag
 
-    attr_reader :pages, :query
+    attr_reader :query, :name, :attributes
 
-    def initialize(query: "", pages: [])
-      @pages = pages
+    def initialize(query: "", name: "search", **attributes)
       @query = query
+      @name = name
+      @attributes = attributes
     end
 
     def view_template
@@ -41,7 +42,7 @@ module Searches
               autofocus: true,
               role: "combobox",
               aria: input_aria,
-              id: combobox_id,
+              id: combobox_dom_id,
               data: {
                 action: "
                   focus->combobox#tryOpen
@@ -52,10 +53,10 @@ module Searches
               class: "w-full step-1"
           end
 
-          plain f.hidden_field :listbox_id, value: listbox_id
+          f.hidden_field :name, value: name
         end
 
-        render Searches::Listbox.new(pages: pages, query: query)
+        render Searches::Listbox.new(query:, name:, **attributes)
       end
     end
 
@@ -63,19 +64,19 @@ module Searches
       {
         expanded: false,
         autocomplete: "none",
-        controls: listbox_id,
-        owns: listbox_id,
+        controls: listbox_dom_id,
+        owns: listbox_dom_id,
         haspopup: "listbox",
         activedescendant: ""
       }
     end
 
-    def combobox_id
-      "search-combobox"
+    def combobox_dom_id
+      "#{name}-combobox"
     end
 
-    def listbox_id
-      "search-listbox"
+    def listbox_dom_id
+      Searches::Listbox.dom_id(name)
     end
   end
 end
