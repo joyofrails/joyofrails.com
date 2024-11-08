@@ -22,21 +22,9 @@ module HtmlFixtures
       instance.set_response! ApplicationController.make_response!(request)
       instance.view_context
     end
-  end
-end
 
-# We need to override the randomness of the InlineSvg gem to ensure that the SVG
-# IDs are consistent across test runs and git commits.
-module InlineSvgIdGeneratorRandomnessOverrideForFixtures
-  def call
-    "non-random-for-fixtures"
-  end
-end
-
-if Rails.env.local?
-  class InlineSvg::IdGenerator::Randomness
-    class << self
-      prepend InlineSvgIdGeneratorRandomnessOverrideForFixtures
+    def self.ensure_inline_svg_id_consistency!
+      require_relative "patches/inline_svg_id_generator_randomness_override"
     end
   end
 end
