@@ -50,7 +50,7 @@ class NewsletterNotifier < NotificationEvent
     test_recipients = User.test_recipients.pluck(:email)
 
     if recipients.any? { |user| test_recipients.exclude?(user.email) }
-      raise Error, "Attempted to deliver test newsletter to non-test recipients:  #{id}"
+      raise Error, "Attempted to deliver test newsletter to non-test recipients: #{id}"
     end
   end
 end
