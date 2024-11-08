@@ -31,4 +31,6 @@ class Page < ApplicationRecord
   def resource
     Sitepress.site.get(request_path)
   end
+
+  def url = request_path
 end

@@ -1,0 +1,11 @@
+<div class="combobox grid gap-2" data-controller="search-combobox" data-action="
+            keydown->search-combobox#navigate
+            search-listbox:connected->search-combobox#tryOpen
+            dialog:close@window->search-combobox#closeInTarget
+            dialog:open@window->search-combobox#openInTarget
+          "><form data-controller="autosubmit-form" data-autosubmit-delay-value="300" data-autosubmit-minimum-length-value="3" data-turbo-frame="search" action="/search" accept-charset="UTF-8" method="post"><div class="flex items-center flex-row pl-2 col-gap-xs"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1200 1200" class="w-[32px] fill-current text-theme">
+  <path d="m1135.2 986.4-254.4-226.8c124.8-181.2 105.6-430.8-55.199-591.6-181.2-182.4-476.4-182.4-657.6 0-182.4 181.2-182.4 476.4 0 658.8 160.8 160.8 410.4 178.8 591.6 55.199l226.8 253.2c38.398 43.199 105.6 45.602 146.4 3.6016l6-6c40.801-40.801 39.598-108-3.6016-146.4zm-422.4-273.6c-120 120-313.2 120-432 0-120-120-120-313.2 0-432 120-120 313.2-120 432 0 120 120 120 313.2 0 432z"></path>
+</svg><label for="query" class="sr-only">Query</label> <input value="Rails" autofocus="autofocus" role="combobox" aria-expanded="false" aria-autocomplete="none" aria-controls="search-listbox" aria-owns="search-listbox" aria-haspopup="listbox" aria-activedescendant="" id="search-combobox" data-action="
+                  focus-&gt;combobox#tryOpen
+                  input-&gt;autosubmit-form#submit
+                " placeholder="Search Joy of Rails" class="w-full step-1" type="search" name="query" /></div><input value="search" autocomplete="off" type="hidden" name="name" id="name" /></form><ul id="search-listbox" role="listbox" class="grid" data-controller="search-listbox"><li aria-label="Here’the thing" role="option" id="search-option_search_result_articles-heres-the-thing" class="rounded"><a href="/articles/heres-the-thing"><div>Here’the thing</div><div>Ruby is a programming language</div></a></li><li aria-label="Introducing Joy of Rails" role="option" id="search-option_search_result_articles-joy-of-rails" class="rounded"><a href="/articles/joy-of-rails"><div>Introducing Joy of Rails</div><div>Rails is a web application framework</div></a></li></ul></div>

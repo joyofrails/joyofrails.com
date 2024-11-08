@@ -1,0 +1,1 @@
+ColorScheme.find_or_create_default

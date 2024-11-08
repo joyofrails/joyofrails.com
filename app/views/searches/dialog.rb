@@ -5,11 +5,12 @@ module Searches
     def view_template
       render ::Dialog::Layout.new(
         id: "search-dialog",
-        "aria-label": "Search",
+        aria: {label: "Search Dialog"},
         class: "max-w-xl p-2 mt-32 mx-auto",
         data: {
           controller: "dialog",
           action: "
+            search-combobox:close->dialog#close
             keydown.meta+k@window->dialog#open
             click->dialog#tryClose
           "

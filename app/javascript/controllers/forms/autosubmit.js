@@ -10,6 +10,10 @@ export default class extends Controller {
       type: Number,
       default: 0,
     },
+    mininumLength: {
+      type: Number,
+      default: 0,
+    },
   };
 
   connect() {
@@ -28,10 +32,14 @@ export default class extends Controller {
       return;
     }
 
-    if (event.target.value.length >= 3) {
+    if (event.target.value.length >= this.mininumLengthValue) {
       this.element.requestSubmit();
     } else {
-      console.log('Not submitting until 3 or more characters');
+      console.log(
+        'Not submitting until',
+        this.mininumLengthValue,
+        'characters',
+      );
     }
   }
 }

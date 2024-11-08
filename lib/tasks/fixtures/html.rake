@@ -1,19 +1,8 @@
 namespace :fixtures do
   task html: :environment do
-    if Rails.env.local?
-      class InlineSvg::IdGenerator::Randomness
-        class << self
-          prepend InlineSvgIdGeneratorRandomnessOverrideForFixtures
-        end
-      end
-    end
+    require_relative "../../html_fixtures/renderer"
 
-    File.write(Rails.root.join("app", "javascript", "test", "fixtures", "views", "darkmode", "switch.html"), DarkMode::Switch.call)
-  end
-end
-
-module InlineSvgIdGeneratorRandomnessOverrideForFixtures
-  def call
-    "non-random-for-fixtures"
+    HtmlFixtures::Renderer.ensure_inline_svg_id_consistency!
+    HtmlFixtures::Renderer.new.render_all
   end
 end

@@ -3,11 +3,10 @@ class Searches::ShowView < ApplicationView
   include Phlex::Rails::Helpers::Routes
   include Phlex::Rails::Helpers::TurboFrameTag
 
-  attr_reader :pages, :query
+  attr_reader :attributes
 
-  def initialize(pages:, query:)
-    @pages = pages
-    @query = query
+  def initialize(**attrs)
+    @attributes = attrs
   end
 
   def view_template
@@ -16,7 +15,7 @@ class Searches::ShowView < ApplicationView
       class: "section-content container py-gap mb-3xl"
     ) do
       h3 { "Enter your search query" }
-      render Searches::Combobox.new(pages:, query:)
+      render Searches::Combobox.new(**attributes)
       render partial: "searches/help"
     end
   end
