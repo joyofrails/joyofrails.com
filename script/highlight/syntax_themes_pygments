@@ -3,7 +3,7 @@
 require "bundler/setup"
 require "httpx"
 require "nokogiri"
-require "debug"
+# require "debug"
 
 # Download the Pygments themes from the StylishThemes repository
 

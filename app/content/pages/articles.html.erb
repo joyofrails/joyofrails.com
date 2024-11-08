@@ -5,9 +5,9 @@ description: Read the latest articles from Joy of Rails
 
 <section style="min-height: 51vh">
   <%= render Pages::Header.new(
-    title: "Articles",
-    description: "Read the latest articles from Joy of Rails"
-  ) %>
+        title: "Articles",
+        description: "Read the latest articles from Joy of Rails"
+      ) %>
   <div class="main-content container py-gap">
     <%= render Pages::List.new(SitepressArticle.published(params)) %>
   </div>

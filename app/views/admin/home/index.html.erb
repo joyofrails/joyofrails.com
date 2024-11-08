@@ -1,17 +1,8 @@
-<%
-nav = {
-  "Rails Admin" => "/admin/data",
-  "Newsletters" => admin_newsletters_path,
-  "Flipper" => "/admin/flipper",
-  "Mission Control Jobs" => "/admin/jobs",
-  "Litestream" => "/admin/litestream",
-}
-%>
 <article>
   <%= render Pages::Header.new(title: "Admin") %>
   <div class="section-content container py-gap mb-3xl">
     <ul>
-      <% nav.each do |label, url| %>
+      <% @nav.each do |label, url| %>
       <li>
         <p class="font-semibold leading-6">
           <%= link_to url do %>

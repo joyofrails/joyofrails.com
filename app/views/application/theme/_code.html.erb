@@ -1,5 +1,5 @@
 <% if custom_syntax_highlight? %>
-  <%= stylesheet_link_tag find_syntax_highlight.asset_path, media: "all", data: { turbo_track: "reload", syntax_highlight: find_syntax_highlight.name } %>
+  <%= stylesheet_link_tag find_syntax_highlight.asset_path, media: "all", data: {turbo_track: "reload", syntax_highlight: find_syntax_highlight.name} %>
 <% else %>
-  <%= stylesheet_link_tag Settings::SyntaxHighlight.default.asset_path, media: "all", data: { turbo_track: "reload", syntax_highlight: find_syntax_highlight.name } %>
+  <%= stylesheet_link_tag Settings::SyntaxHighlight.default.asset_path, media: "all", data: {turbo_track: "reload", syntax_highlight: find_syntax_highlight.name} %>
 <% end %>
