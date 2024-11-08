@@ -1,61 +1,60 @@
 require "rails_helper"
 
 RSpec.describe Markdown::Article, type: :view do
-  describe ".call" do
-    before do
-      allow(view).to receive(:headers).and_return({"Content-Type" => "text/html"})
-    end
+  before do
+    allow(view).to receive(:headers).and_return({"Content-Type" => "text/html"})
+  end
 
-    def render(content, &block)
-      described_class.new(content).call(view_context: view, &block)
-    end
+  it "processes text" do
+    expect(render_component("Hello")).to match "Hello"
+  end
 
-    it "processes text" do
-      expect(render("Hello")).to match "Hello"
-    end
+  it "ignores unfenced erb at start of line" do
+    expect(render_component("<%= 1 + 1 %>")).to eq("<%= 1 + 1 %>")
+  end
 
-    it "ignores unfenced erb at start of line" do
-      expect(render("<%= 1 + 1 %>")).to eq("<%= 1 + 1 %>")
-    end
+  it "renders article code block" do
+    md = <<~MD
+      ```
+      1 + 1
+      ```
+    MD
 
-    it "renders article code block" do
-      md = <<~MD
-        ```
-        1 + 1
-        ```
-      MD
+    render_component(md)
 
-      page = Capybara.string(render(md))
-      code = page.find("pre code")
+    page = Capybara.string(rendered)
+    code = page.find("pre code")
 
-      expect(code).to have_content("1 + 1")
-      expect(page).to have_content("Copied")
-    end
+    expect(code).to have_content("1 + 1")
+    expect(page).to have_content("Copied")
+  end
 
-    it "renders arbitrary html" do
-      md = <<~MD
-        <div>Hello</div>
-      MD
-      html = <<~HTML
-        <div>Hello</div>
-      HTML
-      expect(render(md)).to eq(html)
-    end
+  it "renders arbitrary html" do
+    md = <<~MD
+      <div>Hello</div>
+    MD
+    html = <<~HTML
+      <div>Hello</div>
+    HTML
 
-    it "renders basic code block when content type is atom" do
-      allow(view).to receive(:headers).and_return({"Content-Type" => "application/atom+xml"})
+    expect(render_component(md)).to eq(html)
+  end
 
-      md = <<~MD
-        ```
-        1 + 1
-        ```
-      MD
+  it "renders basic code block when content type is atom" do
+    allow(view).to receive(:headers).and_return({"Content-Type" => "application/atom+xml"})
 
-      page = Capybara.string(render(md))
-      code = page.find("pre code")
+    md = <<~MD
+      ```
+      1 + 1
+      ```
+    MD
 
-      expect(code).to have_content("1 + 1")
-      expect(page).not_to have_content("Copied!")
-    end
+    render_component(md)
+
+    page = Capybara.string(rendered)
+    code = page.find("pre code")
+
+    expect(code).to have_content("1 + 1")
+    expect(page).not_to have_content("Copied!")
   end
 end
