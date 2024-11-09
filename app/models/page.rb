@@ -40,8 +40,4 @@ class Page < ApplicationRecord
   def body = resource.body
 
   def description = resource.data.description
-
-  def analyze_topics!
-    Pages::AnalyzeTopicsJob.perform_later(self)
-  end
 end
