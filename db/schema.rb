@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_27_034443) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_09_124854) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -165,6 +165,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_27_034443) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  create_table "page_topics", force: :cascade do |t|
+    t.string "page_id", null: false
+    t.integer "topic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id", "topic_id"], name: "index_page_topics_on_page_id_and_topic_id", unique: true
+    t.index ["page_id"], name: "index_page_topics_on_page_id"
+    t.index ["topic_id"], name: "index_page_topics_on_topic_id"
+  end
+
   create_table "pages", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.string "request_path", null: false
     t.datetime "created_at", null: false
@@ -185,6 +195,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_27_034443) do
     t.index ["author_type", "author_id"], name: "index_snippets_on_author"
   end
 
+  create_table "topics", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "slug", null: false
+    t.string "status", default: "pending", null: false
+    t.integer "pages_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pages_count"], name: "index_topics_on_pages_count"
+    t.index ["slug"], name: "index_topics_on_slug", unique: true
+    t.index ["status"], name: "index_topics_on_status"
+  end
+
   create_table "users", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest"
@@ -200,6 +223,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_27_034443) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "email_exchanges", "users"
   add_foreign_key "notifications", "notification_events"
+  add_foreign_key "page_topics", "pages"
+  add_foreign_key "page_topics", "topics"
 
   # Virtual tables defined in this database.
   # Note that virtual tables may not work with other database engines. Be careful if changing database.
