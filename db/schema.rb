@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_14_213838) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -165,6 +165,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_213838) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  # Could not dump table "page_embeddings_vector_chunks00" because of following StandardError
+  #   Unknown type '' for column 'rowid'
+
   create_table "page_topics", force: :cascade do |t|
     t.string "page_id", null: false
     t.integer "topic_id", null: false
@@ -232,5 +235,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_14_213838) do
 
   # Virtual tables defined in this database.
   # Note that virtual tables may not work with other database engines. Be careful if changing database.
+  create_virtual_table "page_embeddings", "vec0", ["id text primary key", "embedding float[1536]"]
   create_virtual_table "pages_search_index", "fts5", ["title", "body", "page_id"]
 end
