@@ -34,6 +34,17 @@ class Page < ApplicationRecord
   scope :published, -> { where(["published_at < ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
 
+  has_one :page_embedding, inverse_of: :page, foreign_key: :id, primary_key: :id
+
+  scope :similar_to, ->(page) do
+    select("pages.*")
+      .select("similar_pages.distance")
+      .from("(#{PageEmbedding.similar_to(page.page_embedding).to_sql}) similar_pages")
+      .joins("LEFT JOIN pages ON similar_pages.id = pages.id")
+      .where("similar_pages.id != ?", page.id)
+      .order("similar_pages.distance ASC")
+  end
+
   # def resource_data
   delegate :data, to: :resource, allow_nil: true, prefix: true
 
