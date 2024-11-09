@@ -17,6 +17,10 @@
 class Page < ApplicationRecord
   include Page::Searchable
 
+  has_many :page_topics, dependent: :destroy
+  has_many :topics, through: :page_topics
+  has_many :approved_topics, -> { approved }, through: :page_topics, source: :topic, inverse_of: :pages
+
   def resource = Sitepress.site.get(request_path)
 
   def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
