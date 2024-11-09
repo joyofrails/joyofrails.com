@@ -8,6 +8,7 @@ gem "rails", "8.0.0.beta1 " # Bundle edge Rails instead: gem "rails", github: "r
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
 gem "sqlite-ulid" # A SQLite extension for generating and working with ULIDs [https://github.com/asg017/sqlite-ulid]
+gem "sqlite-vec" # A SQLite extension for working with vectors [https://github.com/asg017/sqlite-vec]
 gem "sqlpkg" # A SQLite extension for working with packages [https://github.com/fractaledmind/sqlpkg-ruby]
 
 gem "solid_cache" # A database-backed ActiveSupport::Cache::Store [https://github.com/rails/solid_cache]
