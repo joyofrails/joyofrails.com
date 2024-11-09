@@ -1,5 +1,5 @@
 class CreatePageSearches < ActiveRecord::Migration[8.0]
-  def change
+  def up
     create_virtual_table :pages_search_index, :fts5, ["title", "body", "page_id"]
   end
 
