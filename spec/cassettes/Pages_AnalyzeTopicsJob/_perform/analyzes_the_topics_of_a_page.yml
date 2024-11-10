@@ -1,0 +1,242 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"page_topics","schema":{"type":"object","properties":{"topics":{"type":"array","description":"A
+        list of topics related to the article.","items":{"type":"string","description":"A
+        single topic."}}},"required":["topics"],"additionalProperties":false},"strict":true}},"messages":[{"role":"system","content":"You
+        are a helpful assistant skilled in assigned a list of predefined topics to
+        an article."},{"role":"user","content":"You are tasked with figuring out of
+        the list of provided topics matches an article based on the article content
+        and its metadata. Follow these steps carefully:\n\n1. First, read through
+        the entire list of existing topics for other articles.\n\u003ctopics\u003e\n  \n\u003c/topics\u003e\n\n2.
+        Next, read through the entire list of topics that we have already rejected
+        for other articles.\n\u003crejected_topics\u003e\n  \n\u003c/rejected_topics\u003e\n\n3.
+        Now review the metadata of the article:\n\u003cmetadata\u003e\n  - title:
+        Custom Color Schemes with Ruby on Rails\n  - description: You can edit the
+        color scheme of this website right in content of this blog post. Play with
+        the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.\n  -
+        url: /articles/custom-color-schemes-with-ruby-on-rails\n\u003c/metadata\u003e\n\n4.
+        Carefully read through the entire article:\n\u003carticle\u003e\nThis blog
+        post uses Rails and Hotwire to let you edit the color scheme of this site,
+        Joy of Rails. Give it a try. JavaScript not enabled? Go to the color scheme
+        demo. Then come back when you’re done. How it works Pretty cool, huh? Here
+        are the key ingredients: CSS Variables: Also known as CSS custom properties
+        SQLite: A color_schemes table to store curated color schemes Cookies: A session
+        cookie to store your saved color scheme selection Hotwire: Server-rendered
+        HTML and a single-page app experience powered by Rails, Turbo Drive, and Turbo
+        Frames I started with the premise of using a monochromatic color scheme based
+        on the eleven-item color scale Tailwind uses for each of its default color
+        sets. The curated options are all generated from uicolors.app. Each color
+        scheme is a row in the color_schemes table, with a name and CSS hex code values
+        for each of the eleven weights. class CreateColorSchemes \u003c ActiveRecord::Migration[7.1]
+        def change create_table :color_schemes do |t| t.string :name, null: false,
+        index: {unique: true} t.string :weight_50, null: false t.string :weight_100,
+        null: false t.string :weight_200, null: false # ... and so on end end end
+        CSS variables make it easy to change repeated CSS in a lot of places. You
+        can set a CSS variable with double dashes, --. The CSS variable can be accessed
+        using the var() expression. CSS variables can be overridden and can be defined
+        in terms of other variables. Here’s a simplified a view of how I used CSS
+        variables to define the main background color of the \u003cbody\u003e element.
+        Using the pseudo-class :root means the CSS variable can be accessed from any
+        scope in CSS. :root { --theme-color-50: var(--my-color-50, var(--default-color-50));
+        --theme-color-100: var(--my-color-100, var(--default-color-100)); --theme-color-200:
+        var(--my-color-200, var(--default-color-200));h /* and so on */ } body { background-color:
+        var(--theme-color-50); } This approach is consistent with the Tailwind docs
+        for using CSS variables to customize Tailwind colors for those of you that
+        may be using (or interested in using) Tailwind. Most of the buttons in the
+        color scheme demo are connected to \u003cform\u003e elements with actions
+        that point to the ColorSchemesController in the Joy of Rails application.
+        When you click the \"Save\" button, the application stores the id of the chosen
+        color scheme in your Rails session: session[:color_scheme_id] = @color_scheme.id
+        When the page is rendered, the application checks for the presence of the
+        session data to query for the desired color scheme: session[:color_scheme_id]
+        \u0026\u0026 ColorScheme.find(session[:color_scheme_id]) The color scheme
+        CSS variables are written directly into a style tag: \u003cstyle\u003e :root
+        { --my-color-50: \u003c%= @color_scheme.weight_50.to_json %\u003e; --my-color-100:
+        \u003c%= @color_scheme.weight_100.to_json %\u003e; --my-color-200: \u003c%=
+        @color_scheme.weight_200.to_json %\u003e; /* and so on */ } \u003c/style\u003e
+        Most of the time-consuming work required to assemble this post was in researching
+        the color palettes and building the site theme with various background and
+        text colors defined in CSS variables. Progressively enhanced Did you notice
+        how the color choice updated automatically in place? At least, it should have
+        for visitors that have JavaScript enabled. I can see you don’t have JavaScript
+        enabled! That’s okay! The color schemes preview should have at still worked,
+        which might not have been true had I used a JavaScript framework that relies
+        on client-side rendering. One of the things I love about Rails and Hotwire
+        is that it’s possible to adopt progressive enhancement. Progressive enhancement
+        is a design philosophy that provides a baseline of essential content and functionality
+        to as many users as possible, while delivering the best possible experience
+        only to users of the most modern browsers that can run all the required code.
+        Source: MDN Glossary In this case, visitors who don’t have JavaScript enabled
+        would see a link to the the color schemes settings page. That page has most
+        of the functionality you see here. This design is made possible by the fact
+        that the color scheme preview HTML is all rendered on the server with Ruby
+        on Rails. With JavaScript enabled, Turbo JavaScript \"upgrades\" the default
+        browser form submissions and link clicks to AJAX requests and use the HTML
+        response to replace the parts of the page in place. Without JavaScript, visitors
+        will still get the desired results after a full page navigation and/or redirects.
+        Progressive enhancement hasn’t necessarily been a hot topic alongside the
+        popular JavaScript frameworks that rely on client-side rendering. It’s nice
+        to see that most of what you see on these pages is static content and shouldn’t
+        require a lot of code running in your browser to view. Look at all the things
+        I’m not doing Notice how I do not mention any of the major JavaScript frameworks
+        in the list of tools I used to build custom color schemes. I’m not using any
+        hooks to manage local state. I’m not making any explicit calls to fetch in
+        my application code. In fact, I wrote only a one line of custom JavaScript
+        to make the color scheme preview selection work: on an onchange handler: \u003cselect
+        onchange=\"this.form.requestSubmit()\"\u003e \u003c!-- options --\u003e \u003c/select\u003e
+        This isn’t to say I don’t like writing JavaScript or that I don’t think you
+        should use JavaScript. I’m not here to tell you that you shouldn’t use React.
+        Or Vue, Svelte, Solid, or Angular. Personally, I think JavaScript and the
+        popular JavaScript frameworks are great. I recognize why and how they have
+        become so popular. I’m also not here to tell you that Rails with Hotwire is
+        objectively better than any of these JavaScript frameworks or similar options.
+        But—and this is the important point—I didn’t need any client-side rendering
+        or JavaScript component library to make this work. It is possible to build
+        a single-page application experience in Rails. It’s not always necessary to
+        build a single-page application in JavaScript. For a solo developer with a
+        busy home life and a full-time job, saving time and energy for other important
+        tasks, like writing, with a language and framework I love; this makes all
+        the difference. Would you like to see an in-depth tutorial on how to build
+        the custom color scheme functionality? Did you find a bug or do you have questions
+        about the content? Please send me an email. You can also connect with me on
+        Twitter, Github, Mastodon, and Linkedin. Curious to peek behind the curtain
+        and get a glimpse of the magic? Joy of Rails is open source on Github. Feel
+        free to look through the code and contribute. And if I’ve captured your interest,
+        please subscribe to hear more from me and get notified of new articles by
+        email. That does it for another glimpse into what’s possible with Ruby on
+        Rails. I hope you enjoyed it. Rainbow, by Jasper (my son)\n\u003c/article\u003e\n\n5.
+        Pick 3 to 4 topics that would describe the article best.\n   Prefer topics
+        from the list of existing topics but you may create new ones if necessary.\n\n   If
+        you create a new topic, please ensure that it is relevant to the content of
+        the article and match the recommended topics kind.\n   Also for new topics
+        please ensure they are not a synonym of an existing topic.\n    - Make sure
+        it fits the overall theme of this website, it''s a website for sharing tutorials
+        about Ruby on Rails, so it should have something to do with Ruby, Rails, Web,
+        Programming, Teams, People or Tech.\n    - Ruby framework names (examples:
+        Rails, Sinatra, Hanami, Ruby on Rails, ...)\n    - Ruby gem names\n    - Design
+        patterns names (examples: MVC, MVP, Singleton, Observer, Strategy, Command,
+        Decorator, Composite, Facade, Proxy, Mediator, Memento, Observer, State, Template
+        Method, Visitor, ...)\n    - Database names (examples: PostgreSQL, MySQL,
+        MongoDB, Redis, Elasticsearch, Cassandra, CouchDB, SQLite, ...)\n    - front
+        end frameworks names (examples: React, Vue, Angular, Ember, Svelte, Stimulus,
+        Preact, Hyperapp, Inferno, Solid, Mithril, Riot, Polymer, Web Components,
+        Hotwire, Turbo, StimulusReflex, Strada ...)\n    - front end CSS libraries
+        and framework names (examples: Tailwind, Bootstrap, Bulma, Material UI, Foundation,
+        ...)\n    - front end JavaScript libraries names (examples: jQuery, D3, Chart.js,
+        Lodash, Moment.js, ...)\n\n  Topics are typically one or two words long, with
+        some exceptions such as \"Ruby on Rails\"\n\n6. Format your topics you picked
+        as a JSON object with the following schema:\n  {\n    \"topics\": [\"topic1\",
+        \"topic2\", \"topic3\"]\n  }\n\n7. Ensure that your summary is:\n  - relevant
+        to the content of the article and match the recommended topics kind\n  - Free
+        of personal opinions or external information not present in the provided content\n\n8.
+        Output your JSON object containing the list of topics in the JSON format.\n"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - "<AUTHORIZATION>"
+      Openai-Organization:
+      - org-xN7uhiXxqHRLM7HwZHKZ6yRZ
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 11 Nov 2024 22:45:10 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Expose-Headers:
+      - X-Request-ID
+      Openai-Organization:
+      - user-o7qni7nbejrosofwund3hkwl
+      Openai-Processing-Ms:
+      - '659'
+      Openai-Version:
+      - '2020-10-01'
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '200000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '197558'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 732ms
+      X-Request-Id:
+      - req_a432408f4f4a711bf51df6c3daaf5b7e
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=DQl59V9p0oBRgvESI.1RnYW1V0_edg3mf30EynRsU2o-1731365110-1.0.1.1-O8oORvt91il5IzpwI9sXJAxnYTre129tFBgKeywepEGuJORlaGLUUfMMR8z4clwnAsPY1YPJOnrOlzW_QNb6Ag;
+        path=/; expires=Mon, 11-Nov-24 23:15:10 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=Gm6TqyWyYKCZhklKWseQo4a0jcmrKHFE5D2mPfrAkJk-1731365110792-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 8e11cfa1e98a59cd-IAD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "chatcmpl-ASXReZ2wmpyNT9qaSWsx7kyumR8jK",
+          "object": "chat.completion",
+          "created": 1731365110,
+          "model": "gpt-4o-mini-2024-07-18",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "{\"topics\":[\"Ruby on Rails\",\"Hotwire\",\"CSS Variables\",\"Tailwind\"]}",
+                "refusal": null
+              },
+              "logprobs": null,
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 2179,
+            "completion_tokens": 17,
+            "total_tokens": 2196,
+            "prompt_tokens_details": {
+              "cached_tokens": 2048,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "system_fingerprint": "fp_0ba0d124f1"
+        }
+  recorded_at: Mon, 11 Nov 2024 22:45:10 GMT
+recorded_with: VCR 6.3.1
