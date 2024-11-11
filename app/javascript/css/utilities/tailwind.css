@@ -1081,6 +1081,14 @@ focus\:ring-0:focus {
   aspect-ratio: 16 / 9;
 }
 
+.aspect-\[2\/1\] {
+  aspect-ratio: 2 / 1;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
 .drop-shadow-sm {
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
 }

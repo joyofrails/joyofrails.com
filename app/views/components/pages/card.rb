@@ -16,7 +16,7 @@ module Pages
           figure(class: "page-card--image w-full") do
             image_tag @image,
               alt: description,
-              class: "aspect-[16/9] w-full rounded-2xl object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+              class: "w-full rounded-2xl object-cover aspect-[16/9]"
           end
         end
         div(class: "max-w-xl") do
