@@ -1,0 +1,21 @@
+
+<%= render Pages::Header.new(title: "Topics") %>
+<div class="section-content container py-gap mb-3xl">
+  <% if @topics.blank? %>
+  <div class="only:inherit grid grid-row-mid">
+    <h2>No topics have been created yet!</h2>
+    <div>
+      <p>Coming soon ;)</p>
+    </div>
+  </div>
+  <% else %>
+    <% @topics.each do |topic| %>
+      <%= tag.div id: dom_id(topic) do %>
+        <h3>
+          <%= link_to topic.name, topic_path(topic) %>
+          <span class="text-faint">(<%= topic.pages_count %>)</span>
+        </h3>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

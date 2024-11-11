@@ -5,12 +5,16 @@ class SitepressArticle < Sitepress::Model
   collection glob: "articles/*.html*"
   data :title, :published, :updated, :summary, :description, :tags, :image
 
-  delegate :mime_type, :handler, to: :page
+  delegate :resource_path, :mime_type, :handler, to: :page
 
   def self.published(params = {})
-    all
+    take_published(all)
+  end
+
+  def self.take_published(articles, params = {})
+    articles
       .filter { |article| article.published?(preview: params[:preview]) }
-      .sort { |a, b| b.published_on <=> a.published_on } # DESC order
+      .sort { |a, b| b.published_on <=> a.published_on }
   end
 
   def self.draft

@@ -183,6 +183,8 @@ Rails.application.routes.draw do
 
   match "search", to: "searches#show", via: [:get, :post]
 
+  resources :topics, param: :slug, only: [:index, :show]
+
   namespace :share do
     resources :snippets do
       resource :screenshot, only: [:new, :create, :show], controller: "snippet_screenshots"
