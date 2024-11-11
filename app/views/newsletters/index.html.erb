@@ -9,12 +9,12 @@
   </div>
   <% else %>
     <% @newsletters.each do |newsletter| %>
-      <div id="dom_id(newsletter)">
+      <%= tag.div id: dom_id(newsletter) do %>
         <h2><%= link_to newsletter.title, newsletter %></h2>
         <div>
           <p><%= time_tag newsletter.sent_at.to_date %></p>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>
