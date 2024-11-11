@@ -14,7 +14,7 @@ module Pages
       article(class: "") do
         a(href: request_path, class: "block") do
           figure(class: "page-card--image w-full") do
-            image_tag @image,
+            image_tag @image || "https://placehold.co/640x360?text=#{title}",
               alt: description,
               class: "w-full rounded-2xl object-cover aspect-[16/9]"
           end
