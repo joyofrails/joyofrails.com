@@ -83,15 +83,11 @@ module Pages
         "ActiveStorage",
         "ActiveSupport",
         "Algorithms",
-        "Android",
-        "Angular.js",
         "Arel",
         "Artificial Intelligence (AI)",
-        "Assembly",
         "Authentication",
         "Authorization",
         "Automation",
-        "Awards",
         "Background jobs",
         "Behavior-Driven Development (BDD)",
         "Blogging",
@@ -108,7 +104,6 @@ module Pages
         "Code Organization",
         "Code Quality",
         "Command Line Interface (CLI)",
-        "Communication",
         "Communication",
         "Community",
         "Compiling",
@@ -162,7 +157,6 @@ module Pages
         "Flaky Tests",
         "Frontend",
         "Functional Programming",
-        "Game Shows",
         "Games",
         "Geocoding",
         "git",
@@ -352,7 +346,8 @@ module Pages
         "Politics",
         "Religion",
         "Custom Settings",
-        "Dynamic Rendering"
+        "Dynamic Rendering",
+        "Dynamic CSS"
       ]
     end
 
