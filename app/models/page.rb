@@ -17,9 +17,18 @@
 class Page < ApplicationRecord
   include Page::Searchable
 
+  NullResource = Data.define(:request_path) do
+    def data = NullData.new(title: nil, description: nil)
+  end
+
+  NullData = Data.define(:title, :description)
+
   has_many :page_topics, dependent: :destroy
   has_many :topics, through: :page_topics
   has_many :approved_topics, -> { approved }, through: :page_topics, source: :topic, inverse_of: :pages
+
+  # def resource_data
+  delegate :data, to: :resource, allow_nil: true, prefix: true
 
   def self.as_published_articles
     SitepressArticle.take_published(all.map { |page| SitepressArticle.new(page.resource) })
@@ -29,7 +38,8 @@ class Page < ApplicationRecord
     SitepressArticle.new(resource)
   end
 
-  def resource = Sitepress.site.get(request_path)
+  def resource = Sitepress.site.get(request_path) ||
+    NullResource.new(request_path: request_path)
 
   def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
 
