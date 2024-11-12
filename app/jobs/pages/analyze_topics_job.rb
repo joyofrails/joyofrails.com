@@ -97,6 +97,7 @@ module Pages
           - title: #{page.title}
           - description: #{page.description}
           - url: #{page.request_path}
+          - current topics: #{page.topics.pluck(:name).join(", ")}
         </metadata>
 
         4. Carefully read through the entire article:
@@ -105,7 +106,7 @@ module Pages
         </article>
 
         5. Pick 3 to 4 topics that would describe the article best.
-           Prefer topics from the list of existing topics but you may create new ones if necessary.
+           Prefer current topics for the article, if any, unless the topics no longer apply. Next, prefer topics from the list of existing topics but you may create new ones if necessary.
 
            If you create a new topic, please ensure that it is relevant to the content of the article and match the recommended topics kind.
            Also for new topics please ensure they are not a synonym of an existing topic.
