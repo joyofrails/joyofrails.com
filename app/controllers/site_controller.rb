@@ -5,9 +5,11 @@ class SiteController < Sitepress::SiteController
   # render_resource is a helper method provided by Sitepress to render the current resource.
   # requested_resource is the Sitepress::Resource object that represents the current page.
   #
-  # def show
-  #   render_resource requeste_resource
-  # end
+  def show
+    @page = Page.find_or_initialize_by(request_path: request.path)
+
+    super
+  end
 
   protected
 
@@ -19,7 +21,7 @@ class SiteController < Sitepress::SiteController
   #
   # For example, the rendition could be modified via `Nokogiri::HTML5::DocumentFragment(rendition)`.
   #
-  # @param rendition [Sitepress::Rendition] Rendered representatio of current_resource
+  # @param rendition [Sitepress::Rendition] Rendered representation of current_resource
   #
   def process_rendition(rendition)
   end

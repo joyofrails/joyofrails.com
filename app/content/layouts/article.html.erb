@@ -13,7 +13,7 @@
    ) %>
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
-  <article itemscope itemtype="http://schema.org/Article">
+  <article itemscope itemtype="http://schema.org/Article" class="mb-3xl">
     <%= render Pages::Header.new(
           title: current_page.data.title!,
           description: current_page.data.description,
@@ -33,9 +33,14 @@
         </nav>
       </aside>
     <%- end -%>
-    <div class="article-content container mb-3xl" itemprop="articleBody">
+    <div class="article-content container" itemprop="articleBody">
       <%= yield %>
     </div>
+    <% if @page.topics.any? %>
+      <section class="section-content container">
+        <%= render Pages::Topics.new(topics: @page.topics.pluck(:slug)) %>
+      </section>
+    <% end %>
   </article>
   <section id="newsletter-signup">
     <%= render "users/newsletter_subscriptions/banner" %>
