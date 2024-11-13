@@ -19,4 +19,14 @@ RSpec.describe Pages::BatchUpsertPagesJob, type: :job do
       described_class.perform_now
     }.not_to change(Page, :count)
   end
+
+  it "handles limit argument" do
+    expect {
+      described_class.perform_now(limit: 3)
+    }.to change(Page, :count).by(3)
+
+    expect {
+      described_class.perform_now(limit: 3)
+    }.to change(Page, :count).by(3)
+  end
 end
