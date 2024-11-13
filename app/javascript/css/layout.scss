@@ -24,7 +24,8 @@ main > *,
 .footer-content,
 .main-content,
 .grid-content,
-.article-content {
+.article-content,
+.column-content {
   display: grid;
 }
 
@@ -48,7 +49,8 @@ main > *,
 
 .main-content,
 .article-content,
-.grid-content {
+.grid-content,
+.column-content {
   grid-gap: var(--grid-gutter);
   grid-template-columns: repeat(var(--grid-columns), [col-start] 1fr);
   grid-template-rows: minmax(calc(var(--leading) * 1em), max-content);
@@ -58,7 +60,8 @@ main > *,
 .section-content,
 .article-content,
 .grid-content,
-.grid-row-mid {
+.grid-row-mid,
+.column-content {
   grid-auto-flow: row;
   row-gap: var(--space-m);
 }
@@ -84,12 +87,17 @@ main > *,
 
 .main-content > *,
 .article-content > *,
-.grid-content > * {
+.grid-content > *,
+.column-content > * {
   grid-column: col-start 1 / span var(--grid-columns);
 }
 
 .row-gap-m {
   row-gap: var(--space-m);
+}
+
+.row-gap-none {
+  row-gap: 0;
 }
 
 .col-gap-m {
@@ -121,6 +129,14 @@ main > *,
     &.row-span-2 {
       grid-row-start: span 2;
     }
+  }
+
+  .column-content > .sidebar {
+    grid-column: col-start 1 / span 3;
+  }
+
+  .column-content > .mainbar {
+    grid-column: col-start 4 / span 9;
   }
 
   // For making blocks span the full width of the article
