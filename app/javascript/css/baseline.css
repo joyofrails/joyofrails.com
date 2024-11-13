@@ -91,6 +91,7 @@ a {
 p {
   font-family: var(--sans-serif);
   color: var(--joy-text);
+  word-wrap: break-word;
 }
 
 b,
