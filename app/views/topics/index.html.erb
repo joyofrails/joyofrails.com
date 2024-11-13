@@ -1,3 +1,27 @@
-<%= turbo_frame_tag :topic_articles, class: "row-gap-none", data: {turbo_action: "advance"} do %>
-  <%= render "topic", topics: @topics %>
-<% end %>
+<% topics = @topics %>
+
+<%= render Pages::Header.new(title: "Topics") %>
+
+<div class="column-content container py-gap mb-3xl">
+  <nav class="sidebar" data-turbo-permanent>
+    <%= turbo_frame_tag :topics_sidebar do %>
+      <% topics.each do |topic| %>
+        <%= tag.div id: dom_id(topic), class: "text-small mb-2" do %>
+          <%= link_to topic.name, topic_path(topic), data: {turbo_frame: :topics_mainbar} %>
+          <span class="text-faint">(<%= topic.pages_count %>)</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </nav>
+  <div class="mainbar w-full">
+    <%= turbo_frame_tag :topics_mainbar, data: {turbo_action: "advance"} do %>
+      <div>
+        <h2>Welcome!</h2>
+        <div>
+          <p>Here you‘ll find topics currently covered at Joy of Rails.</p>
+          <p>Choose a topic from the sidebar to view articles.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
