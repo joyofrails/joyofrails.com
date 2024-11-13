@@ -1,7 +1,7 @@
 <% topic = @topic
    topics = @topics %>
 
-<%= render Pages::Header.new(title: "Topics") %>
+<%= render Pages::Header.new(title: "Topics on Joy of Rails") %>
 
 <div class="column-content container py-gap mb-3xl">
   <nav class="sidebar" data-turbo-permanent>
@@ -17,6 +17,7 @@
           </div>
         </div>
       <% else %>
+        <h3 class="mb-8">Topic: <%= topic.name %></h3>
         <ul>
           <% topic.pages.as_published_articles.each do |page| %>
             <%= tag.li id: dom_id(page) do %>
