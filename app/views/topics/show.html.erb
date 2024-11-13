@@ -1,16 +1,3 @@
-
-<%= render Pages::Header.new(title: "Topic: #{@topic.name}") %>
-<div class="section-content container py-gap mb-3xl">
-  <% if @topic.pages.blank? %>
-  <div class="only:inherit grid grid-row-mid">
-    <h2>No articles have been added for this topic yet!</h2>
-    <div>
-      <p>Coming soon. Maybe ;)</p>
-    </div>
-  </div>
-  <% else %>
-    <%= render Pages::List.new(@topic.pages.as_published_articles) %>
-  <% end %>
-
-  <div><%= link_to "Back to Topics list", topics_path %></div>
-</div>
+<%= turbo_frame_tag :topic_articles, class: "row-gap-none", data: {turbo_action: "advance"} do %>
+  <%= render @topic, topics: @topics %>
+<% end %>

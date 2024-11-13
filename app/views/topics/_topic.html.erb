@@ -1,0 +1,45 @@
+<%# locals: (topics:, topic: nil) %>
+
+<% title = topic ? "Topic: #{topic.name}" : "Topics" %>
+
+<%= render Pages::Header.new(title: title) %>
+
+<div class="column-content container py-gap mb-3xl">
+  <nav class="sidebar">
+    <% topics.each do |topic| %>
+      <%= tag.div id: dom_id(topic), class: "mb-4" do %>
+        <%= link_to topic.name, topic_path(topic), data: {turbo_frame: :topic_articles} %>
+        <span class="text-faint">(<%= topic.pages_count %>)</span>
+      <% end %>
+    <% end %>
+  </nav>
+  <div class="mainbar w-full">
+    <% if !topic %>
+      <div>
+        <h2>Welcome!</h2>
+        <div>
+          <p>Here you‘ll find topics currently covered at Joy of Rails.</p>
+          <p>Choose a topic from the sidebar to view articles.</p>
+        </div>
+      </div>
+    <% elsif topic.pages.blank? %>
+      <div>
+        <h2>No articles have been added for this topic yet!</h2>
+        <div>
+          <p>Coming soon. Maybe ;)</p>
+        </div>
+      </div>
+    <% else %>
+      <% topic.pages.as_published_articles.each do |page| %>
+        <%= tag.div id: dom_id(page) do %>
+          <%= render Pages::Info.new(
+                title: page.title,
+                request_path: page.request_path,
+                description: page.description,
+                image: page.image
+              ) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
