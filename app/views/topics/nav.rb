@@ -2,6 +2,7 @@ module Topics
   class Nav < ApplicationComponent
     include Phlex::Rails::Helpers::CurrentPage
     include Phlex::Rails::Helpers::DOMID
+    include Phlex::Rails::Helpers::Request
     include PhlexConcerns::FlexBlock
 
     attr_reader :topics, :attributes
@@ -24,7 +25,7 @@ module Topics
         select(
           name: "topic",
           data: {
-            :controller => "select-nav",
+            :controller => "select-nav current-page",
             :action => "select-nav#visit",
             "select-nav-turbo-frame-value" => "topics-mainbar"
           }
@@ -33,7 +34,7 @@ module Topics
           topics.each do |topic|
             option(
               value: topic_path(topic),
-              selected: current_page?(topic_path(topic))
+              selected: request&.path == topic_path(topic)
             ) do
               topic.name
             end
@@ -43,20 +44,27 @@ module Topics
     end
 
     def topics_list
-      topics.each do |topic|
-        div id: dom_id(topic), class: "text-small mb-2 hidden lg:block" do
-          a(
-            href: topic_path(topic),
-            data: {
-              turbo_frame: "topics-mainbar"
-            }
+      ul(data: {controller: "current-page"}) do
+        topics.each do |topic|
+          li(
+            id: dom_id(topic),
+            class: [
+              "text-small p-1 hidden lg:block"
+            ]
           ) do
-            topic.name
-          end
+            a(
+              href: topic_path(topic),
+              data: {
+                turbo_frame: "topics-mainbar"
+              }
+            ) do
+              topic.name
+            end
 
-          whitespace
-          span(class: "text-faint") do
-            plain "(#{topic.pages_count})"
+            whitespace
+            span(class: "text-faint") do
+              plain "(#{topic.pages_count})"
+            end
           end
         end
       end

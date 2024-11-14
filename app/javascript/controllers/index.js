@@ -5,6 +5,7 @@
 import { application } from './application';
 
 import ClipboardCopy from './clipboard-copy';
+import CurrentPage from './current-page';
 import Darkmode from './darkmode';
 import Flash from './flash';
 import ModalOpener from './modal-opener';
@@ -31,16 +32,19 @@ import SnippetTweet from './snippets/tweet';
 import SearchCombobox from './searches/combobox';
 import SearchListbox from './searches/listbox';
 
-application.register('modal-opener', ModalOpener);
-application.register('analytics', AnalyticsCustomEvent);
 application.register('clipboard-copy', ClipboardCopy);
+application.register('current-page', CurrentPage);
 application.register('darkmode', Darkmode);
 application.register('flash', Flash);
+application.register('modal-opener', ModalOpener);
+
 application.register('dialog', Dialog);
 
 application.register('pwa-installation', PwaInstallation);
 application.register('pwa-web-push-subscription', PwaWebPushSubscription);
 application.register('pwa-web-push-demo', PwaWebPushDemo);
+
+application.register('analytics', AnalyticsCustomEvent);
 application.register('table-of-contents', TableOfContents);
 
 application.register('frame-form', FrameForm);

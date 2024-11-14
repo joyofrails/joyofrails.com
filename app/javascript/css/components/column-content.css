@@ -1,0 +1,5 @@
+.column-content {
+  & li.active {
+    background-color: var(--joy-background-header);
+  }
+}
