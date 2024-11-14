@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: color_schemes
+#
+#  id         :string           not null, primary key
+#  name       :string           not null
+#  weight_100 :string           not null
+#  weight_200 :string           not null
+#  weight_300 :string           not null
+#  weight_400 :string           not null
+#  weight_50  :string           not null
+#  weight_500 :string           not null
+#  weight_600 :string           not null
+#  weight_700 :string           not null
+#  weight_800 :string           not null
+#  weight_900 :string           not null
+#  weight_950 :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_color_schemes_on_name  (name) UNIQUE
+#
 require "faker"
 
 FactoryBot.define do

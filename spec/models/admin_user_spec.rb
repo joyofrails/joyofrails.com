@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: admin_users
+#
+#  id              :integer          not null, primary key
+#  email           :string
+#  password_digest :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_admin_users_on_email  (email) UNIQUE
+#
 require "rails_helper"
 
 RSpec.describe AdminUser, type: :model do

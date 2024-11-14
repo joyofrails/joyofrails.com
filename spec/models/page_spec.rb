@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: pages
+#
+#  id           :string           not null, primary key
+#  request_path :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_pages_on_request_path  (request_path) UNIQUE
+#
 require "rails_helper"
 
 RSpec.describe Page, type: :model do
