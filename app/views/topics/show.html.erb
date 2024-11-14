@@ -17,7 +17,7 @@
           </div>
         </div>
       <% else %>
-        <h3 class="mb-8">Topic: <%= topic.name %></h3>
+        <h3 class="mb-8 hidden lg:block">Topic: <%= topic.name %></h3>
         <ul>
           <% topic.pages.as_published_articles.each do |page| %>
             <%= tag.li id: dom_id(page) do %>
