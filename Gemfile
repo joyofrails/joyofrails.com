@@ -61,6 +61,7 @@ gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]
 gem "mission_control-jobs" # Dashboard for Active Job [https://github.com/basecamp/mission_control-jobs]
 
 group :development do
+  gem "annotaterb" # Annotate Rails classes with schema and routes info [https://github.com/drwl/annotaterb]
   gem "erb_lint", require: false # ERB linting tool [https://github.com/Shopify/erb-lint]
   gem "letter_opener" # Preview mail in the browser instead of sending [https://github.com/ryanb/letter_opener]
   gem "rack-mini-profiler" # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]

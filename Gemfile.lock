@@ -78,6 +78,7 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotaterb (4.13.0)
     ast (2.4.2)
     aws-eventstream (1.3.0)
     aws-partitions (1.995.0)
@@ -593,6 +594,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
+  annotaterb
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap
