@@ -10,19 +10,10 @@ module Pages
         }
       )
 
+      # Embedding is an array of 1536 floats
       embedding = response.dig("data", 0, "embedding")
 
-      if Rails.env.development?
-        file = Rails.root.join("config", "embeddings.yml")
-        data = {
-          page_id: page.id,
-          embedding: embedding
-        }
-
-        File.write(file, YAML.dump(YAML.load_file(file).merge!(data)))
-      end
-
-      PageEmbedding.update_embedding(page, embedding)
+      PageEmbedding.upsert_embedding!(page, embedding)
 
       embedding
     end

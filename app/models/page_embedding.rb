@@ -23,10 +23,10 @@ class PageEmbedding < ApplicationRecord
   # but not for virtual tables. This method behaves like an upsert the embedding
   # for a page by first removing the existing embedding if it exists and then
   # creating a new one.
-  def self.update_embedding(page, embedding)
+  def self.upsert_embedding!(page, embedding)
     transaction do
       page.page_embedding&.destroy
-      PageEmbedding.custom_create(id: page.id, embedding: embedding)
+      custom_create(id: page.id, embedding: embedding)
     end
   end
 end
