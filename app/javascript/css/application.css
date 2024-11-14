@@ -30,6 +30,7 @@
 @import './components/site-header.css';
 @import './components/main-content.css';
 @import './components/article-content.css';
+@import './components/column-content.css';
 @import './components/footer.scss';
 @import './components/footer.css';
 @import './components/newsletter-banner.css';
