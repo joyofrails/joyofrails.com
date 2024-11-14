@@ -11,13 +11,16 @@ export default class extends Controller {
     this.updateActive();
     this.updateActive = this.updateActive.bind(this);
 
-    window.addEventListener('turbo:before-render', this.updateActive);
-    window.addEventListener('turbo:before-frame-render', this.updateActive);
+    document.addEventListener('turbo:before-render', this.updateActive);
+    document.addEventListener('turbo:before-frame-render', this.updateActive);
   }
 
   disconnect() {
-    window.removeEventListener('turbo:before-render', this.updateActive);
-    window.removeEventListener('turbo:before-frame-render', this.updateActive);
+    document.removeEventListener('turbo:before-render', this.updateActive);
+    document.removeEventListener(
+      'turbo:before-frame-render',
+      this.updateActive,
+    );
   }
 
   updateActive(event) {
