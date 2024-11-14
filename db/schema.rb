@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_09_124854) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_14_213838) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -179,6 +179,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_09_124854) do
     t.string "request_path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "published_at"
+    t.datetime "indexed_at"
+    t.index ["indexed_at"], name: "index_pages_on_indexed_at"
+    t.index ["published_at"], name: "index_pages_on_published_at"
     t.index ["request_path"], name: "index_pages_on_request_path", unique: true
   end
 
