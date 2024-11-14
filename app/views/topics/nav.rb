@@ -2,6 +2,7 @@ module Topics
   class Nav < ApplicationComponent
     include Phlex::Rails::Helpers::CurrentPage
     include Phlex::Rails::Helpers::DOMID
+    include Phlex::Rails::Helpers::Request
     include PhlexConcerns::FlexBlock
 
     attr_reader :topics, :attributes
@@ -33,7 +34,7 @@ module Topics
           topics.each do |topic|
             option(
               value: topic_path(topic),
-              selected: current_page?(topic_path(topic))
+              selected: request&.path == topic_path(topic)
             ) do
               topic.name
             end

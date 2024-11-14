@@ -8,23 +8,19 @@ export default class extends Controller {
   connect() {
     console.log('Connected');
 
-    this.updateActiveLink();
-    this.updateSelectedOption();
-    this.updateActiveLink = this.updateActiveLink.bind(this);
+    this.updateActive();
+    this.updateActive = this.updateActive.bind(this);
 
-    window.addEventListener('turbo:before-render', this.updateActiveLink);
-    window.addEventListener('turbo:before-frame-render', this.updateActiveLink);
+    window.addEventListener('turbo:before-render', this.updateActive);
+    window.addEventListener('turbo:before-frame-render', this.updateActive);
   }
 
   disconnect() {
-    window.removeEventListener('turbo:before-render', this.updateActiveLink);
-    window.removeEventListener(
-      'turbo:before-frame-render',
-      this.updateActiveLink,
-    );
+    window.removeEventListener('turbo:before-render', this.updateActive);
+    window.removeEventListener('turbo:before-frame-render', this.updateActive);
   }
 
-  updateActiveLink(event) {
+  updateActive(event) {
     console.log('updateActiveLink');
     this.element.querySelectorAll('a').forEach((link) => {
       if (link.getAttribute('href') === this.currentUrl) {
@@ -35,9 +31,7 @@ export default class extends Controller {
         link.closest('li').classList.remove('active');
       }
     });
-  }
 
-  updateSelectedOption() {
     this.element.querySelectorAll('option').forEach((option) => {
       if (option.getAttribute('value') === this.currentUrl) {
         option.selected = true;
