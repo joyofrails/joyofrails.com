@@ -12,6 +12,8 @@ RSpec.describe "Articles", type: :system do
 
     article = Page.first
     article.topics << FactoryBot.create_list(:topic, 2, :approved)
+    article.topics << FactoryBot.create_list(:topic, 1, :pending)
+    article.topics << FactoryBot.create_list(:topic, 1, :rejected)
     article.save!
 
     visit "/articles"
@@ -22,10 +24,14 @@ RSpec.describe "Articles", type: :system do
       expect(page).to have_content(article.title)
     end
 
-    expect(article.topics.count).to eq(2)
+    expect(article.topics.count).to eq(4)
+    expect(article.topics.approved.count).to eq(2)
 
-    article.topics.each do |topic|
+    article.topics.approved.each do |topic|
       expect(page).to have_link("##{topic.slug}", href: topic_path(topic))
+    end
+    (article.topics.rejected + article.topics.pending).each do |topic|
+      expect(page).not_to have_link("##{topic.slug}", href: topic_path(topic))
     end
 
     first_topic = article.topics.first
