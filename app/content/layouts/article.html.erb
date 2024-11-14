@@ -36,9 +36,9 @@
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
     </div>
-    <% if @page.topics.any? %>
+    <% if @page.topics.approved.any? %>
       <section id="article-topics" class="section-content container">
-        <%= render Pages::Topics.new(topics: @page.topics.pluck(:slug)) %>
+        <%= render Pages::Topics.new(topics: @page.topics.approved.pluck(:slug)) %>
       </section>
     <% end %>
   </article>
