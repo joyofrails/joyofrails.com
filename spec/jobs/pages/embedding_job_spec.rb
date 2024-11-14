@@ -9,7 +9,7 @@ RSpec.describe Pages::EmbeddingJob, type: :job do
       data: [
         object: "embedding",
         index: 0,
-        embedding: Array.new(1536) { rand(-0.01..0.01) }
+        embedding: PageEmbedding.random
       ],
       model: "text-embedding-ada-002",
       usage: {
@@ -29,6 +29,6 @@ RSpec.describe Pages::EmbeddingJob, type: :job do
 
     expect(page_embedding.page).to eq page
     expect(page_embedding.embedding).to be_a(Array)
-    expect(page_embedding.embedding.length).to eq(1536)
+    expect(page_embedding.embedding.length).to eq(PageEmbedding::OPENAI_EMBEDDING_LENGTH)
   end
 end

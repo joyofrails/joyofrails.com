@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PageEmbedding < ApplicationRecord
+  OPENAI_EMBEDDING_LENGTH = 1536
+
   attribute :embedding, Types::Vector.new
 
   belongs_to :page, inverse_of: :page_embedding, foreign_key: :id, primary_key: :id
@@ -28,5 +30,9 @@ class PageEmbedding < ApplicationRecord
       page.page_embedding&.destroy
       custom_create(id: page.id, embedding: embedding)
     end
+  end
+
+  def self.random
+    Array.new(OPENAI_EMBEDDING_LENGTH) { rand(-0.1..0.1) }
   end
 end
