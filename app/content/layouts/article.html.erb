@@ -37,7 +37,7 @@
       <%= yield %>
     </div>
     <% if @page.topics.any? %>
-      <section class="section-content container">
+      <section id="article-topics" class="section-content container">
         <%= render Pages::Topics.new(topics: @page.topics.pluck(:slug)) %>
       </section>
     <% end %>

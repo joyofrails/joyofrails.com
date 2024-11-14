@@ -5,10 +5,10 @@
 
 <div class="column-content container py-gap mb-3xl">
   <nav class="sidebar" data-turbo-permanent>
-    <%= turbo_frame_tag :topics_sidebar, src: topics_path %>
+    <%= turbo_frame_tag "topics-sidebar", src: topics_path %>
   </nav>
   <div class="mainbar w-full">
-    <%= turbo_frame_tag :topics_mainbar, data: {turbo_action: "advance"} do %>
+    <%= turbo_frame_tag "topics-mainbar", data: {turbo_action: "advance"} do %>
       <% if topic.pages.blank? %>
         <div>
           <h2>No articles have been added for this topic yet!</h2>
@@ -17,7 +17,7 @@
           </div>
         </div>
       <% else %>
-        <h3 class="mb-8 hidden lg:block">Topic: <%= topic.name %></h3>
+        <h3 class="mb-8 hidden lg:block"><%= topic.name %></h3>
         <ul>
           <% topic.pages.as_published_articles.each do |page| %>
             <%= tag.li id: dom_id(page) do %>
