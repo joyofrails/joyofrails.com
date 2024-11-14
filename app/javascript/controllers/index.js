@@ -20,6 +20,7 @@ import TableOfContents from './table-of-contents';
 
 import FrameForm from './forms/frame';
 import AutosubmitForm from './forms/autosubmit';
+import SelectNav from './forms/select-nav';
 import SyntaxHighlightPreview from './syntax-highlight/preview';
 
 import SnippetPreview from './snippets/preview';
@@ -44,6 +45,7 @@ application.register('table-of-contents', TableOfContents);
 
 application.register('frame-form', FrameForm);
 application.register('autosubmit-form', AutosubmitForm);
+application.register('select-nav', SelectNav);
 application.register('syntax-highlight-preview', SyntaxHighlightPreview);
 
 application.register('snippet-preview', SnippetPreview);

@@ -119,3 +119,11 @@
 .step-2 {
   font-size: var(--step-2);
 }
+
+.text-subtle {
+  color: var(--joy-text-subtle);
+}
+
+.text-faint {
+  color: var(--joy-text-faint);
+}

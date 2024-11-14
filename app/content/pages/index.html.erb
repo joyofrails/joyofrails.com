@@ -9,7 +9,8 @@ title: Joy of Rails
       <%= render Pages::Summary.from_page(page, side: side) %>
     <% end %>
 
-    <%= render Pages::List.new(articles.drop(3).take(6), class: "mt-16") %>
+    <h3 class="mt-16">More articles</h3>
+    <%= render Pages::List.new(articles.drop(3).take(6)) %>
   </div>
 </section>
 <section>

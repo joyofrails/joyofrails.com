@@ -1,0 +1,22 @@
+<% topics = @topics %>
+
+<%= render Pages::Header.new(title: "Topics") %>
+
+<div class="column-content container py-gap mb-3xl">
+  <nav class="sidebar" data-turbo-permanent>
+    <%= turbo_frame_tag "topics-sidebar" do %>
+      <%= render Topics::Nav.new(topics, class: "lg:hidden") %>
+    <% end %>
+  </nav>
+  <div class="mainbar w-full">
+    <%= turbo_frame_tag "topics-mainbar", data: {turbo_action: "advance"} do %>
+      <div>
+        <h3 class="mb-8 lg:hidden">Howdy!</h3>
+        <div>
+          <p>Here you‘ll find topics currently covered at Joy of Rails.</p>
+          <p>Choose a topic from the sidebar to view articles.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

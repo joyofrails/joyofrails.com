@@ -15,18 +15,16 @@
   }
 }
 
-@media screen and (min-width: $screen-md) {
-  .article-content {
-    & > .code-wrapper {
-      margin-inline-start: calc(var(--space-m) * -1);
-      margin-inline-end: calc(var(--space-m) * -1);
-    }
-    & .hll {
-      margin-inline-start: calc(var(--space-m) * -1);
-      margin-inline-end: calc(var(--space-m) * -1);
-      padding-inline-start: var(--space-m);
-      padding-inline-end: var(--space-m);
-    }
+.article-content {
+  & > .code-wrapper {
+    margin-inline-start: calc(var(--space-m) * -1);
+    margin-inline-end: calc(var(--space-m) * -1);
+  }
+  & .hll {
+    margin-inline-start: calc(var(--space-m) * -1);
+    margin-inline-end: calc(var(--space-m) * -1);
+    padding-inline-start: var(--space-m);
+    padding-inline-end: var(--space-m);
   }
 }
 

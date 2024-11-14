@@ -91,6 +91,7 @@ a {
 p {
   font-family: var(--sans-serif);
   color: var(--joy-text);
+  word-wrap: break-word;
 }
 
 b,
@@ -545,6 +546,7 @@ select {
 a {
   background-color: transparent;
   border-radius: 4px;
+  cursor: pointer;
   color: var(--joy-link-primary);
   text-decoration-color: var(--joy-link-decoration);
   text-decoration-line: underline;

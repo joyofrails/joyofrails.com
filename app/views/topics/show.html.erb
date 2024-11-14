@@ -1,0 +1,36 @@
+<% topic = @topic
+   topics = @topics %>
+
+<%= render Pages::Header.new(title: "Topics on Joy of Rails") %>
+
+<div class="column-content container py-gap mb-3xl">
+  <nav class="sidebar" data-turbo-permanent>
+    <%= turbo_frame_tag "topics-sidebar", src: topics_path %>
+  </nav>
+  <div class="mainbar w-full">
+    <%= turbo_frame_tag "topics-mainbar", data: {turbo_action: "advance"} do %>
+      <% if topic.pages.blank? %>
+        <div>
+          <h2>No articles have been added for this topic yet!</h2>
+          <div>
+            <p>Coming soon. Maybe ;)</p>
+          </div>
+        </div>
+      <% else %>
+        <h3 class="mb-8 hidden lg:block"><%= topic.name %></h3>
+        <ul>
+          <% topic.pages.as_published_articles.each do |page| %>
+            <%= tag.li id: dom_id(page) do %>
+              <%= render Pages::Info.new(
+                    title: page.title,
+                    request_path: page.request_path,
+                    description: page.description,
+                    image: page.image
+                  ) %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+</div>

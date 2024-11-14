@@ -117,4 +117,16 @@
   .lg\:aspect-\[3\/2\] {
     aspect-ratio: 3 / 2;
   }
+
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
 }

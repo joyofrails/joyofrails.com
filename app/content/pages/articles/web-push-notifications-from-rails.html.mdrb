@@ -18,7 +18,9 @@ You may have heard news: Rails 8 will extract a new framework for Web Push in Ra
 
 <%= image_tag "articles/web-push-notifications-from-rails/a-web-push-notification.jpg", alt: "A Web Push Notification" %>
 
-In advance of [Rails Action Notifier](https://github.com/rails/rails/issues/50454), it may be helpful to know how things will work under the hood. In this article, we’ll cover the basics of implementing Web Push yourself with Rails.
+Web Push is a technology enabled by making your Rails app a Progressive Web Application (PWA). With Rails 8, new apps are PWAs by default.
+
+And with the pending release [Rails Action Notifier](https://github.com/rails/rails/issues/50454), due in Rails 8.1, it may be helpful to know how things will work under the hood. In this article, we’ll cover the basics of implementing Web Push yourself with Rails.
 
 This article has something you won’t find in most posts about Web Push: a working demo! (in supporting browsers and devices) 😅. Try it below.
 

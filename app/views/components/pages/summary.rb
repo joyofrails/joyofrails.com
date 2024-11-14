@@ -57,7 +57,7 @@ module Pages
     def image(**)
       div(**) do
         figure(class: "page-summary--image") do
-          image_tag @image, class: "w-full"
+          image_tag @image, class: "w-full object-cover aspect-[2/1] lg:aspect-[3/2]"
         end
       rescue
         ActionView::Template::Error

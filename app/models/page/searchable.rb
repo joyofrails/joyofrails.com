@@ -64,7 +64,7 @@ class Page
       self.class.remove_from_search_index(self)
     end
 
-    module ClassMethods
+    class_methods do
       def refresh_search_index
         find_each(&:update_in_search_index)
       end

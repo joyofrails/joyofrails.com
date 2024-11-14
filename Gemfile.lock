@@ -194,6 +194,7 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.11)
       tzinfo
+    event_stream_parser (1.0.0)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
@@ -201,6 +202,14 @@ GEM
       railties (>= 5.0.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
+    faraday (2.12.0)
+      faraday-net_http (>= 2.0, < 3.4)
+      json
+      logger
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.3.0)
+      net-http
     ferrum (0.15)
       addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
@@ -317,7 +326,10 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.7.3)
+    multipart-post (2.4.1)
     nested_form (0.3.2)
+    net-http (0.5.0)
+      uri
     net-imap (0.5.0)
       date
       net-protocol
@@ -466,6 +478,10 @@ GEM
     rubocop-performance (1.22.1)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
+    ruby-openai (7.3.1)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.2)
       ffi (~> 1.12)
@@ -587,8 +603,6 @@ GEM
     zeitwerk (2.7.1)
 
 PLATFORMS
-  arm64-darwin-22
-  arm64-darwin-23
   arm64-darwin-24
   x86_64-linux
 
@@ -637,6 +651,7 @@ DEPENDENCIES
   reek
   rouge
   rspec-rails
+  ruby-openai
   scout_apm
   simplecov
   simplecov-cobertura

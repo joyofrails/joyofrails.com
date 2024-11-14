@@ -13,6 +13,6 @@
 #
 FactoryBot.define do
   factory :page do
-    request_path { "/" }
+    request_path { "/" + Faker::Internet.slug }
   end
 end

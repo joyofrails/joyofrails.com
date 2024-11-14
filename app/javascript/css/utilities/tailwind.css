@@ -966,10 +966,6 @@
   display: inline-block;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .w-\[16px\] {
   width: 16px;
 }
@@ -1079,6 +1075,14 @@ focus\:ring-0:focus {
 
 .aspect-\[16\/9\] {
   aspect-ratio: 16 / 9;
+}
+
+.aspect-\[2\/1\] {
+  aspect-ratio: 2 / 1;
+}
+
+.object-cover {
+  object-fit: cover;
 }
 
 .drop-shadow-sm {

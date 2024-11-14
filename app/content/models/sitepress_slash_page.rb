@@ -4,6 +4,6 @@
 # https://slashpages.net/
 #
 class SitepressSlashPage < Sitepress::Model
-  collection glob: "{about,contact,settings}/**/*.html*"
+  collection glob: "{about,contact,settings,deploy}/**/*.html*"
   data :title
 end
