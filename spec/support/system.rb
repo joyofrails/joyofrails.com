@@ -17,15 +17,20 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
 
   config.before(:each, type: :system) do
-    driven_by(:cuprite, screen_size: [1440, 810], options: {
-      js_errors: true,
-      headless: %w[0 false].exclude?(ENV["HEADLESS"]),
-      inspector: %w[1 true].include?(ENV["INSPECTOR"]),
-      slowmo: ENV["SLOWMO"]&.to_f,
-      process_timeout: 15,
-      timeout: 10,
-      browser_options: ENV["CI"] ? {"no-sandbox" => nil} : {}
-    })
+    driven_by(:cuprite,
+      screen_size: [1440, 810],
+      options: {
+        js_errors: true,
+        headless: %w[0 false].exclude?(ENV["HEADLESS"]),
+        inspector: %w[1 true].include?(ENV["INSPECTOR"]),
+        slowmo: ENV["SLOWMO"]&.to_f,
+        process_timeout: 15,
+        timeout: 10,
+        browser_options: ENV["CI"] ? {
+          "no-sandbox" => nil,
+          "disable-smooth-scrolling" => true
+        } : {}
+      })
   end
 
   config.filter_gems_from_backtrace("capybara", "cuprite", "ferrum")
