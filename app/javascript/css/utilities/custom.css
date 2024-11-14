@@ -2,6 +2,10 @@
   margin-bottom: var(--grid-gutter);
 }
 
+.mb-xs {
+  margin-bottom: var(--space-xs);
+}
+
 .mb-xl {
   margin-bottom: var(--space-xl);
 }
