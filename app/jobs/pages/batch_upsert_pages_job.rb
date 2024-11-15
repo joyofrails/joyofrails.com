@@ -4,6 +4,9 @@ module Pages
 
     def perform(limit: nil)
       Page.upsert_collection_from_sitepress!(limit: limit)
+
+      Pages::RefreshSearchIndexJob.perform_later
+      Pages::BatchAnalyzeTopicsJob.perform_later
     end
   end
 end
