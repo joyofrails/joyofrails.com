@@ -55,7 +55,7 @@ RSpec.describe Topic, type: :model do
     it "reject invalid topics" do
       topic = FactoryBot.create(:topic, :approved)
 
-      page = Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      page = FactoryBot.create(:page, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
       page.topics = [topic]
 

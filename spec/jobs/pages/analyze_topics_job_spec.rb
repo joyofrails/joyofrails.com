@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Pages::AnalyzeTopicsJob, type: :job do
   describe "#perform" do
     it "analyzes the topics of a page" do
-      page = Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      page = FactoryBot.create(:page, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
       response = {
         id: "chatcmpl-ARm3zTYmf11ldAIJx9JywO8XjmKof",

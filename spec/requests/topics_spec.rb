@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Topics", type: :request do
   describe "GET /index" do
     it "returns http success" do
-      article = Page.find_or_create_by!(request_path: "/articles/introducing-joy-of-rails")
+      article = FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
 
       topic_1 = FactoryBot.create(:topic, :approved)
       topic_2 = FactoryBot.create(:topic, :approved)
@@ -21,7 +21,7 @@ RSpec.describe "Topics", type: :request do
 
   describe "GET /show" do
     it "returns http success" do
-      article = Page.find_or_create_by!(request_path: "/articles/introducing-joy-of-rails")
+      article = FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
       topic = FactoryBot.create(:topic, :approved)
       article.topics << topic
 
