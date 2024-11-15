@@ -3,7 +3,6 @@ title: Joy of Rails 💜 Hatchbox
 author: Ross Kaffenberger
 layout: article
 summary: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
-published: '2024-11-11'
 uuid: 0192f76f-2f11-7db3-9d72-0fa782be2543
 image: content/hatchbox/placeholder.jpg
 meta_image: content/hatchbox/placeholder.jpg
