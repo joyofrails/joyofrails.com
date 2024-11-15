@@ -1120,3 +1120,13 @@ focus\:ring-0:focus {
 .drop-shadow-none {
   filter: drop-shadow(0 0 #0000);
 }
+
+.list-none {
+  list-style-type: none;
+}
+.list-disc {
+  list-style-type: disc;
+}
+.list-decimal {
+  list-style-type: decimal;
+}
