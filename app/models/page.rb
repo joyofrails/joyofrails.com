@@ -43,10 +43,6 @@ class Page < ApplicationRecord
   # away from Sitepress for indexed content may be what‘s needed, but keeping
   # the split personality for now.
   #
-  def self.as_published_articles
-    SitepressArticle.take_published(all.map { |page| SitepressArticle.new(page.resource) })
-  end
-
   def self.upsert_collection_from_sitepress!(limit: nil)
     # Targeting specific Sitepress models until we have a better way to make
     # Page model aware of published state
