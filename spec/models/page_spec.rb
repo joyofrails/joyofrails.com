@@ -24,25 +24,19 @@ RSpec.describe Page, type: :model do
     expect(page.resource).to eq Sitepress.site.get("/")
   end
 
-  describe ".refresh_search_index" do
-    it "doesn’t blow up" do
-      Page.find_or_create_by!(request_path: "/")
-
-      Page.refresh_search_index
-    end
-  end
-
   describe ".search" do
     it "allows searching for pages" do
-      page = Page.find_or_create_by!(request_path: "/")
+      page = FactoryBot.create(:page, :published, request_path: "/")
+      Pages::RefreshSearchIndexJob.perform_now
 
       expect(Page.search("Joy of Rails")).to include page
     end
 
     it "works after rebuilding index" do
-      page = Page.find_or_create_by!(request_path: "/")
+      page = FactoryBot.create(:page, :published, request_path: "/")
+      Pages::RefreshSearchIndexJob.perform_now
 
-      Page.refresh_search_index
+      Page.find_each(&:update_in_search_index)
 
       expect(Page.search("Joy of Rails")).to include page
     end
@@ -50,8 +44,9 @@ RSpec.describe Page, type: :model do
 
   describe ".rank" do
     it "orders search results by rank" do
-      page_1 = Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
-      page_2 = Page.find_or_create_by!(request_path: "/articles/mastering-custom-configuration-in-rails")
+      page_1 = FactoryBot.create(:page, :published, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      page_2 = FactoryBot.create(:page, :published, request_path: "/articles/mastering-custom-configuration-in-rails")
+      Pages::RefreshSearchIndexJob.perform_now
 
       search = Page.search("custom con*")
 
@@ -61,7 +56,8 @@ RSpec.describe Page, type: :model do
 
   describe ".with_snippets" do
     it "orders search results by rank" do
-      Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      FactoryBot.create(:page, :published, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      Pages::RefreshSearchIndexJob.perform_now
 
       page = Page.search("Color*").with_snippets.first
 

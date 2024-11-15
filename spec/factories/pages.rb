@@ -18,5 +18,17 @@
 FactoryBot.define do
   factory :page do
     request_path { "/" + Faker::Internet.slug }
+
+    trait :published do
+      published_at { 1.day.ago }
+    end
+
+    trait :unpublished do
+      published_at { 1.day.from_now }
+    end
+
+    trait :indexed do
+      indexed_at { 1.day.ago }
+    end
   end
 end

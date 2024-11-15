@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Searches", type: :system do
   it "show search results" do
-    Page.create!(request_path: "/pwa-showcase")
+    FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
+    Pages::RefreshSearchIndexJob.perform_now
 
     visit root_path
 
