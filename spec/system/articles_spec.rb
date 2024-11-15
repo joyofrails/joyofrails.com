@@ -8,7 +8,7 @@ RSpec.describe "Articles", type: :system do
   end
 
   it "displays a single article" do
-    Page.upsert_from_sitepress!(limit: 1)
+    Page.upsert_collection_from_sitepress!(limit: 1)
 
     article = Page.first
     article.topics << FactoryBot.create_list(:topic, 2, :approved)

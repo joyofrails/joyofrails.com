@@ -44,7 +44,7 @@ class Page < ApplicationRecord
     SitepressArticle.take_published(all.map { |page| SitepressArticle.new(page.resource) })
   end
 
-  def self.upsert_from_sitepress!(limit: nil)
+  def self.upsert_collection_from_sitepress!(limit: nil)
     # Targeting specific Sitepress models until we have a better way to make
     # Page model aware of published state
     enum = [
@@ -52,10 +52,14 @@ class Page < ApplicationRecord
       SitepressSlashPage
     ].lazy.flat_map { |model| model.all.resources }
 
-    enum = enum.filter do |sitepress_resource|
-      Page.find_by(request_path: sitepress_resource.request_path).nil?
-    end.map do |sitepress_resource|
-      Page.create!(request_path: sitepress_resource.request_path)
+    if limit
+      enum = enum.filter do |sitepress_resource|
+        Page.find_by(request_path: sitepress_resource.request_path).nil?
+      end
+    end
+
+    enum = enum.map do |sitepress_resource|
+      upsert_page_from_sitepress!(sitepress_resource)
     end
 
     if limit

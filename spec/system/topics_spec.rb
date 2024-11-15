@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Topics", type: :system do
   it "displays the topics and provides navigation links" do
-    Page.upsert_from_sitepress!(limit: 3)
+    Page.upsert_collection_from_sitepress!(limit: 3)
 
     expect(Page.count).to eq(3)
 
