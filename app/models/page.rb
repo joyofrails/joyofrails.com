@@ -82,6 +82,11 @@ class Page < ApplicationRecord
     page
   end
 
+  def related_articles
+    return self.class.none unless page_embedding
+    self.class.similar_to(self)
+  end
+
   def published? = !!published_at
 
   def published_on = published_at&.to_date
