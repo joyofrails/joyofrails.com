@@ -44,12 +44,7 @@ class Page < ApplicationRecord
   # the split personality for now.
   #
   def self.upsert_collection_from_sitepress!(limit: nil)
-    # Targeting specific Sitepress models until we have a better way to make
-    # Page model aware of published state
-    enum = [
-      SitepressArticle,
-      SitepressSlashPage
-    ].lazy.flat_map { |model| model.all.resources }
+    enum = SitepressPage.all.resources.lazy
 
     if limit
       enum = enum.filter do |sitepress_resource|
@@ -104,4 +99,8 @@ class Page < ApplicationRecord
   def toc = resource.data.toc
 
   def enable_twitter_widgets = resource.data.toc
+
+  def upsert_page_from_sitepress!
+    self.class.upsert_page_from_sitepress!(resource)
+  end
 end
