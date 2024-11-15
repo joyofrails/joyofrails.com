@@ -31,6 +31,9 @@ class Page < ApplicationRecord
   has_many :topics, through: :page_topics
   has_many :approved_topics, -> { approved }, through: :page_topics, source: :topic, inverse_of: :pages
 
+  scope :published, -> { where(["published_at < ?", Time.zone.now]) }
+  scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
+
   # def resource_data
   delegate :data, to: :resource, allow_nil: true, prefix: true
 
