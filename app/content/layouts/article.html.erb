@@ -23,12 +23,26 @@
         ) %>
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
-    </div>
-    <% if @page.topics.approved.any? %>
-      <section id="article-topics" class="section-content container">
+
+      <% if @page.topics.approved.any? %>
         <%= render Pages::Topics.new(topics: @page.topics.approved.pluck(:slug)) %>
-      </section>
-    <% end %>
+      <% end %>
+      <% if @page.related_articles.any? %>
+        <h2>Related articles to enjoy</h2>
+        <ul class="list-none">
+          <% @page.related_articles.limit(3).each do |page| %>
+            <%= tag.li id: dom_id(page), class: "mb-xs" do %>
+              <%= render Pages::Info.new(
+                    title: page.title,
+                    request_path: page.request_path,
+                    description: page.description,
+                    image: page.image
+                  ) %>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </article>
   <section id="newsletter-signup">
     <%= render "users/newsletter_subscriptions/banner" %>

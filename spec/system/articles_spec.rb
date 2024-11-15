@@ -10,14 +10,24 @@ RSpec.describe "Articles", type: :system do
   it "displays a single article" do
     article = FactoryBot.create(:page, :published, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
+    visit "/articles"
+
+    click_on article.title
+
+    within("header.page-header") do
+      expect(page).to have_content(article.title)
+    end
+  end
+
+  it "displays article topics" do
+    article = FactoryBot.create(:page, :published, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+
     article.topics << FactoryBot.create_list(:topic, 2, :approved)
     article.topics << FactoryBot.create_list(:topic, 1, :pending)
     article.topics << FactoryBot.create_list(:topic, 1, :rejected)
     article.save!
 
-    visit "/articles"
-
-    click_on article.title
+    visit article.request_path
 
     within("header.page-header") do
       expect(page).to have_content(article.title)
@@ -41,5 +51,21 @@ RSpec.describe "Articles", type: :system do
     end
     expect(page).to have_content(first_topic.name)
     expect(page).to have_content(article.title)
+  end
+
+  it "displays similar articles" do
+    article = FactoryBot.create(:page, :published, request_path: "/articles/web-push-notifications-from-rails")
+    similar = FactoryBot.create(:page, :published, request_path: "/articles/add-your-rails-app-to-the-home-screen")
+
+    embeddings_yaml = YAML.load_file(Rails.root.join("spec/fixtures/embeddings.yml"))
+
+    [article, similar].each do |page|
+      PageEmbedding.upsert_embedding!(page, embeddings_yaml[page.request_path])
+    end
+
+    visit article.request_path
+
+    expect(page).to have_content("Related articles to enjoy")
+    expect(page).to have_link(similar.title, href: similar.request_path)
   end
 end
