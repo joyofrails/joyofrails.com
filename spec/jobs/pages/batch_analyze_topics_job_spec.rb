@@ -6,13 +6,16 @@ RSpec.describe Pages::BatchAnalyzeTopicsJob, type: :job do
 
     topics = FactoryBot.create_list(:topic, 2)
 
+    page_1, page_2, page_3 = Page.upsert_collection_from_sitepress!(limit: 3).each do |page|
+      page.touch(:published_at)
+    end
+
     # articles without topics
-    Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
-    Page.find_or_create_by!(request_path: "/articles/mastering-custom-configuration-in-rails")
+    page_1.update!(topics: [])
+    page_2.update!(topics: [])
 
     # articles with topics
-    Page.find_or_create_by!(request_path: "/articles/web-push-notifications-from-rails")
-      .update!(topics: topics)
+    page_3.update!(topics: topics)
 
     # not articles
     FactoryBot.create_list(:page, 3)
