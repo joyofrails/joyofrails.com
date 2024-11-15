@@ -19,7 +19,7 @@
       <% else %>
         <h3 class="mb-8 hidden lg:block"><%= topic.name %></h3>
         <ul>
-          <% topic.pages.as_published_articles.each do |page| %>
+          <% topic.pages.published.each do |page| %>
             <%= tag.li id: dom_id(page), class: "mb-xs" do %>
               <%= render Pages::Info.new(
                     title: page.title,

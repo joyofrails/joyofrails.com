@@ -101,6 +101,8 @@ class Page < ApplicationRecord
 
   def description = resource.data.description
 
+  def image = resource.data.image
+
   def meta_image = resource.data.meta_image
 
   def toc = resource.data.toc
