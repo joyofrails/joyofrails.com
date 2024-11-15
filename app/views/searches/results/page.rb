@@ -9,7 +9,7 @@ module Searches
 
       def view_template
         a(
-          href: page.url,
+          href: page.request_path,
           data: {
             turbo_frame: "_top"
           },

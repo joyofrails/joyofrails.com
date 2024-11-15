@@ -34,10 +34,12 @@ class Page < ApplicationRecord
   # def resource_data
   delegate :data, to: :resource, allow_nil: true, prefix: true
 
-  # We currently have a split system of Sitepress and Page models for handling static pages
-  # While not ideal, it currently allows us to live in both worlds depending on the context.
-  # Ultimately, migrating away from Sitepress for indexed content may be what‘s needed, but
-  # keeping the split personality for now.
+  # We currently have a dual system of content management between Sitepress and
+  # Page models for handling static pages While not ideal, it currently allows
+  # us to live in both worlds depending on the context.  Ultimately, migrating
+  # away from Sitepress for indexed content may be what‘s needed, but keeping
+  # the split personality for now.
+  #
   def self.as_published_articles
     SitepressArticle.take_published(all.map { |page| SitepressArticle.new(page.resource) })
   end
@@ -63,20 +65,38 @@ class Page < ApplicationRecord
     enum.to_a
   end
 
-  def sitepress_article
-    SitepressArticle.new(resource)
+  def self.upsert_page_from_sitepress!(sitepress_resource)
+    page = Page.find_or_initialize_by(request_path: sitepress_resource.request_path)
+    page.published_at = sitepress_resource.data.published.to_time.middle_of_day if sitepress_resource.data.published
+    page.updated_at = sitepress_resource.data.updated.to_time.middle_of_day if sitepress_resource.data.updated
+    page.save!
+    page
   end
+
+  def published? = !!published_at
+
+  def published_on = published_at&.to_date
+
+  def updated_on = updated_at&.to_date
+
+  def indexed? = !!indexed_at
+
+  def sitepress_article = SitepressArticle.new(resource)
 
   def resource = Sitepress.site.get(request_path) ||
     NullResource.new(request_path: request_path)
 
   def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
 
-  def url = request_path
-
   def title = resource.data.title
 
   def body = resource.body
 
   def description = resource.data.description
+
+  def meta_image = resource.data.meta_image
+
+  def toc = resource.data.toc
+
+  def enable_twitter_widgets = resource.data.toc
 end
