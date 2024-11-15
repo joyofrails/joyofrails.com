@@ -1,11 +1,12 @@
+<% page = @page %>
 <% set_meta_tags(
-     title: current_page.data.title!,
-     description: current_page.data.description,
+     title: page.title,
+     description: page.description,
      keywords: %w[rails hotwire],
      og: {
        type: "article",
-       url: current_page.url,
-       image: current_page.data.meta_image && asset_url(current_page.data.meta_image)
+       url: page.request_path,
+       image: page.meta_image && asset_url(page.meta_image)
      },
      twitter: {
        card: "summary"
@@ -15,24 +16,11 @@
 <%= render_layout "application" do %>
   <article itemscope itemtype="http://schema.org/Article" class="mb-3xl">
     <%= render Pages::Header.new(
-          title: current_page.data.title!,
-          description: current_page.data.description,
-          published_on: current_page.data.published&.to_date,
-          updated_on: current_page.data.updated&.to_date
+          title: page.title,
+          description: page.description,
+          published_on: page.published_on,
+          updated_on: page.updated_on
         ) %>
-    <%- if current_page.data.toc -%>
-      <aside>
-        <h2 class="font-semibold mb-4 text-sm leading-6 uppercase tracking-widest">Table of Contents</h2>
-        <!-- Disable Turbolinks for same-page Table of Contents navigation
-        -->
-        <nav
-          data-controller="table-of-contents"
-          data-turbo="false"
-          class="toc">
-          <%= render_toc(current_page) %>
-        </nav>
-      </aside>
-    <%- end -%>
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
     </div>
@@ -47,6 +35,6 @@
   </section>
 <% end %>
 
-<% if current_page.data.enable_twitter_widgets %>
+<% if page.enable_twitter_widgets %>
 <%= javascript_include_tag "https://platform.twitter.com/widgets.js", charset: "utf-8", async: true %>
 <% end %>

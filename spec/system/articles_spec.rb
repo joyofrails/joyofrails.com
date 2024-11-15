@@ -8,9 +8,8 @@ RSpec.describe "Articles", type: :system do
   end
 
   it "displays a single article" do
-    Page.upsert_from_sitepress!(limit: 1)
+    article = FactoryBot.create(:page, :published, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
-    article = Page.first
     article.topics << FactoryBot.create_list(:topic, 2, :approved)
     article.topics << FactoryBot.create_list(:topic, 1, :pending)
     article.topics << FactoryBot.create_list(:topic, 1, :rejected)

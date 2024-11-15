@@ -6,8 +6,6 @@ class Page
     ConfigurationError = Class.new(Error)
 
     included do
-      after_create_commit :create_in_search_index
-      after_update_commit :update_in_search_index
       after_destroy_commit :remove_from_search_index
 
       scope :search, ->(query) do
@@ -57,6 +55,7 @@ class Page
       transaction do
         remove_from_search_index
         create_in_search_index
+        touch(:indexed_at)
       end
     end
 
@@ -65,10 +64,6 @@ class Page
     end
 
     class_methods do
-      def refresh_search_index
-        find_each(&:update_in_search_index)
-      end
-
       def create_search_index(page)
         id, title, body = [:id, :title, :body_text].map { |attr| page.send(attr) }
         Rails.logger.info "[#{self}] Creating search index: #{id} #{title}"

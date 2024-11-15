@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: topics
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  name        :string
+#  pages_count :integer          default(0), not null
+#  slug        :string           not null
+#  status      :string           default("pending"), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_topics_on_pages_count  (pages_count)
+#  index_topics_on_slug         (slug) UNIQUE
+#  index_topics_on_status       (status)
+#
 require "rails_helper"
 
 RSpec.describe Topic, type: :model do
@@ -36,7 +55,7 @@ RSpec.describe Topic, type: :model do
     it "reject invalid topics" do
       topic = FactoryBot.create(:topic, :approved)
 
-      page = Page.find_or_create_by!(request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
+      page = FactoryBot.create(:page, request_path: "/articles/custom-color-schemes-with-ruby-on-rails")
 
       page.topics = [topic]
 
