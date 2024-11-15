@@ -5,7 +5,7 @@ class PageEmbedding < ApplicationRecord
 
   attribute :embedding, Types::Vector.new
 
-  belongs_to :page, inverse_of: :page_embedding, foreign_key: :id, primary_key: :id
+  belongs_to :page, inverse_of: :page_embedding, foreign_key: :id, primary_key: :id, touch: true
 
   scope :similar_to, ->(page_embedding, limit: 11) {
     select("id, distance")

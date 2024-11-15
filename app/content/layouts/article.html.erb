@@ -24,23 +24,27 @@
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
 
-      <% if @page.topics.approved.any? %>
-        <%= render Pages::Topics.new(topics: @page.topics.approved.pluck(:slug)) %>
+      <% topics = @page.topics.approved.pluck(:slug) %>
+      <% if %>
+        <%= render Pages::Topics.new(topics: topics) %>
       <% end %>
-      <% if @page.related_articles.any? %>
-        <h2>Related articles to enjoy</h2>
-        <ul class="list-none">
-          <% @page.related_articles.limit(3).each do |page| %>
-            <%= tag.li id: dom_id(page), class: "mb-xs" do %>
-              <%= render Pages::Info.new(
-                    title: page.title,
-                    request_path: page.request_path,
-                    description: page.description,
-                    image: page.image
-                  ) %>
+      <% cache [@page, :related_articles] do %>
+        <% related_articles = @page.related_articles.limit(3) %>
+        <% if related_articles.present? %>
+          <h2>Related articles to enjoy</h2>
+          <ul class="list-none">
+            <% related_articles.each do |page| %>
+              <%= tag.li id: dom_id(page), class: "mb-xs" do %>
+                <%= render Pages::Info.new(
+                      title: page.title,
+                      request_path: page.request_path,
+                      description: page.description,
+                      image: page.image
+                    ) %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
       <% end %>
     </div>
   </article>
