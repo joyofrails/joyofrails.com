@@ -15,9 +15,9 @@ class Page
       end
     end
 
-    # def related_articles
-    #   return self.class.none unless page_embedding
-    #   self.class.similar_to(self)
-    # end
+    def related_articles
+      return self.class.none unless page_embedding
+      self.class.similar_to(self)
+    end
   end
 end
