@@ -1,1 +1,0 @@
-brew "benbjohnson/litestream/litestream"
