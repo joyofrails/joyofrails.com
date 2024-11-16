@@ -25,7 +25,7 @@
       <%= yield %>
 
       <% topics = @page.topics.approved.pluck(:slug) %>
-      <% if %>
+      <% if topics.present? %>
         <%= render Pages::Topics.new(topics: topics) %>
       <% end %>
       <% cache [@page, :related_articles] do %>
