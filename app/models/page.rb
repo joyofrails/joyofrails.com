@@ -21,12 +21,7 @@
 class Page < ApplicationRecord
   include Page::Searchable
   include Page::Similarity
-
-  NullResource = Data.define(:request_path) do
-    def data = NullData.new(title: nil, description: nil)
-  end
-
-  NullData = Data.define(:title, :description)
+  include Page::Sitepressed
 
   has_many :page_topics, dependent: :destroy
   has_many :topics, through: :page_topics
@@ -38,40 +33,6 @@ class Page < ApplicationRecord
   # def resource_data
   delegate :data, to: :resource, allow_nil: true, prefix: true
 
-  # We currently have a dual system of content management between Sitepress and
-  # Page models for handling static pages While not ideal, it currently allows
-  # us to live in both worlds depending on the context.  Ultimately, migrating
-  # away from Sitepress for indexed content may be what‘s needed, but keeping
-  # the split personality for now.
-  #
-  def self.upsert_collection_from_sitepress!(limit: nil)
-    enum = SitepressPage.all.resources.lazy
-
-    if limit
-      enum = enum.filter do |sitepress_resource|
-        Page.find_by(request_path: sitepress_resource.request_path).nil?
-      end
-    end
-
-    enum = enum.map do |sitepress_resource|
-      upsert_page_from_sitepress!(sitepress_resource)
-    end
-
-    if limit
-      enum = enum.take(limit)
-    end
-
-    enum.to_a
-  end
-
-  def self.upsert_page_from_sitepress!(sitepress_resource)
-    page = Page.find_or_initialize_by(request_path: sitepress_resource.request_path)
-    page.published_at = sitepress_resource.data.published.to_time.middle_of_day if sitepress_resource.data.published
-    page.updated_at = sitepress_resource.data.updated.to_time.middle_of_day if sitepress_resource.data.updated
-    page.save!
-    page
-  end
-
   def published? = !!published_at
 
   def published_on = published_at&.to_date
@@ -80,16 +41,14 @@ class Page < ApplicationRecord
 
   def indexed? = !!indexed_at
 
-  def sitepress_article = SitepressArticle.new(resource)
-
-  def resource = Sitepress.site.get(request_path) ||
-    NullResource.new(request_path: request_path)
-
-  def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
+  # alias
+  def resource = sitepress_resource
 
   def title = resource.data.title
 
   def body = resource.body
+
+  def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
 
   def description = resource.data.description
 
@@ -100,8 +59,4 @@ class Page < ApplicationRecord
   def toc = resource.data.toc
 
   def enable_twitter_widgets = resource.data.toc
-
-  def upsert_page_from_sitepress!
-    self.class.upsert_page_from_sitepress!(resource)
-  end
 end
