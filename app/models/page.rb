@@ -20,6 +20,7 @@
 #
 class Page < ApplicationRecord
   include Page::Searchable
+  include Page::Similarity
 
   NullResource = Data.define(:request_path) do
     def data = NullData.new(title: nil, description: nil)
@@ -33,17 +34,6 @@ class Page < ApplicationRecord
 
   scope :published, -> { where(["published_at < ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
-
-  has_one :page_embedding, inverse_of: :page, foreign_key: :id, primary_key: :id
-
-  scope :similar_to, ->(page) do
-    select("pages.*")
-      .select("similar_pages.distance")
-      .from("(#{PageEmbedding.similar_to(page.page_embedding).to_sql}) similar_pages")
-      .joins("LEFT JOIN pages ON similar_pages.id = pages.id")
-      .where("similar_pages.id != ?", page.id)
-      .order("similar_pages.distance ASC")
-  end
 
   # def resource_data
   delegate :data, to: :resource, allow_nil: true, prefix: true
@@ -80,11 +70,6 @@ class Page < ApplicationRecord
     page.updated_at = sitepress_resource.data.updated.to_time.middle_of_day if sitepress_resource.data.updated
     page.save!
     page
-  end
-
-  def related_articles
-    return self.class.none unless page_embedding
-    self.class.similar_to(self)
   end
 
   def published? = !!published_at
