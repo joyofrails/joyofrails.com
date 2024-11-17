@@ -11,7 +11,7 @@ RSpec.describe Pages::EmbeddingJob, type: :job do
         index: 0,
         embedding: PageEmbedding.random
       ],
-      model: "text-embedding-ada-002",
+      model: "text-embedding-3-small",
       usage: {
         prompt_tokens: 1446,
         total_tokens: 1446
@@ -19,6 +19,7 @@ RSpec.describe Pages::EmbeddingJob, type: :job do
     }
 
     stub_request(:post, "https://api.openai.com/v1/embeddings")
+      .with(body: {model: "text-embedding-3-small", input: page.body_text})
       .to_return(json_response(response))
 
     expect {

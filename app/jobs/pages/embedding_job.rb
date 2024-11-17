@@ -5,7 +5,7 @@ module Pages
     def perform(page)
       response = client.embeddings(
         parameters: {
-          model: "text-embedding-ada-002",
+          model: "text-embedding-3-small",
           input: page.body_text
         }
       )
