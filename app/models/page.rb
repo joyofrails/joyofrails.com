@@ -37,7 +37,7 @@ class Page < ApplicationRecord
 
   def published_on = published_at&.to_date
 
-  def updated_on = updated_at&.to_date
+  def revised_on = resource.data.updated&.to_date
 
   def indexed? = !!indexed_at
 
