@@ -24,6 +24,7 @@
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
 
+      <h2>Related things to enjoy</h2>
       <% topics = @page.topics.approved.pluck(:slug) %>
       <% if topics.present? %>
         <%= render Pages::Topics.new(topics: topics) %>
@@ -31,7 +32,6 @@
       <% cache [@page, :related_articles] do %>
         <% related_articles = @page.related_articles.limit(3) %>
         <% if related_articles.present? %>
-          <h2>Related articles to enjoy</h2>
           <ul class="list-none">
             <% related_articles.each do |page| %>
               <%= tag.li id: dom_id(page), class: "mb-xs" do %>
