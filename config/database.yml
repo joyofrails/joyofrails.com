@@ -11,6 +11,7 @@ default: &default
   timeout: 5000
   extensions:
     - sqlite_ulid
+    - sqlite_vec
 
 development:
   primary:

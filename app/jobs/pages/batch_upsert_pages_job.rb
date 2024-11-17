@@ -7,6 +7,7 @@ module Pages
 
       Pages::RefreshSearchIndexJob.perform_later
       Pages::BatchAnalyzeTopicsJob.perform_later
+      Pages::BatchEmbeddingJob.perform_later
     end
   end
 end

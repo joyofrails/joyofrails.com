@@ -1,7 +1,5 @@
 module Pages
   class Topics < ApplicationComponent
-    include PhlexConcerns::FlexBlock
-
     attr_reader :topics
 
     def initialize(topics: [])
@@ -16,7 +14,7 @@ module Pages
 
       p(class: "topics") do
         topics.each do |topic|
-          a(href: topic_path(topic), class: "topic step--1") do
+          a(href: topic_path(topic), class: "topic") do
             "##{topic.try(:slug) || topic}"
           end
           whitespace

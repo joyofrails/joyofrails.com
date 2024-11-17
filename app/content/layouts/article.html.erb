@@ -19,16 +19,34 @@
           title: page.title,
           description: page.description,
           published_on: page.published_on,
-          updated_on: page.updated_on
+          updated_on: page.revised_on
         ) %>
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
+
+      <% topics = @page.topics.approved.pluck(:slug) %>
+      <% if topics.present? %>
+        <%= render Pages::Topics.new(topics: topics) %>
+      <% end %>
+      <% cache [@page, :related_articles] do %>
+        <% related_articles = @page.related_articles.limit(3) %>
+        <% if related_articles.present? %>
+          <h3>More articles to enjoy</h3>
+          <ul class="list-none">
+            <% related_articles.each do |page| %>
+              <%= tag.li id: dom_id(page), class: "mb-xs" do %>
+                <%= render Pages::Info.new(
+                      title: page.title,
+                      request_path: page.request_path,
+                      description: page.description,
+                      image: page.image
+                    ) %>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
     </div>
-    <% if @page.topics.approved.any? %>
-      <section id="article-topics" class="section-content container">
-        <%= render Pages::Topics.new(topics: @page.topics.approved.pluck(:slug)) %>
-      </section>
-    <% end %>
   </article>
   <section id="newsletter-signup">
     <%= render "users/newsletter_subscriptions/banner" %>

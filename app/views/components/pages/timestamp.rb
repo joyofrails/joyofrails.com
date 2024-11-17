@@ -24,7 +24,7 @@ module Pages
           end
           if updated_on
             if published_on
-              plain " // "
+              plain " · "
             end
             plain "Updated:"
             whitespace
