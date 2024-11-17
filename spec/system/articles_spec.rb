@@ -65,7 +65,7 @@ RSpec.describe "Articles", type: :system do
 
     visit article.request_path
 
-    expect(page).to have_content("Related articles to enjoy")
+    expect(page).to have_content("More articles to enjoy")
     expect(page).to have_link(similar.title, href: similar.request_path)
   end
 end
