@@ -14,13 +14,6 @@ class PageEmbedding < ApplicationRecord
       .order(distance: :asc)
   }
 
-  def self.custom_create(id:, embedding:)
-    connection.execute sanitize_sql([<<~SQL.squish, id, embedding.to_s])
-      INSERT INTO page_embeddings (id, embedding)
-      VALUES (?, ?)
-    SQL
-  end
-
   # SQLite supports upserts via INSERT ON CONFLICT DO UPDATE for normal tables
   # but not for virtual tables. This method behaves like an upsert the embedding
   # for a page by first removing the existing embedding if it exists and then
@@ -28,7 +21,7 @@ class PageEmbedding < ApplicationRecord
   def self.upsert_embedding!(page, embedding)
     transaction do
       page.page_embedding&.destroy
-      custom_create(id: page.id, embedding: embedding)
+      create(id: page.id, embedding: embedding)
     end
   end
 
