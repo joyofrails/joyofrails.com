@@ -13,6 +13,9 @@ RSpec.describe Page::Similarity, type: :model do
       end
 
       expect(article.reload.related_pages).to include similar
+
+      # works with additional scope
+      expect(article.reload.related_pages.published).to include similar
     end
 
     it "returns empty when no embedding is calculated" do
