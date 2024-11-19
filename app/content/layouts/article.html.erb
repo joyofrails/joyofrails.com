@@ -29,7 +29,7 @@
         <%= render Pages::Topics.new(topics: topics) %>
       <% end %>
       <% cache [@page, :related_pages] do %>
-        <% related_pages = @page.related_pages.limit(3) %>
+        <% related_pages = @page.related_pages.published.limit(3) %>
         <% if related_pages.present? %>
           <h3>More articles to enjoy</h3>
           <ul class="list-none">
