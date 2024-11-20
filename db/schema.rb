@@ -165,9 +165,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  # Could not dump table "page_embeddings_vector_chunks00" because of following StandardError
-  #   Unknown type '' for column 'rowid'
-
   create_table "page_topics", force: :cascade do |t|
     t.string "page_id", null: false
     t.integer "topic_id", null: false
