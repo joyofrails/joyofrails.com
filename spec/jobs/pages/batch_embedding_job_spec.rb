@@ -10,7 +10,7 @@ RSpec.describe Pages::BatchEmbeddingJob, type: :job do
 
   it "doesn’t blow up when page has embedding" do
     page = FactoryBot.create(:page, :published)
-    PageEmbedding.custom_create(id: page.id, embedding: PageEmbedding.random)
+    FactoryBot.create(:page_embedding, id: page.id)
 
     expect(Pages::EmbeddingJob).not_to receive(:perform_later)
 

@@ -28,12 +28,12 @@
       <% if topics.present? %>
         <%= render Pages::Topics.new(topics: topics) %>
       <% end %>
-      <% cache [@page, :related_articles] do %>
-        <% related_articles = @page.related_articles.limit(3) %>
-        <% if related_articles.present? %>
+      <% cache [@page, :related_pages] do %>
+        <% related_pages = @page.related_pages.published.limit(3) %>
+        <% if related_pages.present? %>
           <h3>More articles to enjoy</h3>
           <ul class="list-none">
-            <% related_articles.each do |page| %>
+            <% related_pages.each do |page| %>
               <%= tag.li id: dom_id(page), class: "mb-xs" do %>
                 <%= render Pages::Info.new(
                       title: page.title,
