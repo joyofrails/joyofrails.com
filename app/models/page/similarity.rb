@@ -28,16 +28,15 @@ class Page
       scope :similar_to, ->(page) do
         return none unless page.page_embedding
 
-        similar_page_subquery = PageEmbedding
-          .where("embedding MATCH (?)", PageEmbedding.select(:embedding).where(id: page.id))
-          .select(:id, :distance)
-          .order(distance: :asc)
-          .limit(10)
-
-        select("pages.*")
-          .select("similar_pages.distance")
-          .with(similar_pages: similar_page_subquery)
-          .joins("INNER JOIN similar_pages ON pages.id = similar_pages.id")
+        select(pages: [:id, :request_path, :published_at], similar_embeddings: [:distance])
+          .with(
+            similar_embeddings: PageEmbedding
+              .select(:id, :distance)
+              .where("embedding MATCH (?)", PageEmbedding.select(:embedding).where(id: page.id))
+              .order(distance: :asc)
+              .limit(10)
+          )
+          .joins("INNER JOIN similar_embeddings ON pages.id = similar_embeddings.id")
           .excluding(page)
           .order(distance: :asc)
       end
