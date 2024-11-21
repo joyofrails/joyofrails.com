@@ -1,6 +1,6 @@
 class FeedController < ApplicationController
   def index
-    @articles = SitepressArticle.published
+    @articles = Page.published.order(published_at: :desc).limit(50)
 
     if Rails.configuration.skip_http_cache || stale?(@articles, public: true)
       respond_to do |format|
