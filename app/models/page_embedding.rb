@@ -7,6 +7,11 @@ class PageEmbedding < ApplicationRecord
 
   belongs_to :page, inverse_of: :page_embedding, foreign_key: :id, primary_key: :id, touch: true
 
+  scope :similar_to, ->(page) do
+    select(:id, :distance)
+      .where("embedding MATCH (?)", PageEmbedding.select(:embedding).where(id: page.id))
+  end
+
   # SQLite supports upserts via INSERT ON CONFLICT DO UPDATE for normal tables
   # but not for virtual tables. This method behaves like an upsert the embedding
   # for a page by first removing the existing embedding if it exists and then
