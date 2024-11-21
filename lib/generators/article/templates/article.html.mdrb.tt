@@ -5,7 +5,6 @@ layout: article
 summary: Here is the summary
 description: Here is the description that will show up in the the meta day
 published: "<%= Date.today + 7 %>"
-uuid: <%= SecureRandom.uuid_v7 %>
 image: articles/<%= article_file_name %>/placeholder.jpg
 meta_image: articles/<%= article_file_name %>/placeholder.jpg
 tags:

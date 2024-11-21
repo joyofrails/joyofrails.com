@@ -14,7 +14,7 @@ class ArticleGenerator < Rails::Generators::NamedBase
   end
 
   def add_spec
-    template "article_spec.rb", "spec/system/articles/#{article_file_name}_spec.rb"
+    template "article_spec.rb", "spec/system/content/#{article_file_name}_spec.rb"
   end
 
   private
