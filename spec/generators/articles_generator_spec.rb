@@ -10,9 +10,6 @@ RSpec.describe ArticleGenerator, type: :generator do
   end
 
   it "creates a new article" do
-    uuid = "00000000-0000-0000-0000-000000000000"
-    allow(SecureRandom).to receive(:uuid_v7).and_return(uuid)
-
     run_generator ["My New Article"]
 
     aggregate_failures do
@@ -27,7 +24,6 @@ RSpec.describe ArticleGenerator, type: :generator do
           summary: Here is the summary
           description: Here is the description that will show up in the the meta day
           published: "#{Date.today + 7}"
-          uuid: #{uuid}
           image: articles/my-new-article/placeholder.jpg
           meta_image: articles/my-new-article/placeholder.jpg
           tags:
@@ -38,7 +34,7 @@ RSpec.describe ArticleGenerator, type: :generator do
         FILE
       end
 
-      expect("spec/system/articles/my-new-article_spec.rb").to be_file
+      expect("spec/system/content/my-new-article_spec.rb").to be_file
     end
   end
 end

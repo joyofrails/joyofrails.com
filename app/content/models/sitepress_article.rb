@@ -43,12 +43,4 @@ class SitepressArticle < Sitepress::Model
     updated&.to_date || published_on
   end
   alias_method :updated_at, :updated_on
-
-  def gravatar_image_url
-    "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}"
-  end
-
-  def author
-    data.author || "Ross Kaffenberger"
-  end
 end

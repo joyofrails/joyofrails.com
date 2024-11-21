@@ -11,6 +11,8 @@ RSpec.describe "Feed", type: :request do
 
   describe "GET /feed" do
     it "renders feed with expected content" do
+      Page.upsert_collection_from_sitepress!
+
       get "/feed"
 
       expect(response.status).to eq(200)
@@ -24,6 +26,8 @@ RSpec.describe "Feed", type: :request do
     end
 
     it "render valid feed" do
+      Page.upsert_collection_from_sitepress!
+
       get "/feed"
 
       validator = W3CValidators::FeedValidator.new

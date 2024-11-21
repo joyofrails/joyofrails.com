@@ -30,9 +30,6 @@ class Page < ApplicationRecord
   scope :published, -> { where(["published_at < ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
 
-  # def resource_data
-  delegate :data, to: :resource, allow_nil: true, prefix: true
-
   def published? = !!published_at
 
   def published_on = published_at&.to_date
@@ -58,5 +55,11 @@ class Page < ApplicationRecord
 
   def toc = resource.data.toc
 
-  def enable_twitter_widgets = resource.data.toc
+  def enable_twitter_widgets = resource.data.enable_twitter_widgets
+
+  def atom_feed_id
+    resource.data.uuid.presence || id
+  end
+
+  def author = resource.data.author
 end
