@@ -21,6 +21,12 @@ class Page
       # the related pages. We order by the distance between the embeddings and
       # exclude the page itself.
       #
+      # The subquery to find the embeddings that match the given page uses the
+      # sqlite-vec extension under the hood. sqlite-vec wants the subquery to
+      # specify a LIMIT when used in this way. This limit is currently
+      # hard-coded. When we have more articles we may want to make this limit
+      # configurable.
+      #
       # There may be a better way to handle this, but we have an extra query to
       # make sure the given page has an associated page_embedding, otherwise the
       # embedding MATCH subquery will fail with an invalid statement error.
@@ -28,18 +34,16 @@ class Page
       scope :similar_to, ->(page) do
         return none unless page.page_embedding
 
-        similar_page_subquery = PageEmbedding
-          .where("embedding MATCH (?)", PageEmbedding.select(:embedding).where(id: page.id))
-          .select(:id, :distance)
+        select(pages: column_names, similar_embeddings: [:distance])
+          .with(
+            similar_embeddings: PageEmbedding
+              .similar_to(page)
+              .order(distance: :asc)
+              .limit(10)
+          )
+          .joins("INNER JOIN similar_embeddings ON pages.id = similar_embeddings.id")
+          .excluding(page)
           .order(distance: :asc)
-          .limit(10)
-
-        select("pages.*")
-          .select("similar_pages.distance")
-          .from("(#{similar_page_subquery.to_sql}) similar_pages")
-          .joins("INNER JOIN pages ON similar_pages.id = pages.id")
-          .where("similar_pages.id != ?", page.id)
-          .order("similar_pages.distance ASC")
       end
     end
   end
