@@ -36,10 +36,10 @@ class Page
 
         select("pages.*")
           .select("similar_pages.distance")
-          .from("(#{similar_page_subquery.to_sql}) similar_pages")
-          .joins("INNER JOIN pages ON similar_pages.id = pages.id")
-          .where("similar_pages.id != ?", page.id)
-          .order("similar_pages.distance ASC")
+          .with(similar_pages: similar_page_subquery)
+          .joins("INNER JOIN similar_pages ON pages.id = similar_pages.id")
+          .excluding(page)
+          .order(distance: :asc)
       end
     end
   end
