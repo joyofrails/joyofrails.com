@@ -8,6 +8,9 @@ module LitestreamExtensions
         return
       end
       File.write(config_path, YAML.dump(litestream_config))
+
+      # Here’s the command needed to check the status of the Litestream service on Hatchbox:
+      Litestream.systemctl_command = "systemctl --user status joyofrails-litestream.service"
     end
 
     def config_path
