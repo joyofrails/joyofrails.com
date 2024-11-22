@@ -38,8 +38,7 @@ module LitestreamExtensions
       ActiveRecord::Base
         .configurations
         .configs_for(env_name: Rails.env, include_hidden: true)
-        .select { |config| ["sqlite3", "litedb"].include? config.adapter }
-        .map(&:database)
+        .filter_map { |config| (config.adapter == "sqlite3") ? config.database : nil }
     end
 
     def litestream_bucket
