@@ -1,0 +1,4 @@
+production:
+  litestream_verify:
+    class: "Litestream::VerificationJob"
+    schedule: every day at 6am
