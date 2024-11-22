@@ -11,7 +11,7 @@ module LitestreamExtensions
     end
 
     def config_path
-      Rails.root.join("config", "litestream", "#{Rails.env}.yml")
+      Rails.env.production? ? Rails.root.join("config", "litestream.yml") : Rails.root.join("config", "litestream", "#{Rails.env}.yml")
     end
 
     def litestream_config
