@@ -10,11 +10,12 @@ RSpec.describe "litestream.yml" do
     end
   end
 
-  def database_paths
-    ActiveRecord::Base
-      .configurations
-      .configs_for(env_name: Rails.env, include_hidden: true)
-      .select { |config| ["sqlite3", "litedb"].include? config.adapter }
-      .map(&:database)
+  it "extracts database paths from database.yml" do
+    expect(LitestreamExtensions::Setup.database_paths).to include(
+      "storage/test/data.sqlite3",
+      "storage/test/cache.sqlite3",
+      "storage/test/queue.sqlite3",
+      "storage/test/cable.sqlite3"
+    )
   end
 end
