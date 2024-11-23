@@ -1,0 +1,14 @@
+---
+title: What you need to know about SQLite
+author: Ross Kaffenberger
+layout: article
+summary: Here is the summary
+description: Here is the description that will show up in the the meta day
+published: "2024-11-30"
+image: articles/what-you-need-to-know-about-sq_lite/placeholder.jpg
+meta_image: articles/what-you-need-to-know-about-sq_lite/placeholder.jpg
+tags:
+  - Rails
+---
+
+Hello World
