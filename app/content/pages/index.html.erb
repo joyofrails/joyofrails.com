@@ -2,7 +2,7 @@
 title: Joy of Rails
 ---
 
-<% articles = SitepressArticle.published(params) %>
+<% articles = Page.all.published.order(published_at: :desc) %>
 <section style="min-height: 51vh">
   <div class="main-content container py-gap lg:py-3xl">
     <% articles.take(3).zip(%w[left right].cycle).each do |(page, side)| %>
