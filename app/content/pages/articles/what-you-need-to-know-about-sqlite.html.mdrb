@@ -1,0 +1,258 @@
+---
+title: What you need to know about SQLite
+author: Ross Kaffenberger
+layout: article
+summary: Here is the summary
+description: Here is the description that will show up in the the meta tag
+published: '2024-11-30'
+image: articles/what-you-need-to-know-about-sq_lite/placeholder.jpg
+meta_image: articles/what-you-need-to-know-about-sq_lite/placeholder.jpg
+tags:
+  - Rails
+---
+
+SQLite is taking the web by storm. SQLite was already just about[everywhere](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—but only in the past couple years has started to gain more widespread appeal as a database for web applications, Rails included.
+
+Rails has first class support for SQLite in production
+
+### SQLite is designed to be small and self-contained
+
+At some point when using SQLite, you may find yourself wondering,
+
+> Why does SQLite work this way?
+
+Rest assured, the answer likely lies in very intentional design decisions that allow SQLite to stay relatively small. You might have expectations of what a relational database is and should do if you’re more familiar with Postgres and MySQL. Though SQLite is very capable database, there are many things that it is not, some of which we’ll get to below.
+
+### SQLite runs in the same process as your application
+
+SQLite does not function as a standalone server like Postgres or MySQL. SQLite is a library (written in C) that runs within the process of an application. You may here it described as an "embedded" database for this reason. When you use SQLite with Rails, your application makes function calls to SQLite through a Ruby gem, most likely, the sqlite3-ruby Ruby gem. SQLite will not communicate over the network like MySQL or Postgres.
+
+### SQLite is simpl*er*
+
+Here’s a common assessment:
+
+> SQLite is simple
+
+I don’t entirely agree.
+
+SQLite is itself a library that is made up of millions of lines of C code. It supports a wide number of use cases beyond web apps. It is extremely configurable. It’s not easy to understand all the options though it is quite easy to end up with a configuration that negatively impacts your application. It has a number of limitations that mean you need to be careful with your application design.
+
+I do think though, the barrier to entry to get started with SQLite is lower than other options. It may be more accurate to state, that for web apps at least, your application architecture is potentially much simpler with SQLite for the primary reason that you will have fewer machines and processes to manage than it would be possible with traditional choices Postgres or MySQL.
+
+### It’s just a file (except not exactly)
+
+Here’s another common statement about SQLite
+
+> It’s a just a file
+
+That’s true—sort of.
+
+In Rails, you‘ll specify a SQLite file path in `config/database.yml`, e.g.:
+
+```yml:{"filename":"config/database.yml", "highlight_lines":[3]}
+development:
+  adapter: sqlite3
+  database: storage/development.sqlite3
+```
+
+Rails will create `storage/development.sqlite3` for you. Just be aware that this will not be the _only_ file needed.
+
+In a running Rails 8 application, SQLite is configured to run with Write-Ahead-Log (WAL) mode enabled, which results in additional "semi-persistent" files while Rails processes are running: the shared memory file and the WAL file (`-shm` and `-wal`, respectively).
+
+```sh:{"header": false}
+$ bin/rails server # start rails in development
+
+$ ls ./storage     # in a separate shell
+development.sqlite3
+development.sqlite3-shm
+development.sqlite3-wal
+```
+
+Replication services like Litestream will help you properly backup all these files for recovery; just don’t go moving the main SQLite database file around when your application is running which may lead to file corruption.
+
+### SQLite is designed for a single host
+
+Given that a SQLite database, by design, runs in the same process as your application, is not available over the network, and writes to a file, and files live on machines, your best bet is to tie your application to a single machine.
+
+This usually means picking one of the following:
+
+- rent a machine from virtual private server (VPS) provider
+- use a platform-as-a-service (PaaS) with a persistent volume and a single node
+
+Instead of scaling horizontally (more machines) as your application grow, you’ll want to be scaling vertically (a bigger machine). With modern computers, you will be able to scale your machine pretty far.
+
+### But SQLite can work with multiple hosts?
+
+To say SQLite works _only_ on a single host is not entirely true. You could imagine a setup where SQLite files are replicated across a horizontally scaled cluster. And you don’t have to imagine it either. This capability exists in various products, including, but not limited to:
+
+- [Turso](https://turso.tech/) a distributed database based on libSQL, an open-source fork of SQLite
+- [rqlite](https://rqlite.io/) lightweight, user-friendly, distributed relational database built on SQLite
+- [SQLiteCloud](https://docs.sqlitecloud.io/) a, distributed relational database system built on top of SQLite
+- [LiteFS](https://fly.io/docs/litefs/) a distributed file system that transparently replicates SQLite databases.
+- [LiteCluster](https://oldmoe.blog/2024/07/22/litecluster-replicated-leaderless-acid-compliant-high-availability-sqlite/) replicated, leaderless, ACID compliant SQLite
+
+I don’t have experience with these offerings, but it is good to know they exist. My impression is, though they may be very good, to go this direction will mean potentially having to work through issues and quirks with relatively little prior art. Your use case may be special, but if you think you need to scale to multiple hosts and higher levels of redundancy and otherwise don’t have any special need for SQLite, then maybe Postgres or MySQL would be a better option.
+
+### Use persistent volumes
+
+Since you‘re writing to files on disk, this means you need to ensure that your production setup accounts for the fact this file needs to be on a persistent volume. The default Rails Docker configuration for Kamal deployment should set this up for you, but if you’re using another service or deployment option, you may need to be intentional about it.
+
+### Heroku is not a good fit for SQLite
+
+Keep in mind that it’s common for Platform-as-as-Service (PaaS)providers to offer _ephemeral_ storage by default. Every deploy of your application would wipe the slate clean.
+
+For this reason, [Heroku is not compatible with SQLite](https://devcenter.heroku.com/articles/sqlite3). Other PaaS offerings like Render and Fly.io, support SQLite with a persistent volumne option, but it’s not the default and there are some caveats, like downtime during deploys while the persisted volume attaches to the new service ([link](https://community.render.com/t/database-on-github-sqlite3/536/4)).
+
+### SQLite supports concurrency for reads, not writes
+
+When considering SQLite for your Rails app, it’s important to understand its concurrency limitations: SQLite supports one writer at a time. With WAL mode enabled, SQLite supports concurrency for reads—in other words, reads do not block other reads or writes, and writes do not block reads. Even with the "one writer" restriction, SQLite writes have the potential to be fast due to the lack of network latency. Various sources suggests speeds with an order of magnitude in the thousands per second.
+
+### SQLite performance is "good enough"
+
+So how good can SQLite be? It’s designed for a single machine, supports one writer at a time, maps to a single file on disk. Turns out the answer is "pretty good".
+
+Of course, your exact use case may be a special snowflake. But if we go by the scaling needs of a typical website, SQLite would usually do just fine.
+
+I’m going light on details here because I can defer to others; I urge you to check out [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels, one of the best posts I’ve come across on SQLite performance for the web:
+
+> As long as you don't expect to need tens of thousands of small writes per second, thousands of large writes, or long-lived write transactions, it's highly likely that SQLite will support your usecase
+
+### SQLite has funky features you might like
+
+I’ve come to learn about
+
+- Extensions: Load extensions (examples)
+- PRAMGAs: PRAGMA statements allow for setting SQLite behaviors in the running process or at the database level. Allow overriding SQLite defaults from database.yml https://github.com/rails/rails/pull/50460
+- Virtual tables: Add support for SQLite3 full-text-search and other virtual tables #52354 https://github.com/rails/rails/pull/52354
+
+### But! SQLite has funky quirks you might not like
+
+As a database, SQLite is quite capable, but there are a number of behaviors that will trip you up:
+
+- SQLite is weakly typed: You can insert a string into a column defined as an integer. That makes it a perfect fit for a dynamic language like Ruby, right! With its type-casting behavior, ActiveRecord can help smooth out potential problems, but not if you stray beyond the paved path.
+- Some data types are not supported, like booleans and datetime. Instead, with SQLite, you would store and deserialize such values by convention. Again, ActiveRecord can help you forget these
+- AUTOINCREMENT does not reused deleted IDs. This behavior differs from other database stores.
+
+There are more. These quirks may not be a problem in the long run, but it’s worth knowing what they are. There is an entire page in the docs dedicated to SQLite’s quirks to bookmark https://www.sqlite.org/quirks.html.
+
+### SQLite defaults are not ideal for web applications
+
+Keep in mind that SQLite is designed to run in a number of different contexts. Its out-of-the-box defaults are not tailored to the concurrency needs of web apps. Furthermore, until recently, computer hardware hasn’t been powerful enough to make up for SQLite’s limitations.
+
+As a result, early versions of Rails did not treat SQLite as a viable production database engine where you might see this warning from the Rails initialization process if you attempt to run SQLite in production: `You are running SQLite in production, this is generally not recommended.`
+
+### But! SQLite on Rails 8 is optimized for web applications
+
+Over the past year+ leading up to the recent Rails 8 release, there have been a number of improvements merged into Rails SQLite adapter and the sqlite3-ruby gem to ensure Rails apps are optimally configured to run SQLite in production out-of-the-box.
+
+A lot of credit for these improvements is due to Stephen Margheim ([@fractaledmind](https://github.com/fractaledmind)) whose [blog posts](https://fractaledmind.github.io/posts/), [talks](https://fractaledmind.github.io/speaking/), podcast appearances, and pull requests have helped spur a SQLite Renaissance of sorts in the Rails community.
+
+A brief summary of how Rails 8 and sqlite3-ruby "fixed" SQLite integration, with some tradeoffs:
+
+- SQLite journal mode is configured for Write-Ahead-Logging (WAL) via `PRAGMA journal. As described above, WAL mode means Rails on SQLite supports concurrency for reads even when the single write lock is held (This change actually landed in Rails 7.1). Check out [this blog post](https://fractaledmind.github.io/2023/09/07/enhancing-rails-sqlite-fine-tuning/) for more details, the [SQLite WAL docs](https://www.sqlite.org/wal.html), and the [PRAMA doc](https://www.sqlite.org/pragma.html#pragma_journal_mode).
+- Additional SQLite settings (PRAGMAs) are tuned for performance including
+  - `PRAGMA synchronous = NORMAL`; sync writes every 1000 written pages which improves performance while sacrificing 100% durability meaning there’s a small chance a transaction committed in WAL mode could "roll back following a power loss or system crash." ([PRAGMA doc](https://www.sqlite.org/pragma.html#pragma_synchronous))
+  - `PRAGMA mmap_size = #{128.megabytes}`; allows Rails processes to share some SQLite data in memory [SQLite Memory-Mapped I/O doc](https://www.sqlite.org/mmap.html)
+  - `PRAGMA journal_size_limit = #{64.megabytes}`; SQLite will truncate the WAL file up at this limit after transactions or checkpoints; otherwise it might grow unbounded ([PRAGMA doc](https://www.sqlite.org/pragma.html#pragma_journal_size_limit))
+- SQLite is now configured for IMMEDIATE transactions (instead of the default DEFERRED transactions)—this means SQLite will attempt to grab the write lock at the start of a transaction instead of "on the first write". This change greatly reduces SQLite’s "busy exception" problem in prior versions of Rails. ([SQLite transaction docs](https://www.sqlite.org/lang_transaction.html))
+- Ruby’s Global VM Lock (GVL) can be released while multiple Rails processes are trying to acquire the SQLite write lock. This change, along with an improved retry mechanism, overall leads to greatly improved throughput.
+
+### Rails SQLite Pull Requests are a great learning resource
+
+If you’re thirsty for more details on the Rails improvements with respect to SQLite, I’ve compiled a list of recent PRs that make for good reading. The list includes performance wins and better feature parity with Rails support for MySQL and Postgres, and SQLite-specific feature enhancements:
+
+**Rails**
+
+- [Add SQLite3 support for supports_insert_returning?](https://github.com/rails/rails/pull/49290)
+- [Add support for generated columns in SQLite3 adapter](https://github.com/rails/rails/pull/49346)
+- [Performance tune the SQLite3 adapter connection configuration](https://github.com/rails/rails/pull/49349)
+- [Allow SQLite3 busy_handler to be configured with simple max number of retries](https://github.com/rails/rails/pull/49352)
+- [The SQLite3 adapter now implements the supports_deferrable_constraints? contract](https://github.com/rails/rails/pull/49376)
+- [Ensure SQLite transaction default to IMMEDIATE mode](https://github.com/rails/rails/pull/50371)
+- [Allow overriding SQLite defaults from database.yml](https://github.com/rails/rails/pull/50460)
+- [Remove SQLite production warning but leave production config disabled](https://github.com/rails/rails/pull/50463)
+- [Fix copying virtual columns when altering a table in sqlite3](https://github.com/rails/rails/pull/51531)
+- [SQLite non-GVL-blocking, fair retry interval busy handler](https://github.com/rails/rails/pull/51958)
+
+**sqlite3-ruby**
+
+- [Add a busy_handler_timeout setter](https://github.com/sparklemotion/sqlite3-ruby/pull/443)
+- [busy_handler_timeout pt2](https://github.com/sparklemotion/sqlite3-ruby/pull/456)
+
+### You might not need the Enhanced SQLite3 Adapter
+
+You may have heard about the [ActiveRecord EnhancedSqlite3 Adapter (AREA) gem](https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter), also by @fractaledmind. Most of the improvements provided by this gem (as of gem version `0.8.0`) have been upstreamed into Rails 8 as mentioned above.
+
+Two enhancements NOT currently in Rails are worth mentioning:
+
+- Support for isolated connection pools. Although the SQLite configurations with Rails supports concurrent reads, the connection pooling mechanism in Rails could theoretically be saturated with queued writes. This means reads could still get blocked while write queries solve linearly. The AREA gem solves for this by configuring Rails to use separate connection pools for SQLites reads and writes. For more details, see this [@fractaledmind blog post](https://fractaledmind.github.io/2024/04/11/sqlite-on-rails-isolated-connection-pools/) and the [Rails guides on multiple databases](https://guides.rubyonrails.org/active_record_multiple_databases.html).
+- Extension loading. As described earlier, SQLite supports loading extensions. You could do this manually during the Rails initialization process, rely on the loading mechanism of individual SQLite extension gems, or use the bindings provided by the AREA gem, either through extensions to `config/database.yml` or via the unofficial SQLite extension package manager, [sqlpkg](https://sqlpkg.org/). Another [@fractaledmind blog post](https://fractaledmind.github.io/2023/12/24/enhancing-rails-installing-extensions/) helps explain.
+
+### You can run your entire Rails 8 application on SQLite
+
+One reason I love SQLite is my operational complexity is greatly reduced. Keep in mind preference to have fewer running processes to manage. With Rails 8, I no longer need Redis to use Rails. While you can reap many benefits from keeping Redis as a dependency for Rails cache, ActionCable, Sidekiq, you don’t _have_ to use it.
+
+Each of the following components have Rails 8 adapters for relational databases, including SQLite:
+
+- ActiveRecord with the built-in SQLite adapter,
+- ActiveJob with [Solid Queue](https://github.com/rails/solid_queue),
+- ActiveSupport Cache with [Solid Cache](https://github.com/rails/solid_cache), and
+- Action Cable with [Solid Cable](https://github.com/rails/solid_cable)
+
+One less service to manage or pay for is a win for Rails 8 applications hoping to keep costs down.
+
+### You can use multiple SQLite databases
+
+Rails has multi-database support which means a few things:
+
+1. you can specify primary and replica databases for ActiveRecord for fallback or isolated connection pools (as described earlier), and
+2. you can specify separate databases for ActiveRecord, Solid Queu, Solid Cache, and Solid Cable
+
+Keeping your databases separate is another trick in your toolbox to workaround SQLite concurrency limitations. In other words, connection pools and read/write conncurrency on the primary ActiveRecord database backed by one SQLite won’t directly affect resources allocated for Rails cache or ActiveJob.
+
+To take advantage of separate databases for different Rails stores, additional setup is required in `config/database.yml`. Here’s an excerpt from the database configuration for Joy of Rails:
+
+<%= render CodeBlock::AppFile.new("config/database.yml", revision: "10dc6292", lines: [7, 9, 15..31], highlight_lines: [5, 8, 12, 16]) %>
+
+Note, this change might not be enough for each service at the time of this writing. For example, you would still need to map the database name from `config/database.yml` to the connection options in a Rails initializer. For example, to wire up Solid Queue:
+
+```rb:{"filename": "config/initializers/solid_queue.rb"}
+Rails.application.configure do
+  config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
+end
+```
+
+Check out [@fractaledmind’s quick tip on the subject](https://fractaledmind.github.io/2024/01/02/sqlite-quick-tip-multiple-databases/).
+
+A footnote on this topic: you may wish to have transactional integrity for background job enqueueing by keeping ActiveRecord and ActiveJob in the same database. The [Solid Queue README](https://github.com/rails/solid_queue?tab=readme-ov-file#jobs-and-transactional-integrity) addresses why it defaults to multiple databases and how you can override this behavior.
+
+## You don’t need SQLite threadsafe mode
+
+Astute users will see that SQLite has a threadsafe mode option disabled by default and that Rails does not turn on threadsafe mode in SQLite on our behalf.
+
+_Wait, Puma uses threads, don’t we need threadsafe SQLite?_
+
+The answer is no!
+
+> because of the thread-safety of ActiveRecord and the non-parallelizability of the sqlite3-ruby gem, we don’t actually need SQLite itself to add its own layer of thread-safety.
+
+([Source](https://fractaledmind.github.io/2023/09/10/enhancing-rails-sqlite-optimizing-compilation/#fn:2))
+
+### Compile time flags
+
+For more details, see [SQLite Optimizing Compilation](https://fractaledmind.github.io/2023/09/10/enhancing-rails-sqlite-optimizing-compilation/).
+
+### SQLite migrations are... weird
+
+Here‘s a Rails migration that’s pretty common: `change_column` type. You may think this to be an innocuous operation in SQLite but this change is not directly supported in SQLite. In fact, the only "alter table" commands supported by SQLite are "the "rename table", "rename column", "add column", "drop column"". For other, SQLite describes a recipes which includes temporarily disabling referential integrity and copying data to and from a temporary table.
+https://www.sqlite.org/lang_altertable.html#making_other_kinds_of_table_schema_changes. Luckily for us, this recipe is modeled directly in the Rails SQLite adapter; you can see the source code here
+https://github.com/rails/rails/blob/b7165a33649d9e4132730feb6fbd39d4ed49dc0d/activerecord/lib/active_record/connection_adapters/sqlite3_adapter.rb#L556-L587.
+
+### You should probably use Litestream
+
+Resources
+
+- https://github.com/fractaledmind/litestream-ruby
+- https://fractaledmind.github.io/2023/12/12/sqlite-on-rails-litestream-ruby/
+- https://fractaledmind.github.io/2023/09/09/enhancing-rails-sqlite-setting-up-litestream/
+- https://litestream.io/getting-started/
