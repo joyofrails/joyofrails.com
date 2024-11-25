@@ -10,7 +10,7 @@ class Markdown::Article < Markdown::Application
         span(class: "sr-only") { "Link to heading" }
         whitespace
       end
-      plain content
+      raw safe(content)
     end
   end
 
