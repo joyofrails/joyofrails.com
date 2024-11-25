@@ -22,7 +22,7 @@ RSpec.describe ArticleGenerator, type: :generator do
           author: Ross Kaffenberger
           layout: article
           summary: Here is the summary
-          description: Here is the description that will show up in the the meta day
+          description: Here is the description that will show up in the the meta tag
           published: "#{Date.today + 7}"
           image: articles/my-new-article/placeholder.jpg
           meta_image: articles/my-new-article/placeholder.jpg
