@@ -3,8 +3,10 @@ title: Joy of Rails 💜 Hatchbox
 author: Ross Kaffenberger
 layout: article
 summary: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
+description: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
 uuid: 0192f76f-2f11-7db3-9d72-0fa782be2543
 image: content/hatchbox/homepage.jpg
+published: '2024-11-11'
 meta_image: content/hatchbox/homepage.jpg
 ---
 
@@ -14,7 +16,7 @@ Hatchbox is a great alternative to managing your own VPS deployment via Capistra
 
 I use [a Github Action](https://github.com/joyofrails/joyofrails.com/blob/main/.github/workflows/deploy.yml) on the `main` branch of [the Joy of Rails Github repo](https://github.com/joyofrails/joyofrails.com) for continuous deployment.
 
-I have spend very little time debugging a failed Hatchbox deployment—they rarely happen and it’s always been my fault. The Hatchbox dashboard surfaces deploy logs and Rails logs that have helped me figure out the root cause.
+I have spent very little time debugging a failed Hatchbox deployment—they rarely happen and it’s always been my fault. The Hatchbox dashboard surfaces deploy logs and Rails logs that have helped me figure out the root cause.
 
 ## Customizing Hatchbox
 
@@ -31,12 +33,15 @@ Here is a collection of helpful articles from the new Hatchbox help site:
 
 I’ve also opened up some tickets. I _think_ it‘s difficult to share long-lived links to these conversations since they live behind a login or temporary token. Here are some selected screenshots to conversations I‘ve had I may need to refer back to.
 
+To set compile-time flags for SQLite, I set an ENV variable for Bundler through the Hatchbox UI.
 ![Conversation about Bundler Config](content/hatchbox/conversation-bundler-config.jpg 'Conversation about Bundler Config')
 
+I use Litestream Ruby for streaming backups of the Joy of Rails SQLite databases. The Litestream Ruby gem provides a Rails engine to see the current status of the Litestream process managed by systemd on Hatchbox. I had to customize the Litestream Ruby gem to wire up the Rails engine properly with Hatchbox. This even me contributing [this pull request](https://github.com/fractaledmind/litestream-ruby/pull/39) to Litestream Ruby.
 ![Conversation about systemd part 1](content/hatchbox/conversation-systemd-1.jpg 'Conversation about systemd part 1')
 
 ![Conversation about systemd part 2](content/hatchbox/conversation-systemd-2.jpg 'Conversation about systemd part 2')
 
+Since I know Hatchbox is a Rails app and I want to [spread the joy of making Rails apps installable as Progressive Web Apps](/articles/add-your-rails-app-to-the-home-screen), I helped nudge making Hatchbox compatible with the new PWA features of Rails 7/8. This led to some improvements Chris Oliver contributed to Rails!
 ![Conversation about installing pwa](content/hatchbox/conversation-pwa.jpg 'Conversation about installing pwa')
 
 I‘d recommend giving Hatchbox a try if you like the idea of using VPS like DigitalOcean and don’t want to spend time wrestling with Kamal.
