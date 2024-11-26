@@ -10,7 +10,9 @@ meta_image: content/hatchbox/homepage.jpg
 
 Joy of Rails deploys to a single VPS hosted by Digital Ocean managed by [Hatchbox.io](https://hatchbox.io/).
 
-Hatchbox is a great alternative to managing your own VPS deployment via Capistrano, Mina, or Kamal. I use [a Github Action](https://github.com/joyofrails/joyofrails.com/blob/main/.github/workflows/deploy.yml) on the `main` branch of [the Joy of Rails Github repo](https://github.com/joyofrails/joyofrails.com) for continuous deployment.
+Hatchbox is a great alternative to managing your own VPS deployment via Capistrano, Mina, or Kamal. [There’s a YouTube video](https://www.youtube.com/watch?v=BIgls9mxHTM) that serves as a great intro if you want to learn more.
+
+I use [a Github Action](https://github.com/joyofrails/joyofrails.com/blob/main/.github/workflows/deploy.yml) on the `main` branch of [the Joy of Rails Github repo](https://github.com/joyofrails/joyofrails.com) for continuous deployment.
 
 I have spend very little time debugging a failed Hatchbox deployment—they rarely happen and it’s always been my fault. The Hatchbox dashboard surfaces deploy logs and Rails logs that have helped me figure out the root cause.
 
