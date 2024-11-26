@@ -37,7 +37,7 @@ Rest assured, the answer likely lies in very intentional design decisions that a
 
 ### SQLite runs in the same process as your application
 
-SQLite does not function as a standalone server like Postgres or MySQL. SQLite is a library (written in C) that runs within the process of an application. You may here it described as an "embedded" database for this reason. When you use SQLite with Rails, your application makes function calls to SQLite through a Ruby gem, most likely, the sqlite3-ruby Ruby gem. SQLite will not communicate over the network like MySQL or Postgres.
+SQLite does not function as a standalone server like Postgres or MySQL. SQLite is a library (written in C) that runs within the process of an application. It is often described as an "embedded" database for this reason. When you use SQLite with Rails, your application makes function calls to the SQLite API through the sqlite3-ruby Ruby gem. SQLite will not communicate over the network like MySQL or Postgres.
 
 This trait has some very interesting consequences for operational architecture and performance characteristics as we’ll see below.
 
@@ -224,7 +224,7 @@ If you’re thirsty for more details on the Rails improvements with respect to S
 
 ### You might not need the Enhanced SQLite3 Adapter
 
-You may have heard about the [ActiveRecord EnhancedSqlite3 Adapter (AREA) gem](https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter), also by @fractaledmind. Most of the improvements provided by this gem (as of gem version `0.8.0`) have been upstreamed into Rails 8 as mentioned above.
+You may be familiar with the [ActiveRecord EnhancedSqlite3 Adapter (AREA) gem](https://github.com/fractaledmind/activerecord-enhancedsqlite3-adapter), also by @fractaledmind. Most of the improvements provided by this gem (as of gem version `0.8.0`) have been upstreamed into Rails 8 as mentioned above.
 
 Two enhancements NOT currently in Rails are worth mentioning:
 
