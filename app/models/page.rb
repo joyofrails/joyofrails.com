@@ -28,6 +28,7 @@ class Page < ApplicationRecord
   has_many :approved_topics, -> { approved }, through: :page_topics, source: :topic, inverse_of: :pages
 
   scope :published, -> { where(["published_at < ?", Time.zone.now]) }
+  scope :draft, -> { where(["published_at > ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
 
   def published? = !!published_at

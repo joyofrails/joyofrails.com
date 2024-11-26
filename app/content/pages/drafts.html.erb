@@ -1,28 +1,14 @@
-<div class="container">
-  <section class="max-w-screen-lg py-16 mx-auto lg:py-20">
-    <h1 class="pb-16 text-2xl font-bold text-center md:text-4xl">Drafts</h1>
-    <section class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-      <% SitepressArticle.draft.each do |page| %>
-        <article class="flex flex-col">
-          <%= link_to_page page do %>
-            <h2 class="text-xl font-bold md:text-2xl leading-tighter"><%= page.title %></h2>
-          <% end %>
-          <div class="flex items-start mt-4 text-sm">
-            <div class="flex items-center space-x-3">
-              <div class="flex flex-col w-40">
-                <div class="leading-tight text-gray-500 place-content-end opacity-90">
-                  <div>
-                    Unpublished
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pl-2 text-sm leading-snug opacity-70">
-              <%= page.description %>
-            </div>
-          </div>
-        </article>
-      <% end %>
-    </section>
-  </section>
-</div>
+<% articles = SitepressArticle.draft %>
+<section style="min-height: 51vh">
+  <div class="main-content container py-gap lg:py-3xl">
+    <% articles.take(3).zip(%w[left right].cycle).each do |(page, side)| %>
+      <%= render Pages::Summary.from_page(page, side: side) %>
+    <% end %>
+
+    <h3 class="mt-16">More articles</h3>
+    <%= render Pages::List.new(articles.drop(3).take(6)) %>
+  </div>
+</section>
+<section>
+  <%= render "users/newsletter_subscriptions/banner" %>
+</section>

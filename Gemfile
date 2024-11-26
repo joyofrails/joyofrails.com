@@ -37,7 +37,7 @@ gem "parslet" # Parslet is a small Ruby library for constructing parsers [https:
 # Rendering
 gem "image_processing" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://github.com/jamesmartin/inline_svg
-gem "rouge" # Pure Ruby syntaix highlighter [https://github.com/rouge-ruby/rouge
+gem "rouge" # Pure Ruby syntax highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
 gem "phlex", "2.0.0.beta2" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
