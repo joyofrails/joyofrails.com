@@ -2,18 +2,16 @@
 title: What you need to know about SQLite
 author: Ross Kaffenberger
 layout: article
-summary: A collection of lessons learned about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it may, or may not, be a good choice to back your Rails 8 application
-description: A collection of lessons learned about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it may, or may not, be a good choice to back your Rails 8 application
-published: '2024-11-30'
+summary: A compilation of lessons about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it might—or might not—be a good choice to back your Rails 8 app
+description: A compilation of lessons about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it may, or may not, be a good choice to back your Rails 8 app
+published: '2024-12-02'
 image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
 meta_image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
-tags:
-  - Rails
 ---
 
 Have you heard? SQLite is taking the web by storm. The widespread belief has been that SQLite isn’t a production grade database for web apps. But that sentiment is starting to change.
 
-SQLite was already just about[everywhere](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—what‘s changed?
+SQLite is already just about [everywhere](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—why now for web apps?
 
 Well, it’s basically this: computers have gotten faster and Rails has finally figured out how configure SQLite properly for the web.
 
@@ -23,7 +21,7 @@ With the recent release of Rails 8, it’s easier than ever to choose SQLite as 
 
 [Joy of Rails](/) has run on SQLite since launch and I have been very happy with my choice—I plan to keep it that way. But SQLite isn’t for everyone.
 
-What follows are lessons some lessons I’ve learned along the way. My hope is you’ll read this list and come away with enough info and additional resources to help you understand SQLite’s strengths and limitations and ultimately to figure out whether or not SQLite is right for you and your next Rails app.
+There’s been a lot of great information shared blog posts, open source contributions, and presentations in recent months. I decided to compile everything I’ve learned from that journey into the list of lessons you find here. My hope is you’ll read this list and come away with enough info and additional resources to help you understand SQLite’s strengths and limitations and ultimately to figure out whether or not SQLite is right for you and your next Rails app.
 
 In other words, I’ve tried to write the article I would have liked to have read before starting my journey with SQLite on Rails.
 
@@ -200,7 +198,7 @@ A brief summary of how Rails 8 and sqlite3-ruby "fixed" SQLite integration, with
   - `PRAGMA mmap_size = #{128.megabytes}`; allows Rails processes to share some SQLite data in memory [SQLite Memory-Mapped I/O doc](https://www.sqlite.org/mmap.html)
   - `PRAGMA journal_size_limit = #{64.megabytes}`; SQLite will truncate the WAL file up at this limit after transactions or checkpoints; otherwise it might grow unbounded ([PRAGMA doc](https://www.sqlite.org/pragma.html#pragma_journal_size_limit))
 - SQLite is now configured for IMMEDIATE transactions (instead of the default DEFERRED transactions)—this means SQLite will attempt to grab the write lock at the start of a transaction instead of "on the first write". This change greatly reduces SQLite’s "busy exception" problem in prior versions of Rails. ([SQLite transaction docs](https://www.sqlite.org/lang_transaction.html))
-- Ruby’s Global VM Lock (GVL) can be released while multiple Rails processes are trying to acquire the SQLite write lock. This change, along with an improved retry mechanism, overall leads to greatly improved throughput.
+- Ruby’s Global VM Lock (GVL) can now be released while multiple Rails processes are trying to acquire the SQLite write lock. This change as part of an improved retry mechanism overall leads to greatly improved throughput.
 
 ### Rails SQLite Pull Requests are a great learning resource
 
@@ -301,15 +299,19 @@ Litestream was designed to run as a separate process on your server thus adding 
 
 ### You should probably check out these great SQLite resources
 
+If there’s one thing I hope you’ll take away from this article, it’s to go read the [@fractaledmind SQLite blog series](https://fractaledmind.github.io/tags/sqlite/). Beyond that, here are some other great online resources to learn about SQLite:
+
 - The [SQLite docs](https://www.sqlite.org)
-- [@fractaledmind SQLite blog series](https://fractaledmind.github.io/tags/sqlite/)
 - SQLite videos on [Database School](https://www.youtube.com/playlist?list=PLI72dgeNJtzqElnNB6sQoAn2R-F3Vqm15)
 - The [High Performance SQLite course](https://highperformancesqlite.com/)
-- SQLite posts on [Julia Evans blog]()
+- [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels
+- SQLite posts on [Julia Evans blog](https://jvns.ca/)
 
 ## SQLite3::Database#close
 
-That’s the end of my list of lessons for now. With some much happening in the topic of late, I thought it might be useful to summarize what’s now possible (and not) with SQLite on Rails, especially on the heels of the Rails 8 release.
+That’s the end of my lessons for now. With some much happening in the topic of late, I thought it might be useful to summarize what’s now possible (and not) with SQLite on Rails, especially on the heels of the Rails 8 release.
+
+Overall, I love the simplicity of running SQLite in production. It works well for a humble site like Joy of Rails. It might not be the best choice for applications with heavy traffic, write-heavy workflows, or ambitious uptime SLAs.
 
 I want to know: how‘s your journey with SQLite on Rails going?
 
