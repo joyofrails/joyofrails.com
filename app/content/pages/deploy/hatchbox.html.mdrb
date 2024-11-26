@@ -4,12 +4,39 @@ author: Ross Kaffenberger
 layout: article
 summary: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
 uuid: 0192f76f-2f11-7db3-9d72-0fa782be2543
-image: content/hatchbox/placeholder.jpg
-meta_image: content/hatchbox/placeholder.jpg
-tags:
-  - Rails
+image: content/hatchbox/homepage.jpg
+meta_image: content/hatchbox/homepage.jpg
 ---
 
-### Enabling jemalloc
+Joy of Rails deploys to a single VPS hosted by Digital Ocean managed by [Hatchbox.io](https://hatchbox.io/).
 
-https://hatchbox.relationkit.io/articles/122-how-can-i-use-jemalloc-with-my-application
+Hatchbox is a great alternative to managing your own VPS deployment via Capistrano, Mina, or Kamal. [There’s a YouTube video](https://www.youtube.com/watch?v=BIgls9mxHTM) that serves as a great intro if you want to learn more.
+
+I use [a Github Action](https://github.com/joyofrails/joyofrails.com/blob/main/.github/workflows/deploy.yml) on the `main` branch of [the Joy of Rails Github repo](https://github.com/joyofrails/joyofrails.com) for continuous deployment.
+
+I have spend very little time debugging a failed Hatchbox deployment—they rarely happen and it’s always been my fault. The Hatchbox dashboard surfaces deploy logs and Rails logs that have helped me figure out the root cause.
+
+## Customizing Hatchbox
+
+I do though need to customize Hatchbox from time-to-time. I‘ve put together this page as a reference mostly for myself for future reference.
+
+Sometimes I need help understanding how Hatchbox does things under-the-hood. There is an older version of Hatchbox, now called "Hatchbox Classic" that has a pretty extensive documentation site. Joy of Rails runs on the newer version of Hatchbox which doesn’t appear to have a docs site (as far as I know).
+
+To make up the gap, they have [a help desk site](https://hatchbox.relationkit.io/collections) and have been very responsive to my questions or I‘ve otherwise been able to find what I need there.
+
+Here is a collection of helpful articles from the new Hatchbox help site:
+
+- To add symlinks during a deploy, you would use https://hatchbox.relationkit.io/articles/73-deploy-script-variables
+- How to enable jemalloc: https://hatchbox.relationkit.io/articles/122-how-can-i-use-jemalloc-with-my-application
+
+I’ve also opened up some tickets. I _think_ it‘s difficult to share long-lived links to these conversations since they live behind a login or temporary token. Here are some selected screenshots to conversations I‘ve had I may need to refer back to.
+
+![Conversation about Bundler Config](content/hatchbox/conversation-bundler-config.jpg 'Conversation about Bundler Config')
+
+![Conversation about systemd part 1](content/hatchbox/conversation-systemd-1.jpg 'Conversation about systemd part 1')
+
+![Conversation about systemd part 2](content/hatchbox/conversation-systemd-2.jpg 'Conversation about systemd part 2')
+
+![Conversation about installing pwa](content/hatchbox/conversation-pwa.jpg 'Conversation about installing pwa')
+
+I‘d recommend giving Hatchbox a try if you like the idea of using VPS like DigitalOcean and don’t want to spend time wrestling with Kamal.
