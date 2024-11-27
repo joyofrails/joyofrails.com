@@ -139,17 +139,21 @@ _Really, only one write at a time?_
 
 Yes. This alone could be a deal breaker for some apps. But, before you run, consider, even with the one-writer restriction, SQLite writes have the potential to be very fast due to the lack of network latency. Various sources suggests speeds with an order of magnitude in the thousands per second.
 
-### Performance? It’s "good enough"
+### Performance: It’s "good enough"
 
-So how good can SQLite be? It’s designed for a single machine, supports one writer at a time, maps to a single file on disk... this doesn’t sound like a recipe for speed.
+The question most of you will want to know is about SQLite performance. What kind limits should you expect on throughput and sizing? All you’ve heard about SQLite—that it’s designed for a single machine, supports one writer at a time, maps to a single file on disk—doesn’t sound like a recipe for speed. How good can it be?
 
-Turns out the answer is "pretty good".
+Turns out the answer is _pretty good_.
 
-Of course, your exact use case may be a special snowflake. But if we go by the scaling needs of a typical website, SQLite would usually do just fine.
+The best post I’ve come across that touches on SQLite performance characteristics in terms of scalability and reliability is [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels. A quote describing one of his perf tests:
 
-I’m going light on details here because you should instead bookmark [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels, one of the best posts I’ve come across on SQLite performance for the web:
+> I spun up a Equinix m3.large.x86 instance, and ran a slightly modified1 version of the SQLite kvtest2 program on it. Writing 512 byte blobs as separate transactions, in WAL mode with synchronous=normal3, temp_store=memory, and mmap enabled, I got... ~72,568 writes per second... at 32kb writes... ~3,292 writes per second. That's not astronomical, but it's certainly way more than most websites being used by humans need. .
 
-> As long as you don't expect to need tens of thousands of small writes per second, thousands of large writes, or long-lived write transactions, it's highly likely that SQLite will support your usecase
+On the topic of availability, he argues you can still achieve 99.99% uptime with the use of a replication tool like [Litestream](https://litestream.io/) (more on that below) which would allow for a single VPS setup to cut over to a backup relatively quickly in a failover scenario.
+
+The takeaway is that SQLite on modern hardware is a lot better than you might expect. SQLite may be a good choice if you don’t expect to have more than one the order of thousands of writes per second or a long-running write transactions.
+
+Beyond that though you may be better served for other options like Postgres and MySQL.
 
 ### No more N+1 problems?
 
@@ -333,9 +337,12 @@ And people to follow who contribute a lot to the SQLite community
 
 That’s the end of my learned lessons for now. With some much happening in the topic of late, I thought it might be useful to summarize what’s now possible (and not) with SQLite on Rails, especially on the heels of the Rails 8 release.
 
-Overall, I love the simplicity of running SQLite in production. It works well for a humble site like Joy of Rails. It might not be the best choice for applications with high traffic, write-heavy workflows, or ambitious uptime requirements.
+SQLite isn’t some silver bullet. It’s a very capable database with strengths and weaknesses. It might not be the best choice for applications with high traffic, write-heavy workflows, or ambitious uptime requirements.
+The biggest win is relative operational simplicity—fewer processes to pay for and manage—which may be ideal for small and one-person teams with small- to medium-sized apps.
 
-If you think I left something out or anyone/anything else is worth mentioning, let me know! [email](mailto:ross@joyofrails.com), [twitter](https://x.com/rossta), [bluesky](https://bsky.app/profile/rossta.net)
+And that describes Joy of Rails pretty well. Overall, I love the simplicity of running SQLite in production and don’t intend to switch any time soon.
+
+If you think I left something out or anyone/anything else is worth mentioning, or want to hear more about the deploy story for Joy of Rails—let me know! [email](mailto:ross@joyofrails.com), [twitter](https://x.com/rossta), [bluesky](https://bsky.app/profile/rossta.net)
 
 How‘s your SQLite on Rails journey going?
 
