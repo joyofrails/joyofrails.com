@@ -9,9 +9,9 @@ image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
 meta_image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
 ---
 
-Have you heard? SQLite is taking the web by storm. The widespread belief has been that SQLite isn’t a production grade database for web apps. But that sentiment is starting to change.
+Have you heard? SQLite is taking the web by storm. For years prior, the widespread belief was that SQLite isn’t a production grade database for web apps. But that sentiment is starting to change.
 
-SQLite is already just about [everywhere](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—why now for web apps?
+SQLite is already just about [everywhere else](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—why _now_ for web apps?
 
 It’s basically this: computers have gotten faster and Rails has finally figured out how configure SQLite properly for the web.
 
@@ -21,7 +21,7 @@ With the recent release of Rails 8, it’s easier than ever to choose SQLite as 
 
 [Joy of Rails](/) has run on SQLite since launch and I have been very happy with my choice—I plan to keep it that way. But SQLite isn’t for everyone.
 
-There’s been a lot of great information shared blog posts, open source contributions, and presentations in recent months. I decided to compile everything I’ve learned from that journey into the list of lessons you find here. My hope is you’ll read this list and come away with enough info to
+I have come across many great blog posts, open source contributions, and presentations in recent months. I decided to compile everything I’ve learned from that journey into the list of lessons you find here. My hope is you’ll read this list and come away with enough info to
 
 - help you understand SQLite’s strengths and limitations, and
 - figure out whether or not SQLite is right for you and your next Rails app.
@@ -52,7 +52,7 @@ I often hear:
 
 I don’t entirely agree.
 
-SQLite—the library—is made up of 150K lines of C code backed by _millions_ of tests. It supports a wide number of use cases beyond web apps. It is extremely configurable. It supports a lot of different options making it is quite easy to end up with a configuration that negatively impacts your application. It has a number of limitations that mean you need to be careful with your application design.
+SQLite—the library—is made up of 150K lines of C code backed by _millions_ of tests. It supports a wide number of use cases beyond web apps. It is extremely configurable, making it easy to end up with a configuration that negatively impacts your application. It has a number of limitations that mean you need to be careful with your application design.
 
 I do think, though, SQLite is simpl*er* than other databases. The barrier to entry to get started with SQLite is lower. It may be more accurate to state that your _application architecture_ is potentially much less complex with SQLite. The primary reason is that you will have fewer machines and processes to manage than would be possible with traditional choices like Postgres or MySQL.
 
@@ -310,16 +310,19 @@ Litestream was designed to run as a separate process on your server thus adding 
 
 ### You should probably check out these great SQLite resources
 
-If there’s one thing I hope you’ll take away from this article, it’s to go read the [@fractaledmind SQLite blog series](https://fractaledmind.github.io/tags/sqlite/). Beyond that, here are some other great online resources to learn about SQLite:
+If there’s one thing I hope you’ll take away from this article, it’s to go read the [@fractaledmind SQLite blog series](https://fractaledmind.github.io/tags/sqlite/).
+
+Beyond that, here are some other great online resources to learn about SQLite:
 
 - The [SQLite docs](https://www.sqlite.org)
 - [awesome-sqlite](https://github.com/Airsequel/awesome-sqlite)
+- [SQLite on Rails: Supercharging the One-Person Framework](https://www.youtube.com/watch?v=wFUy120Fts8) at Rails World 2024
+- [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels
 - SQLite videos on [Database School](https://www.youtube.com/playlist?list=PLI72dgeNJtzqElnNB6sQoAn2R-F3Vqm15)
 - The [High Performance SQLite course](https://highperformancesqlite.com/)
-- [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels
 - SQLite posts on [Julia Evans blog](https://jvns.ca/)
 
-There are also a bunch of cool Ruby gems
+There are a bunch of Ruby gems:
 
 - [sqlite3-ruby](https://github.com/sparklemotion/sqlite3-ruby) - Ruby bindings for the SQLite3 embedded database that backs the Rails SQLite3 ActiveRecord adapter
 - [extralite](https://github.com/digital-fabric/extralite) - Ruby bindings for SQLite3 for more that 10x speed improvement over sqlite3-ruby, improved concurrency story, and adapter for [Sequel](https://github.com/jeremyevans/sequel)
@@ -328,7 +331,7 @@ There are also a bunch of cool Ruby gems
 - [litestream-ruby](https://github.com/fractaledmind/litestream-ruby) - Ruby gem for Litestream streaming replication
 - [enlitenment](https://github.com/fractaledmind/enlitenment) - Rails application template to pre-configure Rails components for use with SQLite
 
-And people to follow who contribute a lot to the SQLite community
+And notable people who contribute to the SQLite community:
 
 - [SQLite maintainers](https://www.sqlite.org/crew.html) - D. Richard Hipp, Dan Kennedy, [Joe Mistachkin](https://www.mistachkin.com/joe/)
 - [Alex Garcia](https://alexgarcia.xyz/) - [twitter](https://x.com/agarcia_me)
