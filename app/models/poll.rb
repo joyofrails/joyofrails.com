@@ -26,4 +26,11 @@ class Poll < ApplicationRecord
   broadcasts_to ->(poll) { [poll.author, "polls"] }, inserts_by: :prepend
 
   scope :ordered, -> { order(id: :desc) }
+
+  def record_vote(answer_id:, device_uuid:, user: nil)
+    answers.find(answer_id).votes.create do |vote|
+      vote.user = user if user
+      vote.device_uuid = device_uuid
+    end
+  end
 end

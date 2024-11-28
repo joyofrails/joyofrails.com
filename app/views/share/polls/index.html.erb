@@ -1,0 +1,8 @@
+<%= render Pages::Header.new(title: "Polls") %>
+<div class="section-content container py-gap mb-3xl">
+  <% @polls.each do |poll| %>
+    <%= tag.div id: dom_id(poll) do %>
+      <p><%= link_to poll.title, [:share, poll] %></p>
+    <% end %>
+  <% end %>
+</div>

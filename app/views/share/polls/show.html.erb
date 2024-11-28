@@ -1,0 +1,29 @@
+<%= render Pages::Header.new(title: "Poll") %>
+<div class="section-content container py-gap mb-3xl">
+  <div class="header">
+    <p>
+      <%= @poll.title %>
+    </p>
+  </div>
+
+  <% if @vote %>
+    <p>Coming soon: poll results</p>
+  <% else %>
+    <% @poll.questions.each do |question| %>
+      <%= tag.div id: nested_dom_id(@poll, question) do %>
+        <p><%= question.body %></p>
+        <% question.answers.each do |answer| %>
+          <%= tag.div id: nested_dom_id(question, answer) do %>
+            <%= button_to answer.body, share_poll_votes_path(@poll, answer_id: answer.id) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= link_to sanitize("&larr; Back to polls"), author_polls_path %>
+</div>
+
+<%= turbo_frame_tag dom_id(@poll, :total) do %>
+  <%= render "total", poll: @poll %>
+<% end %>

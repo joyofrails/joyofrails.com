@@ -8,6 +8,9 @@
 #                                     search GET|POST        /search(.:format)                                                                                 searches#show
 #                                     topics GET             /topics(.:format)                                                                                 topics#index
 #                                      topic GET             /topics/:slug(.:format)                                                                           topics#show
+#                           share_poll_votes POST            /share/polls/:poll_id/votes(.:format)                                                             share/polls/votes#create
+#                                share_polls GET             /share/polls(.:format)                                                                            share/polls#index
+#                                 share_poll GET             /share/polls/:id(.:format)                                                                        share/polls#show
 #               new_share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot/new(.:format)                                              share/snippet_screenshots#new
 #                   share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#show
 #                                            POST            /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#create
@@ -28,18 +31,6 @@
 #                                            PATCH           /author/snippets/:id(.:format)                                                                    author/snippets#update
 #                                            PUT             /author/snippets/:id(.:format)                                                                    author/snippets#update
 #                                            DELETE          /author/snippets/:id(.:format)                                                                    author/snippets#destroy
-#                                newsletters GET             /newsletters(.:format)                                                                            newsletters#index
-#                                 newsletter GET             /newsletters/:id(.:format)                                                                        newsletters#show
-#                          examples_counters GET             /examples/counters(.:format)                                                                      examples/counters#show
-#                                            PATCH           /examples/counters(.:format)                                                                      examples/counters#update
-#                                            PUT             /examples/counters(.:format)                                                                      examples/counters#update
-#                                            DELETE          /examples/counters(.:format)                                                                      examples/counters#destroy
-#                             examples_hello GET             /examples/hello(.:format)                                                                         examples/hellos#show
-#                             examples_posts GET             /examples/posts(.:format)                                                                         examples/posts#index
-#                                            POST            /examples/posts(.:format)                                                                         examples/posts#create
-#                          new_examples_post GET             /examples/posts/new(.:format)                                                                     examples/posts#new
-#                                   examples GET             /examples(.:format)                                                                               examples#index
-#                                    example GET             /examples/:id(.:format)                                                                           examples#show
 #               author_poll_question_answers POST            /author/polls/:poll_id/questions/:question_id/answers(.:format)                                   author/polls/answers#create
 #            new_author_poll_question_answer GET             /author/polls/:poll_id/questions/:question_id/answers/new(.:format)                               author/polls/answers#new
 #                      author_poll_questions POST            /author/polls/:poll_id/questions(.:format)                                                        author/polls/questions#create
@@ -60,6 +51,18 @@
 #                                            PATCH           /author/polls/:id(.:format)                                                                       author/polls#update
 #                                            PUT             /author/polls/:id(.:format)                                                                       author/polls#update
 #                                            DELETE          /author/polls/:id(.:format)                                                                       author/polls#destroy
+#                                newsletters GET             /newsletters(.:format)                                                                            newsletters#index
+#                                 newsletter GET             /newsletters/:id(.:format)                                                                        newsletters#show
+#                          examples_counters GET             /examples/counters(.:format)                                                                      examples/counters#show
+#                                            PATCH           /examples/counters(.:format)                                                                      examples/counters#update
+#                                            PUT             /examples/counters(.:format)                                                                      examples/counters#update
+#                                            DELETE          /examples/counters(.:format)                                                                      examples/counters#destroy
+#                             examples_hello GET             /examples/hello(.:format)                                                                         examples/hellos#show
+#                             examples_posts GET             /examples/posts(.:format)                                                                         examples/posts#index
+#                                            POST            /examples/posts(.:format)                                                                         examples/posts#create
+#                          new_examples_post GET             /examples/posts/new(.:format)                                                                     examples/posts#new
+#                                   examples GET             /examples(.:format)                                                                               examples#index
+#                                    example GET             /examples/:id(.:format)                                                                           examples#show
 #                                 feed_index GET             /feed(.:format)                                                                                   feed#index {:format=>/atom/}
 #                              color_schemes GET             /color_schemes(.:format)                                                                          color_schemes#index
 #                               color_scheme GET             /color_schemes/:id(.:format)                                                                      color_schemes#show
@@ -213,6 +216,10 @@ Rails.application.routes.draw do
   resources :topics, param: :slug, only: [:index, :show]
 
   namespace :share do
+    resources :polls, only: [:index, :show] do
+      resources :votes, only: [:create], controller: "polls/votes"
+    end
+
     resources :snippets do
       resource :screenshot, only: [:new, :create, :show], controller: "snippet_screenshots"
       resource :tweet, only: [:new], controller: "snippet_tweets"
