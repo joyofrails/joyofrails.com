@@ -1,0 +1,40 @@
+<%= turbo_frame_tag question do %>
+  <div class="question">
+    <%= turbo_frame_tag dom_id(question, :edit) do %>
+      <div class="question__header">
+        <p class="question__body">
+          <%= question.body %>
+        </p>
+
+        <div class="question__actions">
+          <%= button_to "Delete",
+                poll_question_path(poll, question),
+                method: :delete,
+                form: {data: {turbo_confirm: "Are you sure?"}},
+                class: "button transparent" %>
+          <%= link_to "Edit",
+                edit_poll_question_path(poll, question),
+                class: "button transparent" %>
+        </div>
+      </div>
+    <% end %>
+    <div class="question__answers">
+      <div class="question question--header">
+        <div class="question__name">Answers</div>
+      </div>
+
+      <%= turbo_frame_tag nested_dom_id(question, "answers") do %>
+        <%= render question.answers, poll: poll, question: question %>
+      <% end %>
+
+      <%= turbo_frame_tag nested_dom_id(question, Polls::Answer.new) %>
+
+      <div class="question__footer">
+        <%= link_to "New answer",
+              new_poll_question_answer_path(poll, question),
+              data: {turbo_frame: nested_dom_id(question, Polls::Answer.new)},
+              class: "button primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -18,7 +18,12 @@
 #  author_id  (author_id => users.id)
 #
 class Poll < ApplicationRecord
+  belongs_to :author, class_name: "User"
   has_many :questions, class_name: "Polls::Question", dependent: :destroy
   has_many :answers, through: :questions
   has_many :votes, through: :answers
+
+  broadcasts_to ->(poll) { [poll.author, "polls"] }, inserts_by: :prepend
+
+  scope :ordered, -> { order(id: :desc) }
 end

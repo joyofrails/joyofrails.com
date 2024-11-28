@@ -1,0 +1,16 @@
+<%= turbo_frame_tag poll do %>
+  <div class="poll">
+    <%= link_to poll.title,
+          poll_path(poll),
+          data: {turbo_frame: "_top"} %>
+    <div class="poll__actions">
+      <%= button_to "Delete",
+            poll_path(poll),
+            method: :delete,
+            class: "button secondary" %>
+      <%= link_to "Edit",
+            edit_poll_path(poll),
+            class: "button secondary" %>
+    </div>
+  </div>
+<% end %>

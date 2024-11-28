@@ -40,6 +40,26 @@
 #                          new_examples_post GET             /examples/posts/new(.:format)                                                                     examples/posts#new
 #                                   examples GET             /examples(.:format)                                                                               examples#index
 #                                    example GET             /examples/:id(.:format)                                                                           examples#show
+#                      poll_question_answers POST            /polls/:poll_id/questions/:question_id/answers(.:format)                                          polls/answers#create
+#                   new_poll_question_answer GET             /polls/:poll_id/questions/:question_id/answers/new(.:format)                                      polls/answers#new
+#                             poll_questions POST            /polls/:poll_id/questions(.:format)                                                               polls/questions#create
+#                          new_poll_question GET             /polls/:poll_id/questions/new(.:format)                                                           polls/questions#new
+#                         edit_poll_question GET             /polls/:poll_id/questions/:id/edit(.:format)                                                      polls/questions#edit
+#                              poll_question PATCH           /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#update
+#                                            PUT             /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#update
+#                                            DELETE          /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#destroy
+#                           edit_poll_answer GET             /polls/:poll_id/answers/:id/edit(.:format)                                                        polls/answers#edit
+#                                poll_answer PATCH           /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#update
+#                                            PUT             /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#update
+#                                            DELETE          /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#destroy
+#                                      polls GET             /polls(.:format)                                                                                  polls#index
+#                                            POST            /polls(.:format)                                                                                  polls#create
+#                                   new_poll GET             /polls/new(.:format)                                                                              polls#new
+#                                  edit_poll GET             /polls/:id/edit(.:format)                                                                         polls#edit
+#                                       poll GET             /polls/:id(.:format)                                                                              polls#show
+#                                            PATCH           /polls/:id(.:format)                                                                              polls#update
+#                                            PUT             /polls/:id(.:format)                                                                              polls#update
+#                                            DELETE          /polls/:id(.:format)                                                                              polls#destroy
 #                                 feed_index GET             /feed(.:format)                                                                                   feed#index {:format=>/atom/}
 #                              color_schemes GET             /color_schemes(.:format)                                                                          color_schemes#index
 #                               color_scheme GET             /color_schemes/:id(.:format)                                                                      color_schemes#show
@@ -211,6 +231,13 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :create, :new]
   end
   resources :examples, only: [:index, :show]
+  resources :polls do
+    resources :questions, only: [:new, :create, :edit, :update, :destroy], controller: "polls/questions" do
+      resources :answers, only: [:new, :create], controller: "polls/answers"
+    end
+
+    resources :answers, only: [:edit, :update, :destroy], controller: "polls/answers"
+  end
 
   resources :feed, only: [:index], format: "atom"
 

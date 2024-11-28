@@ -19,6 +19,7 @@
 #
 FactoryBot.define do
   factory :poll do
-    title { "MyString" }
+    title { "My Poll" }
+    author { nil }
   end
 end

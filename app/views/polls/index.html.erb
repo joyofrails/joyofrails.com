@@ -1,0 +1,19 @@
+
+<%= turbo_stream_from [current_user, "polls"] %>
+
+<%= render Pages::Header.new(title: "Polls") %>
+<div class="section-content container py-gap mb-3xl">
+  <div class="header">
+    <%= link_to "New poll",
+          new_poll_path,
+          class: "button primary",
+          data: {turbo_frame: dom_id(Poll.new)} %>
+  </div>
+
+  <%= turbo_frame_tag Poll.new %>
+
+  <%= turbo_frame_tag "polls" do %>
+    <%= render "polls/empty_state" %>
+    <%= render @polls %>
+  <% end %>
+</div>

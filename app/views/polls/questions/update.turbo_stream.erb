@@ -1,0 +1,7 @@
+<%= turbo_stream.remove @question %>
+
+<%= turbo_stream.prepend "questions" do %>
+  <%= render @question, poll: @poll %>
+<% end %>
+
+<%= turbo_stream.prepend "flash", partial: "application/flash" %>

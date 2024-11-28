@@ -1,0 +1,25 @@
+<%= render Pages::Header.new(title: "Poll") %>
+<div class="section-content container py-gap mb-3xl">
+  <%= link_to sanitize("&larr; Back to polls"), polls_path %>
+
+  <div class="header">
+    <p>
+      <%= @poll.title %>
+    </p>
+
+    <%= link_to "New question",
+          new_poll_question_path(@poll),
+          data: {turbo_frame: dom_id(Polls::Question.new)},
+          class: "button primary" %>
+  </div>
+
+  <%= turbo_frame_tag Polls::Question.new %>
+
+  <%= turbo_frame_tag "questions" do %>
+    <%= render @questions, poll: @poll %>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag dom_id(@poll, :total) do %>
+  <%= render "polls/total", poll: @poll %>
+<% end %>

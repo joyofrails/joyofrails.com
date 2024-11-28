@@ -1,0 +1,10 @@
+<div class="empty-state empty-state--only-child">
+  <p class="empty-state__text">
+    You don't have any polls yet!
+  </p>
+
+  <%= link_to "Add poll",
+        new_poll_path,
+        class: "button primary",
+        data: {turbo_frame: dom_id(Poll.new)} %>
+</div>

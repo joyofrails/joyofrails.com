@@ -1,0 +1,7 @@
+<%= turbo_stream.remove @answer %>
+
+<%= turbo_stream.update dom_id(@poll, :total) do %>
+  <%= render "polls/total", poll: @poll %>
+<% end %>
+
+<%= turbo_stream.prepend "flash", partial: "application/flash" %>
