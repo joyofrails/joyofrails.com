@@ -20,4 +20,5 @@
 #
 class Polls::Answer < ApplicationRecord
   belongs_to :question
+  has_many :votes, class_name: "Polls::Vote", dependent: :destroy
 end

@@ -20,4 +20,5 @@
 class Polls::Question < ApplicationRecord
   belongs_to :poll
   has_many :answers, class_name: "Polls::Answer", dependent: :destroy
+  has_many :responses, through: :answers
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_28_134504) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_28_135050) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -214,6 +214,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_134504) do
     t.index ["poll_id"], name: "index_polls_questions_on_poll_id"
   end
 
+  create_table "polls_votes", force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.string "user_id"
+    t.string "device_uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_polls_votes_on_answer_id"
+    t.index ["device_uuid"], name: "index_polls_votes_on_device_uuid"
+    t.index ["user_id"], name: "index_polls_votes_on_user_id"
+  end
+
   create_table "snippets", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.text "source", null: false
     t.string "filename"
@@ -257,9 +268,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_134504) do
   add_foreign_key "notifications", "notification_events"
   add_foreign_key "page_topics", "pages"
   add_foreign_key "page_topics", "topics"
+  add_foreign_key "polls", "users", column: "author_id"
   add_foreign_key "polls_answers", "polls_questions", column: "question_id"
   add_foreign_key "polls_questions", "polls"
-  add_foreign_key "polls", "users", column: "author_id"
+  add_foreign_key "polls_votes", "polls_answers", column: "answer_id"
+  add_foreign_key "polls_votes", "users"
 
   # Virtual tables defined in this database.
   # Note that virtual tables may not work with other database engines. Be careful if changing database.
