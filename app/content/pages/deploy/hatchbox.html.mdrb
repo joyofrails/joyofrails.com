@@ -5,14 +5,16 @@ layout: article
 summary: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
 description: Joy of Rails deployments and server processes are managed by Hatchbox. Hatchbox is a Rails deployment tool that makes it easy to deploy Rails apps to your own servers on DigitalOcean, Linode, or similar.
 uuid: 0192f76f-2f11-7db3-9d72-0fa782be2543
-image: content/hatchbox/homepage.jpg
+image: content/hatchbox/hatchbox.jpg
+meta_image: content/hatchbox/hatchbox.jpg
 published: '2024-11-11'
-meta_image: content/hatchbox/homepage.jpg
 ---
 
 Joy of Rails deploys to a single VPS hosted by Digital Ocean managed by [Hatchbox.io](https://hatchbox.io/).
 
 Hatchbox is a great alternative to managing your own VPS deployment via Capistrano, Mina, or Kamal. [There’s a YouTube video](https://www.youtube.com/watch?v=BIgls9mxHTM) that serves as a great intro if you want to learn more.
+
+![Hatchbox homepage](content/hatchbox/homepage.jpg 'Hatchbox homepage')
 
 I use [a Github Action](https://github.com/joyofrails/joyofrails.com/blob/main/.github/workflows/deploy.yml) on the `main` branch of [the Joy of Rails Github repo](https://github.com/joyofrails/joyofrails.com) for continuous deployment.
 
@@ -45,3 +47,5 @@ Since I know Hatchbox is a Rails app and I want to [spread the joy of making Rai
 ![Conversation about installing pwa](content/hatchbox/conversation-pwa.jpg 'Conversation about installing pwa')
 
 I‘d recommend giving Hatchbox a try if you like the idea of using VPS like DigitalOcean and don’t want to spend time wrestling with Kamal.
+
+![A hatchbox](content/hatchbox/hatchbox.jpg 'A hatchbox')
