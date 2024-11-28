@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_28_133144) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_28_133612) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -195,6 +195,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_133144) do
     t.index ["title"], name: "index_polls_on_title"
   end
 
+  create_table "polls_questions", force: :cascade do |t|
+    t.string "body", null: false
+    t.string "poll_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_polls_questions_on_poll_id"
+  end
+
   create_table "snippets", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
     t.text "source", null: false
     t.string "filename"
@@ -238,6 +247,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_133144) do
   add_foreign_key "notifications", "notification_events"
   add_foreign_key "page_topics", "pages"
   add_foreign_key "page_topics", "topics"
+  add_foreign_key "polls_questions", "polls"
   add_foreign_key "polls", "users", column: "author_id"
 
   # Virtual tables defined in this database.

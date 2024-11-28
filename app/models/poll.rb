@@ -18,4 +18,5 @@
 #  author_id  (author_id => users.id)
 #
 class Poll < ApplicationRecord
+  has_many :questions, class_name: "Polls::Question", dependent: :destroy
 end
