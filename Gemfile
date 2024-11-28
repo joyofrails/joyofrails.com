@@ -21,6 +21,9 @@ gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.h
 gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https://vite-ruby.netlify.app/guide/rails.html]
 
+# Middleware
+gem "rack-attack" # Rack middleware for blocking & throttling [https://github.com/rack/rack-attack]
+
 # Utilities
 gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "flipper" # Feature flipping for Ruby [https://www.flippercloud.io/]

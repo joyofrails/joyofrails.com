@@ -373,6 +373,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
     rack-protection (4.0.0)
@@ -646,6 +648,7 @@ DEPENDENCIES
   postmark-rails
   propshaft
   puma (>= 5.0)
+  rack-attack
   rack-mini-profiler
   rails (= 8.0.0.beta1)
   rails_admin
