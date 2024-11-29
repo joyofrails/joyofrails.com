@@ -5,8 +5,8 @@ layout: article
 summary: A compilation of lessons about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it might—or might not—be a good choice to back your Rails 8 app
 description: A compilation of lessons about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it may, or may not, be a good choice to back your Rails 8 app
 published: '2024-12-02'
-image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
-meta_image: articles/what-you-need-to-know-about-sqlite/mountain-range.jpg
+image: articles/what-you-need-to-know-about-sqlite/feather.jpg
+meta_image: articles/what-you-need-to-know-about-sqlite/feather.jpg
 ---
 
 Have you heard? SQLite is taking the web by storm. For years prior, the widespread belief was that SQLite isn’t a production grade database for web apps. But that sentiment is starting to change.
@@ -362,4 +362,4 @@ Did you find a mistake or do you have questions about the content? You can [send
 
 Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
-![Mountain range](articles/what-you-need-to-know-about-sqlite/mountain-range.jpg 'Mountain range')
+![Feather](articles/what-you-need-to-know-about-sqlite/feather.jpg 'Feather')
