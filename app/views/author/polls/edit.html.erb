@@ -1,8 +1,8 @@
-<%= render Pages::Header.new(title: "New Poll") %>
+<%= render Pages::Header.new(title: "Edit Poll") %>
 <div class="section-content container py-gap mb-3xl">
   <%= turbo_frame_tag @poll do %>
     <%= render "form", poll: @poll %>
   <% end %>
 
-  <%= link_to sanitize("&larr; Back to polls"), polls_path %>
+  <%= link_to sanitize("&larr; Back to poll"), author_poll_path(@poll) %>
 </div>

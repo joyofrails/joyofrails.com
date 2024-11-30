@@ -5,11 +5,11 @@
     </div>
     <div class="answer__actions">
       <%= button_to "Delete",
-            poll_answer_path(poll, answer),
+            author_poll_answer_path(poll, answer),
             method: :delete,
             class: "button transparent" %>
       <%= link_to "Edit",
-            edit_poll_answer_path(poll, answer),
+            edit_author_poll_answer_path(poll, answer),
             class: "button transparent" %>
     </div>
   </div>

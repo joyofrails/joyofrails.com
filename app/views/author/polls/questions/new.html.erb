@@ -4,5 +4,5 @@
     <%= render "form", poll: @poll, question: @question %>
   <% end %>
 
-  <%= link_to sanitize("&larr; Back to poll"), poll_path(@poll) %>
+  <%= link_to sanitize("&larr; Back to poll"), author_poll_path(@poll) %>
 </div>

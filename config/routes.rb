@@ -40,26 +40,26 @@
 #                          new_examples_post GET             /examples/posts/new(.:format)                                                                     examples/posts#new
 #                                   examples GET             /examples(.:format)                                                                               examples#index
 #                                    example GET             /examples/:id(.:format)                                                                           examples#show
-#                      poll_question_answers POST            /polls/:poll_id/questions/:question_id/answers(.:format)                                          polls/answers#create
-#                   new_poll_question_answer GET             /polls/:poll_id/questions/:question_id/answers/new(.:format)                                      polls/answers#new
-#                             poll_questions POST            /polls/:poll_id/questions(.:format)                                                               polls/questions#create
-#                          new_poll_question GET             /polls/:poll_id/questions/new(.:format)                                                           polls/questions#new
-#                         edit_poll_question GET             /polls/:poll_id/questions/:id/edit(.:format)                                                      polls/questions#edit
-#                              poll_question PATCH           /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#update
-#                                            PUT             /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#update
-#                                            DELETE          /polls/:poll_id/questions/:id(.:format)                                                           polls/questions#destroy
-#                           edit_poll_answer GET             /polls/:poll_id/answers/:id/edit(.:format)                                                        polls/answers#edit
-#                                poll_answer PATCH           /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#update
-#                                            PUT             /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#update
-#                                            DELETE          /polls/:poll_id/answers/:id(.:format)                                                             polls/answers#destroy
-#                                      polls GET             /polls(.:format)                                                                                  polls#index
-#                                            POST            /polls(.:format)                                                                                  polls#create
-#                                   new_poll GET             /polls/new(.:format)                                                                              polls#new
-#                                  edit_poll GET             /polls/:id/edit(.:format)                                                                         polls#edit
-#                                       poll GET             /polls/:id(.:format)                                                                              polls#show
-#                                            PATCH           /polls/:id(.:format)                                                                              polls#update
-#                                            PUT             /polls/:id(.:format)                                                                              polls#update
-#                                            DELETE          /polls/:id(.:format)                                                                              polls#destroy
+#               author_poll_question_answers POST            /author/polls/:poll_id/questions/:question_id/answers(.:format)                                   author/polls/answers#create
+#            new_author_poll_question_answer GET             /author/polls/:poll_id/questions/:question_id/answers/new(.:format)                               author/polls/answers#new
+#                      author_poll_questions POST            /author/polls/:poll_id/questions(.:format)                                                        author/polls/questions#create
+#                   new_author_poll_question GET             /author/polls/:poll_id/questions/new(.:format)                                                    author/polls/questions#new
+#                  edit_author_poll_question GET             /author/polls/:poll_id/questions/:id/edit(.:format)                                               author/polls/questions#edit
+#                       author_poll_question PATCH           /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#update
+#                                            PUT             /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#update
+#                                            DELETE          /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#destroy
+#                    edit_author_poll_answer GET             /author/polls/:poll_id/answers/:id/edit(.:format)                                                 author/polls/answers#edit
+#                         author_poll_answer PATCH           /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#update
+#                                            PUT             /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#update
+#                                            DELETE          /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#destroy
+#                               author_polls GET             /author/polls(.:format)                                                                           author/polls#index
+#                                            POST            /author/polls(.:format)                                                                           author/polls#create
+#                            new_author_poll GET             /author/polls/new(.:format)                                                                       author/polls#new
+#                           edit_author_poll GET             /author/polls/:id/edit(.:format)                                                                  author/polls#edit
+#                                author_poll GET             /author/polls/:id(.:format)                                                                       author/polls#show
+#                                            PATCH           /author/polls/:id(.:format)                                                                       author/polls#update
+#                                            PUT             /author/polls/:id(.:format)                                                                       author/polls#update
+#                                            DELETE          /author/polls/:id(.:format)                                                                       author/polls#destroy
 #                                 feed_index GET             /feed(.:format)                                                                                   feed#index {:format=>/atom/}
 #                              color_schemes GET             /color_schemes(.:format)                                                                          color_schemes#index
 #                               color_scheme GET             /color_schemes/:id(.:format)                                                                      color_schemes#show
@@ -221,6 +221,14 @@ Rails.application.routes.draw do
 
   namespace :author do
     resources :snippets
+
+    resources :polls do
+      resources :questions, only: [:new, :create, :edit, :update, :destroy], controller: "polls/questions" do
+        resources :answers, only: [:new, :create], controller: "polls/answers"
+      end
+
+      resources :answers, only: [:edit, :update, :destroy], controller: "polls/answers"
+    end
   end
 
   resources :newsletters, only: [:index, :show]
@@ -231,13 +239,6 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :create, :new]
   end
   resources :examples, only: [:index, :show]
-  resources :polls do
-    resources :questions, only: [:new, :create, :edit, :update, :destroy], controller: "polls/questions" do
-      resources :answers, only: [:new, :create], controller: "polls/answers"
-    end
-
-    resources :answers, only: [:edit, :update, :destroy], controller: "polls/answers"
-  end
 
   resources :feed, only: [:index], format: "atom"
 

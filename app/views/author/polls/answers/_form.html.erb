@@ -1,4 +1,4 @@
-<% url = answer.new_record? ? poll_question_answers_path(poll, question) : poll_answer_path(poll, answer) %>
+<% url = answer.new_record? ? author_poll_question_answers_path(poll, question) : author_poll_answer_path(poll, answer) %>
 <%= form_with model: answer, scope: :answer, url: url,
       html: {class: "form answer answer--form"} do |f| %>
 
@@ -11,7 +11,7 @@
   <%= f.label :body %>
   <%= f.text_field :body %>
   <div class="answer__actions">
-    <%= link_to "Cancel", poll_path(poll), class: "button transparent" %>
+    <%= link_to "Cancel", author_poll_path(poll), class: "button transparent" %>
     <%= f.submit "Add answer", class: "button secondary" %>
   </div>
 <% end %>
