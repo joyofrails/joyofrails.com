@@ -1,0 +1,13 @@
+<%= turbo_frame_tag poll do %>
+  <div class="header">
+    <p>
+      <%= poll.title %>
+    </p>
+  </div>
+
+  <% if voted_on?(poll) %>
+    <%= render "share/polls/results", poll: poll %>
+  <% else %>
+    <%= render "share/polls/ballot", poll: poll %>
+  <% end %>
+<% end %>

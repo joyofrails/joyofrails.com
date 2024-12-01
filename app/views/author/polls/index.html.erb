@@ -13,7 +13,7 @@
   <%= turbo_frame_tag Poll.new %>
 
   <%= turbo_frame_tag "polls" do %>
-    <%= render "polls/empty_state" %>
+    <%= render "author/polls/empty_state" %>
     <%= render @polls %>
   <% end %>
 </div>

@@ -23,7 +23,7 @@ class Poll < ApplicationRecord
   has_many :answers, through: :questions
   has_many :votes, through: :answers
 
-  broadcasts_to ->(poll) { [poll.author, "polls"] }, inserts_by: :prepend
+  validates :title, presence: true
 
   scope :ordered, -> { order(id: :desc) }
 

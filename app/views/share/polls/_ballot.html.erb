@@ -1,0 +1,12 @@
+<%= tag.div id: nested_dom_id(poll, "ballot") do %>
+  <% poll.questions.each do |question| %>
+    <%= tag.div id: nested_dom_id(poll, question) do %>
+      <p><%= question.body %></p>
+      <% question.answers.each do |answer| %>
+        <%= tag.div id: nested_dom_id(question, answer) do %>
+          <%= button_to answer.body, share_poll_votes_path(poll, answer_id: answer.id) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

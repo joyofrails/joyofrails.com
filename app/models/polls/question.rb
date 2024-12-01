@@ -23,4 +23,8 @@ class Polls::Question < ApplicationRecord
   has_many :responses, through: :answers
 
   scope :ordered, -> { order(position: :desc) }
+
+  def votes_count
+    answers.sum(&:votes_count)
+  end
 end

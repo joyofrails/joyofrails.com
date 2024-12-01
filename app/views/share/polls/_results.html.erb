@@ -1,0 +1,21 @@
+<%= tag.div id: nested_dom_id(poll, "results") do %>
+  <% poll.questions.each do |question| %>
+    <%= tag.div id: nested_dom_id(poll, question) do %>
+      <p><%= question.body %></p>
+      <% question.answers.each do |answer| %>
+        <%= tag.div id: nested_dom_id(question, answer), class: "flex justify-between items-center flex-row relative" do %>
+          <div style="background-color: rgba(29, 155, 240, 0.58); background-color: rgb(207, 217, 222); top: 0; left: 0; bottom: 0; z-index: 0; width: <%= number_to_percentage((answer.votes_count * 100) / question.votes_count, precision: 1) %>" class="absolute rounded"></div>
+          <div class="p-2" style="z-index: 1;">
+            <%= answer.body %>
+          </div>
+          <div class="p-2" style="z-index: 1;">
+            <%= number_to_percentage((answer.votes_count * 100) / question.votes_count, precision: 1) %>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="p-2">
+        <p><%= pluralize question.votes_count, "vote" %></p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

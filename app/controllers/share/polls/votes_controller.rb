@@ -12,8 +12,21 @@ module Share
           user: (current_user if user_signed_in?)
         )
 
+        @poll.broadcast_replace_to([@poll, "results"],
+          target: "poll_#{@poll.id}_results",
+          partial: "share/polls/results")
+
         if @vote.valid?
-          redirect_to [:share, @poll], notice: "Thank you for voting!"
+          respond_to do |format|
+            format.html { redirect_to [:share, @poll], notice: "Thank you for voting!" }
+            format.turbo_stream do
+              flash.now[:notice] = "Thank you for voting!"
+              render turbo_stream: [
+                turbo_stream.prepend("flash", partial: "application/flash"),
+                turbo_stream.replace(@poll, partial: "share/polls/poll", locals: {poll: @poll})
+              ]
+            end
+          end
         else
           render :new
         end
