@@ -342,17 +342,13 @@ And notable people who contribute to the SQLite community:
 
 ## SQLite3::Database#close
 
-That’s the end of my learned lessons for now. With some much happening in the topic of late, I thought it might be useful to summarize what’s now possible (and not) with SQLite on Rails, especially on the heels of the Rails 8 release.
+Overall, I am very happy with my choice to use SQLite for Joy of Rails. As a small site with relatively little traffic (which I’m trying to grow!) and, for me, as a solo developer of the app, the operation simplicity of running SQLite in production is a big win.
 
-SQLite isn’t some silver bullet. It’s a very capable database with strengths and weaknesses. It might not be the best choice for applications with high traffic, write-heavy workflows, or ambitious uptime requirements.
+But SQLite isn’t some silver bullet. It’s a very capable database with strengths and weaknesses. It might not be the best choice for applications with high traffic, write-heavy workflows, or ambitious uptime requirements.
 
-The biggest win is relative operational simplicity—fewer processes to pay for and manage—which may be ideal for small and one-person teams with small- to medium-sized apps.
+I hope this article serves as a helpful guide if you’re considering SQLite for your next Rails app. Let me know: How’s your SQLite on Rails journey going?
 
-That describes Joy of Rails pretty well. Overall, I love the simplicity of running SQLite in production and don’t intend to switch any time soon.
-
-If you think I left something out or anyone/anything else is worth mentioning, let me know! [email](mailto:ross@joyofrails.com), [twitter](https://x.com/rossta), [bluesky](https://bsky.app/profile/rossta.net)
-
-How’s your SQLite on Rails journey going?
+_Thanks to [Brandon Zylstra](https://github.com/brandondrew), [Stephen Margheim](https://github.com/fractaledmind), and Christopher B. for their feedback and edits on this post._
 
 ---
 
