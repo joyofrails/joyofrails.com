@@ -51,7 +51,7 @@ module Authentication
   end
 
   def admin_user_signed_in?
-    current_admin_user.present?
+    !!current_admin_user
   end
 
   def store_location
