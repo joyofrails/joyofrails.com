@@ -111,6 +111,8 @@ To say SQLite works _only_ on a single host is not entirely true. You could imag
 - [LiteCluster](https://oldmoe.blog/2024/07/22/litecluster-replicated-leaderless-acid-compliant-high-availability-sqlite/) replicated, leaderless, ACID compliant SQLite
 - [sqlite-rsync](https://sqlite.org/draft/rsync.html) - SQLite’s new add-on replication tool
 
+Edit: [Sam Ruby pointed out](https://bsky.app/profile/intertwingly.net/post/3lce224heyc2y) that he’s working on [a SaaS toolkit for Rails + SQLite](https://github.com/rubys/fly-atc) supporting multi-tenant production deployments with zero-config streaming backups.
+
 I don’t have experience with these offerings, but it is good to know they exist. My impression is, though they may be very good, to go this direction will mean potentially having to work through issues and quirks with relatively little prior art. Your use case may be special, but if you think you need to scale to multiple hosts and higher levels of redundancy and otherwise don’t have any special need for SQLite, then maybe Postgres or MySQL would be a better option.
 
 ### Use persistent volumes
@@ -132,7 +134,7 @@ ensure the database is located in a persisted volume.
 
 Keep in mind that it’s common for Platform-as-a-Service (PaaS) providers to offer _ephemeral_ storage by default. Every deploy of your application would wipe the slate clean.
 
-For this reason, [Heroku is not compatible with SQLite](https://devcenter.heroku.com/articles/sqlite3). Other PaaS offerings like Render and Fly.io, support SQLite with a persistent volume option, but it’s not the default and there are some caveats, like downtime during deploys while the persisted volume attaches to the new service ([source](https://community.render.com/t/database-on-github-sqlite3/536/4)).
+For this reason, [Heroku is not compatible with SQLite](https://devcenter.heroku.com/articles/sqlite3). Other PaaS offerings like Render and Fly.io, support SQLite with a persistent volume option but there are some caveats, like downtime during deploys while the volume attaches to the new service ([source](https://community.render.com/t/database-on-github-sqlite3/536/4)).
 
 ### You get concurrency for reads, not writes
 
