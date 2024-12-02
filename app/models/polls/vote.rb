@@ -21,6 +21,6 @@
 #  user_id    (user_id => users.id)
 #
 class Polls::Vote < ApplicationRecord
-  belongs_to :answer
+  belongs_to :answer, counter_cache: true
   belongs_to :user, optional: true
 end
