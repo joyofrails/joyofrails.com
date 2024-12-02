@@ -1,16 +1,13 @@
-<%= turbo_frame_tag poll do %>
-  <div class="poll">
-    <%= link_to poll.title,
+<div class="poll">
+  <%= link_to poll.title,
+        author_poll_path(poll) %>
+  <div class="poll__actions">
+    <%= button_to "Delete",
           author_poll_path(poll),
-          data: {turbo_frame: "_top"} %>
-    <div class="poll__actions">
-      <%= button_to "Delete",
-            author_poll_path(poll),
-            method: :delete,
-            class: "button secondary" %>
-      <%= link_to "Edit",
-            edit_author_poll_path(poll),
-            class: "button secondary" %>
-    </div>
+          method: :delete,
+          class: "button secondary" %>
+    <%= link_to "Edit",
+          edit_author_poll_path(poll),
+          class: "button secondary" %>
   </div>
-<% end %>
+</div>

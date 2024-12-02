@@ -19,10 +19,7 @@ module Author
       @poll = current_user.polls.build(poll_params)
 
       if @poll.save
-        respond_to do |format|
-          format.html { redirect_to author_polls_path, notice: "Quote was successfully created." }
-          format.turbo_stream { flash.now[:notice] = "Quote was successfully created." }
-        end
+        redirect_to author_poll_path(@poll), notice: "Poll was successfully created.", status: :see_other
       else
         render :new, status: :unprocessable_entity
       end
@@ -35,10 +32,7 @@ module Author
     def update
       @poll = current_user.polls.find(params[:id])
       if @poll.update(poll_params)
-        respond_to do |format|
-          format.html { redirect_to author_polls_path, notice: "Quote was successfully updated." }
-          format.turbo_stream { flash.now[:notice] = "Quote was successfully updated." }
-        end
+        redirect_to author_poll_path(@poll), notice: "Poll was successfully updated.", status: :see_other
       else
         render :edit, status: :unprocessable_entity
       end

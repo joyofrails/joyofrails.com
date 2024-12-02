@@ -6,11 +6,8 @@
   <div class="header">
     <%= link_to "New poll",
           new_author_poll_path,
-          class: "button primary",
-          data: {turbo_frame: dom_id(Poll.new)} %>
+          class: "button primary" %>
   </div>
-
-  <%= turbo_frame_tag Poll.new %>
 
   <%= turbo_frame_tag "polls" do %>
     <%= render "author/polls/empty_state" %>

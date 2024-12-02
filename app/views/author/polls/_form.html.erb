@@ -1,4 +1,4 @@
-<%= form_with model: poll, html: {class: "poll form"} do |f| %>
+<%= form_with model: [:author, poll], html: {class: "poll form"} do |f| %>
   <% if poll.errors.any? %>
     <%= tag.div class: "error-message" do %>
       <%= poll.errors.full_messages.to_sentence.capitalize %>
