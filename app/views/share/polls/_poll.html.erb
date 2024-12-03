@@ -8,6 +8,6 @@
   <% if voted_on?(poll) %>
     <%= render Share::Polls::Results.new(poll) %>
   <% else %>
-    <%= render "share/polls/ballot", poll: poll %>
+    <%= render Share::Polls::Ballot.new(poll) %>
   <% end %>
 <% end %>
