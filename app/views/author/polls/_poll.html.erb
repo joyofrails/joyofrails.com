@@ -1,13 +1,24 @@
-<div class="poll">
-  <%= link_to poll.title,
-        author_poll_path(poll) %>
-  <div class="poll__actions">
+<div class="
+  poll
+  poll__row
+  p-2
+  flex items-start flex-col
+  space-col-4 grid-cols-12
+  md:items-center md:flex-row md:space-row-4
+  ">
+  <%= link_to poll.title, author_poll_path(poll), class: "poll__title grow-2" %>
+  <div class="
+    poll__actions
+    flex items-start flex-col
+    space-col-4 grid-cols-12
+    md:items-center md:flex-row md:space-row-4
+    ">
+    <%= link_to "Edit",
+          edit_author_poll_path(poll),
+          class: "button primary" %>
     <%= button_to "Delete",
           author_poll_path(poll),
           method: :delete,
-          class: "button secondary" %>
-    <%= link_to "Edit",
-          edit_author_poll_path(poll),
           class: "button secondary" %>
   </div>
 </div>
