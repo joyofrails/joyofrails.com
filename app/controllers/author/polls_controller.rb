@@ -6,11 +6,11 @@ module Author
     before_action :authenticate_user!
 
     def index
-      @polls = current_user.polls.ordered
+      @polls = Current.user.polls.ordered
     end
 
     def show
-      @poll = current_user.polls.find(params[:id])
+      @poll = Current.user.polls.find(params[:id])
       @questions = @poll.questions.includes(:answers).ordered
     end
 
@@ -19,7 +19,7 @@ module Author
     end
 
     def create
-      @poll = current_user.polls.build(poll_params)
+      @poll = Current.user.polls.build(poll_params)
 
       if @poll.save
         redirect_to author_poll_path(@poll), notice: "Poll was successfully created.", status: :see_other
@@ -29,11 +29,11 @@ module Author
     end
 
     def edit
-      @poll = current_user.polls.find(params[:id])
+      @poll = Current.user.polls.find(params[:id])
     end
 
     def update
-      @poll = current_user.polls.find(params[:id])
+      @poll = Current.user.polls.find(params[:id])
       if @poll.update(poll_params)
         redirect_to author_poll_path(@poll), notice: "Poll was successfully updated.", status: :see_other
       else
@@ -42,12 +42,12 @@ module Author
     end
 
     def destroy
-      @poll = current_user.polls.find(params[:id])
+      @poll = Current.user.polls.find(params[:id])
       @poll.destroy
 
       respond_to do |format|
-        format.html { redirect_to author_polls_path, notice: "Quote was successfully destroyed." }
-        format.turbo_stream { flash.now[:notice] = "Quote was successfully destroyed." }
+        format.html { redirect_to author_polls_path, notice: "Poll was successfully destroyed." }
+        format.turbo_stream { flash.now[:notice] = "Poll was successfully destroyed." }
       end
     end
 
@@ -59,7 +59,7 @@ module Author
 
     def feature_enabled!
       return if user_signed_in? &&
-        Flipper.enabled?(:polls, current_user)
+        Flipper.enabled?(:polls, Current.user)
 
       raise ActionController::RoutingError.new("Not Found")
     end
