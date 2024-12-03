@@ -1,11 +1,13 @@
-<%= render Pages::Header.new(title: "Snippet Authoring") %>
-<div id="snippets" class="section-content container py-gap mb-3xl">
+<%= render Pages::Header::Container.new do |h| %>
+  <%= h.title { "Snippet Authoring" } %>
   <% if Flipper.enabled?(:snippets, current_user) %>
-    <div class="flex">
+    <%= h.actions do %>
       <%= link_to "New Snippet", new_author_snippet_path, class: "button primary" %>
-    </div>
+    <% end %>
   <% end %>
-
+  </div>
+<% end %>
+<div id="snippets" class="section-content container py-gap mb-3xl">
   <% @snippets.each do |snippet| %>
     <%= render Author::Snippets::Snippet.new(
           snippet,
