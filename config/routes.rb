@@ -1,16 +1,13 @@
 # == Route Map
 #
-# ** [Honeybadger] Development mode is enabled. Data will not be reported until you deploy your app. level=2 pid=56338
-# [dotenv] Loaded [33m.env.development[0m
-# [dotenv] Loaded [33m.env[0m
-# [dotenv] Loaded [33m.env.development[0m
-# [dotenv] Loaded [33m.env[0m
 #                                     Prefix Verb            URI Pattern                                                                                       Controller#Action
 #                                                            /assets                                                                                           Propshaft::Server
 #                                                            /(*any)(.:format)                                                                                 redirect(301, subdomain: ) {:subdomain=>"www"}
 #                                       root GET             /                                                                                                 site#show
 #                                       page GET             /*resource_path                                                                                   site#show
 #                                     search GET|POST        /search(.:format)                                                                                 searches#show
+#                                     topics GET             /topics(.:format)                                                                                 topics#index
+#                                      topic GET             /topics/:slug(.:format)                                                                           topics#show
 #               new_share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot/new(.:format)                                              share/snippet_screenshots#new
 #                   share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#show
 #                                            POST            /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#create
@@ -23,6 +20,14 @@
 #                                            PATCH           /share/snippets/:id(.:format)                                                                     share/snippets#update
 #                                            PUT             /share/snippets/:id(.:format)                                                                     share/snippets#update
 #                                            DELETE          /share/snippets/:id(.:format)                                                                     share/snippets#destroy
+#                            author_snippets GET             /author/snippets(.:format)                                                                        author/snippets#index
+#                                            POST            /author/snippets(.:format)                                                                        author/snippets#create
+#                         new_author_snippet GET             /author/snippets/new(.:format)                                                                    author/snippets#new
+#                        edit_author_snippet GET             /author/snippets/:id/edit(.:format)                                                               author/snippets#edit
+#                             author_snippet GET             /author/snippets/:id(.:format)                                                                    author/snippets#show
+#                                            PATCH           /author/snippets/:id(.:format)                                                                    author/snippets#update
+#                                            PUT             /author/snippets/:id(.:format)                                                                    author/snippets#update
+#                                            DELETE          /author/snippets/:id(.:format)                                                                    author/snippets#destroy
 #                                newsletters GET             /newsletters(.:format)                                                                            newsletters#index
 #                                 newsletter GET             /newsletters/:id(.:format)                                                                        newsletters#show
 #                          examples_counters GET             /examples/counters(.:format)                                                                      examples/counters#show
@@ -146,6 +151,8 @@
 #          application_worker GET    /applications/:application_id/workers/:id(.:format)            mission_control/jobs/workers#show
 # application_recurring_tasks GET    /applications/:application_id/recurring_tasks(.:format)        mission_control/jobs/recurring_tasks#index
 #  application_recurring_task GET    /applications/:application_id/recurring_tasks/:id(.:format)    mission_control/jobs/recurring_tasks#show
+#                             PATCH  /applications/:application_id/recurring_tasks/:id(.:format)    mission_control/jobs/recurring_tasks#update
+#                             PUT    /applications/:application_id/recurring_tasks/:id(.:format)    mission_control/jobs/recurring_tasks#update
 #                      queues GET    /queues(.:format)                                              mission_control/jobs/queues#index
 #                       queue GET    /queues/:id(.:format)                                          mission_control/jobs/queues#show
 #                         job GET    /jobs/:id(.:format)                                            mission_control/jobs/jobs#show
@@ -190,6 +197,10 @@ Rails.application.routes.draw do
       resource :screenshot, only: [:new, :create, :show], controller: "snippet_screenshots"
       resource :tweet, only: [:new], controller: "snippet_tweets"
     end
+  end
+
+  namespace :author do
+    resources :snippets
   end
 
   resources :newsletters, only: [:index, :show]

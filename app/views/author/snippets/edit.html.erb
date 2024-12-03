@@ -1,0 +1,13 @@
+<%= render Pages::Header.new(title: "Snippet Authoring") %>
+<div class="section-content container py-gap mb-3xl">
+  <%= turbo_frame_tag :snippet_form do %>
+    <%= render Author::Snippets::Form.new(@snippet) %>
+  <% end %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this snippet", author_snippet_path(@snippet) %> |
+    <%= link_to "Back to snippets", author_snippets_path %>
+  </div>
+</div>

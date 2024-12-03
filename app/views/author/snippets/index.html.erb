@@ -1,4 +1,4 @@
-<%= render Pages::Header.new(title: "Snippet Share") %>
+<%= render Pages::Header.new(title: "Snippet Authoring") %>
 <div id="snippets" class="section-content container py-gap mb-3xl">
   <% if Flipper.enabled?(:snippets, current_user) %>
     <div class="flex">
@@ -7,7 +7,7 @@
   <% end %>
 
   <% @snippets.each do |snippet| %>
-    <%= render Share::Snippets::Snippet.new(
+    <%= render Author::Snippets::Snippet.new(
           snippet,
           current_user: current_user,
           href: share_snippet_path(snippet),
