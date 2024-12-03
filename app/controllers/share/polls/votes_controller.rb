@@ -12,8 +12,9 @@ module Share
           user: (current_user if user_signed_in?)
         )
 
-        @poll.broadcast_replace_to @poll, :results,
-          target: [@poll, :results],
+        @poll.broadcast_replace_to @poll,
+          :results, target: [@poll, :results],
+          attributes: {method: :morph},
           html: Share::Polls::Results.new(@poll).call(view_context: view_context)
 
         if @vote.valid?
