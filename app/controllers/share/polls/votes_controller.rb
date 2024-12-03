@@ -12,7 +12,9 @@ module Share
           user: (current_user if user_signed_in?)
         )
 
-        @poll.broadcast_replace_to @poll, :results, target: [@poll, :results], partial: "share/polls/results"
+        @poll.broadcast_replace_to @poll, :results,
+          target: [@poll, :results],
+          html: Share::Polls::Results.new(@poll).call(view_context: view_context)
 
         if @vote.valid?
           respond_to do |format|

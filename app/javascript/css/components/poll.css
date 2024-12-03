@@ -6,6 +6,7 @@
   }
 
   & .bar {
+    border: 1px solid transparent;
     background-color: var(--joy-poll-result-default);
     position: absolute;
     top: 0;

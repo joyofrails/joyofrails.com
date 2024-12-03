@@ -6,7 +6,7 @@
   </div>
 
   <% if voted_on?(poll) %>
-    <%= render "share/polls/results", poll: poll %>
+    <%= render Share::Polls::Results.new(poll) %>
   <% else %>
     <%= render "share/polls/ballot", poll: poll %>
   <% end %>
