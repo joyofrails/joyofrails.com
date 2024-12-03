@@ -8,10 +8,8 @@
     <% end %>
   <% end %>
 
-  <%= f.label :body %>
-  <%= f.text_field :body %>
-  <div class="answer__actions">
-    <%= link_to "Cancel", author_poll_path(poll), class: "button transparent" %>
-    <%= f.submit "Add answer", class: "button secondary" %>
-  </div>
+  <%= f.label :body, class: "sr-only" %>
+  <%= f.text_field :body, placeholder: "Answer choice", style: "min-width: 40%" %>
+  <%= f.submit "Save answer", class: "button secondary" %>
+  <%= link_to "Cancel", author_poll_path(poll), class: "button transparent" %>
 <% end %>

@@ -32,7 +32,7 @@ RSpec.describe "Polls", type: :system do
     within "#polls_question_#{last_question.id}" do
       click_link "New answer"
       fill_in "Body", with: "Dog"
-      click_button "Add answer"
+      click_button "Save answer"
 
       expect(page).to have_content("Dog")
     end
