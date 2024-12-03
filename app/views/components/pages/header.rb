@@ -9,7 +9,7 @@ module Pages
       @updated_on = updated_on
     end
 
-    def view_template
+    def view_template(&)
       render Container.new do |c|
         c.title { title }
         c.description { description } if description
@@ -30,6 +30,10 @@ module Pages
 
       def description(&)
         p(class: "description", &)
+      end
+
+      def actions(&)
+        div(class: "actions", &) if block_given?
       end
     end
   end

@@ -1,4 +1,4 @@
-class Share::Snippets::Form < ApplicationComponent
+class Author::Snippets::Form < ApplicationComponent
   include Phlex::Rails::Helpers::DOMID
   include Phlex::Rails::Helpers::FormWith
   include Phlex::Rails::Helpers::TurboFrameTag
@@ -17,7 +17,7 @@ class Share::Snippets::Form < ApplicationComponent
     turbo_stream.update "flash", partial: "application/flash"
     div do
       form_with(
-        model: [:share, snippet],
+        model: [:author, snippet],
         class: "section-content",
         data: {
           controller: "snippet-preview",
@@ -153,9 +153,9 @@ class Share::Snippets::Form < ApplicationComponent
 
   def form_path
     if snippet.persisted?
-      edit_share_snippet_path(snippet)
+      edit_author_snippet_path(snippet)
     else
-      new_share_snippet_path
+      new_author_snippet_path
     end
   end
 end

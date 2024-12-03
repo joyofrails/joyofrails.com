@@ -1,4 +1,4 @@
-module Share
+module Author
   module Snippets
     class Snippet < ApplicationComponent
       include Phlex::Rails::Helpers::DOMID
@@ -30,7 +30,7 @@ module Share
           end
 
           div do
-            render Share::Snippets::Toolbar.new(snippet, current_user: current_user)
+            render Author::Snippets::Toolbar.new(snippet, current_user: current_user)
           end
         end
       end

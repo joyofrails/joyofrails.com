@@ -5,10 +5,10 @@ RSpec.describe "Snippets", type: :system do
     Flipper.enable(:snippets)
   end
 
-  it "can creat and edit a snippet" do
+  it "can create and edit a snippet" do
     login_as_user
 
-    visit share_snippets_path
+    visit author_snippets_path
 
     click_link "New Snippet"
 
@@ -41,35 +41,11 @@ RSpec.describe "Snippets", type: :system do
 
     expect(page).to have_content("Your snippet has been saved")
 
-    click_link "Back to snippets"
+    click_link "Author snippets"
 
     expect(page).to have_content("lib/models/blog.rb")
     expect(page).to have_content("class Blog\n  has_many :posts\nend")
     expect(page).to have_content("A Ruby class")
     expect(page).to have_content("This is how you do it")
-  end
-
-  it "can attach a screenshot" do
-    snippet = FactoryBot.create(:snippet, author: login_as_user)
-
-    visit share_snippet_path(snippet)
-
-    click_link "Share"
-
-    expect(page).to have_content("Download")
-  end
-
-  it "can share Snippet" do
-    FactoryBot.create(:snippet, filename: "example.rb", author: login_as_user)
-
-    visit share_snippets_path
-
-    within("#snippets") do
-      expect(page).to have_content("example.rb")
-      click_link "Share"
-    end
-
-    expect(page).to have_content("Download")
-    click_link "Download"
   end
 end

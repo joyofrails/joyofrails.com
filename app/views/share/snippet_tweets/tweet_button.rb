@@ -7,7 +7,6 @@ class Share::SnippetTweets::TweetButton < ApplicationComponent
   def view_template
     a(
       href: tweet_url,
-      class: "button primary",
       data: {
         controller: "snippet-tweet",
         action: "click->snippet-tweet#tweet",
