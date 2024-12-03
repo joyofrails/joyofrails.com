@@ -12,14 +12,13 @@ class Author::Snippets::Toolbar < ApplicationComponent
 
   def view_template
     flex_block do
-      a(href: author_snippet_path(snippet), class: "button secondary") do
-        "Author view"
-      end
+      a(href: author_snippet_path(snippet)) { "Author view" }
+
+      a(href: share_snippet_path(snippet)) { "Public view" }
 
       if current_user.can_edit?(snippet)
         a(
           href: edit_author_snippet_path(snippet),
-          class: "button secondary",
           data: {turbo_frame: "snippet_form"}
         ) do
           "Edit this snippet"

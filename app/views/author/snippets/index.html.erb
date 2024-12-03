@@ -10,7 +10,6 @@
     <%= render Author::Snippets::Snippet.new(
           snippet,
           current_user: current_user,
-          href: share_snippet_path(snippet),
           class: "mb-3xl"
         ) %>
   <% end %>

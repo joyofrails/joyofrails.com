@@ -14,15 +14,13 @@ class Share::Snippets::Toolbar < ApplicationComponent
     flex_block do
       render Share::SnippetTweets::TweetButton.new(snippet)
 
-      a(
-        href: download_url,
-        class: "button transparent"
-      ) { "Download" }
+      a(href: share_snippet_path(snippet)) { "Link" }
+
+      a(href: download_url) { "Download" }
 
       if current_user.can_edit?(snippet)
         a(
           href: edit_author_snippet_path(snippet),
-          class: "button secondary",
           data: {turbo_frame: "snippet_form"}
         ) do
           "Edit this snippet"
