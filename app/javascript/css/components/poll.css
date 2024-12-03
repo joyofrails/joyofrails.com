@@ -25,3 +25,7 @@
     /* <div class="border" style="background-color: rgba(29, 155, 240, 0.58); background-color: rgb(207, 217, 222); top: 0; left: 0; bottom: 0; z-index: 0; width: <%= number_to_percentage((answer.votes_count * 100) / question.votes_count, precision: 1) %>" class="absolute rounded"></div> */
   }
 }
+
+.poll__row:nth-child(odd) {
+  background-color: var(--joy-background-blockquote);
+}
