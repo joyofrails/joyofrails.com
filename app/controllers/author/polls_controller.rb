@@ -1,5 +1,8 @@
 module Author
   class PollsController < ApplicationController
+    using Refinements::Emojoy
+
+    before_action :feature_enabled!
     before_action :authenticate_user!
 
     def index
@@ -52,6 +55,13 @@ module Author
 
     def poll_params
       params.require(:poll).permit(:title)
+    end
+
+    def feature_enabled!
+      return if user_signed_in? &&
+        Flipper.enabled?(:polls, current_user)
+
+      raise ActionController::RoutingError.new("Not Found")
     end
   end
 end

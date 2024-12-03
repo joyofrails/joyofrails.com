@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :poll do
-    title { "My Poll" }
-    author { nil }
+    title { Faker::Lorem.sentence }
+    author { build(:user) }
   end
 end
