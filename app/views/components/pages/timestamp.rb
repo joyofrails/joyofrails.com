@@ -4,7 +4,7 @@ module Pages
 
     attr_accessor :published_on, :updated_on, :attributes
 
-    def initialize(published_on:, updated_on:, **attributes)
+    def initialize(published_on:, updated_on: nil, **attributes)
       @published_on = published_on
       @updated_on = updated_on
       @attributes = attributes

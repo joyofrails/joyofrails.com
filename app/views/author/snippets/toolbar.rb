@@ -12,8 +12,8 @@ class Author::Snippets::Toolbar < ApplicationComponent
 
   def view_template
     flex_block do
-      a(href: share_snippet_path(snippet), class: "button secondary") do
-        "Public view"
+      a(href: author_snippet_path(snippet), class: "button secondary") do
+        "Author view"
       end
 
       if current_user.can_edit?(snippet)
@@ -25,14 +25,6 @@ class Author::Snippets::Toolbar < ApplicationComponent
           "Edit this snippet"
         end
       end
-    end
-  end
-
-  def share_url
-    if snippet.screenshot.attached?
-      new_share_snippet_tweet_path(@snippet, auto: "true")
-    else
-      new_share_snippet_screenshot_path(@snippet, auto: "true", intent: "share")
     end
   end
 end

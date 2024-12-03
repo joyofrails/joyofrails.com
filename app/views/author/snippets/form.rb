@@ -153,9 +153,9 @@ class Author::Snippets::Form < ApplicationComponent
 
   def form_path
     if snippet.persisted?
-      edit_share_snippet_path(snippet)
+      edit_author_snippet_path(snippet)
     else
-      new_share_snippet_path
+      new_author_snippet_path
     end
   end
 end

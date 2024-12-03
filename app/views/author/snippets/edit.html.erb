@@ -7,7 +7,13 @@
   <br>
 
   <div>
-    <%= link_to "Show this snippet", author_snippet_path(@snippet) %> |
-    <%= link_to "Back to snippets", author_snippets_path %>
+    Back to
+    <%= link_to "Author view", author_snippet_path(@snippet) %>
+    &middot;
+    <%= link_to "Author snippets", author_snippets_path %>
+    &middot;
+    <%= link_to "Public view", share_snippet_path(@snippet) %>
+    &middot;
+    <%= link_to "Public snippets", share_snippets_path %>
   </div>
 </div>

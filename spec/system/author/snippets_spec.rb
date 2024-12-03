@@ -41,7 +41,7 @@ RSpec.describe "Snippets", type: :system do
 
     expect(page).to have_content("Your snippet has been saved")
 
-    click_link "Back to snippets"
+    click_link "Author snippets"
 
     expect(page).to have_content("lib/models/blog.rb")
     expect(page).to have_content("class Blog\n  has_many :posts\nend")

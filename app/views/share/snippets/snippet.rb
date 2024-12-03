@@ -44,7 +44,6 @@ module Share
         div(class: "keep-style-when-linked") do
           render Pages::Timestamp.new \
             published_on: snippet.created_at.to_date,
-            updated_on: snippet.updated_at.to_date,
             class: "text-small"
         end
       end
