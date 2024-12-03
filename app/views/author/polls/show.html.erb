@@ -19,7 +19,3 @@
     <%= render @questions, poll: @poll %>
   <% end %>
 </div>
-
-<%= turbo_frame_tag dom_id(@poll, :total) do %>
-  <%= render "total", poll: @poll %>
-<% end %>
