@@ -1,4 +1,4 @@
-<%= tag.div id: nested_dom_id(poll, "results") do %>
+<%= tag.div id: dom_id(poll, :results) do %>
   <% poll.questions.each do |question| %>
     <%= tag.div id: nested_dom_id(poll, question) do %>
       <p><%= question.body %></p>

@@ -5,7 +5,6 @@ class Share::PollsController < ApplicationController
     @polls = Poll.all
   end
 
-  # GET /share/polls/:id
   def show
     @poll = Poll.find(params[:id])
     @vote = @poll.votes.find_by(device_uuid: cookies.signed[:device_uuid])
