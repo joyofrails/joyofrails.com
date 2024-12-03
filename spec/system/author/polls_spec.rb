@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Polls", type: :system do
   it "allows an authenticated user to create a poll" do
     author = FactoryBot.create(:user)
+    Flipper.enable(:polls, author)
     poll = FactoryBot.create(:poll, author:, title: "Color poll")
     question = FactoryBot.create(:polls_question, poll:, body: "What is your favorite color?")
     FactoryBot.create(:polls_answer, question:, body: "Red")
