@@ -9,19 +9,19 @@ image: articles/what-you-need-to-know-about-sqlite/feather.jpg
 meta_image: articles/what-you-need-to-know-about-sqlite/feather.jpg
 ---
 
-Have you heard? SQLite is taking the web by storm. The widespread belief has been that SQLite isn’t a production grade database for web apps. But lately this sentiment is starting to change.
+Have you heard? SQLite is taking the web by storm. The widespread belief has been that SQLite isn’t a production-grade database for web apps. But lately, this sentiment is starting to change.
 
-SQLite is already just about [everywhere else](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—why _now_ for web apps? Why now for Rails?
+SQLite is already just about [everywhere else](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—so why _now_ for web apps? Why now for Rails?
 
-It’s basically this: computers have gotten faster and Rails has finally figured out how to configure SQLite properly for the web.
+It’s basically this: computers have gotten faster, and Rails has finally figured out how to configure SQLite properly for the web.
 
 With the recent release of Rails 8, it’s easier than ever to choose SQLite as your primary database for production. The question is, _should you?_
 
 ## SQLite3::Database.open
 
-[Joy of Rails](/) has run on SQLite since launch and I have been very happy with my choice—I plan to keep it that way. But SQLite isn’t for everyone.
+[Joy of Rails](/) has run on SQLite since launch, and I have been very happy with my choice—I plan to keep it that way. But SQLite isn’t for everyone.
 
-I have come across many great SQLite blog posts, open source contributions, and presentations in recent months. I decided to compile everything I’ve learned from that journey into the list of lessons you find here. My hope is you’ll read this list and come away with enough info to
+I have come across many great SQLite blog posts, open-source contributions, and presentations in recent months. I decided to compile everything I’ve learned from that journey into the list of lessons you find here. My hope is that you’ll read this list and come away with enough information to:
 
 - help you understand SQLite’s strengths and limitations, and
 - figure out whether or not SQLite is right for you and your next Rails app.
@@ -32,7 +32,7 @@ Here we go!
 
 ### SQLite is designed to be small and self-contained
 
-At some point when using SQLite, you may find yourself wondering,
+At some point when using SQLite, you may find yourself wondering:
 
 > Why does SQLite work this way?
 
@@ -122,7 +122,7 @@ Since you’re writing to files on disk, this means you need to ensure that your
 When you generate a Rails 8 app with SQLite as the database option, your database configuration will contain the following notice:
 
 ```:{"header": false}
-SQLite3 write its data on the local filesystem, as such it requires
+SQLite3 writes its data on the local filesystem, as such it requires
 persistent disks. If you are deploying to a managed service, you should
 make sure it provides disk persistence, as many don't.
 
@@ -310,7 +310,7 @@ You may be familiar with the [ActiveRecord EnhancedSqlite3 Adapter (AREA) gem](h
 
 Two enhancements NOT currently in Rails are worth mentioning:
 
-- Support for isolated connection pools. Although the SQLite configurations with Rails supports concurrent reads, the connection pooling mechanism in Rails could theoretically be saturated with queued writes. This means reads could still get blocked while write queries solve linearly. The AREA gem solves for this by configuring Rails to use separate connection pools for SQLites reads and writes. For more details, see this [@fractaledmind blog post](https://fractaledmind.github.io/2024/04/11/sqlite-on-rails-isolated-connection-pools/) and the [Rails guides on multiple databases](https://guides.rubyonrails.org/active_record_multiple_databases.html).
+- Support for isolated connection pools. Although the SQLite configurations with Rails supports concurrent reads, the connection pooling mechanism in Rails could theoretically be saturated with queued writes. This means reads could still get blocked while write queries resolve linearly. The AREA gem solves for this by configuring Rails to use separate connection pools for SQLites reads and writes. For more details, see this [@fractaledmind blog post](https://fractaledmind.github.io/2024/04/11/sqlite-on-rails-isolated-connection-pools/) and the [Rails guides on multiple databases](https://guides.rubyonrails.org/active_record_multiple_databases.html).
 - Extension loading. As described earlier, SQLite supports loading extensions. You could do this manually during the Rails initialization process, rely on the loading mechanism of individual SQLite extension gems, or use the bindings provided by the AREA gem, either through extensions to `config/database.yml` or via the unofficial SQLite extension package manager, [sqlpkg](https://sqlpkg.org/). Another [@fractaledmind blog post](https://fractaledmind.github.io/2023/12/24/enhancing-rails-installing-extensions/) helps explain.
 
 ### You should probably use Litestream
