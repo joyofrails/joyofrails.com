@@ -1,13 +1,15 @@
-<%= turbo_frame_tag poll, class: "poll" do %>
-  <div class="header">
-    <h5 class="mb-2">
+<%= turbo_frame_tag poll, class: "poll joy-border-subtle rounded" do %>
+  <header class="px-4 pt-2 pb-2">
+    <h5>
       <%= poll.title %>
     </h5>
-  </div>
+  </header>
 
-  <% if voted_on?(poll) %>
-    <%= render Share::Polls::Results.new(poll) %>
-  <% else %>
-    <%= render Share::Polls::Ballot.new(poll) %>
-  <% end %>
+  <div class="p-4">
+    <% if voted_on?(poll) %>
+      <%= render Share::Polls::Results.new(poll) %>
+    <% else %>
+      <%= render Share::Polls::Ballot.new(poll) %>
+    <% end %>
+  </div>
 <% end %>

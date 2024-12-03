@@ -38,7 +38,7 @@ module Share
                 end
               end
 
-              div(class: "p-2") { p { pluralize question.votes_count, "vote" } }
+              div(class: "p-2") { p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" } }
             end
           end
         end

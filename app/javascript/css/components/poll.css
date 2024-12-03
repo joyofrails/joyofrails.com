@@ -1,4 +1,11 @@
 .poll {
+  & h5 {
+    margin: 0;
+    font-weight: 400;
+    text-align: end;
+    font-size: var(--step--2);
+  }
+
   & .answer {
     border-radius: 0.375rem;
     font-size: var(--step--1);
