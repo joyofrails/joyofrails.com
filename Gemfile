@@ -29,7 +29,7 @@ gem "device_detector" # DeviceDetector is a precise and fast user agent parser a
 gem "warden" # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
-gem "rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
+gem "rails_admin", github: "railsadminteam/rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
 gem "addressable" # Addressable is an alternative implementation to URI [https://github.com/sporkmonger/addressable]
 gem "ostruct" # OpenStruct is a data structure, similar to a Hash, that allows the definition of arbitrary attributes with their accompanying values
 gem "parslet" # Parslet is a small Ruby library for constructing parsers [https://github.com/kschiess/parslet]
@@ -40,8 +40,8 @@ gem "inline_svg" # Embed SVGs in Rails views and style them with CSS [https://gi
 gem "rouge" # Pure Ruby syntax highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "phlex", "2.0.0.beta2" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
-gem "phlex-rails", "2.0.0.beta2" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex", "2.0.0.rc1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", "2.0.0.rc1" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "commonmarker", "< 2", require: false
 gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]

@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/railsadminteam/rails_admin.git
+  revision: e38c12d98e3e11b858d2f3caa752013b7478f926
+  specs:
+    rails_admin (3.2.1)
+      activemodel-serializers-xml (>= 1.0)
+      csv
+      kaminari (>= 0.14, < 2.0)
+      nested_form (~> 0.3)
+      rails (>= 6.0, < 9)
+      turbo-rails (>= 1.0, < 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -357,10 +369,10 @@ GEM
       ast (~> 2.4.1)
       racc
     parslet (2.0.0)
-    phlex (2.0.0.beta2)
-    phlex-rails (2.0.0.beta2)
-      phlex (= 2.0.0.beta2)
-      railties (>= 6.1, < 8)
+    phlex (2.0.0.rc1)
+    phlex-rails (2.0.0.rc1)
+      phlex (= 2.0.0.rc1)
+      railties (>= 6.1, < 9)
     postmark (1.25.1)
       json
     postmark-rails (0.22.1)
@@ -415,13 +427,6 @@ GEM
     rails-html-sanitizer (1.6.1)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails_admin (3.2.1)
-      activemodel-serializers-xml (>= 1.0)
-      csv
-      kaminari (>= 0.14, < 2.0)
-      nested_form (~> 0.3)
-      rails (>= 6.0, < 8)
-      turbo-rails (>= 1.0, < 3)
     rails_best_practices (1.23.2)
       activesupport
       code_analyzer (~> 0.5.5)
@@ -649,14 +654,14 @@ DEPENDENCIES
   mission_control-jobs
   ostruct
   parslet
-  phlex (= 2.0.0.beta2)
-  phlex-rails (= 2.0.0.beta2)
+  phlex (= 2.0.0.rc1)
+  phlex-rails (= 2.0.0.rc1)
   postmark-rails
   propshaft
   puma (>= 5.0)
   rack-mini-profiler
   rails
-  rails_admin
+  rails_admin!
   rails_best_practices
   reek
   rouge
