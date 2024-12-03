@@ -13,7 +13,7 @@ Have you heard? SQLite is taking the web by storm. The widespread belief has bee
 
 SQLite is already just about [everywhere else](https://www.sqlite.org/mostdeployed.html)—smartphones, TVs, web browsers, desktop applications—why _now_ for web apps? Why now for Rails?
 
-It’s basically this: computers have gotten faster and Rails has finally figured out how configure SQLite properly for the web.
+It’s basically this: computers have gotten faster and Rails has finally figured out how to configure SQLite properly for the web.
 
 With the recent release of Rails 8, it’s easier than ever to choose SQLite as your primary database for production. The question is, _should you?_
 
@@ -26,7 +26,7 @@ I have come across many great SQLite blog posts, open source contributions, and 
 - help you understand SQLite’s strengths and limitations, and
 - figure out whether or not SQLite is right for you and your next Rails app.
 
-This is article I would have wanted to read before starting my journey with SQLite on Rails.
+This is the article I would have wanted to read before starting my journey with SQLite on Rails.
 
 Here we go!
 
@@ -36,7 +36,7 @@ At some point when using SQLite, you may find yourself wondering,
 
 > Why does SQLite work this way?
 
-Rest assured, the answer likely lies in very intentional design decisions that allow SQLite to stay relatively small. You might have expectations of what a relational database is and should do if you’re more familiar with Postgres and MySQL. Though SQLite is very capable database, there are many things that it is not, some of which we’ll get to below.
+Rest assured, the answer likely lies in very intentional design decisions that allow SQLite to stay relatively small. You might have expectations of what a relational database is and should do if you’re more familiar with Postgres and MySQL. Though SQLite is a very capable database, there are many things that it is not, some of which we’ll get to below.
 
 ### SQLite runs in the same process as your application
 
@@ -93,7 +93,7 @@ Given that a SQLite database, by design, runs in the same process as your applic
 
 With SQLite as your primary Rails database, you would would likely pick one of the following:
 
-- rent a machine from virtual private server (VPS) provider (Digital Ocean, Hetzner, Linode, etc.)
+- rent a machine from a virtual private server (VPS) provider (Digital Ocean, Hetzner, Linode, etc.)
 - use a platform-as-a-service (PaaS) that supports a persistent volume and a single node (Render, Fly.io, etc.)
 
 Instead of scaling horizontally (adding more machines) as your application grows, you’ll want to be scaling vertically (using a bigger machine). With modern computers, you will be able to scale your machine pretty far.
@@ -136,6 +136,8 @@ Keep in mind that it’s common for Platform-as-a-Service (PaaS) providers to of
 
 For this reason, [Heroku is not compatible with SQLite](https://devcenter.heroku.com/articles/sqlite3). Other PaaS offerings like Render and Fly.io, support SQLite with a persistent volume option but there are some caveats, like downtime during deploys while the volume attaches to the new service ([source](https://community.render.com/t/database-on-github-sqlite3/536/4)).
 
+Edit: Fly.io provides [a dedicated guide for using Rails and SQLite](https://fly.io/docs/rails/advanced-guides/sqlite3/).
+
 ### You get concurrency for reads, not writes
 
 When considering SQLite for your Rails app, it’s important to understand its concurrency limitations: SQLite supports one writer at a time. With WAL mode enabled, SQLite supports concurrency for reads—in other words, reads do not block other reads or writes, and writes do not block reads.
@@ -150,7 +152,7 @@ The question most of you will want to know is about SQLite performance. It’s d
 
 Turns out the answer is "pretty good".
 
-The best post I’ve come across that touches on SQLite performance characteristics in terms of sca lability and reliability is [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels. A quote describing one of his perf tests:
+The best post I’ve come across that touches on SQLite performance characteristics in terms of scalability and reliability is [Consider SQLite](https://blog.wesleyac.com/posts/consider-sqlite) by Wesley Aptekar-Cassels. A quote describing one of his perf tests:
 
 > I spun up a Equinix m3.large.x86 instance, and ran a slightly modified1 version of the SQLite kvtest2 program on it. Writing 512 byte blobs as separate transactions, in WAL mode with synchronous=normal3, temp_store=memory, and mmap enabled, I got... ~72,568 writes per second... at 32kb writes... ~3,292 writes per second. That's not astronomical, but it's certainly way more than most web sites being used by humans need.
 
