@@ -136,6 +136,8 @@ Keep in mind that it’s common for Platform-as-a-Service (PaaS) providers to of
 
 For this reason, [Heroku is not compatible with SQLite](https://devcenter.heroku.com/articles/sqlite3). Other PaaS offerings like Render and Fly.io, support SQLite with a persistent volume option but there are some caveats, like downtime during deploys while the volume attaches to the new service ([source](https://community.render.com/t/database-on-github-sqlite3/536/4)).
 
+Edit: Fly.io provides [a dedicated guide for using Rails and SQLite](https://fly.io/docs/rails/advanced-guides/sqlite3/).
+
 ### You get concurrency for reads, not writes
 
 When considering SQLite for your Rails app, it’s important to understand its concurrency limitations: SQLite supports one writer at a time. With WAL mode enabled, SQLite supports concurrency for reads—in other words, reads do not block other reads or writes, and writes do not block reads.
