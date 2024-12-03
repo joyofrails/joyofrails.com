@@ -43,7 +43,7 @@ gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/ge
 gem "phlex", "2.0.0.beta2" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
 gem "phlex-rails", "2.0.0.beta2" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
-gem "commonmarker", require: false
+gem "commonmarker", "< 2", require: false
 gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
 gem "color_conversion" # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
 gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
