@@ -1,4 +1,4 @@
-<%= render Pages::Header.new(title: "Snippet Authoring") %>
+<%= render Pages::Header.new(title: "Author: Snippets") %>
 <div class="section-content container py-gap mb-3xl">
   <%= turbo_frame_tag :snippet_form, data: {turbo_action: "replace"} do %>
     <%= render Author::Snippets::Form.new(@snippet) %>

@@ -1,8 +1,8 @@
-<%= turbo_frame_tag poll do %>
+<%= turbo_frame_tag poll, class: "poll" do %>
   <div class="header">
-    <p>
+    <h5 class="mb-2">
       <%= poll.title %>
-    </p>
+    </h5>
   </div>
 
   <% if voted_on?(poll) %>

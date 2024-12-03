@@ -1,12 +1,14 @@
 
-<%= render Pages::Header.new(title: "Polls") %>
-<div class="section-content container py-gap mb-3xl">
-  <div class="header">
-    <%= link_to "New poll",
-          new_author_poll_path,
-          class: "button primary" %>
+<%= render Pages::Header::Container.new do |h| %>
+  <%= h.title { "Author: Polls" } %>
+  <% if Flipper.enabled?(:polls, current_user) %>
+    <%= h.actions do %>
+      <%= link_to "New Poll", new_author_poll_path, class: "button primary" %>
+    <% end %>
+  <% end %>
   </div>
-
+<% end %>
+<div class="section-content container py-gap mb-3xl">
   <%= turbo_frame_tag "polls" do %>
     <%= render "author/polls/empty_state" %>
     <%= render @polls %>

@@ -96,6 +96,9 @@
   --joy-button-transparent-active: var(--joy-color-200);
   --joy-button-warn: var(--color-red-500);
   --joy-button-warn-hover: var(--color-red-400);
+
+  --joy-poll-result-default: var(--color-slate-300);
+  --joy-poll-result-winner: var(--joy-color-500);
 }
 
 .dark {
@@ -133,4 +136,7 @@
   --joy-button-transparent: none;
   --joy-button-transparent-hover: var(--joy-color-950);
   --joy-button-transparent-active: var(--joy-color-900);
+
+  --joy-poll-result-default: var(--color-slate-800);
+  --joy-poll-result-winner: var(--joy-color-500);
 }

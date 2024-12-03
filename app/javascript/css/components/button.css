@@ -98,6 +98,9 @@
       border-style: solid;
     }
   }
+  &.slim {
+    padding: 0.25rem 0.75rem;
+  }
 
   fieldset[disabled] &,
   &[disabled] {
