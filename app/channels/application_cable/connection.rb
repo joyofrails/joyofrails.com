@@ -2,17 +2,17 @@ module ApplicationCable
   class Connection < ActionCable::Connection::Base
     rescue_from StandardError, with: :report_error
 
-    identified_by :current_admin_user
+    identified_by :current_user
 
     def connect
-      self.current_admin_user = find_verified_admin_user
-      logger.add_tags "ActionCable", current_admin_user.id
+      self.current_user = find_current_user
+      logger.add_tags "ActionCable", current_user.id
     end
 
     private
 
-    def find_verified_admin_user
-      env["warden"]&.user(scope: :admin_user) || reject_unauthorized_connection
+    def find_current_user
+      env["warden"]&.user(scope: :user) || Guest.new
     end
 
     def report_error(e)
