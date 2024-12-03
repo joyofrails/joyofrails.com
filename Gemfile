@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".ruby-version"
 
-gem "rails", "8.0.0.beta1 " # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
