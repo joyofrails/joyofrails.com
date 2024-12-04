@@ -22,7 +22,7 @@ RSpec.describe "Polls", type: :system do
 
     click_link "New question"
     fill_in "Body", with: "What is your favorite animal?"
-    click_button "Add question"
+    click_button "Save question"
     expect(page).to have_content("What is your favorite animal?")
 
     last_question = Polls::Question.last

@@ -7,8 +7,8 @@
     <% end %>
   <% end %>
 
-  <%= f.label :body %>
-  <%= f.text_field :body, autofocus: true %>
+  <%= f.label :body, class: "sr-only" %>
+  <%= f.text_field :body, placeholder: "Ask a question", style: "min-width: 40%;", autofocus: true %>
+  <%= f.submit "Save question", class: "button secondary" %>
   <%= link_to "Cancel", author_poll_path(poll), class: "button transparent" %>
-  <%= f.submit "Add question", class: "button secondary" %>
 <% end %>
