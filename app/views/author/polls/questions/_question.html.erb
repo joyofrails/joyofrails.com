@@ -29,6 +29,13 @@
     </div>
   <% end %>
   <div class="question__answers section-content">
+    <%#
+      HACK: the turbo frame below is purposely written out on one line so no
+      whitespace gets rendered if there is no collection of answers to render.
+      This curious decision is so I can write CSS that hides the tag if its
+      empty. It looks nicer because, otherwise, my grid layout inserts an extra
+      "gap". I should probably change this.
+    %>
     <%= turbo_frame_tag nested_dom_id(question, "answers"), class: "py-gap-collapse" do %><%= render question.answers, poll: poll, question: question %><% end %>
 
     <%= turbo_frame_tag nested_dom_id(question, Polls::Answer.new), class: "py-gap-collapse" %>
