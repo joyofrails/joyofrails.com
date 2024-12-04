@@ -30,7 +30,7 @@ RSpec.describe "Polls", type: :system do
     expect(last_question.poll).to eq(poll)
 
     within "#polls_question_#{last_question.id}" do
-      click_link "New answer"
+      click_link "+ New answer"
       fill_in "Body", with: "Dog"
       click_button "Save answer"
 
