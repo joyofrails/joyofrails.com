@@ -1,3 +1,3 @@
 <%= render Users::NewsletterSubscriptions::Banner.new do %>
-  <%= turbo_frame_tag :newsletter_subscription, src: new_users_newsletter_subscription_path %>
+  <%= turbo_frame_tag :newsletter_subscription, src: new_users_newsletter_subscription_path, data: {"turbo-permanent": true} %>
 <% end %>
