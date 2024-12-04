@@ -1,21 +1,21 @@
 <%= render Pages::Header.new(title: "Poll") %>
-<div class="section-content container py-gap mb-3xl">
-  <%= link_to sanitize("&larr; Back to polls"), author_polls_path %>
+<div class="section-content container py-gap mb-3xl py-gap-collapse">
+  <h5>
+    <%= @poll.title %>
+  </h5>
 
-  <div class="header">
-    <p>
-      <%= @poll.title %>
-    </p>
+  <%= turbo_frame_tag "questions" do %>
+    <%= render @questions, poll: @poll %>
+  <% end %>
 
-    <%= link_to "New question",
+  <%= turbo_frame_tag Polls::Question.new, class: "py-gap-collapse" %>
+
+  <div class="poll__footer">
+    <%= link_to "+ New question",
           new_author_poll_question_path(@poll),
           data: {turbo_frame: dom_id(Polls::Question.new)},
           class: "button primary" %>
   </div>
 
-  <%= turbo_frame_tag Polls::Question.new %>
-
-  <%= turbo_frame_tag "questions" do %>
-    <%= render @questions, poll: @poll %>
-  <% end %>
+  <%= link_to sanitize("&larr; Back to polls"), author_polls_path %>
 </div>
