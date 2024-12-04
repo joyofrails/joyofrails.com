@@ -19,6 +19,6 @@
 #  question_id  (question_id => polls_questions.id)
 #
 class Polls::Answer < ApplicationRecord
-  belongs_to :question
+  belongs_to :question, touch: true
   has_many :votes, class_name: "Polls::Vote", dependent: :destroy
 end

@@ -1,7 +1,10 @@
+<% content_for :head do %>
+  <%= turbo_refreshes_with(method: :morph, scroll: :preserve) %>
+<% end %>
 <%= render Pages::Header.new(title: "Share: Poll") %>
 <div class="section-content container py-gap mb-3xl">
   <%= render @poll %>
 
   <%= link_to sanitize("&larr; Back to polls"), share_polls_path %>
-  <%= turbo_stream_from @poll, :results %>
+  <%= turbo_stream_from @poll %>
 </div>
