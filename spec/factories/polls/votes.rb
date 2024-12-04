@@ -22,6 +22,6 @@
 #
 FactoryBot.define do
   factory :polls_response, class: "Polls::Vote" do
-    answer { nil }
+    answer { build(:polls_answer) }
   end
 end

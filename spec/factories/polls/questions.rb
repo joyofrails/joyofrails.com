@@ -19,6 +19,8 @@
 #
 FactoryBot.define do
   factory :polls_question, class: "Polls::Question" do
-    poll { nil }
+    body { "How cool is Joy of Rails?" }
+
+    poll { build(:poll) }
   end
 end

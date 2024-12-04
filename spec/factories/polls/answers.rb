@@ -20,6 +20,7 @@
 #
 FactoryBot.define do
   factory :polls_answer, class: "Polls::Answer" do
-    question { nil }
+    body { "Very cool" }
+    question { build(:polls_question) }
   end
 end
