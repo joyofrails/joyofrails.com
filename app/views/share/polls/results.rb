@@ -24,7 +24,9 @@ module Share
                   class: "answer flex justify-between items-center flex-row relative"
                 ) do
                   div(
-                    style: %(width: #{vote_percentage(answer, question)}),
+                    style: {
+                      width: vote_percentage(answer, question)
+                    },
                     class: "absolute rounded border bar"
                   )
 
@@ -38,7 +40,9 @@ module Share
                 end
               end
 
-              div(class: "p-2") { p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" } }
+              div(class: "p-2") do
+                p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" }
+              end
             end
           end
         end
