@@ -19,7 +19,7 @@
 #  question_id  (question_id => polls_questions.id)
 #
 class Polls::Answer < ApplicationRecord
-  belongs_to :question, touch: true
+  belongs_to :question, touch: true, inverse_of: :answers
   has_many :votes, class_name: "Polls::Vote", dependent: :destroy
 
   scope :ordered, -> { order(position: :asc, id: :asc) }

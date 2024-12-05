@@ -26,6 +26,4 @@ class Poll < ApplicationRecord
   validates :title, presence: true
 
   scope :ordered, -> { order(id: :desc) }
-
-  broadcasts_refreshes
 end

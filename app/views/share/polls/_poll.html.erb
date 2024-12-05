@@ -5,11 +5,9 @@
     </h5>
   </header>
 
-  <div class="p-4">
-    <% if voted_on?(poll) %>
-      <%= render Share::Polls::Results.new(poll) %>
-    <% else %>
-      <%= render Share::Polls::Ballot.new(poll) %>
+  <div class="p-4 flex flex-col gap-2">
+    <% poll.questions.includes(:answers).ordered.each do |question| %>
+      <%= render Share::Polls::Question.new(poll:, question:, voted: question.voted?(device_uuid: ensure_device_uuid)) %>
     <% end %>
   </div>
 <% end %>

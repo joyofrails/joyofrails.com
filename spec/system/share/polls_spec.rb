@@ -19,7 +19,7 @@ RSpec.describe "Polls", type: :system do
     click_button "Red"
 
     expect(page).to have_content("Thank you for voting!")
-    within("#polls_question_#{question.id}_polls_answer_#{answer1.id}") do
+    within("#polls_answer_#{answer1.id}") do
       expect(page).to have_content("100.0%")
     end
     expect(page).to have_content("1 vote")
@@ -33,10 +33,10 @@ RSpec.describe "Polls", type: :system do
       click_button "Blue"
 
       expect(page).to have_content("Thank you for voting!")
-      within("#polls_question_#{question.id}_polls_answer_#{answer1.id}") do
+      within("#polls_answer_#{answer1.id}") do
         expect(page).to have_content("50.0")
       end
-      within("#polls_question_#{question.id}_polls_answer_#{answer2.id}") do
+      within("#polls_answer_#{answer2.id}") do
         expect(page).to have_content("50.0%")
       end
       expect(page).to have_content("2 votes")

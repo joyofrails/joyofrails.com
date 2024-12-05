@@ -19,12 +19,18 @@
 #
 class Polls::Question < ApplicationRecord
   belongs_to :poll, touch: true
-  has_many :answers, class_name: "Polls::Answer", dependent: :destroy
+  has_many :answers, class_name: "Polls::Answer", dependent: :destroy, inverse_of: :question
   has_many :votes, through: :answers
 
   scope :ordered, -> { order(position: :asc, id: :asc) }
 
+  broadcasts_refreshes
+
   def votes_count
     answers.sum(&:votes_count)
+  end
+
+  def voted?(**conditions)
+    votes.where(**conditions).count.positive?
   end
 end
