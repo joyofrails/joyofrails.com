@@ -2,12 +2,12 @@ module Author
   module Polls
     class QuestionsController < ApplicationController
       def new
-        @poll = current_user.polls.find(params[:poll_id])
+        @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.build
       end
 
       def create
-        @poll = current_user.polls.find(params[:poll_id])
+        @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.build(question_params)
 
         if @question.save
@@ -21,12 +21,12 @@ module Author
       end
 
       def edit
-        @poll = current_user.polls.find(params[:poll_id])
+        @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.find(params[:id])
       end
 
       def update
-        @poll = current_user.polls.find(params[:poll_id])
+        @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.find(params[:id])
         if @question.update(question_params)
           respond_to do |format|
@@ -39,7 +39,7 @@ module Author
       end
 
       def destroy
-        @poll = current_user.polls.find(params[:poll_id])
+        @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.find(params[:id])
         @question.destroy
 
