@@ -10,6 +10,7 @@ class Users::Sessions::NewView < ApplicationView
   def view_template
     render FrontDoor::Form.new(title: "Sign in") do |layout|
       layout.form_with model: @user,
+        data: {turbo: false},
         url: users_sessions_path do |form|
         if form.object.errors.any?
           ul do
@@ -32,6 +33,11 @@ class Users::Sessions::NewView < ApplicationView
             required: true
         end
         layout.form_button form, "Sign in"
+        p do
+          small do
+            link_to "Forgot your password?", new_users_password_path
+          end
+        end
         p do
           small do
             plain "You can also"

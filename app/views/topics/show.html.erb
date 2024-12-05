@@ -4,7 +4,7 @@
 <%= render Pages::Header.new(title: "Topics on Joy of Rails") %>
 
 <div class="column-content container py-gap mb-3xl">
-  <nav class="sidebar" data-turbo-permanent>
+  <nav class="sidebar">
     <%= turbo_frame_tag "topics-sidebar", src: topics_path %>
   </nav>
   <div class="mainbar w-full">

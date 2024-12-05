@@ -3,7 +3,7 @@
 <%= render Pages::Header.new(title: "Topics") %>
 
 <div class="column-content container py-gap mb-3xl">
-  <nav class="sidebar" data-turbo-permanent>
+  <nav class="sidebar">
     <%= turbo_frame_tag "topics-sidebar" do %>
       <%= render Topics::Nav.new(topics, class: "lg:hidden") %>
     <% end %>

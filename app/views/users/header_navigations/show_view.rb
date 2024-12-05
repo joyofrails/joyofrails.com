@@ -13,7 +13,7 @@ module Users
       end
 
       def view_template
-        turbo_frame_tag :header_navigation do
+        turbo_frame_tag :header_navigation, data: {turbo_frame: "_top"} do
           render SiteHeader::Nav do
             if current_admin_user.present?
               header_navigation_link_to \

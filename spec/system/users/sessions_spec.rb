@@ -18,6 +18,48 @@ RSpec.describe "Sessions", type: :system do
     click_button "Sign in"
 
     expect(page).to have_content("Signed in successfully")
+
+    within "#header_navigation" do
+      expect(page).not_to have_content("Subscribe")
+      expect(page).to have_content(user.name)
+    end
+  end
+
+  it "fails sign in" do
+    user = FactoryBot.create(:user, :confirmed, password: "password", password_confirmation: "password")
+
+    visit new_users_session_path
+
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "wrong-password"
+
+    click_button "Sign in"
+
+    expect(current_path).to eq(users_sessions_path)
+    expect(page).to have_text("Incorrect email or password")
+  end
+
+  it "signs out user" do
+    user = FactoryBot.create(:user, :confirmed, password: "password", password_confirmation: "password")
+
+    login_user(user)
+
+    visit root_path
+
+    within "#header_navigation" do
+      expect(page).to have_text(user.name)
+
+      click_link user.name
+    end
+
+    click_button "Sign out"
+
+    expect(page).to have_text("Signed out successfully")
+    expect(page).not_to have_text(user.name)
+
+    within "#header_navigation" do
+      expect(page).to have_text("Subscribe")
+    end
   end
 
   it "allows a confirmed user to sign in by magic session token" do
