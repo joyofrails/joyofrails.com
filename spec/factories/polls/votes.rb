@@ -21,7 +21,8 @@
 #  user_id    (user_id => users.id)
 #
 FactoryBot.define do
-  factory :polls_response, class: "Polls::Vote" do
+  factory :polls_vote, class: "Polls::Vote" do
     answer { build(:polls_answer) }
+    device_uuid { SecureRandom.uuid_v7 }
   end
 end

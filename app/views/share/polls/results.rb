@@ -2,7 +2,6 @@ module Share
   module Polls
     class Results < ApplicationComponent
       include PhlexConcerns::NestedDomId
-      include Phlex::Rails::Helpers::NumberToPercentage
       include Phlex::Rails::Helpers::Pluralize
 
       attr_reader :poll
@@ -19,25 +18,7 @@ module Share
               p { question.body }
 
               question.answers.ordered.each do |answer|
-                div(
-                  id: nested_dom_id(question, answer),
-                  class: "answer flex justify-between items-center flex-row relative"
-                ) do
-                  div(
-                    style: {
-                      width: vote_percentage(answer, question)
-                    },
-                    class: "absolute rounded border bar"
-                  )
-
-                  div(class: "px-3 py-1 z-10") do
-                    plain answer.body
-                  end
-
-                  div(class: "px-3 py-1 z-10") do
-                    vote_percentage(answer, question)
-                  end
-                end
+                render AnswerBar.new(answer, question)
               end
 
               div(class: "p-2") do
@@ -48,8 +29,44 @@ module Share
         end
       end
 
-      def vote_percentage(answer, question)
-        number_to_percentage((answer.votes_count * 100) / question.votes_count, precision: 1)
+      class AnswerBar < ApplicationComponent
+        include PhlexConcerns::NestedDomId
+        include Phlex::Rails::Helpers::NumberToPercentage
+
+        attr_reader :answer, :question
+
+        def initialize(answer, question)
+          @answer = answer
+          @question = question
+        end
+
+        def view_template
+          div(
+            id: nested_dom_id(question, answer),
+            class: "answer flex justify-between items-center flex-row relative"
+          ) do
+            div(
+              style: {
+                width: vote_percentage(answer, question)
+              },
+              class: "absolute rounded border bar"
+            )
+
+            div(class: "px-3 py-1 z-10") do
+              plain answer.body
+            end
+
+            div(class: "px-3 py-1 z-10") do
+              vote_percentage(answer, question)
+            end
+          end
+        end
+
+        def vote_percentage(answer, question)
+          return "0%" if question.votes_count.zero?
+
+          number_to_percentage((answer.votes_count * 100) / question.votes_count, precision: 1)
+        end
       end
     end
   end
