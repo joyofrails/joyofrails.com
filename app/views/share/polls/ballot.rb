@@ -14,12 +14,12 @@ module Share
 
       def view_template
         div id: nested_dom_id(poll, "ballot") do
-          poll.questions.each do |question|
+          poll.questions.ordered.each do |question|
             div id: nested_dom_id(poll, question),
               class: "question flex flex-col gap-2" do
               p { question.body }
 
-              question.answers.each do |answer|
+              question.answers.ordered.each do |answer|
                 div id: nested_dom_id(question, answer) do
                   button_to answer.body,
                     share_poll_votes_path(poll, answer_id: answer.id),

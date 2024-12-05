@@ -13,12 +13,12 @@ module Share
 
       def view_template
         div id: dom_id(poll, :results) do
-          poll.questions.each do |question|
+          poll.questions.ordered.each do |question|
             div id: nested_dom_id(poll, question),
               class: "question flex flex-col gap-2" do
               p { question.body }
 
-              question.answers.each do |answer|
+              question.answers.ordered.each do |answer|
                 div(
                   id: nested_dom_id(question, answer),
                   class: "answer flex justify-between items-center flex-row relative"

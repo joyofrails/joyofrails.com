@@ -22,7 +22,7 @@ class Polls::Question < ApplicationRecord
   has_many :answers, class_name: "Polls::Answer", dependent: :destroy
   has_many :responses, through: :answers
 
-  scope :ordered, -> { order(position: :desc) }
+  scope :ordered, -> { order(position: :asc, id: :asc) }
 
   def votes_count
     answers.sum(&:votes_count)

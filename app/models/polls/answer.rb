@@ -21,4 +21,6 @@
 class Polls::Answer < ApplicationRecord
   belongs_to :question, touch: true
   has_many :votes, class_name: "Polls::Vote", dependent: :destroy
+
+  scope :ordered, -> { order(position: :asc, id: :asc) }
 end
