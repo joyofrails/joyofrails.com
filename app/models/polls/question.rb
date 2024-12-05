@@ -20,7 +20,7 @@
 class Polls::Question < ApplicationRecord
   belongs_to :poll, touch: true
   has_many :answers, class_name: "Polls::Answer", dependent: :destroy
-  has_many :responses, through: :answers
+  has_many :votes, through: :answers
 
   scope :ordered, -> { order(position: :asc, id: :asc) }
 
