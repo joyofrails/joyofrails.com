@@ -28,11 +28,4 @@ class Poll < ApplicationRecord
   scope :ordered, -> { order(id: :desc) }
 
   broadcasts_refreshes
-
-  def record_vote(answer_id:, device_uuid:, user: nil)
-    answers.find(answer_id).votes.create do |vote|
-      vote.user = user if user
-      vote.device_uuid = device_uuid
-    end
-  end
 end

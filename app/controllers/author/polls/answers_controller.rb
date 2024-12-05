@@ -1,6 +1,9 @@
 module Author
   module Polls
     class AnswersController < ApplicationController
+      before_action :feature_enabled!
+      before_action :authenticate_user!
+
       def new
         @poll = Current.user.polls.find(params[:poll_id])
         @question = @poll.questions.find(params[:question_id])
@@ -59,6 +62,13 @@ module Author
 
       def set_answer
         @answer = @question.answers.find(params[:id])
+      end
+
+      def feature_enabled!
+        return if user_signed_in? &&
+          Flipper.enabled?(:polls, Current.user)
+
+        raise ActionController::RoutingError.new("Not Found")
       end
     end
   end

@@ -22,7 +22,7 @@ module Author
       @poll = Current.user.polls.build(poll_params)
 
       if @poll.save
-        redirect_to author_poll_path(@poll), notice: "Poll was successfully created.", status: :see_other
+        redirect_to author_poll_path(@poll), notice: "Poll was successfully created.".emojoy, status: :see_other
       else
         render :new, status: :unprocessable_entity
       end
@@ -35,7 +35,7 @@ module Author
     def update
       @poll = Current.user.polls.find(params[:id])
       if @poll.update(poll_params)
-        redirect_to author_poll_path(@poll), notice: "Poll was successfully updated.", status: :see_other
+        redirect_to author_poll_path(@poll), notice: "Poll was successfully updated.".emojoy, status: :see_other
       else
         render :edit, status: :unprocessable_entity
       end
@@ -46,8 +46,8 @@ module Author
       @poll.destroy
 
       respond_to do |format|
-        format.html { redirect_to author_polls_path, notice: "Poll was successfully destroyed." }
-        format.turbo_stream { flash.now[:notice] = "Poll was successfully destroyed." }
+        format.html { redirect_to author_polls_path, notice: "Poll was successfully destroyed.".emojoy }
+        format.turbo_stream { flash.now[:notice] = "Poll was successfully destroyed.".emojoy }
       end
     end
 

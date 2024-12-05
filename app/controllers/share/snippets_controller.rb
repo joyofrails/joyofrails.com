@@ -1,6 +1,4 @@
 class Share::SnippetsController < ApplicationController
-  using Refinements::Emojoy
-
   def index
     @snippets = Snippet.all.with_attached_screenshot.includes(:author).order(created_at: :desc)
   end

@@ -1,19 +1,17 @@
 module Share
   module Polls
     class VotesController < ApplicationController
-      before_action :ensure_device_uuid
+      using Refinements::Emojoy
 
       def create
         @poll = Poll.find(params[:poll_id])
-        @vote = @poll.votes.find_by(device_uuid: cookies.signed[:device_uuid])
-        @vote ||= @poll.record_vote(
-          answer_id: params[:answer_id],
-          device_uuid: cookies.signed[:device_uuid],
-          user: (current_user if user_signed_in?)
-        )
+        @answer = @poll.answers.includes(:question).find(params[:answer_id])
+        @question = @answer.question
+        @vote = @question.votes.find_by(device_uuid: ensure_device_uuid)
+        @vote ||= record_vote(@answer)
 
         if @vote.valid?
-          flash[:notice] = "Thank you for voting!"
+          flash[:notice] = "Thank you for voting!".emojoy
           respond_to do |format|
             format.html { redirect_to [:share, @poll] }
 
@@ -33,6 +31,12 @@ module Share
       end
 
       private
+
+      def record_vote(answer)
+        answer.votes.create(device_uuid: ensure_device_uuid) do |vote|
+          vote.user = Current.user if user_signed_in?
+        end
+      end
 
       def ensure_device_uuid
         cookies.signed[:device_uuid] ||= SecureRandom.uuid_v7
