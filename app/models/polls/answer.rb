@@ -23,4 +23,6 @@ class Polls::Answer < ApplicationRecord
   has_many :votes, class_name: "Polls::Vote", dependent: :destroy
 
   scope :ordered, -> { order(position: :asc, id: :asc) }
+
+  validates :body, presence: true
 end
