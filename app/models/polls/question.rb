@@ -22,6 +22,8 @@ class Polls::Question < ApplicationRecord
   has_many :answers, class_name: "Polls::Answer", dependent: :destroy, inverse_of: :question
   has_many :votes, through: :answers
 
+  validates :body, presence: true
+
   scope :ordered, -> { order(position: :asc, id: :asc) }
 
   broadcasts_refreshes
