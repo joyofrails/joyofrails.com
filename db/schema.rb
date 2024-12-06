@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_28_135050) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_06_145040) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -165,6 +165,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_135050) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  create_table "page_polls", force: :cascade do |t|
+    t.string "page_id", null: false
+    t.string "poll_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id", "poll_id"], name: "index_page_polls_on_page_id_and_poll_id", unique: true
+    t.index ["page_id"], name: "index_page_polls_on_page_id"
+    t.index ["poll_id"], name: "index_page_polls_on_poll_id"
+  end
+
   create_table "page_topics", force: :cascade do |t|
     t.string "page_id", null: false
     t.integer "topic_id", null: false
@@ -266,6 +276,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_28_135050) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "email_exchanges", "users"
   add_foreign_key "notifications", "notification_events"
+  add_foreign_key "page_polls", "pages"
+  add_foreign_key "page_polls", "polls"
   add_foreign_key "page_topics", "pages"
   add_foreign_key "page_topics", "topics"
   add_foreign_key "polls", "users", column: "author_id"

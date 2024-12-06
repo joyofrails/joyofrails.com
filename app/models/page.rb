@@ -27,6 +27,9 @@ class Page < ApplicationRecord
   has_many :topics, through: :page_topics
   has_many :approved_topics, -> { approved }, through: :page_topics, source: :topic, inverse_of: :pages
 
+  has_many :page_polls, dependent: :destroy
+  has_many :polls, through: :page_polls
+
   scope :published, -> { where(["published_at < ?", Time.zone.now]) }
   scope :draft, -> { where(["published_at > ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }

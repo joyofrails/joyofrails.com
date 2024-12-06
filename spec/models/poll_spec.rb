@@ -20,5 +20,36 @@
 require "rails_helper"
 
 RSpec.describe Poll, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe ".generate_for" do
+    it "creates a poll with questions and answers" do
+      FactoryBot.create(:user, :primary_author)
+      page = FactoryBot.create(:page)
+      poll = Poll.generate_for(
+        page,
+        "Color poll",
+        "What's your favorite color?" => ["Red", "Green", "Blue"]
+      )
+      expect(poll).to be_persisted
+      expect(poll.title).to eq("Color poll")
+      expect(poll.questions.count).to eq(1)
+
+      question = poll.questions.first
+
+      expect(question.body).to eq("What's your favorite color?")
+      expect(question.answers.count).to eq(3)
+      expect(question.answers.map(&:body)).to eq(["Red", "Green", "Blue"])
+    end
+
+    it "is idempotent by title" do
+      FactoryBot.create(:user, :primary_author)
+      page = FactoryBot.create(:page)
+
+      Poll.generate_for(page, "Color poll",
+        "What's your favorite color?" => ["Red", "Green", "Blue"])
+
+      expect {
+        Poll.generate_for(page, "Color poll", {})
+      }.not_to change(Poll, :count)
+    end
+  end
 end
