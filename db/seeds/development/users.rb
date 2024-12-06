@@ -12,3 +12,11 @@ User.find_or_create_by(
   u.password_confirmation = "password"
   u.confirmed_at = Time.zone.now
 end
+
+User.find_or_create_by(
+  email: Rails.configuration.x.emails.primary_author
+) do |u|
+  u.password = "password"
+  u.password_confirmation = "password"
+  u.confirmed_at = Time.zone.now
+end

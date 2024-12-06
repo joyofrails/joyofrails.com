@@ -47,5 +47,9 @@ FactoryBot.define do
     trait :subscribed do
       newsletter_subscription
     end
+
+    trait :primary_author do
+      email { Rails.configuration.x.emails.primary_author }
+    end
   end
 end

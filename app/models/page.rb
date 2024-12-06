@@ -31,6 +31,10 @@ class Page < ApplicationRecord
   scope :draft, -> { where(["published_at > ?", Time.zone.now]) }
   scope :indexed, -> { where(["indexed_at < ?", Time.zone.now]) }
 
+  def self.primary_author
+    User.find_by!(email: Rails.configuration.x.emails.primary_author)
+  end
+
   def published? = !!published_at
 
   def published_on = published_at&.to_date
