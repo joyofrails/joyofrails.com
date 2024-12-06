@@ -92,7 +92,7 @@
   & blockquote {
     font-size: var(--step-1);
     font-style: italic;
-    padding: var(--space-m) var(--space-m) var(--space-m) var(--space-xl);
+    padding: var(--space-m) var(--space-m) var(--space-m) var(--space-l);
     border-left: var(--space-3xs) solid var(--joy-color-quote);
     line-height: 1.6;
     position: relative;

@@ -15,17 +15,17 @@ RSpec.describe Pages::Header, type: :view do
     end
 
     it "renders the published date" do
-      expect(render(published_on: Date.today)).to have_css("time.dt-published", text: Date.today.to_fs(:long))
+      expect(render(published_on: Date.today)).to have_css("time.dt-published", text: I18n.l(Date.today, format: :pretty))
     end
 
     it "renders the updated date" do
-      expect(render(updated_on: Date.today)).to have_css("time.dt-modified", text: Date.today.to_fs(:long))
+      expect(render(updated_on: Date.today)).to have_css("time.dt-modified", text: I18n.l(Date.today, format: :pretty))
     end
 
     it "renders the published and updated date" do
       rendered = render(published_on: Date.yesterday, updated_on: Date.today)
-      expect(rendered).to have_css("time.dt-published", text: Date.yesterday.to_fs(:long))
-      expect(rendered).to have_css("time.dt-modified", text: Date.today.to_fs(:long))
+      expect(rendered).to have_css("time.dt-published", text: I18n.l(Date.yesterday, format: :pretty))
+      expect(rendered).to have_css("time.dt-modified", text: I18n.l(Date.today, format: :pretty))
     end
   end
 
