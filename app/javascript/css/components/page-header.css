@@ -8,8 +8,8 @@
   }
 
   & time {
-    font-size: var(--font-size-s);
-    color: var(--joy-text-light);
+    font-size: var(--step--1);
+    color: var(--joy-text-subtle);
   }
 }
 

@@ -111,14 +111,6 @@
 
   --joy-background-inline-code: var(--dracula-black);
 
-  /* --joy-background-success: var(--dracula-green-400);
-  --joy-background-error: var(--dracula-red-500);
-  --joy-background-warn: var(--dracula-orange-500);
-
-  --joy-border-success: var(--dracula-green-900);
-  --joy-border-error: var(--dracula-red-950);
-  --joy-border-warn: var(--dracula-orange-950); */
-
   --joy-border-quiet: var(--joy-color-900);
   --joy-border-subtle: var(--joy-color-800);
   --joy-border-bold: var(--joy-color-400);

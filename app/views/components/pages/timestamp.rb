@@ -18,9 +18,7 @@ module Pages
             whitespace
           end
           if published_on
-            em do
-              time_tag published_on, itemprop: "datePublished", class: "dt-published"
-            end
+            time_tag published_on, itemprop: "datePublished", class: "dt-published", format: :pretty
           end
           if updated_on
             if published_on
@@ -29,9 +27,7 @@ module Pages
             plain "Updated:"
             whitespace
 
-            em do
-              time_tag updated_on, itemprop: "dateModified", class: "dt-modified"
-            end
+            time_tag updated_on, itemprop: "dateModified", class: "dt-modified", format: :pretty
           end
         end
       end
