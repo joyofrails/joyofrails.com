@@ -29,10 +29,10 @@ module Pages
       div(class: "page-summary grid grid-gap lg:grid-cols-2 lg:grid-flow-col") do
         case side
         when "left"
-          content(class: "grid lg:text-right lg:grid-column-start-1")
+          content(class: "grid grid-row-tight content-start lg:text-right lg:grid-column-start-1")
           figure_image(class: "grid grid-row-tight lg:text-left lg:grid-column-start-2")
         else
-          content(class: "grid lg:text-left lg:grid-column-start-2")
+          content(class: "grid grid-row-tight content-start lg:text-left lg:grid-column-start-2")
           figure_image(class: "grid grid-row-tight lg:text-right lg:grid-column-start-1")
         end
       end
@@ -40,7 +40,7 @@ module Pages
 
     def content(**)
       div(**) do
-        a(href: request_path) do
+        a(href: request_path, class: "mb-4") do
           h2(class: "important") { title }
         end
         p(class: "description") { description } if description
