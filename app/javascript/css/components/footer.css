@@ -19,9 +19,9 @@ footer {
 
   & nav li:has(+ li) {
     &:after {
-      margin-inline-start: var(--space-2xs-xs);
-      margin-inline-end: var(--space-2xs-xs);
-      content: ' / ';
+      margin-inline-start: 0.25rem;
+      margin-inline-end: 0.5rem;
+      content: '·';
       color: var(--joy-text-faint);
     }
   }

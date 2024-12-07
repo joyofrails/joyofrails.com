@@ -3,6 +3,8 @@ atom_feed do |feed|
   feed.updated(@articles.first.published_at) if @articles.length > 0
 
   @articles.take(50).each do |article|
+    next if article.resource_missing?
+
     feed.entry(
       article,
       id: "tag:#{request.host},2005:article/#{article.atom_feed_id}",
