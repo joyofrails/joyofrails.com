@@ -37,14 +37,14 @@ RSpec.describe "Articles", type: :system do
     expect(article.topics.approved.count).to eq(2)
 
     article.topics.approved.each do |topic|
-      expect(page).to have_link("##{topic.slug}", href: topic_path(topic))
+      expect(page).to have_link(topic.slug, href: topic_path(topic))
     end
     (article.topics.rejected + article.topics.pending).each do |topic|
-      expect(page).not_to have_link("##{topic.slug}", href: topic_path(topic))
+      expect(page).not_to have_link(topic.slug, href: topic_path(topic))
     end
 
     first_topic = article.topics.first
-    click_link "##{first_topic.slug}"
+    click_link first_topic.slug
 
     within("header.page-header") do
       expect(page).to have_content("Topics")
