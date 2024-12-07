@@ -1,12 +1,12 @@
-<% articles = SitepressArticle.draft %>
-<section style="min-height: 51vh">
-  <div class="main-content container py-gap lg:py-3xl">
-    <% articles.take(3).zip(%w[left right].cycle).each do |(page, side)| %>
-      <%= render Pages::Summary.from_page(page, side: side) %>
-    <% end %>
+<% articles = Page.all.draft.order(published_at: :asc) %>
 
-    <h3 class="mt-16">More articles</h3>
-    <%= render Pages::List.new(articles.drop(3).take(6)) %>
+<section style="min-height: 51vh">
+  <%= render Pages::Header.new(
+        title: "Drafts articles",
+        description: "Drafts articles set to be published at some point in the future"
+      ) %>
+  <div class="main-content container py-gap">
+    <%= render Pages::List.new(articles) %>
   </div>
 </section>
 <section>
