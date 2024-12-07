@@ -4,9 +4,17 @@ class Page
 
     NullResource = Data.define(:request_path) do
       def data = NullData.new(title: nil, description: nil)
+
+      def body = ""
     end
 
-    NullData = Data.define(:title, :description)
+    NullData = Data.define(:title, :description) do
+      def uuid = nil
+
+      def image = "articles/placeholder.jpg"
+
+      def author = nil
+    end
 
     def sitepress_resource = Sitepress.site.get(request_path) ||
       NullResource.new(request_path: request_path)
@@ -14,6 +22,8 @@ class Page
     def upsert_page_from_sitepress!
       self.class.upsert_page_from_sitepress!(sitepress_resource)
     end
+
+    def resource_missing? = sitepress_resource.is_a?(NullResource)
 
     class_methods do
       # We currently have a dual system of content management between Sitepress and

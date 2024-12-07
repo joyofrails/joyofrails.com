@@ -35,5 +35,13 @@ RSpec.describe "Feed", type: :request do
 
       expect(validator_results.is_valid?).to be(true), "Expected feed to be valid, but got: #{validator_results.errors.map(&:to_s).join(", ")}"
     end
+
+    it "doesn’t break if an article gets moved" do
+      Page.upsert_collection_from_sitepress!
+
+      Page.published.first.update!(request_path: "/articles/new-path")
+
+      expect { get "/feed" }.not_to raise_error
+    end
   end
 end
