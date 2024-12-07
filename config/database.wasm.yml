@@ -5,20 +5,16 @@
 #   gem "sqlite3"
 #
 default: &default
-  encoding: utf8
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 3 } %>
   timeout: 5000
   extensions:
     - sqlite_ulid
-    - sqlite_vec
 
 development:
   primary:
     <<: *default
-    # Why read the branch name? So we can support having a separate database for each branch in development.
-    # For more info, see: https://fractaledmind.github.io/2023/09/06/enhancing-rails-sqlite-branch-databases/
-    database: storage/development/data-<%= (`git branch --show-current`.chomp || 'default').parameterize %>.sqlite3
+    database: storage/development/data.sqlite3
   cache:
     <<: *default
     database: storage/development/cache.sqlite3
@@ -74,3 +70,6 @@ production:
     <<: *default
     database: storage/production/cable.sqlite3
     migrations_paths: db/migrate_cable
+
+wasm:
+  adapter: nulldb
