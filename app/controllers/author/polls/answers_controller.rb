@@ -60,10 +60,6 @@ module Author
         params.require(:answer).permit(:body)
       end
 
-      def set_answer
-        @answer = @question.answers.find(params[:id])
-      end
-
       def feature_enabled!
         return if user_signed_in? &&
           Flipper.enabled?(:polls, Current.user)

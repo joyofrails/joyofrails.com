@@ -117,7 +117,7 @@ RSpec.describe "/answers", type: :request do
         Flipper.enable(:polls, user)
 
         expect {
-          post author_poll_questions_url(poll), params: {question: {}}
+          post author_poll_questions_url(poll), params: {question: {body: ""}}
         }.to change(Polls::Question, :count).by(0)
       end
 
@@ -126,9 +126,9 @@ RSpec.describe "/answers", type: :request do
         poll = FactoryBot.create(:poll, author: user)
         Flipper.enable(:polls, user)
 
-        post author_poll_questions_url(poll), params: {question: {}}
+        post author_poll_questions_url(poll), params: {question: {body: ""}}
 
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe "/answers", type: :request do
         poll = FactoryBot.create(:poll)
         Flipper.enable(:polls)
 
-        post author_poll_questions_url(poll), params: {question: {}}
+        post author_poll_questions_url(poll), params: {question: {body: "Bob"}}
 
         expect(response).to be_not_found
       end
@@ -149,7 +149,7 @@ RSpec.describe "/answers", type: :request do
         poll = FactoryBot.create(:poll, author: user)
         Flipper.disable(:polls, user)
 
-        post author_poll_questions_url(poll), params: {question: {}}
+        post author_poll_questions_url(poll), params: {question: {body: "Bob"}}
 
         expect(response).to be_not_found
       end
