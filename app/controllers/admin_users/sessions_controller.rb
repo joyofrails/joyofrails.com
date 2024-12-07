@@ -14,7 +14,7 @@ class AdminUsers::SessionsController < ApplicationController
     warden.logout(:admin_user)
     warden.clear_strategies_cache!(scope: :admin_user)
 
-    redirect_to new_admin_users_session_path, notice: "Signed out successfully."
+    redirect_to root_path, notice: "Signed out successfully."
   end
 
   def fail

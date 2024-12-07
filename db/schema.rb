@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_06_145040) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -165,6 +165,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  create_table "page_polls", force: :cascade do |t|
+    t.string "page_id", null: false
+    t.string "poll_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id", "poll_id"], name: "index_page_polls_on_page_id_and_poll_id", unique: true
+    t.index ["page_id"], name: "index_page_polls_on_page_id"
+    t.index ["poll_id"], name: "index_page_polls_on_poll_id"
+  end
+
   create_table "page_topics", force: :cascade do |t|
     t.string "page_id", null: false
     t.integer "topic_id", null: false
@@ -184,6 +194,45 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
     t.index ["indexed_at"], name: "index_pages_on_indexed_at"
     t.index ["published_at"], name: "index_pages_on_published_at"
     t.index ["request_path"], name: "index_pages_on_request_path", unique: true
+  end
+
+  create_table "polls", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
+    t.string "author_id", null: false
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_polls_on_author_id"
+    t.index ["title"], name: "index_polls_on_title"
+  end
+
+  create_table "polls_answers", force: :cascade do |t|
+    t.string "body", null: false
+    t.integer "question_id", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "votes_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_polls_answers_on_question_id"
+  end
+
+  create_table "polls_questions", force: :cascade do |t|
+    t.string "body", null: false
+    t.string "poll_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_polls_questions_on_poll_id"
+  end
+
+  create_table "polls_votes", force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.string "user_id"
+    t.string "device_uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_polls_votes_on_answer_id"
+    t.index ["device_uuid"], name: "index_polls_votes_on_device_uuid"
+    t.index ["user_id"], name: "index_polls_votes_on_user_id"
   end
 
   create_table "snippets", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
@@ -227,8 +276,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_130544) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "email_exchanges", "users"
   add_foreign_key "notifications", "notification_events"
+  add_foreign_key "page_polls", "pages"
+  add_foreign_key "page_polls", "polls"
   add_foreign_key "page_topics", "pages"
   add_foreign_key "page_topics", "topics"
+  add_foreign_key "polls", "users", column: "author_id"
+  add_foreign_key "polls_answers", "polls_questions", column: "question_id"
+  add_foreign_key "polls_questions", "polls"
+  add_foreign_key "polls_votes", "polls_answers", column: "answer_id"
+  add_foreign_key "polls_votes", "users"
 
   # Virtual tables defined in this database.
   # Note that virtual tables may not work with other database engines. Be careful if changing database.

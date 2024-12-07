@@ -1,0 +1,16 @@
+<%= render Pages::Header::Container.new do |h| %>
+  <%= h.title { "Share: Polls" } %>
+  <% if Flipper.enabled?(:polls, current_user) %>
+    <%= h.actions do %>
+      <%= link_to "New Poll", new_author_poll_path, class: "button primary" %>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+<div class="section-content container py-gap mb-3xl">
+  <% @polls.each do |poll| %>
+    <%= tag.div id: dom_id(poll) do %>
+      <p><%= link_to poll.title, [:share, poll] %></p>
+    <% end %>
+  <% end %>
+</div>

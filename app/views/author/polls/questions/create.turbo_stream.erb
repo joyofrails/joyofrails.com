@@ -1,0 +1,7 @@
+<%= turbo_stream.update Polls::Question.new, "" %>
+
+<%= turbo_stream.prepend "questions" do %>
+  <%= render "author/polls/questions/question", question: @question, poll: @poll %>
+<% end %>
+
+<%= turbo_stream.prepend "flash", partial: "application/flash" %>

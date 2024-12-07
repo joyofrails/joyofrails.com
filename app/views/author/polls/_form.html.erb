@@ -1,0 +1,12 @@
+<%= form_with model: [:author, poll], html: {class: "poll form flex gap-4"} do |f| %>
+  <% if poll.errors.any? %>
+    <%= tag.div class: "error-message" do %>
+      <%= poll.errors.full_messages.to_sentence.capitalize %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :title, class: "sr-only" %>
+  <%= f.text_field :title, placeholder: "Poll title", style: "min-width: 40%;", autofocus: true %>
+  <%= f.submit class: "button secondary" %>
+  <%= link_to "Cancel", author_polls_path, class: "button transparent" %>
+<% end %>

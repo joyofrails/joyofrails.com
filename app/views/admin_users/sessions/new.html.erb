@@ -6,7 +6,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <%= form_with url: admin_users_sessions_path, scope: :admin_user, class: "space-y-6" do |form| %>
+    <%= form_with url: admin_users_sessions_path, scope: :admin_user, data: {turbo: false}, class: "space-y-6" do |form| %>
         <div>
           <%= form.label :email, "Email address", class: "block text-sm font-medium leading-6" %>
           <div class="mt-2">

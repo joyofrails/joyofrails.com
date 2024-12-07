@@ -2,12 +2,6 @@ require "rails_helper"
 
 RSpec.describe "/snippets", type: :request do
   describe "GET /index" do
-    let(:user) { login_as_user }
-
-    before do
-      Flipper.enable(:snippets, user)
-    end
-
     it "renders a successful response" do
       user = login_as_user
       Flipper.enable(:snippets, user)

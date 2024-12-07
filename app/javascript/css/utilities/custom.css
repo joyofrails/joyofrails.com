@@ -19,6 +19,12 @@
   padding-bottom: var(--grid-gutter);
 }
 
+.py-gap-collapse {
+  &:empty {
+    display: none;
+  }
+}
+
 .py-lg {
   padding-top: var(--space-l);
   padding-bottom: var(--space-l);
@@ -130,4 +136,8 @@
 
 .text-faint {
   color: var(--joy-text-faint);
+}
+
+.grow-2 {
+  flex-grow: 2;
 }

@@ -1,0 +1,6 @@
+<%= render Pages::Header.new(title: "Edit Poll") %>
+<div class="section-content container py-gap mb-3xl">
+  <%= render "form", poll: @poll %>
+
+  <%= link_to sanitize("&larr; Back to poll"), author_poll_path(@poll) %>
+</div>

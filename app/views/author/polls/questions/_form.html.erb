@@ -1,0 +1,14 @@
+<% url = question.new_record? ? author_poll_questions_path(poll) : author_poll_question_path(poll, question) %>
+
+<%= form_with model: question, scope: :question, url: url, html: {class: "form question"} do |f| %>
+  <% if question.errors.any? %>
+    <%= tag.div class: "error-message" do %>
+      <%= question.errors.full_messages.to_sentence.capitalize %>
+    <% end %>
+  <% end %>
+
+  <%= f.label :body, class: "sr-only" %>
+  <%= f.text_field :body, placeholder: "Ask a question", style: "min-width: 40%;", autofocus: true %>
+  <%= f.submit "Save question", class: "button secondary" %>
+  <%= link_to "Cancel", author_poll_path(poll), class: "button transparent" %>
+<% end %>

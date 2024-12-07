@@ -8,6 +8,9 @@
 #                                     search GET|POST        /search(.:format)                                                                                 searches#show
 #                                     topics GET             /topics(.:format)                                                                                 topics#index
 #                                      topic GET             /topics/:slug(.:format)                                                                           topics#show
+#                           share_poll_votes POST            /share/polls/:poll_id/votes(.:format)                                                             share/polls/votes#create
+#                                share_polls GET             /share/polls(.:format)                                                                            share/polls#index
+#                                 share_poll GET             /share/polls/:id(.:format)                                                                        share/polls#show
 #               new_share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot/new(.:format)                                              share/snippet_screenshots#new
 #                   share_snippet_screenshot GET             /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#show
 #                                            POST            /share/snippets/:snippet_id/screenshot(.:format)                                                  share/snippet_screenshots#create
@@ -28,6 +31,26 @@
 #                                            PATCH           /author/snippets/:id(.:format)                                                                    author/snippets#update
 #                                            PUT             /author/snippets/:id(.:format)                                                                    author/snippets#update
 #                                            DELETE          /author/snippets/:id(.:format)                                                                    author/snippets#destroy
+#               author_poll_question_answers POST            /author/polls/:poll_id/questions/:question_id/answers(.:format)                                   author/polls/answers#create
+#            new_author_poll_question_answer GET             /author/polls/:poll_id/questions/:question_id/answers/new(.:format)                               author/polls/answers#new
+#                      author_poll_questions POST            /author/polls/:poll_id/questions(.:format)                                                        author/polls/questions#create
+#                   new_author_poll_question GET             /author/polls/:poll_id/questions/new(.:format)                                                    author/polls/questions#new
+#                  edit_author_poll_question GET             /author/polls/:poll_id/questions/:id/edit(.:format)                                               author/polls/questions#edit
+#                       author_poll_question PATCH           /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#update
+#                                            PUT             /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#update
+#                                            DELETE          /author/polls/:poll_id/questions/:id(.:format)                                                    author/polls/questions#destroy
+#                    edit_author_poll_answer GET             /author/polls/:poll_id/answers/:id/edit(.:format)                                                 author/polls/answers#edit
+#                         author_poll_answer PATCH           /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#update
+#                                            PUT             /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#update
+#                                            DELETE          /author/polls/:poll_id/answers/:id(.:format)                                                      author/polls/answers#destroy
+#                               author_polls GET             /author/polls(.:format)                                                                           author/polls#index
+#                                            POST            /author/polls(.:format)                                                                           author/polls#create
+#                            new_author_poll GET             /author/polls/new(.:format)                                                                       author/polls#new
+#                           edit_author_poll GET             /author/polls/:id/edit(.:format)                                                                  author/polls#edit
+#                                author_poll GET             /author/polls/:id(.:format)                                                                       author/polls#show
+#                                            PATCH           /author/polls/:id(.:format)                                                                       author/polls#update
+#                                            PUT             /author/polls/:id(.:format)                                                                       author/polls#update
+#                                            DELETE          /author/polls/:id(.:format)                                                                       author/polls#destroy
 #                                newsletters GET             /newsletters(.:format)                                                                            newsletters#index
 #                                 newsletter GET             /newsletters/:id(.:format)                                                                        newsletters#show
 #                          examples_counters GET             /examples/counters(.:format)                                                                      examples/counters#show
@@ -193,6 +216,10 @@ Rails.application.routes.draw do
   resources :topics, param: :slug, only: [:index, :show]
 
   namespace :share do
+    resources :polls, only: [:index, :show] do
+      resources :votes, only: [:create], controller: "polls/votes"
+    end
+
     resources :snippets do
       resource :screenshot, only: [:new, :create, :show], controller: "snippet_screenshots"
       resource :tweet, only: [:new], controller: "snippet_tweets"
@@ -201,6 +228,14 @@ Rails.application.routes.draw do
 
   namespace :author do
     resources :snippets
+
+    resources :polls do
+      resources :questions, only: [:new, :create, :edit, :update, :destroy], controller: "polls/questions" do
+        resources :answers, only: [:new, :create], controller: "polls/answers"
+      end
+
+      resources :answers, only: [:edit, :update, :destroy], controller: "polls/answers"
+    end
   end
 
   resources :newsletters, only: [:index, :show]

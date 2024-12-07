@@ -1,0 +1,5 @@
+<%= turbo_stream.replace @answer do %>
+  <%= render "author/polls/answers/answer", poll: @poll, answer: @answer %>
+<% end %>
+
+<%= turbo_stream.prepend "flash", partial: "application/flash" %>

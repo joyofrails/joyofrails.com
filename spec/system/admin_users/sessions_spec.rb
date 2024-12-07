@@ -29,7 +29,7 @@ RSpec.describe "AdminUser sessions", type: :system do
 
     click_button "Sign in"
 
-    expect(current_path).to eq(new_admin_users_session_path)
+    expect(current_path).to eq(admin_users_sessions_path)
     expect(page).to have_text("Incorrect email or password.")
   end
 

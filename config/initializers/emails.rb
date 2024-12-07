@@ -4,4 +4,5 @@ Rails.application.configure do
   config.x.emails.broadcast_from_address = credentials.dig(:emails, :broadcast_from_address) || "hello@example.com"
   config.x.emails.broadcast_from_name = credentials.dig(:emails, :broadcast_from_name) || "Joy of Rails"
   config.x.emails.test_recipient = credentials.dig(:emails, :test_recipient) || "hello@example.com"
+  config.x.emails.primary_author = credentials.dig(:emails, :primary_author) || "hello@example.com"
 end

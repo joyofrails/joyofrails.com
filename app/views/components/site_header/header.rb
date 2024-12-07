@@ -15,7 +15,8 @@ module SiteHeader
           end
           turbo_frame_tag :header_navigation,
             src: users_header_navigation_path,
-            target: :_top do
+            target: :_top,
+            data: {"turbo-permanent": true} do
             render SiteHeader::Nav.new { "" }
           end
         end

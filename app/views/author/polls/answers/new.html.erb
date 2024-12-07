@@ -1,0 +1,13 @@
+<%= render Pages::Header.new(title: "New Poll Answer") %>
+<div class="section-content container py-gap mb-3xl">
+  <p><%= @question.body %></p>
+
+  <%= turbo_frame_tag nested_dom_id(@question, Polls::Answer.new) do %>
+    <%= render "form",
+          poll: @poll,
+          question: @question,
+          answer: @answer %>
+  <% end %>
+
+  <%= link_to sanitize("&larr; Back to poll"), author_poll_path(@poll) %>
+</div>

@@ -1,4 +1,6 @@
 class Guest
+  def id = "guest_#{SecureRandom.hex(6)}"
+
   def persisted? = false
 
   def registered? = false

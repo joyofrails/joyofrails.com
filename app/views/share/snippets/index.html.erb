@@ -1,5 +1,5 @@
 <%= render Pages::Header::Container.new do |h| %>
-  <%= h.title { "Snippet Share" } %>
+  <%= h.title { "Share: Snippets" } %>
   <% if Flipper.enabled?(:snippets, current_user) %>
     <%= h.actions do %>
       <%= link_to "New Snippet", new_author_snippet_path, class: "button primary" %>

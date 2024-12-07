@@ -18,6 +18,7 @@
 #  index_snippets_on_author  (author_type,author_id)
 #
 require_relative "../../lib/image_data_uri"
+
 class Snippet < ApplicationRecord
   validates :language, presence: true
 

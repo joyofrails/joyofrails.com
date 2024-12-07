@@ -1,0 +1,26 @@
+<%= turbo_frame_tag answer do %>
+  <div class="
+    answer
+    flex items-start flex-col
+    space-col-4 grid-cols-12
+    md:items-center md:flex-row md:space-row-4
+  ">
+    <div class="answer__name">
+      <%= answer.body %>
+    </div>
+    <div class="
+      answer__actions
+      flex items-start flex-col
+      space-col-4 grid-cols-12
+      md:items-center md:flex-row md:space-row-4
+    ">
+      <%= link_to "Edit",
+            edit_author_poll_answer_path(poll, answer),
+            class: "button transparent" %>
+      <%= button_to "Delete",
+            author_poll_answer_path(poll, answer),
+            method: :delete,
+            class: "button transparent" %>
+    </div>
+  </div>
+<% end %>
