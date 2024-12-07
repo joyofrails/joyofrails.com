@@ -6,7 +6,7 @@ class SiteController < Sitepress::SiteController
   # requested_resource is the Sitepress::Resource object that represents the current page.
   #
   def show
-    @page = Page.find_or_initialize_by(request_path: request.path)
+    Current.page = @page = Page.find_or_initialize_by(request_path: request.path)
 
     super
   end
