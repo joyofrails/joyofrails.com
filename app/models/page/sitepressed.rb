@@ -52,6 +52,10 @@ class Page
         enum.to_a
       end
 
+      def upsert_page_by_request_path!(request_path)
+        upsert_page_from_sitepress!(Sitepress.site.get(request_path))
+      end
+
       def upsert_page_from_sitepress!(sitepress_resource)
         page = find_or_initialize_by(request_path: sitepress_resource.request_path)
         page.published_at = sitepress_resource.data.published.to_time.middle_of_day if sitepress_resource.data.published
