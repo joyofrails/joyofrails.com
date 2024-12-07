@@ -22,6 +22,7 @@ RSpec.describe "Site: articles" do
 
   describe "GET /articles" do
     it "lists published articles" do
+      Page.upsert_collection_from_sitepress!
       get "/articles"
 
       expect(response).to have_http_status(:ok)
@@ -33,6 +34,7 @@ RSpec.describe "Site: articles" do
 
   describe "GET /drafts" do
     it "lists draft articles" do
+      Page.upsert_collection_from_sitepress!
       get "/drafts"
 
       expect(response).to have_http_status(:ok)
