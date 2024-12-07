@@ -12,7 +12,7 @@ module Pages
 
     def view_template
       if published_on || updated_on
-        span(**mix(attributes, class: "block")) do
+        span(**mix(attributes)) do
           if published_on && updated_on
             plain "Published:"
             whitespace
