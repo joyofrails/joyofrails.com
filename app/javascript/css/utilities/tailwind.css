@@ -412,6 +412,10 @@
   justify-content: space-between;
 }
 
+.content-start {
+  align-content: flex-start;
+}
+
 .gap-0 {
   gap: 0px;
 }
