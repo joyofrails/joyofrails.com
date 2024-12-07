@@ -25,7 +25,7 @@ module Pages
       end
 
       def title(&)
-        h1(&)
+        h1(class: "mb-4", &)
       end
 
       def description(&)
