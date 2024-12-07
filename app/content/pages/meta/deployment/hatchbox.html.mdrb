@@ -7,7 +7,6 @@ description: Joy of Rails deployments and server processes are managed by Hatchb
 uuid: 0192f76f-2f11-7db3-9d72-0fa782be2543
 image: content/hatchbox/hatchbox.jpg
 meta_image: content/hatchbox/hatchbox.jpg
-published: '2024-11-11'
 ---
 
 Joy of Rails deploys to a single VPS hosted by Digital Ocean managed by [Hatchbox.io](https://hatchbox.io/).
