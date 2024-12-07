@@ -17,6 +17,8 @@ It’s basically this: computers have gotten faster, and Rails has finally figur
 
 With the recent release of Rails 8, it’s easier than ever to choose SQLite as your primary database for production. The question is, _should you?_
 
+<%= render Share::Polls::LazyPagePoll.new(Current.page, "SQLite on Rails Poll", "How likely are you to use SQLite in your Rails app?" => ["100%", "Strongly considering", "On the fence", "Not very, but open minded", "No way"]) %>
+
 ## SQLite3::Database.open
 
 [Joy of Rails](/) has run on SQLite since launch, and I have been very happy with my choice—I plan to keep it that way. But SQLite isn’t for everyone.

@@ -35,8 +35,8 @@ class Poll < ApplicationRecord
     questions = {}
   )
     poll = page.polls.find_by(title: title) and return poll
-
-    poll = Page.primary_author.polls.create!(title: title)
+    author = Page.primary_author or return nil
+    poll = author.polls.create!(title: title)
     poll.pages << page
     poll.questions = questions.map do |question_body, answers|
       question = poll.questions.build(body: question_body)
