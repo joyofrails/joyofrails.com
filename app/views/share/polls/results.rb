@@ -1,58 +1,31 @@
 module Share
   module Polls
-    class Question < ApplicationComponent
-      include Phlex::Rails::Helpers::ButtonTo
-      include Phlex::Rails::Helpers::DOMID
+    class Results < ApplicationComponent
       include Phlex::Rails::Helpers::Pluralize
-      include Phlex::Rails::Helpers::TurboFrameTag
-      include Phlex::Rails::Helpers::TurboStreamFrom
+      include Phlex::Rails::Helpers::DOMID
 
       attr_reader :poll, :question
 
-      def initialize(poll:, question:, voted: false)
+      def initialize(poll, question)
         @poll = poll
         @question = question
-        @voted = voted
       end
 
       def view_template
-        turbo_frame_tag question, class: "question flex flex-col gap-2" do
-          if voted?
-            results
-          else
-            ballot
+        div id: dom_id(question, :results), class: "question flex flex-col gap-2" do
+          p { question.body }
+
+          question.answers.ordered.each do |answer|
+            render AnswerBar.new(answer, question)
           end
-        end
-        turbo_stream_from question
-      end
 
-      def ballot
-        p { question.body }
-
-        question.answers.ordered.each do |answer|
-          div id: dom_id(answer) do
-            button_to answer.body,
-              share_poll_votes_path(poll, answer_id: answer.id),
-              class: "button transparent slim"
+          div(class: "p-2") do
+            p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" }
           end
-        end
-      end
-
-      def results
-        p { question.body }
-
-        question.answers.ordered.each do |answer|
-          render AnswerBar.new(answer, question)
-        end
-
-        div(class: "p-2") do
-          p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" }
         end
       end
 
       private
-
-      def voted? = !!@voted
 
       class AnswerBar < ApplicationComponent
         include Phlex::Rails::Helpers::DOMID

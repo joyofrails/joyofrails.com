@@ -26,8 +26,6 @@ class Polls::Question < ApplicationRecord
 
   scope :ordered, -> { order(position: :asc, id: :asc) }
 
-  broadcasts_refreshes
-
   def votes_count
     answers.sum(&:votes_count)
   end
