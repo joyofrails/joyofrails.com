@@ -12,13 +12,11 @@ module Pages
         return
       end
 
-      p(class: "topics") do
-        topics.each do |topic|
-          a(href: topic_path(topic), class: "topic") do
-            "##{topic.try(:slug) || topic}"
-          end
-          whitespace
+      topics.each do |topic|
+        a(href: topic_path(topic), class: "topic") do
+          topic.try(:slug) || topic
         end
+        whitespace
       end
     end
   end

@@ -26,7 +26,7 @@ module Author
           div(class: "keep-style-when-linked") do
             render Pages::Timestamp.new \
               published_on: snippet.created_at.to_date,
-              class: "text-small"
+              class: "block text-small"
           end
 
           div do

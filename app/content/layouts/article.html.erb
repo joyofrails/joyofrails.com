@@ -15,19 +15,22 @@
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
   <article itemscope itemtype="http://schema.org/Article" class="mb-3xl">
-    <%= render Pages::Header.new(
-          title: page.title,
-          description: page.description,
-          published_on: page.published_on,
-          updated_on: page.revised_on
-        ) %>
+    <%= render Pages::Header::Container.new do |c| %>
+      <%= c.title { page.title } %>
+      <%= c.description { page.description } if page.description %>
+      <div class="flex flex-col lg:flex-row justify-between">
+        <%= render Pages::Timestamp.new published_on: page.published_on, updated_on: page.revised_on, class: "text-small" %>
+        <span class="text-small">
+          <% topics = @page.topics.approved.pluck(:slug) %>
+          <% if topics.present? %>
+            <%= render Pages::Topics.new(topics: topics) %>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
 
-      <% topics = @page.topics.approved.pluck(:slug) %>
-      <% if topics.present? %>
-        <%= render Pages::Topics.new(topics: topics) %>
-      <% end %>
       <% cache [@page, :related_pages] do %>
         <% related_pages = @page.related_pages.published.limit(3) %>
         <% if related_pages.present? %>

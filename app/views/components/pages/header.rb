@@ -13,7 +13,9 @@ module Pages
       render Container.new do |c|
         c.title { title }
         c.description { description } if description
-        render Pages::Timestamp.new published_on: published_on, updated_on: updated_on
+        div do
+          render Pages::Timestamp.new published_on: published_on, updated_on: updated_on
+        end
       end
     end
 
@@ -25,7 +27,7 @@ module Pages
       end
 
       def title(&)
-        h1(&)
+        h1(class: "mb-4", &)
       end
 
       def description(&)

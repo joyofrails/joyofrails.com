@@ -7,7 +7,7 @@
   & h5,
   & h6 {
     color: var(--joy-text-heading);
-    margin-block-start: var(--space-m);
+    margin-block-start: var(--space-xl);
   }
 
   & hr {
