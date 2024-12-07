@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe Share::Polls::Question, type: :view do
+RSpec.describe Share::Polls::QuestionComponent, type: :view do
   context "when not voted on" do
     it "renders with no answers" do
       poll = FactoryBot.create(:poll)
       question = FactoryBot.create(:polls_question, poll:)
 
-      render described_class.new(poll:, question:, voted: false)
+      render described_class.new(poll, question, voted: false)
 
       expect(rendered).to have_css("p")
     end
@@ -16,7 +16,7 @@ RSpec.describe Share::Polls::Question, type: :view do
       question = FactoryBot.create(:polls_question, poll:)
       FactoryBot.create(:polls_answer, question:)
 
-      render described_class.new(poll:, question:, voted: false)
+      render described_class.new(poll, question, voted: false)
 
       expect(rendered).to have_css("button", count: 1)
     end
@@ -27,7 +27,7 @@ RSpec.describe Share::Polls::Question, type: :view do
       FactoryBot.create(:polls_answer, question:)
       FactoryBot.create(:polls_answer, question:)
 
-      render described_class.new(poll:, question:, voted: false)
+      render described_class.new(poll, question, voted: false)
 
       expect(rendered).to have_css("button", count: 2)
     end
@@ -39,7 +39,7 @@ RSpec.describe Share::Polls::Question, type: :view do
       question = FactoryBot.create(:polls_question, poll:)
       FactoryBot.create(:polls_answer, question:)
 
-      render described_class.new(poll:, question:, voted: true)
+      render described_class.new(poll, question, voted: true)
 
       expect(rendered).to have_css(".question")
       expect(rendered).to have_css(".answer")
@@ -53,7 +53,7 @@ RSpec.describe Share::Polls::Question, type: :view do
       answer = FactoryBot.create(:polls_answer, question:)
       FactoryBot.create(:polls_vote, answer:)
 
-      render described_class.new(poll:, question:, voted: true)
+      render described_class.new(poll, question, voted: true)
 
       expect(rendered).to have_css(".question")
       expect(rendered).to have_css(".answer")

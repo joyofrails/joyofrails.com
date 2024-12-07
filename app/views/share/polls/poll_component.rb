@@ -22,9 +22,9 @@ class Share::Polls::PollComponent < ApplicationComponent
           .includes(:answers)
           .ordered
           .each do |question|
-            render Share::Polls::Question.new(
-              poll:,
-              question:,
+            render Share::Polls::QuestionComponent.new(
+              poll,
+              question,
               voted: question.voted?(device_uuid: device_uuid)
             )
           end

@@ -2,7 +2,7 @@ module Share
   module Polls
     class LazyPagePoll < ApplicationComponent
       include Phlex::Rails::Helpers::Provide
-      include Phlex::Rails::Helpers::Request
+      include Phlex::Rails::Helpers::TurboFrameTag
       include Phlex::Rails::Helpers::TurboRefreshesWith
 
       attr_reader :page, :title, :question_data
@@ -14,15 +14,7 @@ module Share
 
       def view_template
         poll = Poll.generate_for(page, title, question_data) or return
-
-        provide :head, turbo_refreshes_with(method: :morph, scroll: :preserve)
-        render Share::Polls::PollComponent.new(poll, device_uuid: device_uuid)
-      end
-
-      def device_uuid
-        return "" unless helpers.request.key_generator
-
-        helpers.cookies.signed[:device_uuid]
+        turbo_frame_tag poll, src: share_poll_path(poll), class: "poll"
       end
     end
   end
