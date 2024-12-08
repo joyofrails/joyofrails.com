@@ -20,7 +20,7 @@ module Share
           end
 
           div(class: "p-2") do
-            p(class: "text-small font-extrabold") { pluralize question.votes_count, "vote" }
+            p(class: "text-small text-theme") { pluralize question.votes_count, "vote" }
           end
         end
       end
