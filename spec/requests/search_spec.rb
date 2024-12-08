@@ -35,8 +35,8 @@ RSpec.describe "Searches", type: :request do
     end
 
     it "renders the search results without query" do
-      FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
-      Pages::RefreshSearchIndexJob.perform_now
+      article = FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
+      article.update_in_search_index
 
       get search_path
 
@@ -46,9 +46,10 @@ RSpec.describe "Searches", type: :request do
     end
 
     it "renders the search results with query as turbo stream" do
-      FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
-      FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
-      Pages::RefreshSearchIndexJob.perform_now
+      article1 = FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
+      article2 = FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
+      article1.update_in_search_index
+      article2.update_in_search_index
 
       get search_path(format: :turbo_stream), params: {query: "Progressive Web Apps"}
 
@@ -63,9 +64,10 @@ RSpec.describe "Searches", type: :request do
     end
 
     it "renders the search results with query" do
-      FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
-      FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
-      Pages::RefreshSearchIndexJob.perform_now
+      article1 = FactoryBot.create(:page, :published, request_path: "/pwa-showcase")
+      article2 = FactoryBot.create(:page, :published, request_path: "/articles/introducing-joy-of-rails")
+      article1.update_in_search_index
+      article2.update_in_search_index
 
       post search_path, params: {query: "Progressive Web Apps"}
 
