@@ -45,10 +45,10 @@ module Pages
         end
         p(class: "description") { description } if description
         if published_on
-          render Pages::Timestamp.new published_on: published_on, class: "block"
+          render Pages::Timestamp.new published_on: published_on, class: "text-small block"
         end
-        a(href: request_path, class: "block uppercase strong") do
-          small { "Read now" }
+        a(href: request_path, class: "block uppercase text-small") do
+          "Read now"
         end
       end
     end

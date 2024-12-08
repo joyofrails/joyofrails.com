@@ -35,7 +35,7 @@ module Searches
           } do |f|
           div(class: "flex items-center flex-row pl-2 col-gap-xs") do
             svg_tag "icons/search.svg", class: "w-[32px] fill-current text-theme"
-            label(for: "query", class: "sr-only") { "Query" }
+            label(for: combobox_dom_id, class: "sr-only") { "Query" }
             whitespace
             plain f.search_field :query,
               value: query,

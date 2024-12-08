@@ -18,14 +18,12 @@
     <%= render Pages::Header::Container.new do |c| %>
       <%= c.title { page.title } %>
       <%= c.description { page.description } if page.description %>
-      <div class="flex flex-col lg:flex-row justify-between">
-        <%= render Pages::Timestamp.new published_on: page.published_on, updated_on: page.revised_on, class: "text-small" %>
-        <span class="text-small">
-          <% topics = @page.topics.approved.pluck(:slug) %>
-          <% if topics.present? %>
-            <%= render Pages::Topics.new(topics: topics) %>
-          <% end %>
-        </span>
+      <%= render Pages::Timestamp.new published_on: page.published_on, updated_on: page.revised_on, class: "text-small block" %>
+      <div class="text-small">
+        <% topics = @page.topics.approved.pluck(:slug) %>
+        <% if topics.present? %>
+          <%= render Pages::Topics.new(topics: topics) %>
+        <% end %>
       </div>
     <% end %>
     <div class="article-content container" itemprop="articleBody">
