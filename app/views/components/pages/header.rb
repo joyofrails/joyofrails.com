@@ -26,12 +26,12 @@ module Pages
         end
       end
 
-      def title(&)
-        h1(class: "mb-4", &)
+      def title(**attributes, &)
+        h1(**mix(attributes, class: "mb-4"), &)
       end
 
-      def description(&)
-        p(class: "description", &)
+      def description(**attributes, &)
+        p(**mix(attributes, class: "description"), &)
       end
 
       def actions(&)

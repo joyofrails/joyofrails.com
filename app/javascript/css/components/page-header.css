@@ -1,9 +1,44 @@
 .page-header {
+  --gradient-from: rgb(86 55 251 / 85%);
+  --gradient-from: var(--joy-text-theme);
+  --gradient-to: rgb(255 0 0 / 85%);
+  --gradient-stops: var(--gradient-from), var(--gradient-to);
+
   background-color: var(--joy-background-header);
   padding-block-start: var(--grid-gutter);
   padding-block-end: var(--grid-gutter);
+
+  & .text-gradient {
+    color: var(--gradient-from);
+  }
+
+  & .hero {
+    max-width: 718px;
+
+    & h1 {
+      font-family: var(--sans-serif-thick);
+      font-weight: normal;
+      font-size: var(--step-5);
+    }
+
+    & p {
+      text-wrap: balance;
+      font-size: var(--step-1);
+      font-weight: 300;
+    }
+  }
 }
 
 .extend-page-header-bg {
   background-color: var(--joy-background-header);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .page-header {
+    & .text-gradient {
+      background-clip: text;
+      -webkit-text-fill-color: rgba(0, 0, 0, 0);
+      background-image: linear-gradient(to right, var(--gradient-stops));
+    }
+  }
 }
