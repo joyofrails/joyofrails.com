@@ -21,7 +21,7 @@ RSpec.describe "Confirmations", type: :system do
 
     visit email_link(mail, "Confirm your email address")
 
-    expect(page).to have_content("Thank you for confirming your email address")
+    expect(document).to have_content("Thank you for confirming your email address")
     expect(User.last).to be_confirmed
   end
 
@@ -43,7 +43,7 @@ RSpec.describe "Confirmations", type: :system do
 
     visit email_link(mail, "unsubscribe")
 
-    expect(page).to have_content("You have been unsubscribed from the Joy of Rails newsletter")
+    expect(document).to have_content("You have been unsubscribed from the Joy of Rails newsletter")
     expect(user.reload.newsletter_subscription).to be_nil
   end
 end

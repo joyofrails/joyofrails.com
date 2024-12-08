@@ -1,6 +1,6 @@
 module RequestSpecHelpers
-  def page
-    @page ||= Capybara.string(response.body)
+  def document
+    @document ||= Capybara.string(response.body)
   end
 end
 

@@ -6,8 +6,8 @@ RSpec.describe "Home", type: :system do
 
     visit "/"
 
-    expect(page).to have_content("Joy of Rails")
-    expect(page).to have_content("More articles")
+    expect(document).to have_content("Joy of Rails")
+    expect(document).to have_content("More articles")
   end
 
   it "doesn’t break if an article gets moved" do
@@ -17,7 +17,7 @@ RSpec.describe "Home", type: :system do
 
     visit "/"
 
-    expect(page).to have_content("Joy of Rails")
-    expect(page).to have_content("More articles")
+    expect(document).to have_content("Joy of Rails")
+    expect(document).to have_content("More articles")
   end
 end

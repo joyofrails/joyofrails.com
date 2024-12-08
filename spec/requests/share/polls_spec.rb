@@ -11,14 +11,14 @@ RSpec.describe "/polls", type: :request do
     it "does not render the New Poll button when not allowed" do
       get share_polls_url
 
-      expect(page).to_not have_content("New Poll")
+      expect(document).not_to have_content("New Poll")
     end
 
     it "renders the New Poll button when allowed" do
       Flipper.enable(:polls, login_as_user)
       get share_polls_url
 
-      expect(page).to have_content("New Poll")
+      expect(document).to have_content("New Poll")
     end
   end
 

@@ -23,7 +23,7 @@ RSpec.describe "Snippets", type: :system do
 
     click_button "Save"
 
-    expect(page).to have_content("Your snippet has been saved")
+    expect(document).to have_content("Your snippet has been saved")
 
     snippet = Snippet.last
     expect(snippet.source).to eq("class Blog\nend")
@@ -39,13 +39,13 @@ RSpec.describe "Snippets", type: :system do
 
     click_button "Save"
 
-    expect(page).to have_content("Your snippet has been saved")
+    expect(document).to have_content("Your snippet has been saved")
 
     click_link "Author snippets"
 
-    expect(page).to have_content("lib/models/blog.rb")
-    expect(page).to have_content("class Blog\n  has_many :posts\nend")
-    expect(page).to have_content("A Ruby class")
-    expect(page).to have_content("This is how you do it")
+    expect(document).to have_content("lib/models/blog.rb")
+    expect(document).to have_content("class Blog\n  has_many :posts\nend")
+    expect(document).to have_content("A Ruby class")
+    expect(document).to have_content("This is how you do it")
   end
 end

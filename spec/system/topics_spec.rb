@@ -13,20 +13,20 @@ RSpec.describe "Topics", type: :system do
 
     visit topics_path
 
-    expect(page).to have_content("Topics")
+    expect(document).to have_content("Topics")
 
     Topic.approved.find_each do |topic|
-      expect(page).to have_link(topic.name, href: topic_path(topic))
+      expect(document).to have_link(topic.name, href: topic_path(topic))
     end
 
     topic = Topic.first
 
     click_link topic.name
 
-    expect(page).to have_content(topic.name)
+    expect(document).to have_content(topic.name)
 
     topic.pages.each do |model|
-      expect(page).to have_link(model.title, href: model.request_path)
+      expect(document).to have_link(model.title, href: model.request_path)
     end
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe "Passwords", type: :system do
     fill_in "Email address", with: user.email
     click_button "Send me password reset instructions"
 
-    expect(page).to have_content("If that user exists we’ve sent instructions to their email")
+    expect(document).to have_content("If that user exists we’ve sent instructions to their email")
 
     perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
@@ -29,7 +29,7 @@ RSpec.describe "Passwords", type: :system do
     fill_in "Password confirmation", with: "new_password"
     click_button "Update password"
 
-    expect(page).to have_content("Password updated! Please sign in")
+    expect(document).to have_content("Password updated! Please sign in")
     expect(page.current_path).to eq new_users_session_path
 
     expect(User.last.authenticate("new_password")).to eq user
@@ -50,13 +50,13 @@ RSpec.describe "Passwords", type: :system do
     fill_in "Password confirmation", with: "not_matching_password"
     click_button "Update password"
 
-    expect(page).to have_content("Password confirmation doesn't match Password")
+    expect(document).to have_content("Password confirmation doesn't match Password")
 
     fill_in "Password", with: "new_password"
     fill_in "Password confirmation", with: "new_password"
     click_button "Update password"
 
-    expect(page).to have_content("Password updated! Please sign in")
+    expect(document).to have_content("Password updated! Please sign in")
     expect(page.current_path).to eq new_users_session_path
 
     expect(User.last.authenticate("new_password")).to eq user

@@ -12,13 +12,13 @@ RSpec.describe "Searches", type: :system do
     fill_in :query, with: "Progressive Web Apps"
 
     within "dialog" do
-      expect(page).to have_content("Progressive Web Apps on Rails Showcase")
+      expect(document).to have_content("Progressive Web Apps on Rails Showcase")
     end
 
     click_link "Progressive Web Apps on Rails Showcase"
 
     within "main header" do
-      expect(page).to have_content("Progressive Web Apps on Rails Showcase")
+      expect(document).to have_content("Progressive Web Apps on Rails Showcase")
     end
   end
 end
