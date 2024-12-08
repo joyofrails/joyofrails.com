@@ -28,12 +28,14 @@ RSpec.describe Pages::BatchUpsertPagesJob, type: :job do
   end
 
   it "enqueues refresh search index job and analyze topics job" do
-    allow(Pages::RefreshSearchIndexJob).to receive(:perform_later)
-    allow(Pages::BatchAnalyzeTopicsJob).to receive(:perform_later)
+    allow(Pages::RefreshSearchIndexJob::Batch).to receive(:perform_later)
+    allow(Pages::AnalyzeTopicsJob::Batch).to receive(:perform_later)
+    allow(Pages::EmbeddingJob::Batch).to receive(:perform_later)
 
     described_class.perform_now
 
-    expect(Pages::RefreshSearchIndexJob).to have_received(:perform_later)
-    expect(Pages::BatchAnalyzeTopicsJob).to have_received(:perform_later)
+    expect(Pages::EmbeddingJob::Batch).to have_received(:perform_later)
+    expect(Pages::RefreshSearchIndexJob::Batch).to have_received(:perform_later)
+    expect(Pages::AnalyzeTopicsJob::Batch).to have_received(:perform_later)
   end
 end

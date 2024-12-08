@@ -18,13 +18,13 @@ RSpec.describe "Admin for Newsletters", type: :system do
 
     click_button "Create Newsletter"
 
-    expect(page).to have_content("Newsletter was successfully created.")
+    expect(document).to have_content("Newsletter was successfully created.")
 
-    expect(page).to have_content("Welcome to Joy of Rails!")
+    expect(document).to have_content("Welcome to Joy of Rails!")
 
     click_link "Back to newsletters"
 
-    expect(page).to have_content("Welcome to Joy of Rails!")
+    expect(document).to have_content("Welcome to Joy of Rails!")
 
     within "#newsletters" do
       click_link "Edit"
@@ -38,9 +38,9 @@ RSpec.describe "Admin for Newsletters", type: :system do
 
     click_button "Update Newsletter"
 
-    expect(page).to have_content("Newsletter was successfully updated.")
+    expect(document).to have_content("Newsletter was successfully updated.")
 
-    expect(page).to have_content("OMG! This is the first newsletter.")
+    expect(document).to have_content("OMG! This is the first newsletter.")
   end
 
   it "send a newsletter test", :vcr do
@@ -58,7 +58,7 @@ RSpec.describe "Admin for Newsletters", type: :system do
 
     click_button "Send Test"
 
-    expect(page).to have_content("[TEST] Newsletter was successfully delivered.")
+    expect(document).to have_content("[TEST] Newsletter was successfully delivered.")
 
     perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
@@ -88,7 +88,7 @@ RSpec.describe "Admin for Newsletters", type: :system do
 
     click_button "Send Live"
 
-    expect(page).to have_content("[LIVE] Newsletter was successfully delivered.")
+    expect(document).to have_content("[LIVE] Newsletter was successfully delivered.")
 
     perform_enqueued_jobs_and_subsequently_enqueued_jobs
 

@@ -16,13 +16,13 @@ RSpec.describe "Feed", type: :request do
       get "/feed"
 
       expect(response.status).to eq(200)
-      page = Capybara.string(response.body)
+      Capybara.string(response.body)
 
-      expect(page).to have_content("Introducing Joy of Rails")
-      expect(page).to have_content("/introducing-joy-of-rails")
-      expect(page).to have_content("How it started, How it’s going</h2>")
-      expect(page).to have_content(%(<div class="code-wrapper highlight language-ruby"><pre><code><span class="k">class</span>))
-      expect(page).not_to have_content(%(<turbo-frame))
+      expect(document).to have_content("Introducing Joy of Rails")
+      expect(document).to have_content("/introducing-joy-of-rails")
+      expect(document).to have_content("How it started, How it’s going</h2>")
+      expect(document).to have_content(%(<div class="code-wrapper highlight language-ruby"><pre><code><span class="k">class</span>))
+      expect(document).not_to have_content(%(<turbo-frame))
     end
 
     it "render valid feed" do

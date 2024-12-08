@@ -23,14 +23,14 @@ RSpec.describe "/snippets", type: :request do
     it "does not render the New Snippet button when not allowed" do
       get share_snippets_url
 
-      expect(page).to_not have_content("New Snippet")
+      expect(document).not_to have_content("New Snippet")
     end
 
     it "renders the New Snippet button when allowed" do
       Flipper.enable(:snippets, login_as_user)
       get share_snippets_url
 
-      expect(page).to have_content("New Snippet")
+      expect(document).to have_content("New Snippet")
     end
   end
 
@@ -58,7 +58,7 @@ RSpec.describe "/snippets", type: :request do
       snippet = FactoryBot.create(:snippet)
       get share_snippet_url(snippet)
 
-      expect(page).to_not have_content("Edit this snippet")
+      expect(document).not_to have_content("Edit this snippet")
     end
 
     it "renders the Edit Snippet button when allowed" do
@@ -67,7 +67,7 @@ RSpec.describe "/snippets", type: :request do
       snippet = FactoryBot.create(:snippet, author: user)
       get share_snippet_url(snippet)
 
-      expect(page).to have_content("Edit this snippet")
+      expect(document).to have_content("Edit this snippet")
     end
   end
 end

@@ -14,16 +14,16 @@ RSpec.describe "Polls", type: :system do
 
     visit author_poll_path(poll)
 
-    expect(page).to have_content("Color poll")
-    expect(page).to have_content("What is your favorite color?")
-    expect(page).to have_content("Red")
-    expect(page).to have_content("Blue")
-    expect(page).to have_content("Green")
+    expect(document).to have_content("Color poll")
+    expect(document).to have_content("What is your favorite color?")
+    expect(document).to have_content("Red")
+    expect(document).to have_content("Blue")
+    expect(document).to have_content("Green")
 
     click_link "+ New question"
     fill_in "Body", with: "What is your favorite animal?"
     click_button "Save question"
-    expect(page).to have_content("What is your favorite animal?")
+    expect(document).to have_content("What is your favorite animal?")
 
     last_question = Polls::Question.last
     expect(last_question.body).to eq("What is your favorite animal?")
@@ -34,7 +34,7 @@ RSpec.describe "Polls", type: :system do
       fill_in "Body", with: "Dog"
       click_button "Save answer"
 
-      expect(page).to have_content("Dog")
+      expect(document).to have_content("Dog")
     end
 
     last_answer = Polls::Answer.last

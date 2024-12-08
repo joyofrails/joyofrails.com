@@ -4,6 +4,6 @@ RSpec.describe "<%= title %>", type: :system do
   it "displays the article content" do
     visit "/articles/<%= article_file_name %>"
 
-    expect(page).to have_content <%= title %>
+    expect(document).to have_content <%= title %>
   end
 end

@@ -10,19 +10,19 @@ RSpec.describe "Polls", type: :system do
 
     visit share_poll_path(poll)
 
-    expect(page).to have_content("Color poll")
-    expect(page).to have_content("What is your favorite color?")
-    expect(page).to have_content("Red")
-    expect(page).to have_content("Blue")
-    expect(page).to have_content("Green")
+    expect(document).to have_content("Color poll")
+    expect(document).to have_content("What is your favorite color?")
+    expect(document).to have_content("Red")
+    expect(document).to have_content("Blue")
+    expect(document).to have_content("Green")
 
     click_button "Red"
 
-    expect(page).to have_content("Thank you for voting!")
+    expect(document).to have_content("Thank you for voting!")
     within("#polls_answer_#{answer1.id}") do
-      expect(page).to have_content("100.0%")
+      expect(document).to have_content("100.0%")
     end
-    expect(page).to have_content("1 vote")
+    expect(document).to have_content("1 vote")
 
     vote = poll.votes.last
     expect(vote.answer.body).to eq("Red")
@@ -32,25 +32,25 @@ RSpec.describe "Polls", type: :system do
 
       click_button "Blue"
 
-      expect(page).to have_content("Thank you for voting!")
+      expect(document).to have_content("Thank you for voting!")
       within("#polls_answer_#{answer1.id}") do
-        expect(page).to have_content("50.0")
+        expect(document).to have_content("50.0")
       end
       within("#polls_answer_#{answer2.id}") do
-        expect(page).to have_content("50.0%")
+        expect(document).to have_content("50.0%")
       end
-      expect(page).to have_content("2 votes")
+      expect(document).to have_content("2 votes")
     end
 
     # Assert the vote results are broadcasted to the other guest session
     perform_enqueued_jobs
 
     within("#polls_answer_#{answer1.id}") do
-      expect(page).to have_content("50.0")
+      expect(document).to have_content("50.0")
     end
     within("#polls_answer_#{answer2.id}") do
-      expect(page).to have_content("50.0%")
+      expect(document).to have_content("50.0%")
     end
-    expect(page).to have_content("2 votes")
+    expect(document).to have_content("2 votes")
   end
 end

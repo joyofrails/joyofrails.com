@@ -12,10 +12,10 @@ RSpec.describe "Examples: Posts", type: :system do
     click_link "New Post"
 
     within "main form" do
-      expect(page).to have_content("Title")
-      expect(page).to have_content("Text (Markdown)")
+      expect(document).to have_content("Title")
+      expect(document).to have_content("Text (Markdown)")
 
-      expect(page).not_to have_content("Link URL")
+      expect(document).not_to have_content("Link URL")
 
       fill_in "Title", with: "My Post 🎸"
       fill_in "Text (Markdown)", with: "# This is a post about guitars 🎸"
@@ -24,10 +24,10 @@ RSpec.describe "Examples: Posts", type: :system do
     choose "Link"
 
     within "main form" do
-      expect(page).to have_content("Title")
-      expect(page).to have_content("Link URL")
+      expect(document).to have_content("Title")
+      expect(document).to have_content("Link URL")
 
-      expect(page).not_to have_content("Markdown")
+      expect(document).not_to have_content("Markdown")
 
       fill_in "Link URL", with: "https://example.com/link"
     end
@@ -35,10 +35,10 @@ RSpec.describe "Examples: Posts", type: :system do
     choose "Image"
 
     within "main form" do
-      expect(page).to have_content("Title")
-      expect(page).to have_content("Image URL")
+      expect(document).to have_content("Title")
+      expect(document).to have_content("Image URL")
 
-      expect(page).not_to have_content("Link URL")
+      expect(document).not_to have_content("Link URL")
 
       fill_in "Image URL", with: "https://example.com/image.jpg"
     end
@@ -46,27 +46,27 @@ RSpec.describe "Examples: Posts", type: :system do
     choose "Text"
 
     within "main form" do
-      expect(page).to have_content("Title")
-      expect(page).to have_content("Markdown")
+      expect(document).to have_content("Title")
+      expect(document).to have_content("Markdown")
 
-      expect(page).not_to have_content("Image URL")
+      expect(document).not_to have_content("Image URL")
 
-      expect(page).to have_field("Title", with: "My Post 🎸")
-      expect(page).to have_field("Text (Markdown)", with: "# This is a post about guitars 🎸")
+      expect(document).to have_field("Title", with: "My Post 🎸")
+      expect(document).to have_field("Text (Markdown)", with: "# This is a post about guitars 🎸")
     end
 
     choose "Link"
 
     within "main form" do
-      expect(page).to have_field("Title", with: "My Post 🎸")
-      expect(page).to have_field("Link URL", with: "https://example.com/link")
+      expect(document).to have_field("Title", with: "My Post 🎸")
+      expect(document).to have_field("Link URL", with: "https://example.com/link")
     end
 
     choose "Image"
 
     within "main form" do
-      expect(page).to have_field("Title", with: "My Post 🎸")
-      expect(page).to have_field("Image URL", with: "https://example.com/image.jpg")
+      expect(document).to have_field("Title", with: "My Post 🎸")
+      expect(document).to have_field("Image URL", with: "https://example.com/image.jpg")
     end
   end
 
@@ -82,8 +82,8 @@ RSpec.describe "Examples: Posts", type: :system do
       click_button "Save"
     end
 
-    expect(page).to have_content("My Post 🎸")
-    expect(page).to have_content("This is a post about guitars 🎸")
+    expect(document).to have_content("My Post 🎸")
+    expect(document).to have_content("This is a post about guitars 🎸")
   end
 
   it "creates a new link post" do
@@ -100,8 +100,8 @@ RSpec.describe "Examples: Posts", type: :system do
       click_button "Save"
     end
 
-    expect(page).to have_content("My Link 🎸")
-    expect(page).to have_css("a[href='https://example.com/link']", text: "https://example.com/link")
+    expect(document).to have_content("My Link 🎸")
+    expect(document).to have_css("a[href='https://example.com/link']", text: "https://example.com/link")
   end
 
   it "creates a new image post" do
@@ -118,7 +118,7 @@ RSpec.describe "Examples: Posts", type: :system do
       click_button "Save"
     end
 
-    expect(page).to have_content("My Image 🎸")
-    expect(page).to have_css("img[src='https://example.com/image.jpg']")
+    expect(document).to have_content("My Image 🎸")
+    expect(document).to have_css("img[src='https://example.com/image.jpg']")
   end
 end

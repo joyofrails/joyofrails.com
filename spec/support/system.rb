@@ -11,10 +11,18 @@ require "capybara/cuprite"
 Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 
+module CapybaraHelper
+  extend ActiveSupport::Concern
+
+  # Use the current session as an alternative to `page`
+  def document = Capybara.current_session
+end
+
 RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :system
   config.include Rails.application.routes.url_helpers, type: :system
   config.include ActiveJob::TestHelper
+  config.include CapybaraHelper, type: :system
 
   config.before(:each, type: :system) do
     driven_by(:cuprite,

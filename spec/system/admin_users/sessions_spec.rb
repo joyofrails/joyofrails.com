@@ -5,18 +5,18 @@ RSpec.describe "AdminUser sessions", type: :system do
     admin_user = FactoryBot.create(:admin_user)
 
     visit new_admin_users_session_path
-    expect(page).to have_text("Sign in to your admin account")
+    expect(document).to have_text("Sign in to your admin account")
 
     fill_in "Email", with: admin_user.email
     fill_in "Password", with: "password"
 
     click_button "Sign in"
 
-    expect(page).not_to have_text("Sign in to your admin account")
+    expect(document).not_to have_text("Sign in to your admin account")
 
-    expect(page).to have_text("Signed in successfully.")
+    expect(document).to have_text("Signed in successfully.")
 
-    expect(page).to have_text(admin_user.email)
+    expect(document).to have_text(admin_user.email)
   end
 
   it "fails sign in" do
@@ -30,7 +30,7 @@ RSpec.describe "AdminUser sessions", type: :system do
     click_button "Sign in"
 
     expect(current_path).to eq(admin_users_sessions_path)
-    expect(page).to have_text("Incorrect email or password.")
+    expect(document).to have_text("Incorrect email or password.")
   end
 
   it "signs out admin_user" do
@@ -40,11 +40,11 @@ RSpec.describe "AdminUser sessions", type: :system do
 
     visit root_path
 
-    expect(page).to have_text(admin_user.email)
+    expect(document).to have_text(admin_user.email)
 
     click_button "Sign out"
 
-    expect(page).to have_text("Signed out successfully.")
-    expect(page).not_to have_text(admin_user.email)
+    expect(document).to have_text("Signed out successfully.")
+    expect(document).not_to have_text(admin_user.email)
   end
 end

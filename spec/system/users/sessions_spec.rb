@@ -17,11 +17,11 @@ RSpec.describe "Sessions", type: :system do
 
     click_button "Sign in"
 
-    expect(page).to have_content("Signed in successfully")
+    expect(document).to have_content("Signed in successfully")
 
     within "#header_navigation" do
-      expect(page).not_to have_content("Subscribe")
-      expect(page).to have_content(user.name)
+      expect(document).not_to have_content("Subscribe")
+      expect(document).to have_content(user.name)
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "Sessions", type: :system do
     click_button "Sign in"
 
     expect(current_path).to eq(users_sessions_path)
-    expect(page).to have_text("Incorrect email or password")
+    expect(document).to have_text("Incorrect email or password")
   end
 
   it "signs out user" do
@@ -47,18 +47,18 @@ RSpec.describe "Sessions", type: :system do
     visit root_path
 
     within "#header_navigation" do
-      expect(page).to have_text(user.name)
+      expect(document).to have_text(user.name)
 
       click_link user.name
     end
 
     click_button "Sign out"
 
-    expect(page).to have_text("Signed out successfully")
-    expect(page).not_to have_text(user.name)
+    expect(document).to have_text("Signed out successfully")
+    expect(document).not_to have_text(user.name)
 
     within "#header_navigation" do
-      expect(page).to have_text("Subscribe")
+      expect(document).to have_text("Subscribe")
     end
   end
 
@@ -83,6 +83,6 @@ RSpec.describe "Sessions", type: :system do
 
     click_button "Sign in now"
 
-    expect(page).to have_content("Signed in successfully")
+    expect(document).to have_content("Signed in successfully")
   end
 end

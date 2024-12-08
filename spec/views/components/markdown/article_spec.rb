@@ -22,11 +22,11 @@ RSpec.describe Markdown::Article, type: :view do
 
     render_component(md)
 
-    page = Capybara.string(rendered)
-    code = page.find("pre code")
+    doc = Capybara.string(rendered)
+    code = doc.find("pre code")
 
     expect(code).to have_content("1 + 1")
-    expect(page).to have_content("Copied")
+    expect(rendered).to have_content("Copied")
   end
 
   it "renders arbitrary html" do
@@ -51,10 +51,10 @@ RSpec.describe Markdown::Article, type: :view do
 
     render_component(md)
 
-    page = Capybara.string(rendered)
-    code = page.find("pre code")
+    doc = Capybara.string(rendered)
+    code = doc.find("pre code")
 
     expect(code).to have_content("1 + 1")
-    expect(page).not_to have_content("Copied!")
+    expect(rendered).not_to have_content("Copied!")
   end
 end

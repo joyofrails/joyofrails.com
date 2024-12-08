@@ -14,7 +14,7 @@ RSpec.describe "Custom Color Schemes with Ruby on Rails", type: :system do
   it "user can selected a curated color scheme" do
     visit "/articles/custom-color-schemes-with-ruby-on-rails"
 
-    expect(page).to have_content "Custom Color Schemes with Ruby on Rails"
+    expect(document).to have_content "Custom Color Schemes with Ruby on Rails"
 
     within "#color-scheme-form" do
       chosen_color = curated_colors.sample
@@ -22,9 +22,9 @@ RSpec.describe "Custom Color Schemes with Ruby on Rails", type: :system do
 
       click_button "Save #{chosen_color.display_name}"
 
-      expect(page).to have_content("You have saved #{chosen_color.display_name} as your personal color scheme.")
+      expect(document).to have_content("You have saved #{chosen_color.display_name} as your personal color scheme.")
 
-      expect(page).to have_css(".color-scheme__#{chosen_color.name.parameterize}")
+      expect(document).to have_css(".color-scheme__#{chosen_color.name.parameterize}")
     end
   end
 end

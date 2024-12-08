@@ -13,10 +13,6 @@ RSpec.describe "Markdown with Erb", type: :view do
 
   let(:template) { instance_double(ActionView::Template, type: "") }
 
-  def render_custom(content, &block)
-    subject.new(content).call(&block)
-  end
-
   def render_component(*, **, &)
     render subject.new(*, **, &)
   end

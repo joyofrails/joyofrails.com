@@ -7,14 +7,14 @@ RSpec.describe "Zee Kitchen Sink Permanent Draft", type: :system do
 
     visit "/articles/zee-kitchen-sink-permanent-draft"
 
-    expect(page).to have_content "Zee Kitchen Sink Permanent Draft"
+    expect(document).to have_content "Zee Kitchen Sink Permanent Draft"
 
-    expect(page).to have_content "How likely are you to use SQLite in your Rails app?"
+    expect(document).to have_content "How likely are you to use SQLite in your Rails app?"
 
     within ".poll" do
       click_button "Strongly considering"
     end
 
-    expect(page).to have_content "Thank you for voting!"
+    expect(document).to have_content "Thank you for voting!"
   end
 end

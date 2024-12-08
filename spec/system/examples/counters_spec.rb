@@ -41,6 +41,6 @@ RSpec.describe "Examples Counter", type: :system do
   end
 
   def assert_count(count)
-    expect(page).to have_content("Count\n#{count}")
+    expect(document).to have_content("Count\n#{count}")
   end
 end

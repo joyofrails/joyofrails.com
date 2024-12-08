@@ -14,8 +14,8 @@ RSpec.describe "Topics", type: :request do
 
       expect(response).to have_http_status(:success)
 
-      expect(page).to have_content(topic_1.name)
-      expect(page).to have_content(topic_2.name)
+      expect(document).to have_content(topic_1.name)
+      expect(document).to have_content(topic_2.name)
     end
   end
 

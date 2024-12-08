@@ -15,7 +15,7 @@ RSpec.describe "Registrations", type: :system do
     fill_in "Password confirmation", with: "password"
     click_button "Sign up"
 
-    expect(page).to have_content("Welcome to Joy of Rails! Please check your email for confirmation instructions")
+    expect(document).to have_content("Welcome to Joy of Rails! Please check your email for confirmation instructions")
 
     perform_enqueued_jobs_and_subsequently_enqueued_jobs
 
@@ -37,7 +37,7 @@ RSpec.describe "Registrations", type: :system do
     fill_in "Password confirmation", with: "password"
     click_button "Sign up"
 
-    expect(page).to have_content("Email has already been taken")
+    expect(document).to have_content("Email has already been taken")
 
     expect(User.count).to eq(user_count)
   end
@@ -57,7 +57,7 @@ RSpec.describe "Registrations", type: :system do
 
     click_button "Update account"
 
-    expect(page).to have_content("Check your email for confirmation instructions")
+    expect(document).to have_content("Check your email for confirmation instructions")
     user = User.last
     expect(user.email).to eq("hello@example.com") # not yet updated
     expect(user.email_exchanges.last.email).to eq("newemail@example.com")
