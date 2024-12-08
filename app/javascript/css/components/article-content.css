@@ -8,6 +8,10 @@
   & h6 {
     color: var(--joy-text-heading);
     margin-block-start: var(--space-xl);
+
+    &:first-child {
+      margin-block-start: 0;
+    }
   }
 
   & hr {

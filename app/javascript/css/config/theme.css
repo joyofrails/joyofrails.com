@@ -123,7 +123,7 @@
   --joy-text-subtle: var(--color-stone-700);
   --joy-text-heading: var(--joy-color-200);
   --joy-text-emphasis: var(--joy-color-500);
-  --joy-text-theme: var(--joy-text);
+  --joy-text-theme: var(--joy-color-500);
 
   --joy-link-primary: var(--joy-link-4);
   --joy-link-visited: var(--joy-link-3);

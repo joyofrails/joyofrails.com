@@ -1139,3 +1139,8 @@ focus\:ring-0:focus {
 .list-decimal {
   list-style-type: decimal;
 }
+
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
