@@ -91,6 +91,8 @@ class Markdown::Base < Phlex::HTML
       html_inline(node.to_html(options: @options))
     in :strikethrough
       s { visit_children(node) }
+    in :escaped
+      visit_children(node)
     end
   end
 
