@@ -13,8 +13,20 @@ module Share
       end
 
       def view_template
-        poll = Poll.generate_for(page, title, question_data) or return
-        turbo_frame_tag poll, src: share_poll_path(poll), class: "poll joy-border-subtle rounded"
+        if render?
+          turbo_frame_tag poll, src: share_poll_path(poll), class: "poll joy-border-subtle rounded"
+        end
+      end
+
+      private
+
+      def render?
+        !!page && !!poll
+      end
+
+      def poll
+        return @poll if defined?(@poll)
+        @poll = Poll.generate_for(page, title, question_data)
       end
     end
   end
