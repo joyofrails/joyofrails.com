@@ -22,7 +22,7 @@ RSpec.describe Page, type: :model do
     it "represents a sitepress resource" do
       page = FactoryBot.create(:page, request_path: "/")
 
-      expect(page.resource).to eq Sitepress.site.get("/")
+      expect(page.resource).to eq Page::Sitepressed::Resource.from(Sitepress.site.get("/"))
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe Page, type: :model do
 
       %w[title description image meta_image toc author].each do |method|
         expect(page.send(method)).not_to be_nil, "Expected #{method} to be present"
-        expect(page.send(method)).to eq(page.resource.data.send(method)), "Expected #{method} to match"
+        expect(page.send(method)).to eq(page.sitepress_resource.data.send(method)), "Expected #{method} to match"
       end
     end
   end
