@@ -13,4 +13,4 @@ tags:
 
 ## Inline Poll Demo
 
-<%= render Share::Polls::LazyPagePoll.new(current_page, "SQLite on Rails Poll", "How likely are you to use SQLite in your Rails app?" => ["100%", "Strongly considering", "On the fence", "Not very, but open minded", "No way"]) if current_page %>
+<%= render Share::Polls::LazyPagePoll.new(@current_page, "SQLite on Rails Poll", "How likely are you to use SQLite in your Rails app?" => ["100%", "Strongly considering", "On the fence", "Not very, but open minded", "No way"]) %>
