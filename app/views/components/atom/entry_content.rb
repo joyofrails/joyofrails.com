@@ -54,6 +54,7 @@ class Atom::EntryContent
       layout: false,
       content_type: "application/atom+xml",
       assigns: {
+        current_page: article,
         format: :atom
       }
     )

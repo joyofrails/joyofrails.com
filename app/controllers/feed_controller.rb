@@ -1,4 +1,6 @@
 class FeedController < ApplicationController
+  include CurrentPage
+
   def index
     @articles = Page.published.order(published_at: :desc).limit(50)
 
