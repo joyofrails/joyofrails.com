@@ -53,7 +53,9 @@ class Page < ApplicationRecord
 
   def body = resource.body
 
-  def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
+  def body_text = Nokogiri::HTML(body_html(format: :atom)).text.squish
+
+  def body_html(format: :html, **) = self.class.render_html(self, format:, **)
 
   def description = resource.data.description
 
@@ -65,9 +67,7 @@ class Page < ApplicationRecord
 
   def enable_twitter_widgets = resource.data.enable_twitter_widgets
 
-  def atom_feed_id
-    resource.data.uuid.presence || id
-  end
+  def atom_feed_id = resource.data.uuid.presence || id
 
   def author = resource.data.author
 end

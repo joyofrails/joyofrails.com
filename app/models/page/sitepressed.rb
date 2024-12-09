@@ -25,6 +25,8 @@ class Page
 
     def resource_missing? = sitepress_resource.is_a?(NullResource)
 
+    def handler = sitepress_resource.handler
+
     class_methods do
       # We currently have a dual system of content management between Sitepress and
       # Page models for handling static pages While not ideal, it currently allows
@@ -62,6 +64,19 @@ class Page
         page.updated_at = sitepress_resource.data.updated.to_time.middle_of_day if sitepress_resource.data.updated
         page.save!
         page
+      end
+
+      def render_html(page, format: :html, assigns: {})
+        type = (format == :atom && page.handler.to_sym == :mdrb) ? :"mdrb-atom" : page.handler
+        content_type = (format == :atom) ? "application/atom+xml" : "text/html"
+
+        ApplicationController.render(
+          inline: page.body,
+          type:,
+          content_type:,
+          layout: false,
+          assigns: {format:, current_page: page}.merge(assigns)
+        )
       end
     end
   end

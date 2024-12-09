@@ -29,9 +29,48 @@ RSpec.describe Page, type: :model do
   describe "#body" do
     it "delegates to resource" do
       page = FactoryBot.build(:page, request_path: "/articles/introducing-joy-of-rails")
+      body = page.body
 
-      expect(page.body).to be_present
-      expect(page.body).to eq page.resource.body
+      expect(body).to be_present
+      expect(body).to eq page.resource.body
+
+      expect(body).to match(/##/)
+    end
+  end
+
+  describe "#body_text" do
+    it "renders processed text from body" do
+      page = FactoryBot.build(:page, request_path: "/articles/introducing-joy-of-rails")
+
+      text = page.body_text
+      expect(text).to be_present
+      expect(text).to_not match(/<[^>]+>/)
+    end
+
+    it "works for article that references `current_page` helper" do
+      page = FactoryBot.build(:page, request_path: "/articles/what-you-need-to-know-about-sqlite")
+
+      text = page.body_text
+      expect(text).to be_present
+      expect(text).to_not match(/<[^>]+>/)
+    end
+  end
+
+  describe "#body_html" do
+    it "renders processed text from body" do
+      page = FactoryBot.build(:page, request_path: "/articles/introducing-joy-of-rails")
+
+      html = page.body_html
+      expect(html).to be_present
+      expect(html).to match(/<[^>]+>/)
+    end
+
+    it "works for article that references `current_page` helper" do
+      page = FactoryBot.build(:page, request_path: "/articles/what-you-need-to-know-about-sqlite")
+
+      html = page.body_html
+      expect(html).to be_present
+      expect(html).to match(/<[^>]+>/)
     end
   end
 
