@@ -31,7 +31,7 @@ RSpec.describe Pages::AnalyzeTopicsJob, type: :job do
 
   describe Pages::AnalyzeTopicsJob::Batch do
     it "doesn’t blow up" do
-      allow(SitepressPage).to receive(:render_html).and_return(Faker::HTML.random)
+      allow(Page).to receive(:render_html).and_return(Faker::HTML.random)
 
       topics = FactoryBot.create_list(:topic, 2)
 

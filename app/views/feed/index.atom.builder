@@ -4,8 +4,6 @@ atom_feed do |feed|
 
   @articles.take(50).each do |article|
     next if article.resource_missing?
-    Current.page = article
-
     feed.entry(
       article,
       id: "tag:#{request.host},2005:article/#{article.atom_feed_id}",

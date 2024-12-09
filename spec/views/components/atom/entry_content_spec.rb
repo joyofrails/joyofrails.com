@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Atom::EntryContent do
-  let(:article) { SitepressArticle.published.find { |a| a.title == "Introducing Joy of Rails" } } # introducing_joy_of_rails.mdrb
+  let(:article) { FactoryBot.create(:page, request_path: "/articles/introducing-joy-of-rails") }
 
   describe "#render" do
     it "renders the article body as html without enhanced markdown" do
@@ -13,7 +13,7 @@ RSpec.describe Atom::EntryContent do
     it "rewrites turbo frame content" do
       html = described_class.new(article).render
       expect(html).not_to include("<turbo-frame")
-      expect(html).to include("<a href=\"/articles/introducing-joy-of-rails\">Click here to see content</a>")
+      expect(html).to include("<a href=\"/articles/introducing-joy-of-rails#new_examples_counter\">Go to the article to see dynamic content</a>")
     end
 
     it "replaces relative urls with absolute urls" do

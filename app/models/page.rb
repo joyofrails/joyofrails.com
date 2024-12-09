@@ -42,32 +42,31 @@ class Page < ApplicationRecord
 
   def published_on = published_at&.to_date
 
-  def revised_on = resource.data.updated&.to_date
-
   def indexed? = !!indexed_at
 
-  # alias
-  def resource = sitepress_resource
+  def body_text = Nokogiri::HTML(body_html(format: :atom)).text.squish
 
-  def title = resource.data.title
+  def body_html(format: :html, **) = self.class.render_html(self, format:, **)
+
+  # alias
+
+  def revised_on = resource.updated_on
+
+  def title = resource.title
 
   def body = resource.body
 
-  def body_text = Nokogiri::HTML(SitepressPage.render_html(resource)).text.squish
+  def description = resource.description
 
-  def description = resource.data.description
+  def image = resource.image
 
-  def image = resource.data.image
+  def meta_image = resource.meta_image
 
-  def meta_image = resource.data.meta_image
+  def toc = resource.toc
 
-  def toc = resource.data.toc
+  def enable_twitter_widgets = resource.enable_twitter_widgets
 
-  def enable_twitter_widgets = resource.data.enable_twitter_widgets
+  def atom_feed_id = resource.uuid.presence || id
 
-  def atom_feed_id
-    resource.data.uuid.presence || id
-  end
-
-  def author = resource.data.author
+  def author = resource.author
 end
