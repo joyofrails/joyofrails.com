@@ -120,7 +120,7 @@ Breaking it down:
    to be sent.
 
 1. To send a push notification, we’ll use the
-   [`web-push`](https://github.com/push-pad/web-push) Ruby gem triggered from our
+   [`web-push`](https://github.com/pushpad/web-push) Ruby gem triggered from our
    Rails app. `web-push` is responsible for [encrypting of the message
    payload](https://developers.google.com/web/updates/2016/03/web-push-encryption?hl=en)
    and sending the request to "push" the notification for the given subscription
