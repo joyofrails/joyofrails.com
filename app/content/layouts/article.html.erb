@@ -1,12 +1,11 @@
-<% page = @page %>
 <% set_meta_tags(
-     title: page.title,
-     description: page.description,
+     title: current_page.title,
+     description: current_page.description,
      keywords: %w[rails hotwire],
      og: {
        type: "article",
-       url: page.request_path,
-       image: page.meta_image && asset_url(page.meta_image)
+       url: current_page.request_path,
+       image: current_page.meta_image && asset_url(current_page.meta_image)
      },
      twitter: {
        card: "summary"
@@ -16,11 +15,11 @@
 <%= render_layout "application" do %>
   <article itemscope itemtype="http://schema.org/Article" class="mb-3xl">
     <%= render Pages::Header::Container.new do |c| %>
-      <%= c.title { page.title } %>
-      <%= c.description { page.description } if page.description %>
-      <%= render Pages::Timestamp.new published_on: page.published_on, updated_on: page.revised_on, class: "text-small block" %>
+      <%= c.title { current_page.title } %>
+      <%= c.description { current_page.description } if current_page.description %>
+      <%= render Pages::Timestamp.new published_on: current_page.published_on, updated_on: current_page.revised_on, class: "text-small block" %>
       <div class="text-small">
-        <% topics = @page.topics.approved.pluck(:slug) %>
+        <% topics = current_page.topics.approved.pluck(:slug) %>
         <% if topics.present? %>
           <%= render Pages::Topics.new(topics: topics) %>
         <% end %>
@@ -29,8 +28,8 @@
     <div class="article-content container" itemprop="articleBody">
       <%= yield %>
 
-      <% cache [@page, :related_pages] do %>
-        <% related_pages = @page.related_pages.published.limit(3) %>
+      <% cache [@current_page, :related_pages] do %>
+        <% related_pages = @current_page.related_pages.published.limit(3) %>
         <% if related_pages.present? %>
           <h3>More articles to enjoy</h3>
           <ul class="list-none">
@@ -54,6 +53,6 @@
   </section>
 <% end %>
 
-<% if page.enable_twitter_widgets %>
+<% if current_page.enable_twitter_widgets %>
 <%= javascript_include_tag "https://platform.twitter.com/widgets.js", charset: "utf-8", async: true %>
 <% end %>

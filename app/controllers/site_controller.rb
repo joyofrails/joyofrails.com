@@ -1,13 +1,18 @@
 class SiteController < Sitepress::SiteController
+  include CurrentPage
+
+  before_action do
+    @current_page = Page.find_or_initialize_by(request_path: request.path)
+  end
+
   # This is the default controller for Sitepress. It is used to render the pages of the site.
   # We prefer not to override this method but instead use the hooks provided by Sitepress below.
   #
   # render_resource is a helper method provided by Sitepress to render the current resource.
   # requested_resource is the Sitepress::Resource object that represents the current page.
   #
-  def show
-    Current.page = @page = Page.find_or_initialize_by(request_path: request.path)
 
+  def show
     super
   end
 
