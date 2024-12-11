@@ -19,7 +19,6 @@
     "@testing-library/user-event": "^14.5.2",
     "autoprefixer": "^10.4.19",
     "esbuild": "^0.20.1",
-    "husky": "^8.0.3",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.38",
@@ -35,8 +34,7 @@
   "scripts": {
     "build": "bin/vite build",
     "pretest": "RAILS_ENV=test bin/rails fixtures:html",
-    "test": "vitest",
-    "prepare": "husky install"
+    "test": "vitest"
   },
   "type": "module"
 }
