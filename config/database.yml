@@ -17,18 +17,26 @@ development:
   primary:
     <<: *default
     database: storage/development/data.sqlite3
+    pragmas:
+      mmap_size: <%= 128 * 1024 * 1024 %> # 128MB
   cache:
     <<: *default
     database: storage/development/cache.sqlite3
     migrations_paths: db/migrate_cache
+    pragmas:
+      mmap_size: <%= 64 * 1024 * 1024 %> # 64MB
   queue:
     <<: *default
     database: storage/development/queue.sqlite3
     migrations_paths: db/migrate_queue
+    pragmas:
+      mmap_size: <%= 64 * 1024 * 1024 %> # 64MB
   cable:
     <<: *default
     database: storage/development/cable.sqlite3
     migrations_paths: db/migrate_cable
+    pragmas:
+      mmap_size: <%= 16 * 1024 * 1024 %> # 16MB
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -60,15 +68,23 @@ production:
   primary:
     <<: *default
     database: storage/production/data.sqlite3
+    pragmas:
+      mmap_size: <%= 128 * 1024 * 1024 %> # 128MB
   cache:
     <<: *default
     database: storage/production/cache.sqlite3
     migrations_paths: db/migrate_cache
+    pragmas:
+      mmap_size: <%= 64 * 1024 * 1024 %> # 64MB
   queue:
     <<: *default
     database: storage/production/queue.sqlite3
     migrations_paths: db/migrate_queue
+    pragmas:
+      mmap_size: <%= 64 * 1024 * 1024 %> # 64MB
   cable:
     <<: *default
     database: storage/production/cable.sqlite3
     migrations_paths: db/migrate_cable
+    pragmas:
+      mmap_size: <%= 16 * 1024 * 1024 %> # 16MB
