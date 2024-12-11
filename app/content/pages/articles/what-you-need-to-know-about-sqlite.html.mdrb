@@ -104,7 +104,13 @@ Instead of scaling horizontally (adding more machines) as your application grows
 
 ### But SQLite can work with multiple hosts?
 
-To say SQLite works _only_ on a single host is not entirely true. You could imagine a setup where SQLite files are replicated across a horizontally scaled cluster. And you don’t have to imagine it either. This capability exists in various products, including, but not limited to:
+To say SQLite works _only_ on a single host is not entirely true.
+
+You could achieve horizontal scaling with sharding, meaning you would architect your application so that each horizontally scaled host get its own distinct SQLite database(s). Rails supports sharded database configuration. If your application logic maps well to independent databases, such as in [multi-tenancy](https://en.wikipedia.org/wiki/Multitenancy), this is a decent option to consider.
+
+If not, there is another option.
+
+You could imagine a setup where SQLite files are replicated across a horizontally scaled cluster. And you don’t have to imagine it either. This capability exists in various products, including, but not limited to:
 
 - [Turso](https://turso.tech/) a distributed database based on libSQL, an open-source fork of SQLite
 - [rqlite](https://rqlite.io/) lightweight, user-friendly, distributed relational database built on SQLite
