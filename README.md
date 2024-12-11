@@ -2,47 +2,33 @@
 
 [![Build Status](https://github.com/joyofrails/joyofrails.com/actions/workflows/verify.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
 [![Deploy Status](https://github.com/joyofrails/joyofrails.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/joyofrails/joyofrails.com/actions)
-[![Code Coverage](https://codecov.io/gh/joyofrails/joyofrails.com/graph/badge.svg?token=PRKDIXWQ7I)](https://codecov.io/gh/joyofrails/joyofrails.com)
 
 A place to learn and celebrate the joy of using Ruby on Rails
 
-https://www.joyofrails.com
+https://joyofrails.com
+
+Made with joy by @rossta
 
 ## Overview
 
 Building a Rails application to help people learn more about building Rails applications.
 
-- One Person Framework: Rails provides all one person needs to build a robust frontend experience with [Hotwire](https://hotwired.dev/).
-- Minimal moving pieces: Prefer SQLite as a database. Single server hosting.
-- Vanilla Rails: Rely on Rails conventions. Avoid needless abstractions. Introduce gems judiciously (or for educational value).
+- Rails 8 with Active Record, [Solid Queue](https://github.com/rails/solid_queue), [Solid Cache](https://github.com/rails/solid_cache), and [Solid Cable](https://github.com/rails/solid_cable)
+- [SQLite](https://sqlite.org/) as a database
+- [Hotwire](https://hotwired.dev/) for interactivity
+- Asset pipeline with [Vite](https://vite.dev/), via [Vite Ruby](https://vite-ruby.netlify.app/), and [Propshaft](https://github.com/rails/propshaft)
+- Markdown, ERb, and [Phlex](https://www.phlex.fun/) for HTML
 
 ## Development
 
 ### Requirements
 
-- Ruby, see `.ruby-version`
-
-  Use a Ruby version manager to install and manage Ruby versions, such as
-
-  - [chruby](https://github.com/postmodern/chruby)
-  - [asdf](https://asdf-vm.com/)
-  - [rvm](https://rvm.io/)
-  - [rbenv](https://github.com/rbenv/rbenv)
-
-  To use YJIT, Rust must first be installed and be found on `PATH`:
-
-  1. See https://www.rust-lang.org/tools/install for instructions on installing Rust
-  2. Then install the correct version of Ruby using preferred version manager:
-
-- [Node](https://nodejs.org/en/), see `.node-version`, `brew install node` or use NVM
-- A process manager for Procfile-based applications, either
-
-  - [foreman](https://github.com/ddollar/foreman) - installs automatically, unless using
-  - [overmind](https://github.com/DarthSim/overmind)
+- [Ruby](https://www.ruby-lang.org/en/), see `.ruby-version`
+- [Node](https://nodejs.org/en/), see `.node-version`
 
 ### Setup
 
-Run the installation script to get the application set up. It is intended to be idempotent and can be run multiple times:
+Run setup script to install dependencies and initialize the database.
 
 ```
 bin/setup
@@ -70,11 +56,23 @@ Run Jest tests
 npm run test
 ```
 
+Linting
+
+```
+bin/lint
+```
+
 Run the following to run all tests
 
 ```
 bin/verify
 ```
+
+## Docs
+
+- [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
+- [SECURITY.md](./docs/SECURITY.md)
+- [CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md)
 
 ## License
 
