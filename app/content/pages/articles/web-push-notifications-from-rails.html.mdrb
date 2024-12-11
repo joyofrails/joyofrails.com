@@ -34,7 +34,7 @@ First click the Subscribe button below. You may have also need to accept a brows
 
 <%= render Pwa::WebPushDemo.new %>
 
-I’m not persisting this subscription in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to register your browser at any time.
+I’m not persisting this subscription on the backend in any way so you will only receive a notification if you click that button. You can also click "Unsubscribe" to remove the push subscription from your browser at any time.
 
 ## Troubleshooting
 
