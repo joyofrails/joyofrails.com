@@ -98,10 +98,20 @@ jobs:
           RAILS_ENV: test
         run: bin/rspec
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: coverage-report
+          path: coverage
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/capybara
+          if-no-files-found: ignore
 
   setup:
     name: Setup
@@ -182,11 +192,6 @@ jobs:
       - name: Run JavaScript unit tests
         run: |
           npm run test -- --watch=false
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
 
   assets:
     name: Assets
