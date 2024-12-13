@@ -4,6 +4,7 @@ module Users
       include Phlex::Rails::Helpers::Routes
       include Phlex::Rails::Helpers::TurboFrameTag
       include Phlex::Rails::Helpers::ButtonTo
+      include Phlex::Rails::Helpers::LinkTo
       include PhlexConcerns::FlexBlock
 
       attr_reader :current_user, :current_admin_user
@@ -53,7 +54,9 @@ module Users
                 dialog.body do
                   div(class: "flex flex-col gap-4") do
                     current_user_info if current_user.persisted?
-                    current_admin_user_info if current_admin_user.present?
+                    if current_admin_user.present?
+                      current_admin_user_info
+                    end
                   end
                   # render Forms::Stack do |form|
                   #   form.form_with model: current_user, url: users_registration_path do |f|
@@ -104,20 +107,6 @@ module Users
         end
       end
 
-      def header_navigation_button_to(text, path, **)
-        button_to(text, path, class: "
-          flex justify-center items-center h-full px-2
-          rounded mr-2 hover:bg-joy-bg-hover
-        ", **)
-      end
-
-      def header_navigation_link_to(**, &)
-        a(class: "
-        flex justify-center items-center px-2
-        rounded mr-2 hover:bg-joy-bg-hover
-      ", **, &)
-      end
-
       def nav_name
         return current_user.name if current_user.persisted?
         return "Admin" if current_admin_user.present?
@@ -155,8 +144,11 @@ module Users
               p(class: "block font-semibold") do
                 plain "Current Admin"
               end
-              p(class: "mt-1 text-gray-600") do
+              p(class: "mt-1 text-gray-600 mb-2") do
                 plain current_admin_user.email
+              end
+              p(class: "mt-1 text-gray-600") do
+                link_to "Visit admin area", "/admin", data: {turbo: false}
               end
             end
           end
