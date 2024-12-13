@@ -7,8 +7,8 @@ description: An embedded Web Push demo and deep dive recipe for Web Push notific
 published: '2024-10-23'
 toc: false
 uuid: 0191e0e2-7991-79b4-978d-439b2679da67
-image: articles/web-push-notifications-from-rails/airplane.jpg
-meta_image: articles/web-push-notifications-from-rails/airplane.jpg
+image: articles/web-push-notifications-from-rails/airplane.webp
+meta_image: articles/web-push-notifications-from-rails/airplane.webp
 tags:
   - Rails
   - JavaScript

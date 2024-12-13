@@ -6,7 +6,7 @@ ARGV.each do |file|
 
   webp = "#{dir}/#{basename}.webp"
 
-  cmd = "magick #{file} -quality 50 -define webp:lossless=true #{webp}"
+  cmd = "magick #{file} -quality 50 -define webp:lossless=true -resize 960x480 #{webp}"
 
   puts cmd
   system cmd
