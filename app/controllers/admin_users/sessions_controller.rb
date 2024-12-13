@@ -1,4 +1,6 @@
 class AdminUsers::SessionsController < ApplicationController
+  include ColorSchemingAdmin
+
   before_action :redirect_admin_if_authenticated, only: [:create, :new]
 
   def new

@@ -44,6 +44,23 @@ class ColorScheme < ApplicationRecord
     }.freeze
   }.freeze
 
+  ADMIN_DEFAULT = {
+    name: "Custom Santa Fe",
+    weights: {
+      "50": "#fbf6f1",
+      "100": "#f5eadf",
+      "200": "#ead3be",
+      "300": "#dcb495",
+      "400": "#cc8f6b",
+      "500": "#c2744d",
+      "600": "#bb6546",
+      "700": "#964d38",
+      "800": "#794033",
+      "900": "#62362c",
+      "950": "#341a16"
+    }.freeze
+  }.freeze
+
   VALID_WEIGHTS = APP_DEFAULT_WEIGHTS.keys.map(&:to_s).freeze
 
   VALID_WEIGHTS.each do |weight|
@@ -67,13 +84,32 @@ class ColorScheme < ApplicationRecord
     end
   end
 
+  def self.find_or_create_default_admin
+    find_or_create_by(name: ADMIN_DEFAULT[:name]) do |cs|
+      ADMIN_DEFAULT[:weights].each do |weight, value|
+        cs.set_weight(weight, value)
+      end
+    end
+  end
+
   def self.cached_default
-    cache_key = "default_color_scheme_id"
+    cache_fetch_or_create "default_color_scheme_id" do
+      find_or_create_default
+    end
+  end
+
+  def self.cached_default_admin
+    cache_fetch_or_create "default_admin_color_scheme_id" do
+      find_or_create_default_admin
+    end
+  end
+
+  def self.cache_fetch_or_create(cache_key)
     cached_id = Rails.cache.read(cache_key)
 
     return where(id: cached_id).first if cached_id
 
-    find_or_create_default.tap do |cs|
+    yield.tap do |cs|
       Rails.cache.write(cache_key, cs.id)
     end
   end
