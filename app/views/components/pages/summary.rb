@@ -56,7 +56,7 @@ module Pages
     def figure_image(**)
       div(**) do
         figure(class: "page-summary--image") do
-          image_tag image, class: "w-full object-cover aspect-[2/1] lg:aspect-[3/2]"
+          image_tag image, class: "w-full object-cover aspect-[2/1] lg:aspect-[3/2]", loading: "lazy"
         end
       rescue
         ActionView::Template::Error

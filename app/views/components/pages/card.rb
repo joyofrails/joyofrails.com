@@ -16,7 +16,8 @@ module Pages
           figure(class: "page-card--image w-full") do
             image_tag @image || "https://placehold.co/640x360?text=#{title}",
               alt: description,
-              class: "w-full rounded-2xl object-cover aspect-[16/9]"
+              class: "w-full rounded-2xl object-cover aspect-[16/9]",
+              loading: "lazy"
           end
         end
         div(class: "max-w-xl") do
