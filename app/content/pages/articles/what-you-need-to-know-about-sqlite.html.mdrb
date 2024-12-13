@@ -6,8 +6,8 @@ summary: A compilation of lessons about what the SQLite database engine can and 
 description: A compilation of lessons about what the SQLite database engine can and cannot do, how Ruby on Rails helps you work with SQLite, and why it may, or may not, be a good choice to back your Rails 8 app
 published: '2024-12-02'
 updated: '2024-12-10'
-image: articles/what-you-need-to-know-about-sqlite/feather.jpg
-meta_image: articles/what-you-need-to-know-about-sqlite/feather.jpg
+image: articles/what-you-need-to-know-about-sqlite/feather.webp
+meta_image: articles/what-you-need-to-know-about-sqlite/feather.webp
 ---
 
 Have you heard? SQLite is taking the web by storm. The widespread belief has been that SQLite isn’t a production-grade database for web apps. But lately, this sentiment is starting to change.

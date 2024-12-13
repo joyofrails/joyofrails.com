@@ -20,7 +20,10 @@ module ApplicationHelper
     set_meta_tags twitter: {
       site: "@joyofrails"
     }
-    display_meta_tags site: Rails.configuration.x.application_name
+    display_meta_tags \
+      site: Rails.configuration.x.application_name,
+      description: "Interactive tutorials on Ruby, Ruby on Rails, Stimulus, " \
+      "Turbo, Turbo Frames, Turbo Streams, Hotwire, Active Record, Action Pack, Active Job, and more."
   end
 
   def nested_dom_id(*args)

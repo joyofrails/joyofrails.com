@@ -6,8 +6,8 @@ summary:
 description: Learn how to use "Rails config x" and add your own configuration options to your Rails app with built-in methods, ActiveSupport::OrderedOptions, and practical use cases.
 published: '2024-10-14'
 uuid: 476af131-561e-408e-80fb-8daa64592677
-image: articles/mastering-custom-configuration-in-rails/ice-cream.jpg
-meta_image: articles/mastering-custom-configuration-in-rails/ice-cream.jpg
+image: articles/mastering-custom-configuration-in-rails/ice-cream.webp
+meta_image: articles/mastering-custom-configuration-in-rails/ice-cream.webp
 tags:
   - Rails
 ---

@@ -22,7 +22,7 @@ class Markdown::Article < Markdown::Application
   def image(src, alt: "", title: "")
     title, json_attributes = parse_text_and_metadata(title, separator: "|")
     figure(**json_attributes) do
-      image_tag(src, alt: alt, title: title)
+      image_tag(src, alt: alt, title: title, loading: "lazy")
       figcaption { title }
     end
   end

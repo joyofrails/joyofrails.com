@@ -6,8 +6,8 @@ summary: Rails is not just for HTML over the wire. This post demonstrates how an
 description: Rails is not just for HTML over the wire. This post demonstrates how and why you might use Rails for delivering CSS on the fly too.
 published: '2024-08-12'
 uuid: 3be769c4-6a2a-4cfb-8008-94046b952aa6
-image: articles/how-to-render-css-dynamically-in-rails/style-rainbow.jpg
-meta_image: articles/how-to-render-css-dynamically-in-rails/style-rainbow.jpg
+image: articles/how-to-render-css-dynamically-in-rails/style-rainbow.webp
+meta_image: articles/how-to-render-css-dynamically-in-rails/style-rainbow.webp
 tags:
   - Rails
 ---

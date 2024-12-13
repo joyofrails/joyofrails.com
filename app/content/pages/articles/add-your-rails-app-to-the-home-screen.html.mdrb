@@ -6,8 +6,8 @@ summary: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you 
 description: Rails 8 will support Progressive Web Apps (PWA) out-of-the-box but you have all the tools you need to make your Rails app installable today.
 published: '2024-09-20'
 uuid: f17af1f0-5840-46f3-9b3e-33bdceb3cb93
-image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.jpg
-meta_image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.jpg
+image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.webp
+meta_image: articles/add-your-rails-app-to-the-home-screen/ruby-app-icon.webp
 enable_twitter_widgets: true
 tags:
   - Rails
@@ -454,4 +454,4 @@ Did you find a bug or do you have questions about the content? You can [send me 
 
 Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute.
 
-That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it. ![Hot Air Balloon](articles/add-your-rails-app-to-the-home-screen/hot-air-balloon.jpg 'Hot Air Balloon, by Jasper (my son)')
+That does it for another glimpse into what’s possible with Ruby on Rails. I hope you enjoyed it. ![Hot Air Balloon](articles/add-your-rails-app-to-the-home-screen/hot-air-balloon.webp 'Hot Air Balloon, by Jasper (my son)')

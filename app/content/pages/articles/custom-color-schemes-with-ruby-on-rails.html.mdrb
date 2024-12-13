@@ -5,8 +5,8 @@ layout: article
 description: You can edit the color scheme of this website right in content of this blog post. Play with the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.
 summary: You can edit the color scheme of this website right in content of this blog post. Play with the controls while we highlight the benefits of Rails, Hotwire, and CSS variables.
 published: 2024-07-15
-image: articles/custom-color-schemes-with-ruby-on-rails/rainbows.jpg
-meta_image: articles/custom-color-schemes-with-ruby-on-rails/screenshot.jpg
+image: articles/custom-color-schemes-with-ruby-on-rails/rainbows.webp
+meta_image: articles/custom-color-schemes-with-ruby-on-rails/screenshot.webp
 uuid: d99f045b-f3f7-4408-811e-9701b1a13ce8
 tags:
   - Rails

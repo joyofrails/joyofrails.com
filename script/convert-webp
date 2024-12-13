@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+ARGV.each do |file|
+  basename = File.basename(file, ".*")
+  dir = File.dirname(file)
+
+  webp = "#{dir}/#{basename}.webp"
+
+  cmd = "magick #{file} -quality 50 -define webp:lossless=true -resize 960x480 #{webp}"
+
+  puts cmd
+  system cmd
+end
