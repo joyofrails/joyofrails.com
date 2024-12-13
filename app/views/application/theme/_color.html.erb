@@ -3,7 +3,7 @@
   Visit <%= settings_color_scheme_path %> to preview colors and save your preference.
 -->
 <% if custom_color_scheme? %>
-  <style>
+  <style data-turbo-track="reload">
     <%= render ColorSchemes::Css.new(color_scheme: find_color_scheme, my_theme_enabled: true) %>
   </style>
 <% end %>

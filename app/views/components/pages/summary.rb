@@ -58,8 +58,7 @@ module Pages
         figure(class: "page-summary--image") do
           image_tag image,
             alt: "#{File.basename(image, ".*").humanize} illustration",
-            class: "w-full object-cover aspect-[2/1] lg:aspect-[3/2]",
-            loading: "lazy"
+            class: "w-full object-cover aspect-[2/1] lg:aspect-[3/2]"
         end
       rescue
         ActionView::Template::Error
