@@ -55,8 +55,6 @@ jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
-    env:
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_TEST_KEY }}
 
     steps:
       - name: Checkout code
@@ -159,8 +157,6 @@ jobs:
   npm-test:
     name: Tests - JavaScript
     runs-on: ubuntu-latest
-    env:
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_TEST_KEY }}
 
     steps:
       - name: Checkout code
@@ -196,7 +192,6 @@ jobs:
   assets:
     name: Assets
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -226,8 +221,6 @@ jobs:
 
       - name: Make sure assets compile
         run: |
-          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_PRODUCTION_KEY }} \
-          RAILS_ENV=production \
           bin/rails assets:precompile
 
       - uses: actions/upload-artifact@v4
@@ -240,7 +233,7 @@ jobs:
     name: Boot
     runs-on: ubuntu-latest
     env:
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_PRODUCTION_KEY }}
+      RAILS_MASTER_PRODUCTION_KEY: ${{ secrets.RAILS_MASTER_PRODUCTION_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -268,11 +261,24 @@ jobs:
         run: |
           bin/sqlpkg install
 
-      - name: Start Rails server in the background
+      - name: Start Rails server in the background (test)
         run: |
-          RAILS_FORCE_SSL=false bundle exec puma -b tcp://127.0.0.1:3001 -e production &
-          sleep 10
+          bundle exec puma -b tcp://127.0.0.1:3001 -e test &
 
-      - name: Make sure the server is running
+      - name: Start Rails server in the background (production)
+        if: ${{ env.RAILS_MASTER_PRODUCTION_KEY != '' }}
+        run: |
+          RAILS_MASTER_KEY=$RAILS_MASTER_PRODUCTION_KEY \
+          RAILS_FORCE_SSL=false bundle exec puma -b tcp://127.0.0.1:3002 -e production &
+
+      - name: Wait for the servers to start
+        run: sleep 10
+
+      - name: Make sure the server is running (test)
         run: |
           bin/up http://127.0.0.1:3001/up
+
+      - name: Make sure the server is running (production)
+        if: ${{ env.RAILS_MASTER_PRODUCTION_KEY != '' }}
+        run: |
+          bin/up http://127.0.0.1:3002/up
