@@ -4,6 +4,7 @@ module Users
       include Phlex::Rails::Helpers::Routes
       include Phlex::Rails::Helpers::TurboFrameTag
       include Phlex::Rails::Helpers::ButtonTo
+      include PhlexConcerns::FlexBlock
 
       attr_reader :current_user, :current_admin_user
 
@@ -15,21 +16,7 @@ module Users
       def view_template
         turbo_frame_tag :header_navigation, data: {turbo_frame: "_top"} do
           render SiteHeader::Nav do
-            if current_admin_user.present?
-              header_navigation_link_to \
-                href: "/admin" do
-                plain current_admin_user.email
-              end
-
-              header_navigation_button_to \
-                "Sign out admin",
-                destroy_admin_users_sessions_path,
-                method: :delete do
-                  plain
-                end
-            end
-
-            if current_user.registered?
+            if current_user.registered? || current_admin_user.present?
               a(
                 href: "#",
                 class: "button ghost outline",
@@ -39,8 +26,12 @@ module Users
                   "modal-opener-dialog-param": "user-account-dialog"
                 }
               ) do
-                img src: avatar_url_for(current_user), class: "rounded-full md:mr-2", alt: "User avatar"
-                span(class: "hidden md:inline") { current_user.name }
+                if current_user.persisted?
+                  avatar_image(current_user)
+                elsif current_admin_user.present?
+                  avatar_image(current_admin_user)
+                end
+                span(class: "hidden md:inline") { nav_name }
               end
 
               render Dialog::Layout.new(
@@ -56,11 +47,14 @@ module Users
               ) do |dialog|
                 dialog.header do
                   dialog.close_button
-                  dialog.feature_img src: avatar_url_for(current_user, size: 80), class: "rounded-full"
+                  dialog.feature_img src: avatar_url_for(current_user, size: 80), class: "rounded-full" if current_user.persisted?
                   dialog.title(id: "user-account-title") { plain "Your Account" }
                 end
                 dialog.body do
-                  user_info
+                  div(class: "flex flex-col gap-4") do
+                    current_user_info if current_user.persisted?
+                    current_admin_user_info if current_admin_user.present?
+                  end
                   # render Forms::Stack do |form|
                   #   form.form_with model: current_user, url: users_registration_path do |f|
                   #     if f.object.errors.any?
@@ -82,7 +76,15 @@ module Users
                 end
 
                 dialog.footer do
-                  button_to "Sign out", destroy_users_sessions_path, method: :delete, class: "button ghost outline"
+                  flex_block do
+                    if current_user.persisted?
+                      button_to "Sign out", destroy_users_sessions_path, method: :delete, class: "button ghost outline"
+                    end
+
+                    if current_admin_user.present?
+                      button_to "Sign out admin", destroy_admin_users_sessions_path, method: :delete, class: "button ghost outline"
+                    end
+                  end
                 end
               end
             elsif Flipper.enabled?(:user_registration, current_admin_user)
@@ -116,11 +118,22 @@ module Users
       ", **, &)
       end
 
+      def nav_name
+        return current_user.name if current_user.persisted?
+        return "Admin" if current_admin_user.present?
+
+        "Account"
+      end
+
+      def avatar_image(user)
+        img src: avatar_url_for(user), class: "rounded-full md:mr-2", alt: "User avatar"
+      end
+
       def avatar_url_for(user, size: 32)
         Gravatar.new(user.email).url(size: size)
       end
 
-      def user_info
+      def current_user_info
         div(class: "grid grid-gap rounded-lg joy-border-quiet") do
           div(class: "group relative flex items-center gap-x-6 p-4 leading-6 hover:bg-gray-50") do
             div(class: "flex-auto") do
@@ -129,6 +142,21 @@ module Users
               end
               p(class: "mt-1 text-gray-600") do
                 plain current_user.email
+              end
+            end
+          end
+        end
+      end
+
+      def current_admin_user_info
+        div(class: "grid grid-gap rounded-lg joy-border-quiet") do
+          div(class: "group relative flex items-center gap-x-6 p-4 leading-6 hover:bg-gray-50") do
+            div(class: "flex-auto") do
+              p(class: "block font-semibold") do
+                plain "Current Admin"
+              end
+              p(class: "mt-1 text-gray-600") do
+                plain current_admin_user.email
               end
             end
           end

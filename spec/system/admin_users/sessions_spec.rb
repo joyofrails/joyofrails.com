@@ -5,18 +5,21 @@ RSpec.describe "AdminUser sessions", type: :system do
     admin_user = FactoryBot.create(:admin_user)
 
     visit new_admin_users_session_path
-    expect(document).to have_text("Sign in to your admin account")
+    expect(document).to have_text("Sign in to your Admin Account")
 
     fill_in "Email", with: admin_user.email
     fill_in "Password", with: "password"
 
     click_button "Sign in"
 
-    expect(document).not_to have_text("Sign in to your admin account")
+    expect(document).not_to have_text("Sign in to your Admin Account")
 
     expect(document).to have_text("Signed in successfully.")
 
-    expect(document).to have_text(admin_user.email)
+    within "main" do
+      expect(document).to have_text("Admin")
+      expect(document).to have_text("Mission Control")
+    end
   end
 
   it "fails sign in" do
@@ -40,11 +43,13 @@ RSpec.describe "AdminUser sessions", type: :system do
 
     visit root_path
 
-    expect(document).to have_text(admin_user.email)
+    within "#header_navigation" do
+      click_link "Admin"
+    end
 
     click_button "Sign out"
 
     expect(document).to have_text("Signed out successfully.")
-    expect(document).not_to have_text(admin_user.email)
+    expect(document).not_to have_text("Admin")
   end
 end
