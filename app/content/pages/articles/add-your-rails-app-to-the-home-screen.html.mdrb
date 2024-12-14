@@ -68,8 +68,7 @@ You can also view installation instructions for various browsers below:
 
 <%= turbo_frame_tag "pwa_installation_instructions", src: pwa_installation_instructions_path %>
 
-If it worked, you should be able to open Joy of Rails as a standalone application. Voilà!
-![Screenshot of Joy of Rails in its standalone form](articles/add-your-rails-app-to-the-home-screen/standalone.jpg)
+If it worked, you should be able to open Joy of Rails as a standalone application. Voilà! ![Screenshot of Joy of Rails in its standalone form](articles/add-your-rails-app-to-the-home-screen/standalone.jpg)
 
 ## What does it mean for a web app to be installable?
 
@@ -246,7 +245,7 @@ end
 As mentioned previously, you should have, at minimum, two square images to represent your app icon on install screens: `192x192` and `512x512`. If you started from a new Rails 7.2+ app, you‘ll want to remove the generated app icon from the Rails app generator and make your own.
 
 Here are the app icons for Joy of Rails:
-![Joy of Rails app icon 192x192](app-icons/icon-192.png 'Joy of Rails app icon 192x192') ![Joy of Rails app icon 512x512](app-icons/icon-512.png 'Joy of Rails app icon 512x512')
+![Joy of Rails app icon 192x192](articles/add-your-rails-app-to-the-home-screen/icon-192.png 'Joy of Rails app icon 192x192') ![Joy of Rails app icon 512x512](articles/add-your-rails-app-to-the-home-screen/icon-512.png 'Joy of Rails app icon 512x512')
 
 I used ImageMagick 7 to convert these icons from the original with a command like:
 
@@ -270,7 +269,7 @@ Some browsers will present the icon in a circular window that will crop a signif
 ![A masked icon](articles/add-your-rails-app-to-the-home-screen/masked-icon-bad.jpg 'A not-so-nice masked icon')
 
 My approach is to use a separate set of icons with more room to breathe. Compare the two variation:
-![Primary app icon](app-icons/icon-192.png 'Primary app icon') ![Maskable app icon](app-icons/icon-192-maskable.png 'Maskable app icon')
+![Primary app icon](articles/add-your-rails-app-to-the-home-screen/icon-192.png 'Primary app icon') ![Maskable app icon](articles/add-your-rails-app-to-the-home-screen/icon-192-maskable.png 'Maskable app icon')
 
 The new icon a lot better when masked:
 ![A masked icon](articles/add-your-rails-app-to-the-home-screen/masked-icon-good.jpg 'A nice masked icon')

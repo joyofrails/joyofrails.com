@@ -47,6 +47,7 @@ gem "commonmarker", require: false
 gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
 gem "color_conversion" # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
 gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails applications. [https://github.com/kpumuk/meta-tags]
+gem "fastimage", require: false # FastImage finds the size or type of an image given its uri by fetching as little as needed [https://github.com/sdsykes/fastimage]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
