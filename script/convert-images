@@ -17,8 +17,27 @@
 # require "bundler/setup"
 
 require "fastimage"
+require "optparse"
 
-force = false
+options = {
+  quality: 90,
+  force: false
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: script/convert-webp.rb [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+
+  opts.on("-f", "--force", "Force conversion") do |f|
+    options[:force] = f
+  end
+
+  opts.on("-q", "--quality [QUALITY]", "Quality of the output image") do |q|
+    options[:quality] = q
+  end
+end.parse!
 
 class ImageFile
   def exists?
@@ -56,8 +75,8 @@ module Cmd
     system cmd
   end
 
-  def self.webp(img, force: false, quality: 90, tries: 0)
-    dest = img.as_webp.to_s
+  def self.webp(img, dest: nil, force: false, quality: 90, tries: 0, **)
+    dest ||= img.as_webp.to_s
 
     if force || !File.exist?(dest)
       cmd = "magick #{img}"
@@ -83,7 +102,7 @@ module Cmd
     end
   end
 
-  def self.jpg(img, dest: nil, force: false, quality: 90, tries: 0)
+  def self.jpg(img, dest: nil, force: false, quality: 90, tries: 0, **)
     dest ||= img.as_opt_jpg.to_s
     if force || !File.exist?(dest)
       run "magick #{img} -strip -interlace Plane -quality #{quality}% #{dest}"
@@ -101,7 +120,7 @@ ARGV.each do |file|
     img = ImageFile.new(file)
     next unless %w[.jpg .jpeg .png].include?(img.ext)
     next if img.to_s.include?("-opt.jpg")
-    Cmd.webp img, force: force
+    Cmd.webp img, **options
   end
 
   Dir.glob(file).each do |file|
@@ -109,7 +128,7 @@ ARGV.each do |file|
     next unless %w[.jpg .jpeg].include?(img.ext)
     next if img.to_s.include?("-opt.jpg")
     next if File.size(img) < 32_768 # 32kB
-    Cmd.jpg img, force: force
+    Cmd.jpg img, **options
   end
 
   Dir.glob(file).each do |file|
