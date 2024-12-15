@@ -83,8 +83,8 @@ module Cmd
     end
   end
 
-  def self.jpg(img, force: false, quality: 90, tries: 0)
-    dest = img.as_opt_jpg.to_s
+  def self.jpg(img, dest: nil, force: false, quality: 90, tries: 0)
+    dest ||= img.as_opt_jpg.to_s
     if force || !File.exist?(dest)
       run "magick #{img} -strip -interlace Plane -quality #{quality}% #{dest}"
 
