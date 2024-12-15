@@ -13,12 +13,12 @@ module Pages
     def view_template
       article(class: "") do
         a(href: request_path, class: "block") do
-          figure(class: "page-card--image w-full") do
-            image_tag @image || "https://placehold.co/640x360?text=#{title}",
-              alt: "#{File.basename(@image, ".*").humanize} illustration",
-              class: "w-full rounded-2xl object-cover aspect-[16/9]",
-              loading: "lazy"
-          end
+          render Content::Image.new \
+            image || "https://placehold.co/640x360?text=#{title}",
+            alt: "#{File.basename(image, ".*").humanize} illustration",
+            title: nil,
+            loading: "lazy",
+            class: "w-full rounded-2xl object-cover aspect-[16/9]"
         end
         div(class: "max-w-xl") do
           h3(

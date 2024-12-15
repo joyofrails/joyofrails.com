@@ -4,15 +4,15 @@ module Content
 
     def initialize(src, alt: "", title: "", **attributes)
       @src = src
-      @alt = alt
+      @alt = alt.presence || File.basename(src, ".*").humanize
       @title = title
       @attributes = attributes
     end
 
     def view_template
-      figure(**attributes) do
-        img(alt:, loading: "lazy", **image_attributes)
-        figcaption { title }
+      figure do
+        img(alt:, loading: "lazy", **image_attributes, **attributes)
+        figcaption { title } if title.present?
       end
     end
 
