@@ -19,25 +19,6 @@ class Markdown::Article < Markdown::Application
     render ::CodeBlock::Article.new(source, language: language, **json_attributes, **attributes)
   end
 
-  def image_src_attrs(src)
-    image_file = ImageFile.new(src)
-    unless %w[.jpg .jpeg .png .webp].include?(image_file.ext)
-      return {src: helpers.asset_path(image_file.to_s)}
-    end
-
-    srcset = [
-      "400w",
-      "800w",
-      "1200w"
-    ].map { |size| "#{helpers.asset_path(image_file.as_webp(size))} #{size}" }
-
-    {
-      src: helpers.asset_path(image_file.as_webp),
-      srcset:,
-      sizes: "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, (min-width: 1280px) 33vw"
-    }
-  end
-
   def image(src, alt: "", title: "")
     title, json_attributes = parse_text_and_metadata(title, separator: "|")
 

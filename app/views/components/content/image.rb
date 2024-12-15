@@ -11,7 +11,7 @@ module Content
 
     def view_template
       figure(**attributes) do
-        img(alt:, **image_attributes)
+        img(alt:, loading: "lazy", **image_attributes)
         figcaption { title }
       end
     end
@@ -21,11 +21,13 @@ module Content
     def asset_path(*) = helpers.asset_path(*)
 
     def image_attributes
-      if WEBP_ELIGIBLE.include?(ext)
+      if webp_src?
         {
-          src: asset_path(webp_src("800w")),
-          srcset: webp_srcset,
-          sizes: WEBP_SIZES
+          src: asset_path(webp_src)
+        }
+      elsif optimized_src?
+        {
+          src: asset_path(optimized_src)
         }
       else
         {
@@ -34,17 +36,13 @@ module Content
       end
     end
 
-    def webp_src(*suffixes)
-      "#{dirname}/#{([basename] + suffixes).join("-")}.webp"
-    end
+    def webp_src? = File.exist? Rails.root.join("app", "assets", "images", webp_src)
 
-    WEBP_ELIGIBLE = %w[.jpg .jpeg .png .webp].freeze
-    WEBP_WIDTHS = %w[400w 800w].freeze
-    WEBP_SIZES = "(max-width: 640px) 100vw, (min-width: 641px) 50vw"
+    def webp_src = "#{dirname}/#{basename}.webp"
 
-    def webp_srcset
-      WEBP_WIDTHS.map { |size| "#{asset_path(webp_src(size))} #{size}" }
-    end
+    def optimized_src? = File.exist? Rails.root.join("app", "assets", "images", optimized_src)
+
+    def optimized_src = "#{dirname}/#{basename}-opt.#{ext}"
 
     def ext = File.extname(src)
 
