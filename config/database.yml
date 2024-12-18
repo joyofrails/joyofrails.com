@@ -16,7 +16,9 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/development/data.sqlite3
+    # Why read the branch name? So we can support having a separate database for each branch in development.
+    # For more info, see: https://fractaledmind.github.io/2023/09/06/enhancing-rails-sqlite-branch-databases/
+    database: storage/development/data-<%= (`git branch --show-current`.chomp || 'default').parameterize %>.sqlite3
     pragmas:
       mmap_size: <%= 128 * 1024 * 1024 %> # 128MB
   cache:
