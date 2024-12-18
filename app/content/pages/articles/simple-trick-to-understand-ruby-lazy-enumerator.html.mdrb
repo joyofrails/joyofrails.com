@@ -1,0 +1,22 @@
+---
+title: A simple trick to understand Ruby’s lazy enumerator
+author: Ross Kaffenberger
+layout: article
+summary: Here is the summary
+description: Here is the description that will show up in the the meta tag
+published: '2024-12-25'
+image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
+meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
+tags:
+  - Rails
+---
+
+Below is how I visualize how Ruby normally processes a chain of methods on an enumerable object.
+
+<%= render Demo::RubyEnumeration.new(demo_type: "eager") %>
+
+Now visualize how enumeration changes when using `.lazy` enumeration.
+
+<%= render Demo::RubyEnumeration.new(demo_type: "lazy") %>
+
+<%= render Demo::RubyEnumeration.new(demo_type: "combined") %>
