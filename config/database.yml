@@ -10,8 +10,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 3 } %>
   timeout: 5000
   extensions:
-    - sqlite_ulid
-    - sqlite_vec
+    - SqliteExt::Ulid
+    - SqliteExt::Vec
 
 development:
   primary:
