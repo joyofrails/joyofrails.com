@@ -5,8 +5,8 @@ layout: article
 summary: Here is the summary
 description: Here is the description that will show up in the the meta tag
 published: "<%= Date.today + 7 %>"
-image: articles/<%= article_file_name %>/placeholder.webp
-meta_image: articles/<%= article_file_name %>/placeholder.webp
+image: articles/<%= article_file_name %>/placeholder.jpg
+meta_image: articles/<%= article_file_name %>/placeholder.jpg
 tags:
   - Rails
 ---
