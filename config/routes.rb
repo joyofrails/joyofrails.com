@@ -244,6 +244,7 @@ Rails.application.routes.draw do
     resource :counters, only: [:show, :update, :destroy]
     resource :hello, only: [:show]
     resources :posts, only: [:index, :create, :new]
+    resource :ruby_enumeration, only: [:show]
   end
   resources :examples, only: [:index, :show]
 

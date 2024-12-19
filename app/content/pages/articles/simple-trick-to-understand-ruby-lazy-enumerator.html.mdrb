@@ -13,10 +13,21 @@ tags:
 
 Below is how I visualize how Ruby normally processes a chain of methods on an enumerable object.
 
-<%= render Demo::RubyEnumeration.new(demo_type: "eager") %>
+<%= turbo_frame_tag [:ruby, :enumeration, :eager], src: examples_ruby_enumeration_path(demo_type: "eager") do %>
+
+  <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
+<% end %>
 
 Now visualize how enumeration changes when using `.lazy` enumeration.
 
-<%= render Demo::RubyEnumeration.new(demo_type: "lazy") %>
+<%= turbo_frame_tag [:ruby, :enumeration, :lazy], src: examples_ruby_enumeration_path(demo_type: "lazy") do %>
 
-<%= render Demo::RubyEnumeration.new(demo_type: "combined") %>
+  <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
+<% end %>
+
+Here’s the demo again with some controls to play with the speed and style of enumeration:
+
+<%= turbo_frame_tag [:ruby, :enumeration, :combined], src: examples_ruby_enumeration_path(demo_type: "combined") do %>
+
+  <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
+<% end %>

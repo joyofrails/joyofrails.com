@@ -1,17 +1,22 @@
 module Demo
   class RubyEnumeration < ApplicationComponent
+    include Phlex::Rails::Helpers::TurboFrameTag
+
     attr_reader :demo_type
+
     def initialize(demo_type: "combined")
       @demo_type = demo_type.to_s
     end
 
     def view_template
-      iframe(
-        src: iframe_src,
-        height: focused_demo_type? ? "635px" : "695px",
-        loading: "lazy",
-        width: "100%"
-      )
+      turbo_frame_tag [:ruby, :enumeration, demo_type], class: "ruby-enumeration-demo" do
+        iframe(
+          src: iframe_src,
+          height: focused_demo_type? ? "635px" : "695px",
+          loading: "lazy",
+          width: "100%"
+        )
+      end
     end
 
     def base_uri
