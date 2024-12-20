@@ -22,6 +22,7 @@
 
 @import './components/anchors.scss';
 @import './components/article-content.css';
+@import './components/bokeh.css';
 @import './components/button.css';
 @import './components/callout.css';
 @import './components/clipboard-copy.css';

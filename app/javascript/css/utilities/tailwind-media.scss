@@ -114,6 +114,14 @@
     grid-column-start: 2;
   }
 
+  .lg\:grid-column-start-3 {
+    grid-column-start: 3;
+  }
+
+  .lg\:grid-column-end-3 {
+    grid-column-end: 3;
+  }
+
   .lg\:aspect-\[3\/2\] {
     aspect-ratio: 3 / 2;
   }
@@ -136,5 +144,9 @@
 
   .lg\:hidden {
     display: none;
+  }
+
+  .lg\:w-4\/5 {
+    width: 80%;
   }
 }
