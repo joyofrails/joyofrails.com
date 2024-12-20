@@ -20,8 +20,13 @@ module Pages
     end
 
     class Container < ApplicationComponent
+      attr_reader :attributes
+      def initialize(**attributes)
+        @attributes = attributes
+      end
+
       def view_template(&)
-        header(class: "page-header") do
+        header(**mix(attributes, class: "page-header")) do
           div(class: "container header-content", &)
         end
       end

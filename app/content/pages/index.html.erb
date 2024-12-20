@@ -3,16 +3,23 @@ title: Joy of Rails
 ---
 
 <% articles = Page.all.published.order(published_at: :desc) %>
-<%= render Pages::Header::Container.new do |c| %>
-  <div class="hero">
-    <%= c.title do %>
-      Experience the<br><span class="text-gradient">Joy of Ruby on Rails</span>
-    <% end %>
-    <p>
-      Interactive lessons in the framework that will make you fall in love with building web apps all over again 💜
-    </p>
-  </div>
-<% end %>
+<div class="bokeh__background">
+  <%= render Pages::Header::Container.new(class: "background-gradient") do |c| %>
+    <div class="grid grid-gap lg:grid-cols-3 lg:grid-flow-col">
+      <div class="hero grid grid-row-tight content-start lg:grid-column-start-1 lg:grid-column-end-3">
+        <%= c.title do %>
+          Experience the<br><span class="text-gradient">Joy of Ruby on Rails</span>
+        <% end %>
+        <p>
+          Interactive lessons in the framework that will make you fall in love with building web apps all over again 💜
+        </p>
+      </div>
+      <div class="grid grid-row-tight content-start lg:text-left lg:grid-column-start-3">
+        <%= vite_image_tag "images/content/index/pencil-transparent.webp", class: "m-auto w-1/2 lg:w-4/5" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 <div class="main-content container py-gap lg:py-3xl">
   <% articles.take(3).zip(%w[left right].cycle).each do |(page, side)| %>
     <%= render Pages::Summary.from_page(page, side: side) %>

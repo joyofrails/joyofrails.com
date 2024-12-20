@@ -1,0 +1,8 @@
+.bokeh__background {
+  background-image: url(~/images/content/index/bokeh-background.webp);
+
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center -250px;
+  background-repeat: no-repeat;
+}
