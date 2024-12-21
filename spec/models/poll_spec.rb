@@ -52,4 +52,29 @@ RSpec.describe Poll, type: :model do
       }.not_to change(Poll, :count)
     end
   end
+
+  describe "#completed?" do
+    it "returns true if all questions have been voted on" do
+      poll = FactoryBot.create(:poll)
+      q1 = FactoryBot.create(:polls_question, poll: poll)
+      q2 = FactoryBot.create(:polls_question, poll: poll)
+      q3 = FactoryBot.create(:polls_question, poll: poll)
+      a1_q1 = FactoryBot.create(:polls_answer, question: q1)
+      _a2_q1 = FactoryBot.create(:polls_answer, question: q1)
+      _a1_q2 = FactoryBot.create(:polls_answer, question: q2)
+      a2_q2 = FactoryBot.create(:polls_answer, question: q2)
+      _a1_q3 = FactoryBot.create(:polls_answer, question: q3)
+      a2_q3 = FactoryBot.create(:polls_answer, question: q3)
+
+      uuid = SecureRandom.uuid_v7
+      FactoryBot.create(:polls_vote, answer: a1_q1, device_uuid: uuid)
+      FactoryBot.create(:polls_vote, answer: a2_q2, device_uuid: uuid)
+
+      expect(poll.completed?(uuid)).to eq(false)
+
+      FactoryBot.create(:polls_vote, answer: a2_q3, device_uuid: uuid)
+
+      expect(poll.completed?(uuid)).to eq(true)
+    end
+  end
 end

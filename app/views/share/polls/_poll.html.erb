@@ -1,1 +1,1 @@
-<%= render Share::Polls::PollComponent.new(poll, device_uuid: ensure_device_uuid) %>
+<%= render Share::Polls::PollComponent.new(poll, device_uuid: ensure_device_uuid, completed: poll.completed?(ensure_device_uuid)) %>

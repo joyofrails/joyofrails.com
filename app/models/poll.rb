@@ -48,4 +48,10 @@ class Poll < ApplicationRecord
     poll.save
     poll
   end
+
+  def completed?(device_uuid)
+    questions.all? do |question|
+      question.voted?(device_uuid: device_uuid)
+    end
+  end
 end

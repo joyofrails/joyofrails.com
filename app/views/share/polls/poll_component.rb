@@ -3,8 +3,9 @@ class Share::Polls::PollComponent < ApplicationComponent
 
   attr_accessor :poll, :device_uuid
 
-  def initialize(poll, device_uuid:)
+  def initialize(poll, device_uuid:, completed: false)
     @poll = poll
+    @completed = completed
     @device_uuid = device_uuid
   end
 
@@ -25,10 +26,17 @@ class Share::Polls::PollComponent < ApplicationComponent
             render Share::Polls::QuestionComponent.new(
               poll,
               question,
-              voted: question.voted?(device_uuid: device_uuid)
+              voted: completed?
             )
           end
       end
     end
+  end
+
+  def completed?
+    @completed ||
+      poll.questions.all? do |question|
+        question.voted?(device_uuid: device_uuid)
+      end
   end
 end
