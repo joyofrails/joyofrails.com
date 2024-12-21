@@ -29,8 +29,8 @@
 
   &.background-gradient {
     background: radial-gradient(
-      ellipse at 1000% 50%,
-      rgba(0, 0, 0, 0) -10%,
+      ellipse at 100% 75%,
+      rgba(0, 0, 0, 0) 10%,
       var(--joy-background-header)
     );
   }
