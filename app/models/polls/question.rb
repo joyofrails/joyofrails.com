@@ -29,8 +29,4 @@ class Polls::Question < ApplicationRecord
   def votes_count
     answers.sum(&:votes_count)
   end
-
-  def voted?(**conditions)
-    votes.where(**conditions).count.positive?
-  end
 end

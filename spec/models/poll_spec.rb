@@ -53,7 +53,7 @@ RSpec.describe Poll, type: :model do
     end
   end
 
-  describe "#completed?" do
+  describe "#voted_all?" do
     it "returns true if all questions have been voted on" do
       poll = FactoryBot.create(:poll)
       q1 = FactoryBot.create(:polls_question, poll: poll)
@@ -70,11 +70,11 @@ RSpec.describe Poll, type: :model do
       FactoryBot.create(:polls_vote, answer: a1_q1, device_uuid: uuid)
       FactoryBot.create(:polls_vote, answer: a2_q2, device_uuid: uuid)
 
-      expect(poll.completed?(uuid)).to eq(false)
+      expect(poll.voted_all?(device_uuid: uuid)).to eq(false)
 
       FactoryBot.create(:polls_vote, answer: a2_q3, device_uuid: uuid)
 
-      expect(poll.completed?(uuid)).to eq(true)
+      expect(poll.voted_all?(device_uuid: uuid)).to eq(true)
     end
   end
 end

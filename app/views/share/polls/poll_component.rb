@@ -1,12 +1,11 @@
 class Share::Polls::PollComponent < ApplicationComponent
   include Phlex::Rails::Helpers::TurboFrameTag
 
-  attr_accessor :poll, :device_uuid
+  attr_accessor :poll
 
-  def initialize(poll, device_uuid:, completed: false)
+  def initialize(poll, completed: false)
     @poll = poll
     @completed = completed
-    @device_uuid = device_uuid
   end
 
   def view_template
@@ -18,10 +17,7 @@ class Share::Polls::PollComponent < ApplicationComponent
       end
 
       div(class: "p-4 flex flex-col gap-2") do
-        poll
-          .questions
-          .includes(:answers)
-          .ordered
+        questions
           .each do |question|
             render Share::Polls::QuestionComponent.new(
               poll,
@@ -33,10 +29,9 @@ class Share::Polls::PollComponent < ApplicationComponent
     end
   end
 
-  def completed?
-    @completed ||
-      poll.questions.all? do |question|
-        question.voted?(device_uuid: device_uuid)
-      end
+  def questions
+    @questions ||= poll.questions.includes(:answers).ordered
   end
+
+  def completed? = !!@completed
 end
