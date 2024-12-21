@@ -20,7 +20,7 @@
       <%= render Pages::Timestamp.new published_on: current_page.published_on, updated_on: current_page.revised_on, class: "text-small block" %>
       <div class="text-small">
         <% topics = current_page.topics.approved.pluck(:slug) %>
-        <% if topics.present? %>
+        <% if topics.any? %>
           <%= render Pages::Topics.new(topics: topics) %>
         <% end %>
       </div>
@@ -30,7 +30,7 @@
 
       <% cache [@current_page, :related_pages] do %>
         <% related_pages = @current_page.related_pages.published.limit(3) %>
-        <% if related_pages.present? %>
+        <% if related_pages.load.any? %>
           <h3>More articles to enjoy</h3>
           <ul class="list-none">
             <% related_pages.each do |page| %>
