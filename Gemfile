@@ -53,7 +53,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 
 # Clients
 gem "httpx" # An HTTP client library for Ruby [https://gitlab.com/os85/httpx]
-gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
+gem "honeybadger", require: false # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
@@ -89,7 +89,7 @@ group :development, :test do
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "dotenv" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
-  gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails", require: false # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
