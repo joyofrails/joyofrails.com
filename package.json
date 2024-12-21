@@ -10,7 +10,7 @@
     "dracula-ui": "^1.0.6",
     "html-to-image": "^1.11.11",
     "postcss-import": "^16.1.0",
-    "rails_admin": "3.2.0",
+    "rails_admin": "^3.3.0",
     "system-font-css": "^2.0.2"
   },
   "devDependencies": {
