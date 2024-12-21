@@ -29,7 +29,7 @@ gem "device_detector" # DeviceDetector is a precise and fast user agent parser a
 gem "warden" # General Rack Authentication Framework [https://github.com/wardencommunity/warden]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
 gem "scout_apm" # Scout APM Ruby Agent [https://scoutapm.com]
-gem "rails_admin", github: "railsadminteam/rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
+gem "rails_admin" # RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data [https://github.com/railsadminteam/rails_admin]
 gem "addressable" # Addressable is an alternative implementation to URI [https://github.com/sporkmonger/addressable]
 gem "ostruct" # OpenStruct is a data structure, similar to a Hash, that allows the definition of arbitrary attributes with their accompanying values
 gem "parslet" # Parslet is a small Ruby library for constructing parsers [https://github.com/kschiess/parslet]
