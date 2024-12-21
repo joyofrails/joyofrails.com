@@ -89,7 +89,7 @@ group :development, :test do
   gem "bundle-audit", require: false # Patch level verification for Bundler [https://github.com/rubysec/bundler-audit]
   gem "debug", platforms: %i[mri windows] # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "dotenv" # A Ruby gem to load environment variables from `.env` [https://github.com/bkeepers/dotenv]
-  gem "factory_bot_rails" # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails", require: false # A library for setting up Ruby objects as test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "faker", require: false # A library for generating fake data [https://github.com/faker-ruby/faker]
   gem "rails_best_practices", require: false # A code metric tool for Rails projects [https://github.com/flyerhzm/rails_best_practices]
   gem "reek", require: false # Code smell detector for Ruby [https://github.com/troessner/reek]
