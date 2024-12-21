@@ -53,7 +53,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 
 # Clients
 gem "httpx" # An HTTP client library for Ruby [https://gitlab.com/os85/httpx]
-gem "honeybadger" # Error monitoring and uptime reporting [https://www.honeybadger.io]
+gem "honeybadger", require: false # Error monitoring and uptime reporting [https://www.honeybadger.io]
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
