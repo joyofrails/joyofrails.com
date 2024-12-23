@@ -8,48 +8,36 @@ const console = debug('app:javascript:controllers:demos:ruby-enumeration');
 const cssThemeVariable = (prop) =>
   window.getComputedStyle(document.documentElement).getPropertyValue(prop);
 
+const setUrlPreferenceParams = (urlString) => {
+  const url = new URL(urlString);
+
+  if (isDarkMode()) {
+    url.searchParams.append('isDarkMode', 'true');
+    url.searchParams.delete('background');
+  } else {
+    url.searchParams.append('background', cssThemeVariable('--joy-background'));
+    url.searchParams.delete('isDarkMode');
+  }
+
+  url.searchParams.append('gridLines', cssThemeVariable('--joy-border-subtle'));
+
+  url.searchParams.append('animationSpeed', 0.3);
+
+  return url.toString();
+};
+
 export default class extends Controller {
   connect() {
     console.log('connect');
+    this.element.onload = () => console.log('iframe loaded');
 
     // We expect this.element to be an iframe
-    const url = new URL(this.element.src);
-
-    if (isDarkMode()) {
-      url.searchParams.append('isDarkMode', 'true');
-    } else {
-      url.searchParams.append(
-        'background',
-        cssThemeVariable('--joy-background'),
-      );
-    }
-
-    url.searchParams.append(
-      'gridLines',
-      cssThemeVariable('--joy-border-subtle'),
-    );
-
-    url.searchParams.append('animationSpeed', 0.3);
-
-    console.log('url', url.toString());
-
-    this.element.src = url.toString();
+    this.element.src = setUrlPreferenceParams(this.element.src);
   }
 
   darkmode({ detail: { mode } }) {
     console.log('changeDarkmode', mode);
-    const url = new URL(this.element.src);
 
-    if (mode === 'dark') {
-      url.searchParams.append('isDarkMode', 'true');
-      url.searchParams.delete('background');
-    } else {
-      url.searchParams.append(
-        'background',
-        cssThemeVariable('--joy-background'),
-      );
-      url.searchParams.delete('isDarkMode');
-    }
-    this.element.src = url.toString();
+    this.element.src = setUrlPreferenceParams(this.element.src);
   }
 }
