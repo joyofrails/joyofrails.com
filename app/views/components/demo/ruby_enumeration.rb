@@ -2,10 +2,10 @@ module Demo
   class RubyEnumeration < ApplicationComponent
     include Phlex::Rails::Helpers::TurboFrameTag
 
-    attr_reader :demo_type
+    attr_reader :query
 
-    def initialize(demo_type: "combined")
-      @demo_type = demo_type.to_s
+    def initialize(**query)
+      @query = query
     end
 
     def view_template
@@ -20,18 +20,26 @@ module Demo
     end
 
     def base_uri
-      Addressable::URI.parse("https://joyofrails.github.io/ruby-enumeration-demo/")
+      if demo_running_locally?
+        Addressable::URI.parse("http://localhost:5173/ruby-enumeration-demo/")
+      else
+        Addressable::URI.parse("https://joyofrails.github.io/ruby-enumeration-demo/")
+      end
     end
 
     FOCUSED_DEMO_TYPES = %w[eager lazy].freeze
     def iframe_src
       uri = base_uri
       if focused_demo_type?
-        uri.query_values = (uri.query_values || {}).merge(demoType: demo_type)
+        uri.query_values = (uri.query_values || {}).merge(query).transform_keys { |k| k.to_s.camelize(:lower) }
       end
       uri.to_s
     end
 
+    def demo_type = query.fetch(:demo_type, "default")
+
     def focused_demo_type? = FOCUSED_DEMO_TYPES.include?(demo_type)
+
+    def demo_running_locally? = true
   end
 end
