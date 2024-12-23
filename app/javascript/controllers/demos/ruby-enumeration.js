@@ -5,6 +5,9 @@ import { isDarkMode } from '../darkmode';
 
 const console = debug('app:javascript:controllers:demos:ruby-enumeration');
 
+const cssThemeVariable = (prop) =>
+  window.getComputedStyle(document.documentElement).getPropertyValue(prop);
+
 export default class extends Controller {
   static values = {
     url: String,
@@ -13,15 +16,27 @@ export default class extends Controller {
   connect() {
     console.log('connect');
 
-    const turboFrame = this.element;
-    const url = new URL(this.urlValue);
+    const iFrame = this.element;
+    const url = new URL(this.urlValue || iFrame.src);
 
-    // Determine if the page is in Dark Mode
-    url.searchParams.append('is_dark_mode', isDarkMode());
+    if (isDarkMode()) {
+      url.searchParams.append('isDarkMode', 'true');
+    } else {
+      url.searchParams.append(
+        'background',
+        cssThemeVariable('--joy-background'),
+      );
+    }
+
+    url.searchParams.append(
+      'gridLines',
+      cssThemeVariable('--joy-border-subtle'),
+    );
+
+    url.searchParams.append('animationSpeed', 0.3);
 
     console.log('url', url.toString());
 
-    // Set the src attribute of the Turbo Frame element
-    turboFrame.src = url.toString();
+    iFrame.src = url.toString();
   }
 }
