@@ -1,22 +1,22 @@
 module Demo
   class RubyEnumeration < ApplicationComponent
-    include Phlex::Rails::Helpers::TurboFrameTag
+    attr_reader :demo_type
 
-    attr_reader :query
-
-    def initialize(**query)
-      @query = query
+    def initialize(demo_type = "default")
+      @demo_type = demo_type.to_s
     end
 
     def view_template
-      turbo_frame_tag [:ruby, :enumeration, demo_type], class: "ruby-enumeration-demo" do
-        iframe(
-          src: iframe_src,
-          height: focused_demo_type? ? "635px" : "695px",
-          loading: "lazy",
-          width: "100%"
-        )
-      end
+      iframe(
+        id: [:ruby, :enumeration, demo_type].join("-"),
+        data: {
+          "controller" => "demo-ruby-enumeration",
+          "demo-ruby-enumeration-url-value" => iframe_src
+        },
+        loading: "lazy",
+        width: "100%",
+        height: focused_demo_type? ? "635px" : "695px"
+      )
     end
 
     def base_uri
@@ -30,11 +30,9 @@ module Demo
     FOCUSED_DEMO_TYPES = %w[eager lazy].freeze
     def iframe_src
       uri = base_uri
-      uri.query_values = (uri.query_values || {}).merge(query).transform_keys { |k| k.to_s.camelize(:lower) }
+      uri.query_values = {demoType: demo_type}
       uri.to_s
     end
-
-    def demo_type = query.fetch(:demo_type, "default")
 
     def focused_demo_type? = FOCUSED_DEMO_TYPES.include?(demo_type)
 
