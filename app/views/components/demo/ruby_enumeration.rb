@@ -11,8 +11,9 @@ module Demo
         id: [:ruby, :enumeration, demo_type].join("-"),
         data: {
           "controller" => "demo-ruby-enumeration",
-          "demo-ruby-enumeration-url-value" => iframe_src
+          "action" => "darkmode:announce@window->demo-ruby-enumeration#darkmode"
         },
+        src: iframe_src,
         loading: "lazy",
         width: "100%",
         height: focused_demo_type? ? "635px" : "695px"

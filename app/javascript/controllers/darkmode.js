@@ -82,26 +82,31 @@ export default class extends Controller {
       case DARK:
         broadcastDark();
         storeTheme(DARK);
-        this.dispatch(DARK);
+        this.announce(DARK);
         break;
       case LIGHT:
         broadcastLight();
         storeTheme(LIGHT);
-        this.dispatch(LIGHT);
+        this.announce(LIGHT);
         break;
       case SYSTEM:
         if (prefersColorTheme(DARK)) {
           broadcastSystem(DARK);
-          this.dispatch(DARK);
+          this.announce(DARK);
         } else {
           broadcastSystem(LIGHT);
-          this.dispatch(LIGHT);
+          this.announce(LIGHT);
         }
         removeTheme();
         break;
       default:
         throw new Error(`Unknown mode ${mode}`);
     }
+  }
+
+  announce(mode) {
+    console.log('announce', mode);
+    this.dispatch('announce', { detail: { mode } });
   }
 
   cycle() {
