@@ -32,6 +32,8 @@ import SnippetTweet from './snippets/tweet';
 import SearchCombobox from './searches/combobox';
 import SearchListbox from './searches/listbox';
 
+import RubyEnumerationDemo from './demos/ruby-enumeration';
+
 application.register('clipboard-copy', ClipboardCopy);
 application.register('current-page', CurrentPage);
 application.register('darkmode', Darkmode);
@@ -59,3 +61,5 @@ application.register('snippet-tweet', SnippetTweet);
 
 application.register('search-combobox', SearchCombobox);
 application.register('search-listbox', SearchListbox);
+
+application.register('demo-ruby-enumeration', RubyEnumerationDemo);
