@@ -24,8 +24,8 @@ RSpec.describe ArticleGenerator, type: :generator do
           summary: Here is the summary
           description: Here is the description that will show up in the the meta tag
           published: "#{Date.today + 7}"
-          image: articles/my-new-article/placeholder.webp
-          meta_image: articles/my-new-article/placeholder.webp
+          image: articles/my-new-article/placeholder.jpg
+          meta_image: articles/my-new-article/placeholder.jpg
           tags:
             - Rails
           ---
