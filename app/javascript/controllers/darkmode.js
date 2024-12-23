@@ -12,6 +12,9 @@ const SYSTEM = 'system';
 const modes = [DARK, LIGHT, SYSTEM];
 let mode = SYSTEM;
 
+export const isDarkMode = () =>
+  document.documentElement.classList.contains(DARK);
+
 const broadcastDark = () => {
   mode = DARK;
   document.documentElement.classList.add(DARK);
@@ -79,16 +82,20 @@ export default class extends Controller {
       case DARK:
         broadcastDark();
         storeTheme(DARK);
+        this.dispatch(DARK);
         break;
       case LIGHT:
         broadcastLight();
         storeTheme(LIGHT);
+        this.dispatch(LIGHT);
         break;
       case SYSTEM:
         if (prefersColorTheme(DARK)) {
           broadcastSystem(DARK);
+          this.dispatch(DARK);
         } else {
           broadcastSystem(LIGHT);
+          this.dispatch(LIGHT);
         }
         removeTheme();
         break;

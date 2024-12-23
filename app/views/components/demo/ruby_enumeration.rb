@@ -30,9 +30,7 @@ module Demo
     FOCUSED_DEMO_TYPES = %w[eager lazy].freeze
     def iframe_src
       uri = base_uri
-      if focused_demo_type?
-        uri.query_values = (uri.query_values || {}).merge(query).transform_keys { |k| k.to_s.camelize(:lower) }
-      end
+      uri.query_values = (uri.query_values || {}).merge(query).transform_keys { |k| k.to_s.camelize(:lower) }
       uri.to_s
     end
 

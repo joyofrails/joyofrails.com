@@ -13,21 +13,21 @@ tags:
 
 Below is how I visualize how Ruby normally processes a chain of methods on an enumerable object.
 
-<%= turbo_frame_tag [:ruby, :enumeration, :eager], src: examples_ruby_enumeration_path(demo_type: "eager") do %>
+<%= turbo_frame_tag [:ruby, :enumeration, :eager], data: { "controller" => "demo-ruby-enumeration", "demo-ruby-enumeration-url-value" => examples_ruby_enumeration_url(demo_type: "eager") } do %>
 
   <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
 <% end %>
 
 Now visualize how enumeration changes when using `.lazy` enumeration.
 
-<%= turbo_frame_tag [:ruby, :enumeration, :lazy], src: examples_ruby_enumeration_path(demo_type: "lazy") do %>
+<%= turbo_frame_tag [:ruby, :enumeration, :lazy], data: { "controller" => "demo-ruby-enumeration", "demo-ruby-enumeration-url-value" => examples_ruby_enumeration_url(demo_type: "lazy") } do %>
 
   <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
 <% end %>
 
 Here’s the demo again with some controls to play with the speed and style of enumeration:
 
-<%= turbo_frame_tag [:ruby, :enumeration, :combined], src: examples_ruby_enumeration_path(demo_type: "combined") do %>
+<%= turbo_frame_tag [:ruby, :enumeration, :combined], data: { "controller" => "demo-ruby-enumeration", "demo-ruby-enumeration-url-value" => examples_ruby_enumeration_url(demo_type: "combined") } do %>
 
   <div><%= image_tag "articles/simple-trick-to-understand-ruby-lazy-enumerator/loading.gif" %></div>
 <% end %>
