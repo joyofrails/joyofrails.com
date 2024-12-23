@@ -22,7 +22,10 @@ module Share
               flash.now[:notice] = "Thank you for voting!".emojoy
               render turbo_stream: [
                 turbo_stream.prepend("flash", partial: "application/flash"),
-                turbo_stream.replace(@poll, renderable: Share::Polls::PollComponent.new(@poll, device_uuid: ensure_device_uuid))
+                turbo_stream.replace(
+                  @poll,
+                  renderable: Share::Polls::PollComponent.new(@poll, completed: @poll.voted_all?(device_uuid: ensure_device_uuid))
+                )
               ]
             end
           end

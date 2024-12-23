@@ -48,4 +48,18 @@ class Poll < ApplicationRecord
     poll.save
     poll
   end
+
+  def voted_all?(vote_conditions)
+    counts = questions
+      .select(:id)
+      .left_joins(:votes)
+      .where(votes: vote_conditions)
+      .group(:id)
+      .count # {question_id => votes_count}
+
+    # Check if all questions have at least one vote We might expect counts to
+    # include zeros for questions without votes but the left join appears to
+    # exclude them, so we fetch(id, 0) to default to 0.
+    question_ids.all? { |id| counts.fetch(id, 0).positive? }
+  end
 end
