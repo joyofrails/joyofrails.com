@@ -9,15 +9,11 @@ const cssThemeVariable = (prop) =>
   window.getComputedStyle(document.documentElement).getPropertyValue(prop);
 
 export default class extends Controller {
-  static values = {
-    url: String,
-  };
-
   connect() {
     console.log('connect');
 
-    const iFrame = this.element;
-    const url = new URL(this.urlValue || iFrame.src);
+    // We expect this.element to be an iframe
+    const url = new URL(this.element.src);
 
     if (isDarkMode()) {
       url.searchParams.append('isDarkMode', 'true');
@@ -37,6 +33,23 @@ export default class extends Controller {
 
     console.log('url', url.toString());
 
-    iFrame.src = url.toString();
+    this.element.src = url.toString();
+  }
+
+  darkmode({ detail: { mode } }) {
+    console.log('changeDarkmode', mode);
+    const url = new URL(this.element.src);
+
+    if (mode === 'dark') {
+      url.searchParams.append('isDarkMode', 'true');
+      url.searchParams.delete('background');
+    } else {
+      url.searchParams.append(
+        'background',
+        cssThemeVariable('--joy-background'),
+      );
+      url.searchParams.delete('isDarkMode');
+    }
+    this.element.src = url.toString();
   }
 }
