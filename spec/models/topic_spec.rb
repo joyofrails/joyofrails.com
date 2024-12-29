@@ -32,7 +32,7 @@ RSpec.describe Topic, type: :model do
       end
     end
 
-    it "shouldn't update status of exiting topic" do
+    it "shouldn't update status of existing topic" do
       topic = FactoryBot.create(:topic, :approved, name: "Ruby on Rails")
       assert_equal "approved", topic.status
 
