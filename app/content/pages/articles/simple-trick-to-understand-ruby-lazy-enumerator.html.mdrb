@@ -11,6 +11,12 @@ tags:
   - Rails
 ---
 
+Ruby’s `Enumerable` module is one of many reasons I love Ruby so much.
+
+```ruby
+[1, 2, 3].map { |n| n * 2 }.with_index.select { |n, i| i.even? }.take(3)
+```
+
 Below is how I visualize how Ruby normally processes a chain of methods on an enumerable object.
 
 <%= render Demo::RubyEnumeration.new("eager") %>

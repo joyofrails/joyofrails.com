@@ -9,6 +9,11 @@ const cssThemeVariable = (prop) =>
   window.getComputedStyle(document.documentElement).getPropertyValue(prop);
 
 const setUrlPreferenceParams = (urlString) => {
+  if (!urlString) {
+    console.error('No URL provided');
+    return 'http://example.com';
+  }
+
   const url = new URL(urlString);
 
   if (isDarkMode()) {
@@ -27,17 +32,25 @@ const setUrlPreferenceParams = (urlString) => {
 };
 
 export default class extends Controller {
+  static values = {
+    url: String,
+  };
+
   connect() {
     console.log('connect');
     this.element.onload = () => console.log('iframe loaded');
 
     // We expect this.element to be an iframe
-    this.element.src = setUrlPreferenceParams(this.element.src);
+    this.element.src = setUrlPreferenceParams(this.src);
   }
 
   darkmode({ detail: { mode } }) {
     console.log('changeDarkmode', mode);
 
-    this.element.src = setUrlPreferenceParams(this.element.src);
+    this.element.src = setUrlPreferenceParams(this.src);
+  }
+
+  get src() {
+    return this.urlValue || this.element.src;
   }
 }
