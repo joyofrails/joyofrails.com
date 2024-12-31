@@ -1,4 +1,5 @@
 require "rails_helper"
+require "faker"
 
 RSpec.describe "/pwa/installation_instructions", type: :request do
   describe "GET /pwa/installation_instructions" do

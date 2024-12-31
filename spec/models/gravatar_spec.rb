@@ -1,4 +1,5 @@
 require "rails_helper"
+require "faker"
 
 RSpec.describe Gravatar do
   let(:email) { Faker::Internet.email }
