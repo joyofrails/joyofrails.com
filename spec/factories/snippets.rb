@@ -17,6 +17,9 @@
 #
 #  index_snippets_on_author  (author_type,author_id)
 #
+
+require "faker"
+
 FactoryBot.define do
   factory :snippet do
     source { "puts \"Hello, world!\"" }

@@ -15,6 +15,9 @@
 #  index_pages_on_published_at  (published_at)
 #  index_pages_on_request_path  (request_path) UNIQUE
 #
+
+require "faker"
+
 FactoryBot.define do
   factory :page do
     request_path { "/" + Faker::Internet.slug }

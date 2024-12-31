@@ -13,6 +13,9 @@
 #
 #  index_newsletters_on_sent_at  (sent_at)
 #
+
+require "faker"
+
 FactoryBot.define do
   factory :newsletter do
     title { Faker::Lorem.sentence }
