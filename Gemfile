@@ -57,7 +57,7 @@ gem "honeybadger", require: false # Error monitoring and uptime reporting [https
 gem "litestream" # Standalone streaming replication for SQLite [https://litestream.io]
 gem "web-push" # Web Push library for Ruby [https://github.com/pushpad/web-push]
 gem "aws-sdk-s3" # Official AWS Ruby gem for Amazon S3 [https://github.com/aws/aws-sdk-ruby]
-gem "ruby-openai" # Use OpenAPI in Ruby [https://github.com/alexrudall/ruby-openai]
+gem "ruby-openai" # Use OpenAI in Ruby [https://github.com/alexrudall/ruby-openai]
 
 # Admin
 gem "flipper-ui" # UI for the Flipper gem [https://www.flippercloud.io/docs/ui]

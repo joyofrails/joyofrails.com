@@ -2,7 +2,7 @@
 
 Thank you for interest in contributing to Joy of Rails. Please take a moment to review this document before submitting a pull request.
 
-Following these guidelines helps to communicate you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
+Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
 
 Joy of Rails is an open source project and we love to receive contributions from our community — you! There are many ways to contribute, from improving the documentation, fixing typos, submitting bug reports and feature requests or writing code which can be incorporated into the application itself.
 
