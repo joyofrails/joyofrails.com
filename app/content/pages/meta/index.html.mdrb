@@ -1,0 +1,17 @@
+---
+title: Meta—How Joy of Rails is Built
+author: Ross Kaffenberger
+layout: article
+summary: The Joy of Rails Meta section provides information about how the Joy of Rails application is built, including hosting and production settings.
+description: The Joy of Rails Meta section provides information about the Joy of Rails application itself, including hosting and production settings.
+updated: '2025-01-03'
+---
+
+The Meta pages are a work-in-progress 🚧 As I find time and answer questions people have about the site, I continually add to and update these articles.
+
+## Deployment
+
+For information about how Joy of Rails is deployed and hosted in production:
+
+- [Joy of Rails 💜 Hatchbox](/meta/deployment/hatchbox)
+- [ActiveStorage in Production](/meta/deployment/activestorage)

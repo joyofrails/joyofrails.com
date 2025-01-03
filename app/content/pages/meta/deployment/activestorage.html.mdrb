@@ -1,0 +1,33 @@
+---
+title: ActiveStorage in Production
+author: Ross Kaffenberger
+layout: article
+summary: Joy of Rails is a Rails application that uses ActiveStorage to manage media attachments, including screenshots of code snippets.
+description: Joy of Rails is a Rails application that uses ActiveStorage to manage media attachments, including screenshots of code snippets.
+updated: '2025-01-03'
+---
+
+Joy of Rails uses [DigitalOcean Spaces](https://www.digitalocean.com/products/spaces) for image storage in production.
+
+DigitalOcean Spaces are S3-compatible so technically not much different from using Amazon S3. I chose DigitalOcean Spaces because Joy of Rails is already using DigitalOcean for the virtual private server to host the application. That keeps things simpler in my mind.
+
+The DigitalOcean interface makes it pretty easy to set up. [This tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-activestorage-in-rails-6-with-digitalocean-spaces), although a bit older, is still relevant. It provides all the info you would need to go from "zero-to-DigitalOcean" for ActiveStorage.
+
+As far as Rails configuration goes, here are the key bits:
+
+A section in `config/storage.yml` to set credentials to DigitalOcean.
+
+<%= render CodeBlock::AppFile.new("config/storage.yml", language: "yaml", lines: 8..16, revision: "9843d7c21cd8ea2f996d66e41bb3bc245a27ea9c", class: "stretch") %>
+
+A section in in my encrypted credentials file to store the access key, secret, and bucket name I generated in the DigitalOcean interface.
+
+```yaml:{"filename":"config/environments/production.yml.enc"}
+digitalocean:
+  access_key: DOxxxxxxxxxxxxxxxxxx
+  secret: aaaabbbbccccddddeeeeffffxxxxxxxxxxxxxxxxxxx
+  bucket: my-bucket-name
+```
+
+A setting in config/environments/production.rb to point ActiveStorage to DigitalOcean.
+
+<%= render CodeBlock::AppFile.new("config/environments/production.rb", language: "rb", lines: 40..42, highlight_lines: [2], revision: "0c24ab1f637101f53cb942004ff364558dd8bd96") %>

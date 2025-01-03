@@ -14,7 +14,7 @@ class CodeBlock::AppFile < ApplicationComponent
   end
 
   def view_template
-    render CodeBlock::Container.new(language: language) do
+    render CodeBlock::Container.new(language: language, **attributes) do
       render CodeBlock::AppFileHeader.new(app_file)
 
       render CodeBlock::Body.new do
