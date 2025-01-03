@@ -3,7 +3,7 @@ title: Settings
 layout: article
 summary: Customize your Joy of Rails experience
 description: Customize your Joy of Rails experience including color schemes and syntax highlighting
-updated: 2024-07-31
+updated: '2024-07-31'
 ---
 
 If you‘re interested to change what the site looks and play with different colors, you can check out the settings editors for <%= link_to "Color Schemes", settings_color_scheme_path %> and
