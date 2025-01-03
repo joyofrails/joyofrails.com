@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import * as htmlToImage from 'html-to-image';
 
 import { debug } from '../../utils';
 
@@ -53,6 +52,8 @@ export default class extends Controller<HTMLFormElement> {
   };
 
   drawScreenshot = async () => {
+    const htmlToImage = await import('html-to-image');
+
     return htmlToImage.toPng(this.snippetTarget);
   };
 }

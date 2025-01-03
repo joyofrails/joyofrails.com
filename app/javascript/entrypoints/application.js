@@ -1,7 +1,6 @@
 import debug from 'debug';
 
 import '@hotwired/turbo-rails';
-import * as htmlToImage from 'html-to-image';
 
 import '../controllers';
 
@@ -49,5 +48,3 @@ registerServiceWorker();
 turboScrollSmoothWorkaround();
 
 window.channels = channels;
-
-window.htmlToImage = htmlToImage;
