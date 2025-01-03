@@ -37,7 +37,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
-  # Store uploaded files on digitalocean (see config/storage.yml for options).
+  # Store uploaded files on digitalocean (see config/storage.yml).
   config.active_storage.service = :digitalocean
 
   # Mount Action Cable outside main process or domain.
