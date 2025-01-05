@@ -11,8 +11,20 @@ The design leans heavily into [CSS grid](https://developer.mozilla.org/en-US/doc
 
 ## Colors
 
-Speaking of, the color theme of the site is also driven by CSS variables. I liked the idea of building the color theme off a monochromatic scale similar to [Tailwind’s color palettes](https://tailwindcss.com/docs/customizing-colors). This led me to [uicolors.app](https://uicolors.app), a Tailwind color generator. I had so much fun playing with different colors for the site, I decided to recreate that experience for you the reader. You can now visit the <%= link_to "color scheme settings", settings_color_scheme_path %> to swap out the color theme of the site. It’s currently hard-coded but a future release will allow readers to swap out the color themselves.
+Speaking of, the color theme of the site is also driven by CSS variables. I liked the idea of building the color theme off a monochromatic scale similar to [Tailwind’s color palettes](https://tailwindcss.com/docs/customizing-colors). This led me to [uicolors.app](https://uicolors.app), a Tailwind color generator.
+
+I had so much fun playing with different colors for the site, I decided to recreate that experience for you the reader. You can now visit the <%= link_to "color scheme settings", settings_color_scheme_path %> to swap out the color theme of the site. It’s currently hard-coded but a future release will allow readers to swap out the color themselves.
 
 ## UI Frameworks?
 
-**[Joy of Rails](/)** does not currently use a UI framework, like Material or Bootstrap. The first iteration of this site’s design was built with Tailwind which I have removed. I have copied over a number of Tailwind utility classes I used in that first iteration as well as the generated Utopia CSS variables for layout, spacing, and typography. I want to Joy of Rails to "own more" of its dependencies—part of why I implemented [Authentication from Scratch](https://github.com/joyofrails/joyofrails.com/pull/149). I love Tailwind, it was empowering to embrace the idea that I [don’t need a UI framework](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/). . This does mean a more work is required in HTML and CSS to make styles and accessibility work better for readers.
+**[Joy of Rails](/)** does not currently use a UI framework, like Material or Bootstrap. The first iteration of this site’s design was built with Tailwind which I have removed. I have copied over a number of Tailwind utility classes I used in that first iteration as well as the generated Utopia CSS variables for layout, spacing, and typography.
+
+I want to Joy of Rails to "own more" of its dependencies—part of why I implemented [Authentication from Scratch](https://github.com/joyofrails/joyofrails.com/pull/149). I love Tailwind, it was empowering to embrace the idea that I [don’t need a UI framework](https://www.smashingmagazine.com/2022/05/you-dont-need-ui-framework/). This does mean a more work is required in HTML and CSS to make styles and accessibility work better for readers.
+
+## Illustrations
+
+When I was in grade school, I doodled a lot. Drawing brought me a lot of joy. After years of working at a computer, I got away from it. But more recently, especially now that I have kids of my own, I’ve had the itch to return to my roots.
+
+For Joy of Rails, I wanted to add some fun visuals to the in-depth articles. So, in this age of AI-generated imagery, I decided I would do the opposite of what everyone else seems to be doing—draw everything by hand. You‘ll pictures of rainbows, ice cream cones, and smiley faces on Joy of Rails as a reminder of the joy coding brings to my life.
+
+Most of the illustrations are done in [Procreate](https://procreate.com/) on my iPad with an Apple Pencil. Procreate is a great little app I highly recommend for anyone looking to rekindle their childhood doodling habit.
