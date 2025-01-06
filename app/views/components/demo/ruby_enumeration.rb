@@ -37,6 +37,6 @@ module Demo
 
     def focused_demo_type? = FOCUSED_DEMO_TYPES.include?(demo_type)
 
-    def demo_running_locally? = true
+    def demo_running_locally? = ENV["JOY_OF_RAILS_LOCAL_DEMO_RUBY_ENUMERATION"] == "true"
   end
 end
