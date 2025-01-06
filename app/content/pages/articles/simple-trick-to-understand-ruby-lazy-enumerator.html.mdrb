@@ -4,27 +4,74 @@ author: Ross Kaffenberger
 layout: article
 summary: Here is the summary
 description: Here is the description that will show up in the the meta tag
-published: '2024-12-25'
+published: '2025-01-08'
 image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
 meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
 tags:
   - Rails
 ---
 
-Ruby’s `Enumerable` module is one of many reasons I love Ruby so much.
+In this article, we'll explore a simple visual trick to help understand how lazy enumeration works in Ruby.
+
+Lazy enumeration may seem like an abstract concept at first. It can be hard to conceptualize its value. However, it can be extremely useful in scenarios where you want to build complex pipelines of data transformations, but only want to evaluate the data when necessary.
+
+## Enumerable is eager
+
+Consider an Enumerable method chain.
 
 ```ruby
-[1, 2, 3].map { |n| n * 2 }.with_index.select { |n, i| i.even? }.take(3)
+7.times.map { |n| n + 1 }.select(&:even?).take(3)
+# => [2, 4, 6]
 ```
 
-Below is how I visualize how Ruby normally processes a chain of methods on an enumerable object.
+At each step of the chain, method calls are evaluated _eagerly_. Each element from the previous step must be processed before moving on to the next step.
+
+I think of this as "vertical" enumeration. Press Play/Pause/Reset to interact with the animation below.
 
 <%= render Demo::RubyEnumeration.new("eager") %>
 
-Now visualize how enumeration changes when using `.lazy` enumeration.
+See what I mean?
+
+The collection of items is represented as a vertical column of objects. The `map` operation computes a new object. The `select` operation filters out some objects. The `take` operation picks the first 3.
+
+Eager evaluation means each intermediate collection in an enumerable method chain is constructed before moving to the next.
+
+## Picturing lazy
+
+Now let’s consider `lazy`. The `Enumerable#lazy` method returns a lazy enumerator.
+
+```rb
+7.times.lazy
+# => #<Enumerator::Lazy: ...>
+```
+
+We can use methods like `to_a` or `force` to convert a lazy enumerator back into a normal collection:
+
+```rb
+7.times.lazy.force
+# => [0, 1, 2, 3, 4, 5, 6]
+```
+
+Lazy enumeration may help when working with large collections or expensive operations. It is even necessary in some cases, like enumerating from an infinite Ruby range:
+
+```rb
+(1..).lazy.select(&:even?).take(3).force
+```
+
+Lazy enumeration flips the order of operations on its side. I visualize this as "horizontal" enumeration:
 
 <%= render Demo::RubyEnumeration.new("lazy") %>
 
-Here’s the demo again with some controls to play with the speed and style of enumeration:
+See what I mean? Each object moves across the method chain one at time before evaluation of the next item beings.
+
+Most Enumerable methods in a lazy enumerator are redefined so they return another lazy enumerator instead of intermediate arrays or hashes. This means enumeration chains of operations can be constructed without being immediately evaluated.
+
+Laziness can be helpful when working with large datasets or expensive operations. You might want to construct a series of transformations on a subset of the data. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
+
+## Reprise
+
+Here’s the demo again with some controls to play with the speed and style of enumeration.
 
 <%= render Demo::RubyEnumeration.new("default") %>
+
+Next time you’re dealing with a large dataset or you encounter `lazy` in the wild, perhaps visualizing the "vertical" vs "horizontal" operation analogy will help you understand how your Ruby behaves.
