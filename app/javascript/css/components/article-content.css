@@ -1,13 +1,27 @@
 .article-content,
 .section-content {
   & h1,
+  & h2 {
+    margin-block-start: var(--space-l);
+  }
+
+  & h3,
+  & h4 {
+    margin-block-start: var(--space-m);
+  }
+
+  & h5,
+  & h6 {
+    margin-block-start: var(--space-s);
+  }
+
+  & h1,
   & h2,
   & h3,
   & h4,
   & h5,
   & h6 {
     color: var(--joy-text-heading);
-    margin-block-start: var(--space-xl);
 
     &:first-child {
       margin-block-start: 0;
