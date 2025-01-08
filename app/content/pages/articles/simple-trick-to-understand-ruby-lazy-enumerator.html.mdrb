@@ -5,8 +5,8 @@ layout: article
 summary: This article provides a visual demonstration of Enumerator::Lazy to conceptualize how it helps avoid performing unnecessary work when iterating through large datasets.
 description: This article provides a visual demonstration of Enumerator::Lazy to conceptualize how it helps avoid performing unnecessary work when iterating through large datasets.
 published: '2025-01-08'
-image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
-meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg
+image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
+meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
 tags:
   - Rails
 ---
@@ -92,4 +92,4 @@ If you liked this article, please feel free to share it and [subscribe](#newslet
 
 Did you find a mistake or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://x.com/rossta), [Bluesky](https://bsky.app/profile/rossta.net), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
 
-Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute. ![Feather](articles/simple-trick-to-understand-ruby-lazy-enumerator/placeholder.jpg 'Placeholder')
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute. ![Peas, please](articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp 'Peas, please')
