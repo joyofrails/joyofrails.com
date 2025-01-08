@@ -6,7 +6,7 @@ summary: A visual demonstration of how Enumerator::Lazy helps avoid performing u
 description: A visual demonstration of how Enumerator::Lazy helps avoid performing unnecessary work when iterating through large datasets.
 published: '2025-01-08'
 image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
-meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
+meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/screenshot.jpg
 tags:
   - Rails
 ---
