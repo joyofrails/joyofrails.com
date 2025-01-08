@@ -13,9 +13,9 @@
    ) %>
 <%= render "application/skip_to_content" %>
 <%= render_layout "application" do %>
-  <article itemscope itemtype="http://schema.org/Article" class="mb-3xl">
+  <article itemscope itemtype="http://schema.org/Article" class="h-entry mb-3xl">
     <%= render Pages::Header::Container.new do |c| %>
-      <%= c.title { current_page.title } %>
+      <%= c.title(class: "p-name") { current_page.title } %>
       <%= c.description { current_page.description } if current_page.description %>
       <%= render Pages::Timestamp.new published_on: current_page.published_on, class: "text-small block" %>
       <div class="text-small">
@@ -25,7 +25,7 @@
         <% end %>
       </div>
     <% end %>
-    <div class="article-content container" itemprop="articleBody">
+    <div class="article-content e-content container" itemprop="articleBody">
       <%= yield %>
 
       <% cache [@current_page, :related_pages] do %>
@@ -34,7 +34,7 @@
           <h3>More articles to enjoy</h3>
           <ul class="list-none">
             <% related_pages.each do |page| %>
-              <%= tag.li id: dom_id(page), class: "mb-xs" do %>
+              <%= tag.li id: dom_id(page), class: "p-category mb-xs" do %>
                 <%= render Pages::Info.new(
                       title: page.title,
                       request_path: page.request_path,

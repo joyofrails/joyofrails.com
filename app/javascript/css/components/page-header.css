@@ -1,6 +1,6 @@
 .page-header {
   --gradient-from: var(--joy-text-theme);
-  --gradient-to: rgb(255 0 0 / 85%);
+  --gradient-to: rgb(255, 55, 0);
   --gradient-stops: var(--gradient-from), var(--gradient-to);
 
   background-color: var(--joy-background-header);
