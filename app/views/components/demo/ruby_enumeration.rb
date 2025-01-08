@@ -16,7 +16,7 @@ module Demo
         },
         loading: "lazy",
         width: "100%",
-        height: focused_demo_type? ? "785px" : "845px"
+        height: focused_demo_type? ? "815px" : "875px"
       )
     end
 
