@@ -17,7 +17,7 @@
     <%= render Pages::Header::Container.new do |c| %>
       <%= c.title { current_page.title } %>
       <%= c.description { current_page.description } if current_page.description %>
-      <%= render Pages::Timestamp.new published_on: current_page.published_on, updated_on: current_page.revised_on, class: "text-small block" %>
+      <%= render Pages::Timestamp.new published_on: current_page.published_on, class: "text-small block" %>
       <div class="text-small">
         <% topics = current_page.topics.approved.pluck(:slug) %>
         <% if topics.any? %>
