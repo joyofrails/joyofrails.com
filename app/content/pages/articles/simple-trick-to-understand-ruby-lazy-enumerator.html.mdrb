@@ -70,9 +70,13 @@ Did you spot the difference?
 
 In the lazy enumeration demo, each object moves across the method chain one at time before evaluation of the next item begins. This means we can avoid performing any operations on subsequent items after the required 3 items are "taken" at the end of the chain.
 
-To accomplish this, Ruby redefines Enumerable methods in `Enumerator::Lazy` so they return another lazy enumerator instead of intermediate arrays or hashes. This means enumeration chains of operations can be constructed without being immediately evaluated.
-
 With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
+
+# Ruby works hard so you can be lazy
+
+Ruby actually redefines Enumerable methods in `Enumerator::Lazy` so they return another lazy enumerator instead of intermediate arrays or hashes. Intermediate methods in the lazy chain, like `map` and `select` in our example, immediately yield their current value. Methods like `take` control how many items complete the enumeration chain.
+
+A deeper dive is beyond the scope of this article, but if you’re curious to learn more about how Ruby implements laziness, look no further than Pat Shaughnessy’s [Ruby 2.0 Works Hard So You Can Be Lazy](https://patshaughnessy.net/2013/4/3/ruby-2-0-works-hard-so-you-can-be-lazy). Though written with Ruby 2 in mind, the concepts are still applicable to Ruby 3 today.
 
 ## Reprise
 
