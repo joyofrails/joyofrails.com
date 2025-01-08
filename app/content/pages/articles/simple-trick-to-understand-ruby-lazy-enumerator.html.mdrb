@@ -13,11 +13,11 @@ tags:
 
 In this article, we'll explore a simple visual trick to help understand how lazy enumeration works in Ruby.
 
-Lazy enumeration may seem like an abstract concept at first. It can be hard to conceptualize its value. However, the lazy enumerator can be extremely useful in scenarios where you want to build complex pipelines of data transformations or when working with large datasets.
+Lazy enumeration may seem like an abstract concept at first. It might be difficult to conceptualize. But taking a moment to get familiar with the lazy enumerator pays dividends. `Enumerator::Lazy` is extremely useful in scenarios where you want to build complex pipelines of data transformations or when working with large datasets.
 
 Let’s see how.
 
-## Enumerable is eager
+## Enumerable is eager by default
 
 Consider an Enumerable method chain.
 
@@ -36,11 +36,11 @@ To illustrate what I mean, I’ve included a visual demonstration below. Press P
 
 See it?
 
-The collection of items is represented as a vertical column of objects. Each intermediate collection is constructed before moving to the next.
+The collection of items is represented as a vertical column of objects. The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column. Each column form vertically one by one. Each intermediate collection is constructed before moving to the next.
 
-The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column.
+This represents the "eagerness" of default enumeration in Ruby.
 
-## Picturing lazy
+## Making enumeration lazy
 
 Now let’s consider `lazy`. The `Enumerable#lazy` method returns a lazy enumerator.
 
@@ -56,13 +56,13 @@ We can use methods like `to_a` or `force` to convert a lazy enumerator back into
 # => [0, 1, 2, 3, 4, 5, 6]
 ```
 
-Lazy enumeration may help when working with large collections or expensive operations. It is even necessary in some cases, like enumerating from an infinite Ruby range:
+Lazy enumeration is useful for working with large collections or expensive operations. It is even necessary in some cases, like enumerating an infinite Ruby range:
 
 ```rb
 (1..).lazy.select(&:even?).take(3).force
 ```
 
-Lazy enumeration flips the order of operations on its side. I visualize this as "horizontal" enumeration:
+Lazy enumeration flips the order of operations on its side. I visualize this as "horizontal" enumeration. Try it:
 
 <%= render Demo::RubyEnumeration.new("lazy") %>
 
@@ -74,8 +74,6 @@ To accomplish this, Ruby redefines Enumerable methods in `Enumerator::Lazy` so t
 
 With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
 
-<%= render_lazy_page_poll("Lazy Enumerator Live Poll") %>
-
 ## Reprise
 
 Here’s the demo again with some controls to play with the speed and style of enumeration.
@@ -85,6 +83,8 @@ Here’s the demo again with some controls to play with the speed and style of e
 Next time you’re dealing with a large dataset or you encounter `lazy` in the wild, perhaps visualizing the "vertical" vs "horizontal" operation analogy will help you understand how your Ruby behaves.
 
 Let me know if you found this visual helpful!
+
+<%= render_lazy_page_poll("Lazy Enumerator Live Poll") %>
 
 ---
 
