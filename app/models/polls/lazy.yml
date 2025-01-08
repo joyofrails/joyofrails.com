@@ -1,0 +1,8 @@
+---
+polls:
+  "Lazy Enumerator Live Poll":
+    "How often do you reach for Ruby’s lazy enumerator?":
+    - "Any chance I get! 🎸"
+    - "Sometimes, but only when it makes sense 💪"
+    - "Rarely, it’s not my favorite 🚫"
+    - "Never before, TIL! 👻"

@@ -1,0 +1,95 @@
+---
+title: A simple trick to understand Ruby’s lazy enumerator
+author: Ross Kaffenberger
+layout: article
+summary: This article provides a visual demonstration of Enumerator::Lazy to conceptualize how it helps avoid performing unnecessary work when iterating through large datasets.
+description: This article provides a visual demonstration of Enumerator::Lazy to conceptualize how it helps avoid performing unnecessary work when iterating through large datasets.
+published: '2025-01-08'
+image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
+meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
+tags:
+  - Rails
+---
+
+In this article, we'll explore a simple visual trick to help understand how lazy enumeration works in Ruby.
+
+Lazy enumeration may seem like an abstract concept at first. It might be difficult to conceptualize. But taking a moment to get familiar with the lazy enumerator pays dividends. `Enumerator::Lazy` is extremely useful in scenarios where you want to build complex pipelines of data transformations or when working with large datasets.
+
+Let’s see how.
+
+## Enumerable is eager by default
+
+Consider an Enumerable method chain.
+
+```ruby
+7.times.map { |n| n + 1 }.select(&:even?).take(3)
+# => [2, 4, 6]
+```
+
+At each step of the chain, method calls are evaluated _eagerly_. Each element from the previous step must be processed before moving on to the next step.
+
+I think of this as "vertical" enumeration.
+
+To illustrate what I mean, I’ve included a visual demonstration below. Press Play/Pause/Reset to interact with the animation.
+
+<%= render Demo::RubyEnumeration.new("eager") %>
+
+See it?
+
+The collection of items is represented as a vertical column of objects. The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column. Each column form vertically one by one. Each intermediate collection is constructed before moving to the next.
+
+This represents the "eagerness" of default enumeration in Ruby.
+
+## Making enumeration lazy
+
+Now let’s consider `lazy`. The `Enumerable#lazy` method returns a lazy enumerator.
+
+```rb
+7.times.lazy
+# => #<Enumerator::Lazy: ...>
+```
+
+We can use methods like `to_a` or `force` to convert a lazy enumerator back into a normal collection:
+
+```rb
+7.times.lazy.force
+# => [0, 1, 2, 3, 4, 5, 6]
+```
+
+Lazy enumeration is useful for working with large collections or expensive operations. It is even necessary in some cases, like enumerating an infinite Ruby range:
+
+```rb
+(1..).lazy.select(&:even?).take(3).force
+```
+
+Lazy enumeration flips the order of operations on its side. I visualize this as "horizontal" enumeration. Try it:
+
+<%= render Demo::RubyEnumeration.new("lazy") %>
+
+Did you spot the difference?
+
+In the lazy enumeration demo, each object moves across the method chain one at time before evaluation of the next item begins. This means we can avoid performing any operations on subsequent items after the required 3 items are "taken" at the end of the chain.
+
+To accomplish this, Ruby redefines Enumerable methods in `Enumerator::Lazy` so they return another lazy enumerator instead of intermediate arrays or hashes. This means enumeration chains of operations can be constructed without being immediately evaluated.
+
+With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
+
+## Reprise
+
+Here’s the demo again with some controls to play with the speed and style of enumeration.
+
+<%= render Demo::RubyEnumeration.new("default") %>
+
+Next time you’re dealing with a large dataset or you encounter `lazy` in the wild, perhaps visualizing the "vertical" vs "horizontal" operation analogy will help you understand how your Ruby behaves.
+
+Let me know if you found this visual helpful!
+
+<%= render_lazy_page_poll("Lazy Enumerator Live Poll") %>
+
+---
+
+If you liked this article, please feel free to share it and [subscribe](#newsletter-signup) to hear more from me and get notified of new articles by email.
+
+Did you find a mistake or do you have questions about the content? You can [send me an email](mailto:ross@joyofrails.com), connect with me on [Twitter](https://x.com/rossta), [Bluesky](https://bsky.app/profile/rossta.net), [Github](https://github.com/rossta), [Mastodon](https://ruby.social/@rossta), and/or [Linkedin](https://www.linkedin.com/in/rosskaffenberger).
+
+Curious to peek behind the curtain and get a glimpse of the magic? [Joy of Rails is open source on Github](https://github.com/joyofrails/joyofrails.com). Feel free to look through the code and contribute. ![Peas, please](articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp 'Peas, please')

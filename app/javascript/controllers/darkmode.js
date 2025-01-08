@@ -12,6 +12,9 @@ const SYSTEM = 'system';
 const modes = [DARK, LIGHT, SYSTEM];
 let mode = SYSTEM;
 
+export const isDarkMode = () =>
+  document.documentElement.classList.contains(DARK);
+
 const broadcastDark = () => {
   mode = DARK;
   document.documentElement.classList.add(DARK);
@@ -79,22 +82,31 @@ export default class extends Controller {
       case DARK:
         broadcastDark();
         storeTheme(DARK);
+        this.announce(DARK);
         break;
       case LIGHT:
         broadcastLight();
         storeTheme(LIGHT);
+        this.announce(LIGHT);
         break;
       case SYSTEM:
         if (prefersColorTheme(DARK)) {
           broadcastSystem(DARK);
+          this.announce(DARK);
         } else {
           broadcastSystem(LIGHT);
+          this.announce(LIGHT);
         }
         removeTheme();
         break;
       default:
         throw new Error(`Unknown mode ${mode}`);
     }
+  }
+
+  announce(mode) {
+    console.log('announce', mode);
+    this.dispatch('announce', { detail: { mode } });
   }
 
   cycle() {
