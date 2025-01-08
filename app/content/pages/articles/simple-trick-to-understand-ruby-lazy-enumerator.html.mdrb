@@ -2,8 +2,8 @@
 title: A simple trick to understand Ruby’s lazy enumerator
 author: Ross Kaffenberger
 layout: article
-summary: A visual demonstration of how Enumerator::Lazy helps avoid performing unnecessary work when iterating through large datasets.
-description: A visual demonstration of how Enumerator::Lazy helps avoid performing unnecessary work when iterating through large datasets.
+summary: Where you get to play with an interactive demo to visualize how Enumerator::Lazy helps avoid unnecessary work
+description: Where you get to play with an interactive demo to visualize how Enumerator::Lazy helps avoid unnecessary work
 published: '2025-01-08'
 image: articles/simple-trick-to-understand-ruby-lazy-enumerator/peas.webp
 meta_image: articles/simple-trick-to-understand-ruby-lazy-enumerator/screenshot.jpg
