@@ -72,7 +72,7 @@ In the lazy enumeration demo, each object moves across the method chain one at t
 
 With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
 
-# Ruby works hard so you can be lazy
+## Ruby works hard so you can be lazy
 
 Ruby actually redefines Enumerable methods in `Enumerator::Lazy` so they return another lazy enumerator instead of intermediate arrays or hashes. Intermediate methods in the lazy chain, like `map` and `select` in our example, immediately yield their current value. Methods like `take` control how many items complete the enumeration chain.
 
