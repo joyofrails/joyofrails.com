@@ -38,18 +38,18 @@ See it?
 
 The collection of items is represented as a vertical column of objects. The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column. Each column forms vertically one by one. Each intermediate collection is constructed before moving to the next.
 
-This represents the "eagerness" of default enumeration in Ruby.
+This represents the _eagerness_ of default enumeration in Ruby.
 
 ## Making enumeration lazy
 
-Now let’s consider `lazy`. The `Enumerable#lazy` method returns a lazy enumerator.
+Now let’s consider _laziness_. First, we use the `Enumerable#lazy` method to produce a lazy enumerator.
 
 ```rb
 7.times.lazy
 # => #<Enumerator::Lazy: ...>
 ```
 
-We can use methods like `to_a` or `force` to convert a lazy enumerator back into a normal collection:
+Methods like `to_a` or `force` convert a lazy enumerator back into a normal collection:
 
 ```rb
 7.times.lazy.force
