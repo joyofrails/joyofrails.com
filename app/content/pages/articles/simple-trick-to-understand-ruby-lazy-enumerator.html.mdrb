@@ -36,7 +36,7 @@ To illustrate what I mean, I’ve included a visual demonstration below. Press P
 
 See it?
 
-The collection of items is represented as a vertical column of objects. The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column. Each column form vertically one by one. Each intermediate collection is constructed before moving to the next.
+The collection of items is represented as a vertical column of objects. The `map` operation computes a new collection, represented by the second column. The `select` operation filters out some objects to produce the third column. The `take` operation picks the first 3 to yield the last column. Each column forms vertically one by one. Each intermediate collection is constructed before moving to the next.
 
 This represents the "eagerness" of default enumeration in Ruby.
 
