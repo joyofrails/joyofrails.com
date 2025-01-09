@@ -66,11 +66,11 @@ Lazy enumeration flips the order of operations on its side. I visualize this as 
 
 <%= render Demo::RubyEnumeration.new("lazy") %>
 
-Did you spot the difference?
+Did you spot the difference? In the lazy enumeration demo, each object moves across the method chain one at time before evaluation of the next item begins.
 
-In the lazy enumeration demo, each object moves across the method chain one at time before evaluation of the next item begins. This means we can avoid performing any operations on subsequent items after the required 3 items are "taken" at the end of the chain.
+The key insight: we avoid performing any operations on subsequent items after the required 3 items are "taken" at the end of the chain. Fewer operations are performed since only a subset of items are processed. Laziness reduces the overall amount of work being done.
 
-With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy evaluation ensures that only the portions of the data that are actually used get processed. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
+With this visual in mind, you may be able to see how lazy enumerator can be helpful when working with large datasets or expensive operations. Lazy doesn’t make the operations faster but it may be a strategy to avoid unnecessary work.
 
 ## Ruby works hard so you can be lazy
 
