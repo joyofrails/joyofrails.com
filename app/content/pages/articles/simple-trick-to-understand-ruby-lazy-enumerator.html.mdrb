@@ -80,7 +80,7 @@ A deeper dive is beyond the scope of this article, but if you’re curious to le
 
 ## Reprise
 
-Here’s the demo again with some controls to play with the speed and style of enumeration.
+Here’s the demo again with some controls to play with the speed and style of enumeration. You can use the Eager/Lazy toggle to switch between strategies. Use the slider to move manually forward and backward through the animation.
 
 <%= render Demo::RubyEnumeration.new("default") %>
 
