@@ -39,7 +39,9 @@ class SiteController < Sitepress::SiteController
   # @param rendition [Sitepress::Rendition] Rendered representatio of current_resource
   #
   def post_render(rendition)
-    if skip_http_cache? || stale?(rendition.source, last_modified: current_resource.asset.updated_at.utc, public: true)
+    last_modified_at = @current_page&.upserted_at || @current_page&.created_at || current_resource.asset.updated_at || Time.now
+
+    if skip_http_cache? || stale?(rendition.source, last_modified: last_modified_at.utc, public: true)
       render body: rendition.output, content_type: rendition.mime_type
     end
   end
