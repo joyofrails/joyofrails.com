@@ -7,7 +7,7 @@ I am [not a designer](https://notadesigner.io/). Though the design of this site 
 
 ## Layout
 
-The design leans heavily into [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout) I’m a relatively new student of CSS grid so I’m sure the approach could be improved. I built a 12 column layout from using https://utopia.fyi to generate based grid, layout, and type settings as CSS variables. Utopia allows designers and developers to generate a mathematically consistent
+The design leans heavily into [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Basic_concepts_of_grid_layout) I’m a relatively new student of CSS grid so I’m sure the approach could be improved. I built a 12 column layout using https://utopia.fyi to generate mathematically consistent grid, layout, and type settings as CSS variables.
 
 ## Colors
 
@@ -25,6 +25,6 @@ I want to Joy of Rails to "own more" of its dependencies—part of why I impleme
 
 When I was in grade school, I doodled a lot. Drawing brought me a lot of joy. After years of working at a computer, I got away from it. But more recently, especially now that I have kids of my own, I’ve had the itch to return to my roots.
 
-For Joy of Rails, I wanted to add some fun visuals to the in-depth articles. So, in this age of AI-generated imagery, I decided I would do the opposite of what everyone else seems to be doing—draw everything by hand. You‘ll pictures of rainbows, ice cream cones, and smiley faces on Joy of Rails as a reminder of the joy coding brings to my life.
+For Joy of Rails, I wanted to add some fun visuals to the in-depth articles. So, in this age of AI-generated imagery, I decided I would do the opposite of what everyone else seems to be doing—draw everything by hand. Pictures of rainbows, ice cream cones, and smiley faces on Joy of Rails serve as a reminder of the joy building and creating brings to my life.
 
 Most of the illustrations are done in [Procreate](https://procreate.com/) on my iPad with an Apple Pencil. Procreate is a great little app I highly recommend for anyone looking to rekindle their childhood doodling habit.

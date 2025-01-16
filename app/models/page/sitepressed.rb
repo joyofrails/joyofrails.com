@@ -80,14 +80,14 @@ class Page
     def handler = sitepress_resource.handler
 
     class_methods do
-      # We currently have a dual system of content management between Sitepress and
-      # Page models for handling static pages While not ideal, it currently allows
-      # us to live in both worlds depending on the context.  Ultimately, migrating
-      # away from Sitepress for indexed content may be what‘s needed, but keeping
-      # the split personality for now.
+      # Joy of Rails has logic to represent static pages split between Sitepress
+      # and Page models. While not ideal, it currently allows us to live in both
+      # worlds depending on the context.  Ultimately, migrating away from
+      # Sitepress for indexed content may be what‘s needed.
       #
       def upsert_collection_from_sitepress!(limit: nil)
         enum = SitepressPage.all.resources.lazy.map { |s| Resource.from(s) }
+        upserted_at = Time.zone.now
 
         if limit
           enum = enum.filter do |resource|
@@ -96,7 +96,7 @@ class Page
         end
 
         enum = enum.map do |resource|
-          upsert_page_from_resource!(resource)
+          upsert_page_from_resource!(resource, upserted_at: upserted_at)
         end
 
         if limit
@@ -106,14 +106,15 @@ class Page
         enum.to_a
       end
 
-      def upsert_page_by_request_path!(request_path) = upsert_page_from_sitepress!(Sitepress.site.get(request_path))
+      def upsert_page_by_request_path!(request_path, **opts) = upsert_page_from_sitepress!(Sitepress.site.get(request_path), **opts)
 
-      def upsert_page_from_sitepress!(sitepress_resource) = upsert_page_from_resource! Resource.from(sitepress_resource)
+      def upsert_page_from_sitepress!(sitepress_resource, **opts) = upsert_page_from_resource!(Resource.from(sitepress_resource), **opts)
 
-      def upsert_page_from_resource!(resource)
+      def upsert_page_from_resource!(resource, upserted_at: Time.zone.now)
         page = find_or_initialize_by(request_path: resource.request_path)
         page.published_at = resource.published_at if resource.published_at
-        page.updated_at = resource.revised_at if resource.revised_at # Should use a `Page#revised_at` column instead
+        page.revised_at = resource.revised_at if resource.revised_at
+        page.upserted_at = upserted_at
         page.save!
         page
       end

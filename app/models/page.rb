@@ -9,6 +9,8 @@
 #  indexed_at   :datetime
 #  published_at :datetime
 #  request_path :string           not null
+#  revised_at   :datetime
+#  upserted_at  :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
