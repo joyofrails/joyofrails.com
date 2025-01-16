@@ -106,9 +106,9 @@ class Page
         enum.to_a
       end
 
-      def upsert_page_by_request_path!(request_path) = upsert_page_from_sitepress!(Sitepress.site.get(request_path))
+      def upsert_page_by_request_path!(request_path, **opts) = upsert_page_from_sitepress!(Sitepress.site.get(request_path), **opts)
 
-      def upsert_page_from_sitepress!(sitepress_resource) = upsert_page_from_resource! Resource.from(sitepress_resource)
+      def upsert_page_from_sitepress!(sitepress_resource, **opts) = upsert_page_from_resource!(Resource.from(sitepress_resource), **opts)
 
       def upsert_page_from_resource!(resource, upserted_at: Time.zone.now)
         page = find_or_initialize_by(request_path: resource.request_path)
