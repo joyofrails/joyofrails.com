@@ -16,7 +16,9 @@ module Demo
         },
         loading: "lazy",
         width: "100%",
-        height: focused_demo_type? ? "815px" : "875px"
+        scrolling: "no",
+        frameborder: "0",
+        height: focused_demo_type? ? "900px" : "975px"
       )
     end
 
@@ -31,7 +33,7 @@ module Demo
     FOCUSED_DEMO_TYPES = %w[eager lazy].freeze
     def iframe_src
       uri = base_uri
-      uri.query_values = {demoType: demo_type}
+      uri.query_values = {demoType: demo_type, centered: "false"}
       uri.to_s
     end
 
