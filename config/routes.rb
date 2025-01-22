@@ -125,12 +125,15 @@
 #                 admin_mission_control_jobs                 /admin/jobs                                                                                       MissionControl::Jobs::Engine
 #                           admin_litestream                 /admin/litestream                                                                                 Litestream::Engine
 #                                rails_admin                 /admin/data                                                                                       RailsAdmin::Engine
+#                                   sitemaps GET             /sitemap.xml(.:format)                                                                            sitemaps#index
+#                              sitemap_pages GET             /sitemap-pages.xml(.:format)                                                                      sitemaps#pages
 #                                            GET             /404(.:format)                                                                                    errors#not_found
 #                                            GET             /500(.:format)                                                                                    errors#internal_server
 #                                            GET             /422(.:format)                                                                                    errors#unprocessable
 #                          pwa_serviceworker GET             /serviceworker(.:format)                                                                          rails/pwa#serviceworker {:format=>"js"}
 #                               pwa_manifest GET             /manifest(.:format)                                                                               rails/pwa#manifest {:format=>"json"}
 #                         rails_health_check GET             /up(.:format)                                                                                     rails/health#show
+#                            deploy_hatchbox GET             /deploy/hatchbox(.:format)                                                                        redirect(301, meta/deployment/hatchbox)
 #           turbo_recede_historical_location GET             /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
 #           turbo_resume_historical_location GET             /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
 #          turbo_refresh_historical_location GET             /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh
@@ -322,6 +325,9 @@ Rails.application.routes.draw do
   end
 
   mount RailsAdmin::Engine => "/admin/data", :as => "rails_admin", :constraints => Routes::AdminAccessConstraint.new
+
+  get "/sitemap" => "sitemaps#index", :as => :sitemaps, :constraints => {format: "xml"}
+  get "/sitemap-pages" => "sitemaps#pages", :as => :sitemap_pages, :constraints => {format: "xml"}
 
   get "/404", to: "errors#not_found"
   get "/500", to: "errors#internal_server"
