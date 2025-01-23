@@ -9,5 +9,19 @@ module ApplicationEvents
     }.freeze
 
     validates_with Validators::SchemaValidator, field: :data, schema: DATA_SCHEMA
+
+    def self.record!(sha: nil)
+      sha = current_sha if sha.nil?
+
+      create! data: {sha: sha}
+    end
+
+    def self.current_sha
+      `git rev-parse HEAD`.strip
+    rescue => e
+      Honeybadger.notify(e)
+
+      "UNKNOWN"
+    end
   end
 end
