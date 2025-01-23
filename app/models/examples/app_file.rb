@@ -59,7 +59,7 @@ module Examples
     alias_method :extension, :extname
 
     def repo_url
-      "https://github.com/joyofrails/joyofrails.com/blob/#{revision}/#{app_path}"
+      repo.url("blob/#{revision}/#{app_path}")
     end
 
     def source(lines: nil)
@@ -87,8 +87,11 @@ module Examples
     end
 
     def git_read
-      git_dir = ENV.fetch("REPOSITORY_ROOT", ".")
-      `(cd #{git_dir} && git show #{@revision}:#{@path}) 2>/dev/null`
+      repo.read_file(@path, revision: @revision)
+    end
+
+    def repo
+      @repo ||= Repo.new
     end
   end
 end

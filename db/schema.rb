@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_22_224749) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_23_135323) do
   create_table "_litestream_lock", id: false, force: :cascade do |t|
     t.integer "id"
   end
@@ -61,6 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_22_224749) do
     t.text "data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_application_events_on_created_at"
   end
 
   create_table "color_schemes", id: :string, default: -> { "ULID()" }, force: :cascade do |t|
