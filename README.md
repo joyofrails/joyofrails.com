@@ -76,4 +76,4 @@ bin/verify
 
 ## License
 
-Copyright 2024 Ross Kaffenberger under the [BSD 3 Clause License](https://opensource.org/license/bsd-3-clause).
+Copyright 2025 Ross Kaffenberger under the [BSD 3 Clause License](https://opensource.org/license/bsd-3-clause).

@@ -3,3 +3,6 @@ Disallow: /drafts/
 
 User-agent: *
 Allow: /
+
+Sitemap: https://joyofrails.com/sitemap.xml
+Sitemap: https://joyofrails.com/sitemap-pages.xml
