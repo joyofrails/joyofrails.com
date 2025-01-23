@@ -46,4 +46,8 @@ MetaTags.configure do |config|
   # config.property_tags.push(
   #   'x-hearthstone:deck',
   # )
+
+  # John Mueller's suggestion is to avoid mixing canonical with noindex
+  # https://github.com/kpumuk/meta-tags?tab=readme-ov-file#canonical-url
+  config.skip_canonical_links_on_noindex = true
 end

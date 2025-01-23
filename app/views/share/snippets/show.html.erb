@@ -7,7 +7,8 @@
      },
      twitter: {
        card: @snippet.screenshot.attached? ? "summary_large_image" : "summary"
-     }
+     },
+     canonical: share_snippet_url(@snippet)
    ) %>
 
 <%= render Pages::Header.new(title: "Share: Snippet") %>
