@@ -1,96 +1,62 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "690098d85fc8739353285debac5a26f57148c6150eac806a1ce8574d8b3db76f",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/pwa/installation_instructions/_installation_instructions.html.erb",
-      "line": 6,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => (if params[:user_agent_nickname] then\n  Pwa::NamedInstallationInstructions.find(params[:user_agent_nickname])\nelse\n  Honeybadger.event(\"installation_instructions_controller.show\", :user_agent => request.user_agent)\n  Pwa::UserAgentInstallationInstructions.new(request.user_agent)\nend).partial_name, { :installation_instructions => installation_instructions })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Pwa::InstallationInstructionsController",
-          "method": "show",
-          "line": 4,
-          "file": "app/controllers/pwa/installation_instructions_controller.rb",
-          "rendered": {
-            "name": "pwa/installation_instructions/show",
-            "file": "app/views/pwa/installation_instructions/show.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "pwa/installation_instructions/show",
-          "line": 3,
-          "file": "app/views/pwa/installation_instructions/show.html.erb",
-          "rendered": {
-            "name": "pwa/installation_instructions/_installation_instructions",
-            "file": "app/views/pwa/installation_instructions/_installation_instructions.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "pwa/installation_instructions/_installation_instructions"
-      },
-      "user_input": "params[:user_agent_nickname]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "75fc982bf0fdc1992076ca5a34bdf947d7cdc80b38d207e9b712fb6d8ae2af38",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/concerns/searchable.rb",
-      "line": 47,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "joins(\"JOIN #{search_table_name} ON #{table_name}.id = #{search_table_name}.#{search_table_foreign_key}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Searchable::ClassMethods",
-        "method": "search"
-      },
-      "user_input": "search_table_name",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Command Injection",
       "warning_code": 14,
-      "fingerprint": "ee467aaea70b8a7b361ef6e8ee6c5082b3ff265dc67d798ea3f24c1687ff4584",
+      "fingerprint": "386b18e7b0e504ea42e4ba89ee6cb1b353a9177c7fa58439553cb92abb3d5364",
       "check_name": "Execute",
       "message": "Possible command injection",
-      "file": "app/models/examples/app_file.rb",
-      "line": 91,
+      "file": "app/models/repo.rb",
+      "line": 21,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`(cd #{ENV.fetch(\"REPOSITORY_ROOT\", \".\")} && git show #{@revision}:#{@path}) 2>/dev/null`",
+      "code": "`(cd #{root} && #{command}) 2>/dev/null`",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Examples::AppFile",
-        "method": "git_read"
+        "class": "Repo",
+        "method": "run"
       },
-      "user_input": "ENV.fetch(\"REPOSITORY_ROOT\", \".\")",
+      "user_input": "root",
       "confidence": "Medium",
       "cwe_id": [
         77
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "8fef72728237431ad41e05126612820980b845a5fb952aac35e89b120b93c59b",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/author/polls/show.html.erb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Current.user.polls.find(params[:id]).questions.includes(:answers).ordered, { :poll => Current.user.polls.find(params[:id]) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Author::PollsController",
+          "method": "show",
+          "line": 15,
+          "file": "app/controllers/author/polls_controller.rb",
+          "rendered": {
+            "name": "author/polls/show",
+            "file": "app/views/author/polls/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "author/polls/show"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
     }
   ],
-  "updated": "2024-11-01 07:34:07 -0400",
-  "brakeman_version": "6.2.2"
+  "brakeman_version": "7.0.0"
 }
