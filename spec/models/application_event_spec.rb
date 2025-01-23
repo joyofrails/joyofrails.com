@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_application_events_on_created_at  (created_at)
+#
 require "rails_helper"
 
 RSpec.describe ApplicationEvent, type: :model do
