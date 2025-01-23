@@ -31,6 +31,7 @@ gem "fastimage", require: false # FastImage finds the size or type of an image g
 gem "flipper" # Feature flipping for Ruby [https://www.flippercloud.io/]
 gem "flipper-active_record" # ActiveRecord adapter for Flipper [https://www.flippercloud.io/docs/adapters/active-record]
 gem "invisible_captcha" # Unobtrusive and flexible spam protection for Rails apps [https://github.com/markets/invisible_captcha]
+gem "json-schema" # JSON Schema validation [https://github.com/voxpupuli/json-schema]
 gem "ostruct" # OpenStruct is a data structure, similar to a Hash, that allows the definition of arbitrary attributes with their accompanying values
 gem "parslet" # Parslet is a small Ruby library for constructing parsers [https://github.com/kschiess/parslet]
 gem "postmark-rails" # Postmark Rails gem [https://github.com/ActiveCampaign/postmark-rails]
