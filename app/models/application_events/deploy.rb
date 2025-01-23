@@ -17,7 +17,7 @@ module ApplicationEvents
     end
 
     def self.current_sha
-      `git rev-parse HEAD`.strip
+      Repo.new.rev_parse("HEAD")
     rescue => e
       Honeybadger.notify(e)
 
