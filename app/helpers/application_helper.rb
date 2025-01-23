@@ -20,6 +20,7 @@ module ApplicationHelper
     set_meta_tags twitter: {
       site: "@joyofrails"
     }
+    set_meta_tags canonical: url_for(only_path: false, overwrite_params: nil) unless meta_tags[:canonical]
     display_meta_tags \
       site: Rails.configuration.x.application_name,
       description: "Interactive tutorials on Ruby, Ruby on Rails, Stimulus, " \
