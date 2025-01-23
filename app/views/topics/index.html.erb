@@ -1,5 +1,12 @@
 <% topics = @topics %>
 
+<% set_meta_tags(
+     title: "Joy of Rails Topics",
+     description: "Find articles categorized by topic on Joy of Rails",
+     keywords: topics.pluck(:slug),
+     canonical: topics_url
+   ) %>
+
 <%= render Pages::Header.new(title: "Topics") %>
 
 <div class="column-content container py-gap mb-3xl">
