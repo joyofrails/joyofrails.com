@@ -3,7 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".ruby-version"
 
-gem "rails", github: "rails/rails" # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", github: "rails/rails", ref: "c67d91b04d" # pre 8.1.0 release, includes SQLite extension support
+# HEADS UP!
+# This PR may break sitepress-rails in a future release of Rails (>= 8.0.1) https://github.com/rails/rails/pull/54020
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
