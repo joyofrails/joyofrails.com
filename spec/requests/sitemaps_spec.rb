@@ -13,6 +13,10 @@ RSpec.describe "Sitemaps", type: :request do
   describe "GET /sitemap-pages.xml" do
     it "renders sitemap" do
       pages = Page.upsert_collection_from_sitepress!(limit: 3)
+      pages.each.with_index do |page, i|
+        page.update(published_at: (i + 1).days.ago)
+      end
+
       get sitemap_pages_path(format: :xml)
 
       expect(response).to have_http_status(200)
