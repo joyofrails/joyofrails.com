@@ -7,7 +7,7 @@
 default: &default
   encoding: utf8
   adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 3 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 4 } %>
   timeout: 5000
   extensions:
     - SqliteExt::Ulid
