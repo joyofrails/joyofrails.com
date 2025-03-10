@@ -92,4 +92,10 @@ Rails.application.configure do
   config.solid_queue.connects_to = {database: {writing: :queue, reading: :queue}}
 
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
+
+  # With branch-specific databases for development defined in config/database.yml
+  # we need to prepare the databases before starting the server
+  config.after_initialize do
+    ActiveRecord::Tasks::DatabaseTasks.prepare_all
+  end
 end
