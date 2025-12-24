@@ -81,11 +81,11 @@ module Users
                 dialog.footer do
                   flex_block do
                     if current_user.persisted?
-                      button_to "Sign out", destroy_users_sessions_path, method: :delete, class: "button ghost outline"
+                      button_to "Sign out", destroy_users_sessions_path, method: :delete, class: "button ghost outline", data: {turbo_frame: :_top}
                     end
 
                     if current_admin_user.present?
-                      button_to "Sign out admin", destroy_admin_users_sessions_path, method: :delete, class: "button ghost outline"
+                      button_to "Sign out admin", destroy_admin_users_sessions_path, method: :delete, class: "button ghost outline", data: {turbo_frame: :_top}
                     end
                   end
                 end

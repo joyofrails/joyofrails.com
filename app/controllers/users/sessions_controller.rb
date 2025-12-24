@@ -39,7 +39,7 @@ class Users::SessionsController < ApplicationController
     email = params.require(:user).permit(:email)[:email].to_s.downcase
     user = User.new(email: email)
 
-    render Users::Sessions::NewView.new(user: user), status: :unprocessable_entity
+    render Users::Sessions::NewView.new(user: user), status: :unprocessable_content
   end
 
   private

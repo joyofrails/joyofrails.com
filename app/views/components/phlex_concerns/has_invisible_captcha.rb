@@ -11,6 +11,7 @@ module PhlexConcerns::HasInvisibleCaptcha
     include Phlex::Rails::Helpers::HiddenFieldTag
 
     extend Phlex::Rails::HelperMacros
+
     # @!method session(...)
     register_value_helper :session
     # @!method concat(...)

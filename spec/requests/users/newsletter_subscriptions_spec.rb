@@ -149,7 +149,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
           params: {user: {email: "invalid-email"}}
       }.not_to change(User, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -160,7 +160,7 @@ RSpec.describe "Newsletter Subscriptions", type: :request do
           params: {user: {email: "invalid-email"}}
       }.not_to change(User, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 

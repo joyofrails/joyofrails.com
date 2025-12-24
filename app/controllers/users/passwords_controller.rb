@@ -44,7 +44,7 @@ class Users::PasswordsController < ApplicationController
 
     if @user.blank?
       flash.now[:alert] = "That link is invalid or expired"
-      return render Users::Passwords::NewView.new(user: User.new), status: :unprocessable_entity
+      return render Users::Passwords::NewView.new(user: User.new), status: :unprocessable_content
     end
 
     if @user.unconfirmed?
@@ -55,7 +55,7 @@ class Users::PasswordsController < ApplicationController
       redirect_to new_users_session_path, notice: "Password updated! Please sign in"
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
-      render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:token]), status: :unprocessable_entity
+      render Users::Passwords::EditView.new(user: @user, password_reset_token: params[:token]), status: :unprocessable_content
     end
   end
 

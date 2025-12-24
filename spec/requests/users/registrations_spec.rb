@@ -65,7 +65,7 @@ RSpec.describe "Registrations", type: :request do
           params: {user: {email: user.email, password: "password", password_confirmation: "password"}}
       }.not_to change(User, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
 
     it "disallows when missing email param" do
@@ -171,7 +171,7 @@ RSpec.describe "Registrations", type: :request do
         params: {user: {email_exchanges_attributes: {email: FactoryBot.generate(:email)}}}
 
       expect(flash.now[:error]).to eq("Incorrect password")
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
 
     it "allows for subscriber setting password first time" do
@@ -193,7 +193,7 @@ RSpec.describe "Registrations", type: :request do
         params: {user: {password: "password", password_confirmation: "wrongpassword"}}
 
       expect(flash.now[:error]).to eq("Password confirmation doesn't match Password")
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

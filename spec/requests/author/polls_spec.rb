@@ -117,7 +117,7 @@ RSpec.describe "/polls", type: :request do
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post author_polls_url, params: {poll: {title: ""}}
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -165,7 +165,7 @@ RSpec.describe "/polls", type: :request do
         Flipper.enable(:polls, user)
         poll = FactoryBot.create(:poll, author: user)
         patch author_poll_url(poll), params: {poll: {title: ""}}
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 

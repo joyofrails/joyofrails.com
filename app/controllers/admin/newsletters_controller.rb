@@ -27,7 +27,7 @@ class Admin::NewslettersController < Admin::BaseController
     if @newsletter.save
       redirect_to [:admin, @newsletter], notice: "Newsletter was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class Admin::NewslettersController < Admin::BaseController
     if @newsletter.update(newsletter_params)
       redirect_to [:admin, @newsletter], notice: "Newsletter was successfully updated.", status: :see_other
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

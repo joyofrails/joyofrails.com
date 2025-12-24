@@ -24,7 +24,7 @@ module Author
       if @poll.save
         redirect_to author_poll_path(@poll), notice: "Poll was successfully created.".emojoy, status: :see_other
       else
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_content
       end
     end
 
@@ -37,7 +37,7 @@ module Author
       if @poll.update(poll_params)
         redirect_to author_poll_path(@poll), notice: "Poll was successfully updated.".emojoy, status: :see_other
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

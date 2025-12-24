@@ -21,7 +21,7 @@ class Users::RegistrationsController < ApplicationController
 
       redirect_to users_thank_you_path, notice: "Welcome to Joy of Rails! Please check your email for confirmation instructions"
     else
-      render Users::Registrations::NewView.new(user: user), status: :unprocessable_entity
+      render Users::Registrations::NewView.new(user: user), status: :unprocessable_content
     end
   end
 
@@ -39,12 +39,12 @@ class Users::RegistrationsController < ApplicationController
 
     if user.password_digest_was.present? && !user.authenticate(params[:user][:password_challenge])
       flash.now[:error] = "Incorrect password"
-      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
+      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_content
     end
 
     if !user.update(update_user_params)
       flash.now[:error] = user.errors.full_messages.to_sentence
-      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_entity
+      return render Users::Registrations::EditView.new(user: user), status: :unprocessable_content
     end
 
     if update_user_params[:email_exchanges_attributes].present?

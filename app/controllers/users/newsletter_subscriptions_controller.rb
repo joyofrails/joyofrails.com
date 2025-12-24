@@ -33,7 +33,7 @@ class Users::NewsletterSubscriptionsController < ApplicationController
     @user.save
 
     if @user.errors.any?
-      return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_entity
+      return render Users::NewsletterSubscriptions::NewView.new(newsletter_subscription: @newsletter_subscription), status: :unprocessable_content
     end
 
     if @user.previously_new_record?
