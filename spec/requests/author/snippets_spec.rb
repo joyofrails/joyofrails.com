@@ -150,7 +150,7 @@ RSpec.describe "/snippets", type: :request do
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post author_snippets_url, params: {snippet: {}}
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -207,7 +207,7 @@ RSpec.describe "/snippets", type: :request do
         Flipper.enable(:snippets, user)
         snippet = FactoryBot.create(:snippet, author: user)
         patch author_snippet_url(snippet), params: {snippet: {language: "does_not_exist"}}
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 

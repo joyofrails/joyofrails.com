@@ -77,7 +77,7 @@ RSpec.describe "Sessions", type: :request do
     it "disallows when user not found with given email" do
       post users_sessions_path, params: {user: {email: "hello#{SecureRandom.hex(5)}@example.com", password: "password"}}
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(flash[:alert]).to eq("Incorrect email or password")
     end
 
@@ -85,7 +85,7 @@ RSpec.describe "Sessions", type: :request do
       user = FactoryBot.create(:user, :unconfirmed, password: "password", password_confirmation: "password")
       post users_sessions_path, params: {user: {email: user.email, password: "password"}}
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(flash[:alert]).to eq("Please confirm your email address first")
     end
 
@@ -100,7 +100,7 @@ RSpec.describe "Sessions", type: :request do
 
       post users_sessions_path, params: {user: {email: user.email, password: "password"}}
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 

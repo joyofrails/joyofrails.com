@@ -3,9 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: ".ruby-version"
 
-gem "rails", github: "rails/rails", ref: "c67d91b04d" # pre 8.1.0 release, includes SQLite extension support
-# HEADS UP!
-# This PR may break sitepress-rails in a future release of Rails (>= 8.0.1) https://github.com/rails/rails/pull/54020
+gem "rails"
 
 gem "puma", ">= 5.0" # Use the Puma web server [https://github.com/puma/puma]
 gem "sqlite3", force_ruby_platform: true # Use sqlite3 as the database for Active Record [https://github.com/sparklemotion/sqlite3-ruby]
@@ -80,9 +78,6 @@ group :test do
   gem "simplecov-cobertura", require: false # Produces Cobertura formatted XML from SimpleCov. [https://github.com/dashingrocket/simplecov-cobertura]
   gem "simplecov-tailwindcss", require: false # Alternative HTML formatter for SimpleCov [https://github.com/chiefpansancolt/simplecov-tailwindcss]
   gem "webmock", require: false # Library for stubbing HTTP requests [https://github.com/bblimke/webmock]
-
-  # Uncomment the following line and bundle to use Selenium with Firefox
-  # gem "selenium-webdriver" # Ruby bindings for Selenium [https://www.rubydoc.info/gems/selenium-webdriver/frames]
 end
 
 group :development, :test do

@@ -2,10 +2,11 @@ class SitepressArticle < Sitepress::Model
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  collection glob: "articles/*.html*"
   data :title, :published, :updated, :summary, :description, :tags, :image
 
   delegate :resource_path, :mime_type, :handler, to: :page
+
+  def self.all = glob("articles/*.html*")
 
   def self.published(params = {})
     take_published(all)

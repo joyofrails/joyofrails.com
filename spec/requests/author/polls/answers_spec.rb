@@ -128,7 +128,7 @@ RSpec.describe "/answers", type: :request do
 
         post author_poll_questions_url(poll), params: {question: {body: ""}}
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -195,7 +195,7 @@ RSpec.describe "/answers", type: :request do
 
         patch author_poll_answer_url(poll, answer), params: {answer: {body: ""}}
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 

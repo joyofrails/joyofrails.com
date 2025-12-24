@@ -24,12 +24,12 @@ RSpec.describe "AdminUsers::Sessions", type: :request do
     it "returns unprocessable if incorreect credentials" do
       FactoryBot.create(:admin_user, email: "joy@joyofrails.com", password: "password")
       post admin_users_sessions_path, params: {admin_user: {email: "incorrect@joyofrails.com", password: "incorrect"}}
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
 
     it "returns unprocessable if missing credentials" do
       post admin_users_sessions_path
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
 
     it "redirects if already signed in" do

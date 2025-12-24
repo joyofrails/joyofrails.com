@@ -33,7 +33,7 @@ module Author
       if @snippet.save
         redirect_to author_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
       else
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_content
       end
     end
 
@@ -44,7 +44,7 @@ module Author
 
         redirect_to author_snippet_redirect_url(@snippet), notice: "Your snippet has been saved".emojoy, status: :see_other
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

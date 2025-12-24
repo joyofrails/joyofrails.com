@@ -18,31 +18,18 @@ class SiteController < Sitepress::SiteController
 
   protected
 
-  # Hook method provided by Sitepress to process the current "rendition".
-  #
-  # This is to be used by end users if they need to do any post-processing on the rendering page.
-  # For example, the user may use Nokogiri to parse static HTML pages and hook it into the asset pipeline.
-  # They may also use tools like `HTMLPipeline` to process links from a markdown renderer.
-  #
-  # For example, the rendition could be modified via `Nokogiri::HTML5::DocumentFragment(rendition)`.
-  #
-  # @param rendition [Sitepress::Rendition] Rendered representation of current_resource
-  #
-  def process_rendition(rendition)
-  end
-
-  # Hook method provided by Sitepress to render the page.
+  # Override method provided by Sitepress to render the page.
   #
   # Send the inline rendered, post-processed string into the Rails rendering method that actually sends
   # the output to the end-user as a web response.
   #
-  # @param rendition [Sitepress::Rendition] Rendered representatio of current_resource
+  # @param rendition [Sitepress::Rendition] Rendered representation of current_resource
   #
-  def post_render(rendition)
+  def render_resource_with_handler(resource)
     last_modified_at = @current_page&.upserted_at || @current_page&.created_at || current_resource.asset.updated_at || Time.now
 
-    if skip_http_cache? || stale?(rendition.source, last_modified: last_modified_at.utc, public: true)
-      render body: rendition.output, content_type: rendition.mime_type
+    if skip_http_cache? || stale?(resource.body, last_modified: last_modified_at.utc, public: true)
+      super
     end
   end
 

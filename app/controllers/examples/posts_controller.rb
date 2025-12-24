@@ -17,7 +17,7 @@ class Examples::PostsController < ApplicationController
     if post.save
       redirect_to examples_posts_path
     else
-      render Examples::Posts::NewView.new(post: post), status: :unprocessable_entity
+      render Examples::Posts::NewView.new(post: post), status: :unprocessable_content
     end
   end
 

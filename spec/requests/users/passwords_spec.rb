@@ -107,7 +107,7 @@ RSpec.describe "Passwords", type: :request do
       put users_password_path(token),
         params: {user: {password: "new_password", password_confirmation: "new_password"}}
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(flash[:alert]).to eq("That link is invalid or expired")
     end
 
@@ -127,7 +127,7 @@ RSpec.describe "Passwords", type: :request do
       put users_password_path(user.generate_token_for(:password_reset)),
         params: {user: {password: "new_password", password_confirmation: "not_matching_password"}}
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       expect(flash[:alert]).to eq("Password confirmation doesn't match Password")
     end
   end

@@ -19,7 +19,7 @@ module Author
             format.turbo_stream { flash.now[:notice] = "Date was successfully created." }
           end
         else
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
       end
 
@@ -37,7 +37,7 @@ module Author
             format.turbo_stream { flash.now[:notice] = "Date was successfully updated." }
           end
         else
-          render :edit, status: :unprocessable_entity
+          render :edit, status: :unprocessable_content
         end
       end
 
