@@ -17,15 +17,15 @@ require "rails_helper"
 RSpec.describe BlockedEmailDomain, type: :model do
   describe ".blocked?" do
     it "returns true for a blocked domain string" do
-      BlockedEmailDomain.create!(domain: "abhoward.site")
+      BlockedEmailDomain.create!(domain: "spamdomain.com")
 
-      expect(BlockedEmailDomain.blocked?("abhoward.site")).to be(true)
+      expect(BlockedEmailDomain.blocked?("spamdomain.com")).to be(true)
     end
 
     it "returns true for an email address with a blocked domain" do
-      BlockedEmailDomain.create!(domain: "abhoward.site")
+      BlockedEmailDomain.create!(domain: "spamdomain.com")
 
-      expect(BlockedEmailDomain.blocked?("joe@abhoward.site")).to be(true)
+      expect(BlockedEmailDomain.blocked?("joe@spamdomain.com")).to be(true)
     end
 
     it "returns false for an unblocked domain" do

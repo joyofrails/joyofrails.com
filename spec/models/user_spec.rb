@@ -53,10 +53,10 @@ RSpec.describe User, type: :model do
     end
 
     it "blocks signup from a blocked email domain" do
-      BlockedEmailDomain.create!(domain: "abhoward.site")
+      BlockedEmailDomain.create!(domain: "spamdomain.com")
 
       expect {
-        create_user!(email: "joe@abhoward.site")
+        create_user!(email: "joe@spamdomain.com")
       }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email is invalid")
     end
   end
