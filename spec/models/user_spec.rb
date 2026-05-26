@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: users
+# Database name: primary
 #
 #  id              :string           not null, primary key
 #  confirmed_at    :datetime
@@ -49,6 +50,14 @@ RSpec.describe User, type: :model do
       expect {
         create_user!(email: "joy@joyofrails.com")
       }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
+    end
+
+    it "blocks signup from a blocked email domain" do
+      BlockedEmailDomain.create!(domain: "abhoward.site")
+
+      expect {
+        create_user!(email: "joe@abhoward.site")
+      }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email is invalid")
     end
   end
 

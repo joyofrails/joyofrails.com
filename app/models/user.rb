@@ -1,6 +1,7 @@
 # == Schema Information
 #
 # Table name: users
+# Database name: primary
 #
 #  id              :string           not null, primary key
 #  confirmed_at    :datetime
@@ -36,6 +37,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :email_exchanges, limit: 1
 
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validate :email_domain_is_not_blocked
 
   normalizes :email, with: ->(email) { email.downcase.strip }
 
@@ -108,6 +110,16 @@ class User < ApplicationRecord
       resource.author == self
     else
       false
+    end
+  end
+
+  private
+
+  def email_domain_is_not_blocked
+    return if email.blank?
+
+    if BlockedEmailDomain.blocked?(email)
+      errors.add(:email, :invalid)
     end
   end
 end
