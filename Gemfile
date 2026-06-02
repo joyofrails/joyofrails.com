@@ -23,7 +23,7 @@ gem "vite_rails" # Leverage Vite to power the frontend of your Rails app [https:
 
 # Utilities
 gem "addressable" # Addressable is an alternative implementation to URI [https://github.com/sporkmonger/addressable]
-gem "bcrypt", "~> 3.1.7" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.22" # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "color_conversion" # A ruby gem to perform color conversions [https://github.com/devrieda/color_conversion]
 gem "commonmarker", require: false
 gem "device_detector" # DeviceDetector is a precise and fast user agent parser and device detector written in Ruby [https://github.com/podigee/device_detector]
@@ -46,8 +46,8 @@ gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails application
 gem "rouge" # Pure Ruby syntax highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "phlex", "2.0.0.rc1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
-gem "phlex-rails", "2.0.0.rc1" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex", "2.4.1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", "2.4.0" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 
