@@ -147,7 +147,7 @@ class Author::Snippets::Form < ApplicationComponent
       Rouge::Lexer.all
         .sort_by { |lexer| lexer.title }
         .map { |lexer|
-        [lexer.title, lexer.tag]
+          [lexer.title, lexer.tag]
       }
   end
 

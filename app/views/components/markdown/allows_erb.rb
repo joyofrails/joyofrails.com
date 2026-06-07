@@ -36,7 +36,12 @@ module Markdown::AllowsErb
     end
 
     def call(template, content)
-      content = @component_class.new(content).call(view_context:)
+      content = @component_class.new(content).call(
+        context: {
+          rails_view_context: view_context,
+          capture_context: view_context
+        }
+      )
       erb.call(template, content)
     end
 

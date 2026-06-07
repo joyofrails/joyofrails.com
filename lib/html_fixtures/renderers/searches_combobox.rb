@@ -2,7 +2,12 @@ module HtmlFixtures
   module Renderers
     class SearchesCombobox < Base
       def render(view_context)
-        Searches::Combobox.new(results: search_results, query: "Rails").call(view_context:)
+        Searches::Combobox.new(results: search_results, query: "Rails").call(
+          context: {
+            rails_view_context: view_context,
+            capture_context: view_context
+          }
+        )
       end
 
       def fixture_path

@@ -18,7 +18,9 @@
 
     <!-- Joy of Rails uses 'Russo One' from Google Fonts for its logo -->
     <%= render "application/google_fonts" %>
-    <%= render "application/analytics" %>
+    <% unless Rails.env.test? %>
+      <%= render "application/analytics" %>
+    <% end %>
     <%= render "application/theme/color" %>
     <%= render "application/theme/code" %>
     <%= render "darkmode/setup" %>

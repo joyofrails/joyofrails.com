@@ -10,7 +10,7 @@ class Users::NewsletterSubscriptions::NewView < ApplicationView
   def view_template
     render Users::NewsletterSubscriptions::Banner.new do
       turbo_frame_tag :newsletter_subscription do
-        if helpers.user_signed_in?
+        if user_signed_in?
           div do
             render Users::NewsletterSubscriptions::SubscribeButton.new
           end

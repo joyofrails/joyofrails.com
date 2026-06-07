@@ -5,7 +5,9 @@ class Errors::ErrorBody < ApplicationComponent
     end
 
     section(id: "newsletter-signup") do
-      render partial: "users/newsletter_subscriptions/banner"
+      render Users::NewsletterSubscriptions::Banner.new do
+        view_context.turbo_frame_tag :newsletter_subscription, src: new_users_newsletter_subscription_path, data: {"turbo-permanent": true}
+      end
     end
   end
 end
