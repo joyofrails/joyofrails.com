@@ -2,8 +2,11 @@
 
 class ApplicationComponent < Phlex::HTML
   include Phlex::Rails::Helpers::Routes
-
   include PhlexConcerns::Links
+
+  register_value_helper :user_signed_in?
+  register_value_helper :current_user
+  register_value_helper :asset_path
 
   if Rails.env.development?
     def before_template

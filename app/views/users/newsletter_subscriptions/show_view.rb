@@ -18,11 +18,11 @@ class Users::NewsletterSubscriptions::ShowView < ApplicationView
               subscribed_message
             end
 
-            if @show_unsubscribe && helpers.user_signed_in?
+            if @show_unsubscribe && user_signed_in?
               render Users::NewsletterSubscriptions::UnsubscribeButton.new
             end
           end
-        elsif helpers.user_signed_in?
+        elsif user_signed_in?
           div do
             render Users::NewsletterSubscriptions::SubscribeButton.new
           end

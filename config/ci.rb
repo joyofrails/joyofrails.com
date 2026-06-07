@@ -6,7 +6,7 @@ CI.run do
   step "Style: ERB", "bin/erb_lint --lint-all"
   step "Style: Ruby", "bin/standardrb --parallel"
 
-  step "Security: Gem audit", "bin/bundler-audit"
+  step "Security: Gem audit", "bin/bundler-audit --update"
   step "Security: Brakeman code analysis", "bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error"
   step "Tests: RSpec", "bin/rspec"
   step "Tests: Vitest", "npm run test"

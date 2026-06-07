@@ -46,8 +46,8 @@ gem "meta-tags" # Search Engine Optimization (SEO) for Ruby on Rails application
 gem "rouge" # Pure Ruby syntax highlighter [https://github.com/rouge-ruby/rouge
 gem "sitepress-rails" # Static site generator for Rails [https://sitepress.cc/getting-started/rails]
 
-gem "phlex", "2.0.0.rc1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
-gem "phlex-rails", "2.0.0.rc1" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
+gem "phlex", ">= 2.4.1" # An object-oriented view layer. [https://github.com/phlex-ruby/phlex]
+gem "phlex-rails", ">= 2.4.0" # Rails integration for Phlex [https://github.com/phlex-ruby/phlex-rails]
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb [https://github.com/Shopify/bootsnap]
 

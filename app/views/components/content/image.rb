@@ -18,8 +18,6 @@ module Content
 
     private
 
-    def asset_path(*) = helpers.asset_path(*)
-
     def image_attributes
       if webp_src?
         {

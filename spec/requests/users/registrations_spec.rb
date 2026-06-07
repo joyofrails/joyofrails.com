@@ -68,6 +68,17 @@ RSpec.describe "Registrations", type: :request do
       expect(response).to have_http_status(:unprocessable_content)
     end
 
+    it "disallows signup from blocked email domains" do
+      BlockedEmailDomain.create!(domain: "spamdomain.com")
+
+      expect {
+        post users_registration_path,
+          params: {user: {email: "joe@spamdomain.com", password: "password", password_confirmation: "password"}}
+      }.not_to change(User, :count)
+
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
     it "disallows when missing email param" do
       expect {
         post users_registration_path, params: {password: "password", password_confirmation: "password"}

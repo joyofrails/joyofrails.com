@@ -16,7 +16,7 @@ class Searches::ShowView < ApplicationView
     ) do
       h3 { "Enter your search query" }
       render Searches::Combobox.new(**attributes)
-      render partial: "searches/help"
+      render Markdown::Base.new(File.read(Rails.root.join("app/views/searches/_help.html.mdrb")))
     end
   end
 end

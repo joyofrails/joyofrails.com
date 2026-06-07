@@ -12,7 +12,12 @@ module Share
 
         @question.broadcast_replace_later \
           target: [@question, :results],
-          html: Share::Polls::Results.new(@poll, @question).call(view_context:),
+          html: Share::Polls::Results.new(@poll, @question).call(
+            context: {
+              rails_view_context: view_context,
+              capture_context: view_context
+            }
+          ),
           attributes: {method: :morph}
 
         if @vote.valid?

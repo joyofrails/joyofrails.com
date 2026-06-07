@@ -2,7 +2,12 @@ require "rails_helper"
 
 RSpec.describe Pages::Header, type: :view do
   def render(**kwargs, &block)
-    described_class.new(**kwargs, &block).call(view_context: view)
+    described_class.new(**kwargs, &block).call(
+      context: {
+        rails_view_context: view,
+        capture_context: view
+      }
+    )
   end
 
   describe "#call" do
@@ -31,7 +36,12 @@ RSpec.describe Pages::Header, type: :view do
 
   describe Pages::Header::Container do
     def render(**kwargs, &block)
-      described_class.new(**kwargs, &block).call(view_context: view)
+      described_class.new(**kwargs, &block).call(
+        context: {
+          rails_view_context: view,
+          capture_context: view
+        }
+      )
     end
 
     it "renders the title block" do
